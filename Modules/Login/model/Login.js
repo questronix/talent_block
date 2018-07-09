@@ -1,9 +1,6 @@
-const TAG = '[Authenticate]';
-const db = require('../../Common/services/Database');
-const err = require('../../Common/services/Errors');
+const TAG = '[Login]';
 const logger = require('../../Common/services/Logger');
-const JWT = require('../../Common/services/JWT');
-const errors = require('../../Common/services/Errors');
+const Errors = require('../../Common/services/Errors');
 
 module.exports.authenticate = (username, password)=>{
   const ACTION = '[authenticate]';
@@ -23,14 +20,14 @@ module.exports.authenticate = (username, password)=>{
         };
         resolve(user);
       }else{
-        let error = Errors.raise('MISSING_INVALID_PARAMS');
-        error.error.params.push('password');
-        reject(error);
+        let err = Errors.raise('MISSING_INVALID_PARAMS');
+        err.error.params.push('password');
+        reject(err);
       }
     }else{
-      let error = Errors.raise('MISSING_INVALID_PARAMS');
-        error.error.params.push('username');
-        reject(error);
+      let err = Errors.raise('MISSING_INVALID_PARAMS');
+        err.error.params.push('username');
+        reject(err);
     }
   });
 };
