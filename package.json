@@ -1,0 +1,58 @@
+{
+  "name": "talent_block",
+  "version": "1.0.0",
+  "description": "Enrollment with digital certificate and Blockchain dApps.",
+  "main": "server.js",
+  "scripts": {
+    "start": "nodemon server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://kendrick004@github.com/questronix/talent_block.git"
+  },
+  "keywords": [
+    "LEARNING",
+    "EDUCATION",
+    "BLOCKCHAIN"
+  ],
+  "author": "Kenster Crucillo <kendrick004@gmail.com>",
+  "license": "Apache-2.0",
+  "bugs": {
+    "url": "https://github.com/questronix/talent_block/issues"
+  },
+  "homepage": "https://github.com/questronix/talent_block#readme",
+  "dependencies": {
+    "async": "^2.6.1",
+    "cfenv": "^1.1.0",
+    "cloudant": "^1.10.0-NOTICE",
+    "connect-redis": "^3.3.3",
+    "dotenv": "^6.0.0",
+    "ejs": "^2.6.1",
+    "express": "^4.16.3",
+    "express-session": "^1.15.6",
+    "helmet": "^3.12.1",
+    "jsonwebtoken": "^8.3.0",
+    "mysql": "^2.15.0",
+    "redis": "^2.8.0",
+    "vue": "^2.5.16",
+    "vue-router": "^3.0.1",
+    "vue-store": "^0.3.1-moved",
+    "winston": "^2.4.3"
+  },
+  "devDependencies": {
+    "babel-core": "^6.26.3",
+    "babel-loader": "^7.1.5",
+    "babel-polyfill": "^6.26.0",
+    "babel-preset-env": "^1.7.0",
+    "nodemon": "^1.17.5",
+    "vue-cli": "^2.9.6",
+    "webpack": "^4.15.1",
+    "webpack-cli": "^3.0.8"
+  },
+  "engines": {
+		"node": "9.x"
+  },
+  "directories": {
+    "lib": "lib"
+  }
+}

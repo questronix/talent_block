@@ -1,0 +1,5 @@
+launchConfigurations/
+.git/
+
+dist/
+node_modules/
