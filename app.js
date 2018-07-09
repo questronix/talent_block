@@ -1,6 +1,11 @@
 const express = require('express');
 const session = require('express-session');
 
+const cfenv = require('cfenv');
+const appEnv = cfenv.getAppEnv();
+
+console.log(appEnv);
+
 const path = require('path');
 
 //middleware to process POST data
@@ -41,7 +46,9 @@ app.use(function(req, res, next) {
 });
 
 // serve the files out of ./public as our main files
-app.use(express.static(path.join(__dirname, 'public')));
+app.use('/static/img/', express.static(path.join(__dirname, 'src/assets/img')));
+app.use('/static/css/', express.static(path.join(__dirname, 'src/assets/css')));
+app.use('/static/', express.static(path.join(__dirname, 'dist')));
 
 
 const db = require('./Modules/Common/services/Database');
