@@ -6,7 +6,7 @@
           <b-col cols="4" offset-md="4">
           <div class="login-card">
             <h4 class="text-center">Login</h4>
-            <b-form @submit.stop="onSubmit">
+            <b-form @submit.prevent="onSubmit">
               <b-form-group>
                 <b-form-input id="username" type="text" v-model="form.username" placeholder="Username or Email"></b-form-input>
               </b-form-group>
@@ -17,11 +17,11 @@
                 <a href="">Forgot Password?</a>
               </b-form-group>
               <b-form-group>
-                <b-button variant="primary" :block="block">Login</b-button>
+                <b-button type="submit" variant="primary" :block="block">Login</b-button>
               </b-form-group>
               <b-form-group>
                 <b-form-checkbox-group>
-                  <b-form-checkbox class="mb-2 mr-sm-2 mb-sm-0">
+                  <b-form-checkbox class="mb-2 mr-sm-2 mb-sm-0" v-model="form.keepSignIn">
                     Keep me sign in
                   </b-form-checkbox>
                 </b-form-checkbox-group>
@@ -39,34 +39,12 @@
         </b-col>
         </div>
       </b-row>
-      
-      <!-- <div class="login">
-        <div class="col-md-4 offset-md-4 mt-5">
-          <div class="card">
-            <h4 class="title">Login</h4>
-            <input class="form-control" type="text" name="username" placeholder="Username or Email">
-            <br>
-            <input class="form-control" type="password" name="password" placeholder="Password">
-            <br>
-            <a href="">Forgot Password?</a>
-            <br>
-            <button class="btn btn-primary loginbtn">Login</button>
-            <br>
-            <div style="display: inline-block;">
-            <input type="checkbox" name=""> Keep me sign in
-            </div>
-            <hr>
-            <button class="btn btn-primary fbbtn"><span class="iconwidth"><i class="fab fa-facebook-f"></i></span> Login with Facebook</button>
-            <br>
-            <button class="btn googlebtn"><span class="iconwidth"><i class="fab fa-google"></i></span>Login with Google</button>
-          </div>
-        </div>
-      </div> -->
     </div>
   </base-layout>
 </template>
 
 <script>  
+// TODO: Please fix keepSignIn bug.
 import BaseLayout from '../layouts/BaseLayout.vue';
 
 export default {
@@ -76,7 +54,7 @@ export default {
       form: {
         username: '',
         password: '',
-        keepSignIn: true,
+        keepSignIn: false,
       },
       block: true,
     };
