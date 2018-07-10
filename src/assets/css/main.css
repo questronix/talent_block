@@ -1,3 +1,690 @@
+.user-welcome > h5 {
+  color: red;
+  margin: 1000px;
+}
+
+html {
+  font-family: "Lato" !important;
+}
+
 body {
-  background: red;
+  margin: 0;
+  font-family: "Lato" !important;
+}
+
+.heading {
+  height: 70vh;
+  /* background-image: url("./assets/img/heading.png"); */
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.heading-centered {
+  height: 100%;
+  width: 100%;
+  display: table;
+}
+
+.heading-caption {
+  text-align: center;
+  clear: both;
+  display: table-cell;
+  vertical-align: middle;
+  color: white;
+}
+
+.nav-bar {
+  padding: 20px;
+  color: white;
+  height: 65px;
+  width: 100%;
+  z-index: 999;
+}
+
+.nav-bar a {
+  color: white;
+}
+
+.nav-bar.colored {
+  background-color: #4a74cc;
+}
+
+.nav-bar ul li {
+  display: inline-block;
+  list-style: none;
+  margin: 0 10px;
+}
+
+/************************ Nav *************************/
+
+.header {
+  float: left;
+}
+
+.logo,
+.title {
+  display: inline-block;
+}
+
+.rightnav {
+  float: right;
+  margin: 0 20px;
+}
+
+.rightnav input {
+  border-radius: 10px;
+  height: 20px;
+  width: 280px;
+}
+
+.rightnav img {
+  border: 2px solid #b6baff;
+}
+
+.features {
+  padding: 20px;
+  background: linear-gradient(to right, #9fcc4a, #4a74cc);
+  font-size: 80%;
+  text-align: center;
+  color: white;
+}
+
+.feature {
+  margin-left: 10px;
+}
+
+.feat-details {
+  margin: auto;
+}
+
+.col-4.feat-detail {
+  text-align: left;
+  display: flex;
+}
+
+.courselist {
+  padding: 20px 0;
+}
+
+.courselist h3 {
+  text-align: center;
+}
+
+.courselist ul li {
+  width: 12%;
+  list-style: none;
+  display: inline-block;
+  margin: 20px;
+  font-size: 80%;
+}
+
+.courses {
+  width: 80%;
+  margin: auto;
+}
+
+.courses p {
+  color: #bdbdbd;
+  font-size: 85%;
+}
+
+.courses img {
+  width: 100%;
+  height: 110px;
+}
+
+.trainingoffertype {
+  text-align: center;
+  /* background-image: url("./assets/img/bg2.png"); */
+  background-repeat: no-repeat;
+  background-size: cover;
+
+  padding: 20px;
+  color: white;
+}
+
+.trainings {
+  padding: 20px;
+}
+
+.trainings img {
+  width: 150px;
+  height: 150px;
+  margin: 10px;
+}
+
+.amazing h4 {
+  margin-top: 20px;
+  text-align: center;
+}
+
+.besomething {
+  padding: 20px;
+}
+
+.besomething h4 {
+  text-align: center;
+}
+
+.course {
+  background-color: gray;
+  padding: 8% 10%;
+  margin: 10px;
+  max-width: 30% !important;
+  text-align: center;
+  color: white;
+}
+
+.signupform {
+  padding: 20px;
+}
+
+.signupform form {
+  padding: 20px;
+}
+
+.signupform h4 {
+  text-align: center;
+}
+
+.signupform input {
+  height: 30px;
+  border-radius: 20px;
+}
+
+.footer {
+  padding: 20px;
+  background-color: #bdbdbd;
+  color: white;
+  margin-top: 20px;
+}
+
+.footer-title {
+  padding: 5%;
+}
+
+.socialmedia .fab {
+  margin-left: 10px;
+}
+
+.socialmedia ul li {
+  list-style: none;
+  margin: 10px;
+}
+
+.footer-nav ul {
+  padding: 0;
+}
+
+.footer-nav ul li {
+  list-style: none;
+  display: inline-block;
+  margin-right: 10px;
+}
+
+/******************** course page **************************/
+
+.course-details {
+  margin-top: 40px;
+}
+
+.course-info {
+  width: 50%;
+}
+
+.course-outline button {
+  margin-right: 10px;
+}
+
+.course.backend {
+  /* background-image: url("./assets/img/backend.png"); */
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.course.projlead {
+  /* background-image: url("./assets/img/projlead.png"); */
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.course.ui-ux {
+  /* background-image: url("./assets/img/ui-ux.png"); */
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.course.proj-analyst {
+  /* background-image: url("./assets/img/proj-analyst.png"); */
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.course.projmngr {
+  /* background-image: url("./assets/img/projmngr.png"); */
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.course.webdev {
+  /* background-image: url("./assets/img/webdev.png"); */
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.btn.trans-bordered {
+  color: white;
+  border: 1px solid white;
+  background-color: transparent;
+}
+
+.sidebar-content ul {
+  padding: 1px;
+  background-color: #eeeeee;
+  height: 500px;
+}
+
+.sidebar-content ul li {
+  list-style: none;
+  padding: 20px;
+  margin: 2px;
+  margin-bottom: 10px;
+  background-color: white;
+}
+
+.course-content {
+  width: 65%;
+  float: left;
+  padding: 20px;
+  color: white;
+}
+
+.course-p {
+  text-indent: 50px;
+  color: black;
+  padding: 20px;
+}
+.course-outline {
+  height: 370px;
+  /* background-image: url("./assets/img/coursebg.png"); */
+  background-repeat: no-repeat;
+  background-size: cover;
+  padding: 110px 40px;
+  font-size: 90%;
+}
+
+.dacbtn {
+  background-color: white;
+  box-shadow: 0px 2px 3px gray;
+  text-align: center;
+
+  padding: 20px;
+}
+
+.dacbtn a {
+  text-align: left;
+}
+
+.side-bar {
+  float: right;
+
+  height: 350px;
+}
+
+.relatedcourse {
+  height: 170px;
+  color: white;
+  /* background-image: url("./assets/img/relatedcourses.png"); */
+  background-repeat: no-repeat;
+  background-size: cover;
+  padding: 70px 0;
+  margin-top: 10px;
+  text-align: center;
+  font-size: 90%;
+}
+
+.relatedcourse p {
+  text-align: right;
+  margin: 30px 20px;
+}
+
+.dot {
+  height: 40px;
+  width: 40px;
+  background-color: #bbb;
+  border-radius: 50%;
+  display: inline-block;
+  margin: 30px;
+  padding: 7px;
+}
+
+.clearfix {
+  clear: both;
+}
+
+/**************** SIGN UP PAGE ********************/
+
+.signuppage {
+  background-image: url("/static/img/bg3.png");
+  background-repeat: no-repeat;
+  background-size: cover;
+  width: 100%;
+  height: 100vh;
+  display: table;
+}
+
+.signupbtn {
+  width: 100%;
+}
+
+.signupcontainer {
+  padding: 5% 20%;
+}
+
+.signup-span {
+  margin: 20px 0;
+}
+
+.singupcontent {
+  width: 50%;
+  height: 482px;
+  float: left;
+  padding: 40px;
+  text-align: center;
+  background: #4a74cc;
+  border-radius: 20px 0 0 20px;
+  color: white;
+}
+
+.singupcontent img {
+  margin: 20px;
+}
+
+.formsignup {
+  width: 50%;
+  height: 482px;
+  float: right;
+  background: white;
+  padding: 20px;
+  border-radius: 0 20px 20px 0;
+}
+
+/********** confirmation ***********/
+
+.signupconfirmation {
+  display: table;
+  width: 100%;
+  height: 90%;
+}
+
+.confirmationmsg {
+  text-align: center;
+  color: white;
+  display: table-cell;
+  text-align: center;
+  vertical-align: middle;
+}
+
+.confirmationbg {
+  width: 50%;
+  background: #4a74cc;
+  padding: 40px;
+  border-radius: 10px;
+  box-shadow: 2px 2px 3px gray;
+}
+
+/****************** login ********************/
+.login {
+  background-image: url("/static/img/bg3.png");
+  background-repeat: no-repeat;
+  background-size: cover;
+  width: 100%;
+  height: 100vh;
+  display: table;
+}
+
+.login .card {
+  background-color: white;
+  padding: 40px;
+  border-radius: 20px;
+}
+
+.login h4 {
+  text-align: center;
+}
+
+/************** user profile *****************/
+
+.dash-loading {
+  text-align: center;
+  color: #b6baff;
+}
+
+.profile-view {
+  background-color: #eeeeee;
+  /* height: 100vh; */
+  overflow: hidden;
+}
+
+.profilenav {
+  width: 15%;
+  height: 100vh;
+  display: flex;
+  background-color: white;
+  z-index: 999;
+  font-size: 20px;
+}
+
+.profilenav ul {
+  padding: 0;
+  width: 100%;
+  margin-top: 20px;
+}
+
+.profilenav ul li {
+  list-style: none;
+  margin-bottom: 10px;
+  padding: 10px;
+}
+
+.profile-details {
+  width: 85%;
+  float: right;
+  padding: 20px;
+  background-color: #eeeeee;
+}
+
+.profilenav {
+  float: left;
+}
+
+.profnavactive {
+  background: #eeeeee;
+  padding: 10px;
+}
+
+/* .nav-bar .router-link-active {
+  color: #dc3545;
+  background: #4a74cc;
+  padding: 10px;
+}
+
+.router-link-active {
+  background: #eeeeee;
+  padding: 10px;
+} */
+
+.user-welcome h3 {
+  color: #4a74cc;
+}
+
+.user-welcome span {
+  color: #b6baff;
+}
+
+.searchcourses {
+  display: flex;
+  padding: 20px;
+  background-color: white;
+  box-shadow: 2px 2px 3px gray;
+  border-radius: 5px;
+  position: relative;
+}
+
+.searchcourses input {
+  height: 20px;
+  border-radius: 20px;
+  float: right;
+}
+
+.vi-courses {
+  text-align: right;
+  padding-top: 10px;
+  color: #929984;
+}
+
+.searchurcourses {
+  right: 20px;
+  position: absolute;
+}
+
+.ur-courses {
+  padding: 20px;
+  padding-bottom: 0px;
+  background: white;
+  margin-top: 10px;
+  font-size: 85%;
+  box-shadow: 2px 2px 3px gray;
+}
+
+.ur-certs {
+  padding: 10px;
+  padding-bottom: 0px;
+  background: white;
+  margin-top: 10px;
+  font-size: 85%;
+  box-shadow: 2px 2px 3px gray;
+  position: relative;
+}
+
+.ur-certs-btns {
+  right: 0;
+  position: absolute;
+  padding: 20px;
+}
+
+.ur-certs-btns button {
+  margin-left: 10px;
+  border-radius: 20px;
+  width: 100px;
+}
+
+.certs-list {
+  width: 100%;
+}
+
+.daysleft {
+  font-size: 14px !important;
+  font-weight: 700;
+  padding: 5px;
+  background-color: #00e676;
+  border-radius: 20px;
+  color: white;
+}
+
+.ur-courses img {
+  float: left;
+  width: 115px;
+  margin-right: 10px;
+}
+
+.schlogo {
+  width: 90px !important;
+  height: 90px !important;
+}
+
+.ur-courses ul {
+  padding: 0;
+}
+
+.ur-courses ul li {
+  list-style: none;
+  display: inline-block;
+  margin-right: 20px;
+}
+
+.ur-courses button {
+  border-radius: 15px;
+  text-align: center;
+  background: transparent;
+  box-shadow: 2px 3px 10px gray;
+  height: 30px;
+  width: 115px;
+  margin-top: 5px;
+}
+
+.ur-courses .more-info {
+  padding: 10px;
+  font-size: 16px;
+  border-radius: 15px;
+  text-align: center;
+  background: transparent;
+  box-shadow: 2px 3px 10px gray;
+  height: 30px;
+  width: 115px;
+  margin-top: 10px;
+  margin-left: 10px;
+}
+
+.stats {
+  margin-top: 28px;
+}
+
+.statsview {
+  box-shadow: 2px 2px 4px gray;
+  text-align: center;
+  padding: 10px;
+  margin: 5px;
+  color: #929984;
+}
+
+.div1 {
+  height: auto;
+  width: 100%;
+  background-color: white;
+  box-shadow: 2px 2px 4px gray;
+  padding: 10px;
+  margin: 5px;
+}
+
+.div2 {
+  height: auto;
+  width: 100%;
+  background-color: white;
+  box-shadow: 2px 2px 4px gray;
+  padding: 10px;
+  margin: 5px;
+}
+
+.mycourses {
+  width: 70%;
+  margin: auto;
+}
+
+.accountsetting {
+  padding: 40px;
+  background: white;
+  margin-top: 10px;
+  font-size: 85%;
+  box-shadow: 2px 2px 3px grey;
+  width: 70%;
+  border-radius: 20px;
+}
+
+.fixed {
+  position: fixed;
+}
+
+.eeee {
+  height: 100vh;
 }
