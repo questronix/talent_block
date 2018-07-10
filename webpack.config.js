@@ -34,9 +34,7 @@ module.exports = {
       {
         test:/\.(s*)css$/,
         use: [
-          {
-            loader: MiniCssExtractPlugin.loader
-          },
+          MiniCssExtractPlugin.loader,
           'css-loader',
           'sass-loader'
         ],
@@ -53,7 +51,8 @@ module.exports = {
       {
         test: /\.js$/,
         loader: 'babel-loader',
-        exclude: /node_modules/
+        exclude: /node_modules/,
+        include: [ APP_DIR, require.resolve("bootstrap-vue") ]
       },
       {
         test: /\.(png|jpg|gif|svg|ico)$/,
@@ -87,7 +86,7 @@ module.exports = {
     new MiniCssExtractPlugin({
       // Options similar to the same options in webpackOptions.output
       // both options are optional
-      filename: "css/[name].css",
+      filename: "css/build.css",
       chunkFilename: "css/[id].css"
     }),
     new webpack.LoaderOptionsPlugin({
