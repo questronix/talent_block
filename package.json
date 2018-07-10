@@ -6,8 +6,8 @@
   "scripts": {
     "start": "npm run build-prod & node server.js",
     "nodemon": "npm run build-dev & nodemon server.js",
-    "build-prod": "cross-env NODE_ENV=production webpack",
-    "build-dev": "cross-env NODE_ENV=development webpack --watch"
+    "build-prod": "NODE_ENV=production webpack",
+    "build-dev": "NODE_ENV=development webpack --watch"
   },
   "repository": {
     "type": "git",
@@ -48,7 +48,6 @@
     "babel-preset-env": "^1.7.0",
     "babel-preset-stage-3": "^6.24.1",
     "clean-webpack-plugin": "^0.1.19",
-    "cross-env": "^5.2.0",
     "css-loader": "^1.0.0",
     "file-loader": "^1.1.11",
     "mini-css-extract-plugin": "^0.4.1",
@@ -64,7 +63,8 @@
     "webpack-cli": "0.0.8-development"
   },
   "engines": {
-    "node": "9.x"
+    "node": "9.x",
+    "npm": "5.6.0"
   },
   "directories": {
     "lib": "lib"
