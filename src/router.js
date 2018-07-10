@@ -34,7 +34,7 @@ const routes = [
     path: '/sign-up',
     component: SignUp
   }
-]
+];
 
 export default new VueRouter({
   routes
