@@ -3,10 +3,10 @@
     <div class="nav-bar colored fixed">
       <div class="header">
         <div class="logo">
-          <img src="/static/img/logo.png" height="30" width="30">
+          <img src="/static/img/logo-2.png" height="30" width="30">
         </div>
         <div class="title">
-          <a href="">The More You Know</a>
+          <a href="">Talent Block</a>
         </div>
       </div>
       <ul>
