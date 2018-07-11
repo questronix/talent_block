@@ -699,3 +699,16 @@ body {
 .eeee {
   height: 100vh;
 }
+
+/************* error page **************/
+
+.four04 {
+	text-align: center;
+	padding: 5rem;
+	height: auto;;
+}
+
+.h1-404 
+{
+	font-size: 250px;
+}
