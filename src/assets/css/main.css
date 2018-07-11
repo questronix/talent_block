@@ -64,6 +64,17 @@ body {
 .logo,
 .title {
   display: inline-block;
+  margin-left: 24px;
+}
+
+.brand {
+  margin-left: 10px;
+  font-size: 18px;
+}
+
+.nav-bar img {
+  position: absolute;
+  top: 18px;
 }
 
 .rightnav {
@@ -687,4 +698,17 @@ body {
 
 .eeee {
   height: 100vh;
+}
+
+/************* error page **************/
+
+.four04 {
+	text-align: center;
+	padding: 5rem;
+	height: auto;;
+}
+
+.h1-404 
+{
+	font-size: 250px;
 }

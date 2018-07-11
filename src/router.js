@@ -5,6 +5,7 @@ import Course from './pages/Course.vue';
 import About from './pages/About.vue';
 import Login from './pages/Login.vue';
 import SignUp from './pages/SignUp.vue';
+import Error404 from './pages/error/404.vue';
 
 Vue.use(VueRouter);
 
@@ -33,7 +34,15 @@ const routes = [
     name: 'signUp',
     path: '/sign-up',
     component: SignUp
-  }
+  }, 
+  {
+    path: "/404",
+    component: Error404
+  },
+  {
+    path: "*",
+    redirect: '/404'
+  },
 ];
 
 export default new VueRouter({
