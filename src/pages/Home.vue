@@ -1,7 +1,7 @@
 <template>
   <base-layout>
     <div slot="header">
-      <NavBar type="homepage" heading="Knowledge is power. Expand your knowledge." link-caption="Get started for free" height="70"/>
+      <NavBar type="homepage" heading="Knowledge is power. Expand your knowledge." link-caption="Get started for free"/>
     </div>
     <div slot="space"></div>
     <div slot="body">

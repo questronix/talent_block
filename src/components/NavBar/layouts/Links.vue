@@ -3,6 +3,7 @@
     <li><router-link :to="{ name: 'home' }">Home</router-link></li>
     <li><router-link :to="{ name: 'course' }">Courses</router-link></li>
     <li><router-link :to="{ name: 'about' }">About</router-link></li>
+    <li><router-link :to="{ name: 'dashboard' }">Dashboard</router-link></li>
     <span v-if="!isAuthenticated">
       <li><router-link :to="{ name: 'login' }">Login</router-link></li>
       <li><router-link :to="{ name: 'signUp' }">Sign Up</router-link></li>

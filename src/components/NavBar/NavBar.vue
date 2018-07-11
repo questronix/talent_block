@@ -2,7 +2,7 @@
   <div>
     <div v-if="type === 'homepage'">
       <div slot="header">
-        <div class="heading" :style="{ height: navHeight + 'vh' }">
+        <div class="heading">
           <div class="nav-bar">
             <div class="header">
               <div class="logo">
@@ -32,6 +32,38 @@
         </div>
       </div>
       <div slot="space"></div>
+    </div>
+
+    <div v-else-if="type === 'dashboard'">
+      	<div class="page-title" :style="{ backgroundImage: dashImg }">
+          <div class="title-centered">
+          <div class="nav-bar">
+            <div class="header">
+              <div class="logo">
+                <img src="/static/img/logo-2.png" height="30" width="30">
+              </div>
+              <div class="title">
+                <a href="" class="brand">Talent Block</a>
+              </div>
+            </div>
+            <ul>
+              <div class="rightnav">
+                <li>
+                  <form action="" method="">
+                    <input class="form-control" type="text" name="search" placeholder="Search Courses">
+                  </form>
+                </li>
+                <Links />
+              </div>
+            </ul>
+          </div>
+          <center>
+            <div class="breadcrum">
+              <h1>{{ heading }}</h1>
+            </div>
+          </center>
+          </div>
+        </div>
     </div>
 
     <div v-else>
@@ -65,11 +97,12 @@ import Links from './layouts/Links.vue';
 
 export default {
   name: 'NavBar',
-  props: ['type', 'heading', 'linkCaption', 'height'],
+  props: ['type', 'heading', 'linkCaption', 'height', 'img'],
   data() {
     return {
       isAuthenticated: false,
       navHeight: this.height,
+      dashImg: this.img,
     };
   },
   components: {
@@ -77,4 +110,5 @@ export default {
   }
 }
 </script>
+
 
