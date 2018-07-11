@@ -1,47 +1,79 @@
 <template>
   <div>
-    <div class="nav-bar colored fixed">
-      <div class="header">
-        <div class="logo">
-          <img src="/static/img/logo-2.png" height="30" width="30">
-        </div>
-        <div class="title">
-          <a href="" class="brand">Talent Block</a>
+    <div v-if="type === 'homepage'">
+      <div slot="header">
+        <div class="heading" :style="{ height: navHeight + 'vh' }">
+          <div class="nav-bar">
+            <div class="header">
+              <div class="logo">
+                <img src="/static/img/logo-2.png" height="30" width="30">
+              </div>
+              <div class="title">
+                <a href="" class="brand">Talent Block</a>
+              </div>
+            </div>
+            <ul>
+              <div class="rightnav">
+                <li>
+                  <form action="" method="">
+                    <input class="form-control" type="text" name="search" placeholder="Search Courses">
+                  </form>
+                </li>
+                <Links />
+              </div>
+            </ul>
+          </div>
+            <div class="heading-centered">
+              <div class="heading-caption">
+                <h2>{{ heading }}</h2>
+                <button class="btn btn-primary">{{ linkCaption }}</button>
+              </div>
+            </div>
         </div>
       </div>
-      <ul>
-        <div class="rightnav">
-          <li>
-            <form action="" method="">
-              <input class="form-control" type="text" name="search" placeholder="Search Courses">
-            </form>
-          </li>
-          <li><router-link :to="{ name: 'home' }">Home</router-link></li>
-          <li><router-link :to="{ name: 'course' }">Courses</router-link></li>
-          <li><router-link :to="{ name: 'about' }">About</router-link></li>
-          <span v-if="!isAuthenticated">
-            <li><router-link :to="{ name: 'login' }">Login</router-link></li>
-            <li><router-link :to="{ name: 'signUp' }">Sign Up</router-link></li>
-          </span>
-          <span v-else>
-            <li><a href="#">Logout</a></li>
-          </span>
-          <!-- <li><router-link :to="{ name: 'dashboard' }"><img src="../../assets/img/boy.svg" class="rounded-circle" height="30" width="30"><i class="fas fa-sort-down"></i></router-link></li> -->
-        </div>
-      </ul>
+      <div slot="space"></div>
     </div>
-    <!-- <div style="height: 80px; width: 100%;"></div> -->
+
+    <div v-else>
+      <div class="nav-bar colored fixed">
+        <div class="header">
+          <div class="logo">
+            <img src="/static/img/logo-2.png" height="30" width="30">
+          </div>
+          <div class="title">
+            <a href="" class="brand">Talent Block</a>
+          </div>
+        </div>
+        <ul>
+          <div class="rightnav">
+            <li>
+              <form action="" method="">
+                <input class="form-control" type="text" name="search" placeholder="Search Courses">
+              </form>
+            </li>
+            <Links />
+          </div>
+        </ul>
+      </div>
+    </div>
+
   </div>
 </template>
 
 <script>
+import Links from './layouts/Links.vue';
 
 export default {
-  name: 'nav',
+  name: 'NavBar',
+  props: ['type', 'heading', 'linkCaption', 'height'],
   data() {
     return {
-      isAuthenticated: false
+      isAuthenticated: false,
+      navHeight: this.height,
     };
+  },
+  components: {
+    Links,
   }
 }
 </script>
