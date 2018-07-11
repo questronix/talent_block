@@ -117,8 +117,10 @@ app.use(function(req, res, next) {
 
 let home = require('./Modules/Home');
 let login = require('./Modules/Login');
+let user = require('./Modules/Users');
 
 app.use('/', home);
 app.use('/login', login);
+app.use('/user', user);
 
 module.exports = app;
