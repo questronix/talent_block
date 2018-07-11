@@ -5,6 +5,7 @@ import Course from './pages/Course.vue';
 import About from './pages/About.vue';
 import Login from './pages/Login.vue';
 import SignUp from './pages/SignUp.vue';
+import Dashboard from './pages/account/Dashboard.vue';
 import Error404 from './pages/error/404.vue';
 
 Vue.use(VueRouter);
@@ -34,6 +35,11 @@ const routes = [
     name: 'signUp',
     path: '/sign-up',
     component: SignUp
+  },
+  {
+    name: 'dashboard',
+    path: '/dashboard',
+    component: Dashboard
   }, 
   {
     path: "/404",
