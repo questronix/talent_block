@@ -736,3 +736,24 @@ height: 110px;
 {
 	font-size: 250px;
 }
+
+/**************** page title ******************/
+.page-title {
+	height: 300px;
+	background-color: green;
+	position: relative;
+}
+
+.title-centered {
+	height: 100%;
+	width: 100%;
+}
+
+.breadcrum {
+	top: 40%;
+	position: absolute;
+	width: 100%;
+	text-align: center;
+	bottom: 40%;
+	color: white;
+}
