@@ -16,7 +16,49 @@
             <div class="formsignup">
             
             <h4>Sign Up</h4>
-              <form >
+              <b-form @submit.prevent="onSubmit">
+                <b-form-group>
+                  <b-form-input 
+                    id="username" 
+                    type="text" 
+                    v-model="form.username" 
+                    placeholder="Username">
+                  </b-form-input>
+                </b-form-group>
+                <b-form-group>
+                  <b-form-input 
+                    id="email" 
+                    type="email" 
+                    v-model="form.email" 
+                    placeholder="Email">
+                  </b-form-input>
+                </b-form-group>
+                <b-form-group>
+                  <b-form-input 
+                    id="mobile" type="text" 
+                    v-model="form.mobile" 
+                    placeholder="Mobile No.">
+                  </b-form-input>
+                </b-form-group>
+                <b-form-group>
+                  <b-form-input 
+                    id="password" 
+                    type="password" 
+                    v-model="form.password" 
+                    placeholder="Password">
+                  </b-form-input>
+                </b-form-group>
+                <b-form-group>
+                  <p>Captcha here</p>
+                </b-form-group>
+                <b-form-group>
+                  <b-button 
+                    type="submit" 
+                    variant="primary" 
+                    :block="true">Sign Up</b-button>
+                </b-form-group>
+              </b-form>
+              <!-- <form >
                 <input class="form-control" type="text" name="username" placeholder="Username">
                 <br>
                 <input class="form-control" type="email" name="email" placeholder="Email">
@@ -29,7 +71,7 @@
                 <br>
                 <button class="btn primary signupbtn">Sign up</button>
                 <p>By signing up, you agree to our <a href="">Terms of Use</a> and <a href="">Privacy Policy.</a></p>
-              </form>
+              </form> -->
           </div>
           <div class="clearfix"></div>
         </div>
@@ -45,8 +87,23 @@ import BaseLayout from '../layouts/BaseLayout.vue';
 
 export default {
   name: 'signUpPage',
+  data() {
+    return {
+      form: {
+        username: '',
+        email: '',
+        mobile: '',
+        password: ''
+      },
+    };
+  },
   components: {
     BaseLayout,
+  },
+  methods: {
+    onSubmit() {
+      alert(JSON.stringify(this.form));
+    }
   }
 }
 </script>
