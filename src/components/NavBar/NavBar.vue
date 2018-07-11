@@ -6,7 +6,7 @@
           <img src="/static/img/logo-2.png" height="30" width="30">
         </div>
         <div class="title">
-          <a href="">Talent Block</a>
+          <a href="" class="brand">Talent Block</a>
         </div>
       </div>
       <ul>

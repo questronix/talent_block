@@ -64,6 +64,17 @@ body {
 .logo,
 .title {
   display: inline-block;
+  margin-left: 24px;
+}
+
+.brand {
+  margin-left: 10px;
+  font-size: 18px;
+}
+
+.nav-bar img {
+  position: absolute;
+  top: 18px;
 }
 
 .rightnav {
