@@ -2,6 +2,7 @@ import Vue from 'vue';
 import VueRouter from 'vue-router';
 import Home from './pages/Home.vue';
 import Course from './pages/Course.vue';
+import Courses from './pages/Courses.vue';
 import About from './pages/About.vue';
 import Login from './pages/Login.vue';
 import SignUp from './pages/SignUp.vue';
@@ -17,8 +18,13 @@ const routes = [
     component: Home
   },
   {
-    name: 'course',
+    name: 'courses',
     path: '/courses',
+    component: Courses
+  },
+  {
+    name: 'course',
+    path: '/courses/course',
     component: Course
   },
   {
@@ -33,7 +39,7 @@ const routes = [
   },
   {
     name: 'signUp',
-    path: '/sign-up',
+    path: '/signup',
     component: SignUp
   },
   {

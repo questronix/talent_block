@@ -6,10 +6,14 @@
 html {
   font-family: "Lato", sans-serif !important;
 }
-s
+
 body {
   margin: 0;
   font-family: "Lato", sans-serif !important;
+}
+
+body.loginpage {
+  overflow: hidden;
 }
 
 .heading {
@@ -55,6 +59,23 @@ body {
   margin: 0 10px;
 }
 
+.btn:focus {
+  -webkit-box-shadow: none !important;
+	-moz-box-shadow: none !important;
+	box-shadow: none !important;
+}
+
+.form-control:focus {
+  -webkit-box-shadow: none !important;
+	-moz-box-shadow: none !important;
+	box-shadow: none !important;
+}
+
+a:hover{
+  text-decoration: none !important;
+  color: white;
+}
+
 /************************ Nav *************************/
 
 .header {
@@ -79,13 +100,14 @@ body {
 
 .rightnav {
   float: right;
-  margin: 0 20px;
+  margin: 0 1e0px;
 }
 
 .rightnav input {
   border-radius: 10px;
   height: 20px;
   width: 280px;
+  padding: 13px;
 }
 
 .rightnav img {
@@ -136,6 +158,8 @@ list-style: none;
 display: inline-block;
 margin: 20px;
 font-size: 80%;
+height: 330px;
+overflow: hidden;
 }
 
 .courses {
@@ -250,7 +274,9 @@ height: 110px;
 }
 
 .course-info {
-  width: 50%;
+  bottom: 0;
+  position: absolute;
+  padding: 40px;
 }
 
 .course-outline button {
@@ -332,8 +358,17 @@ height: 110px;
   background-size: cover;
   padding: 110px 40px;
   font-size: 90%;
+  position: relative;
 }
 
+.transparentdiv {
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5803921568627451);
+  position: absolute;
+  top: 0;
+  left: 0;
+}
 
 .course-sched {
 	width: 100%;
@@ -348,6 +383,30 @@ height: 110px;
   color: black;
 }
 
+.course-sched button {
+	border-radius: 0;
+	right: 10px;
+}
+
+.col.scheds p{
+	color: gray;
+}
+
+.dab-info {
+	padding: 40px 0;
+}
+
+.h4-centered{
+	text-align: center;
+	padding: 10px;
+}
+
+.padded-white {
+	background-color: white;
+	padding: 40px;
+	box-shadow: 1px 0px 6px 1px #bbbbbb;
+}
+
 .dacbtn {
   background-color: white;
   box-shadow: 0px 2px 3px gray;
@@ -360,6 +419,11 @@ height: 110px;
   text-align: left;
 }
 
+  .dacbtn .col {
+    padding: 20px;
+}
+
+
 .side-bar {
   float: right;
 
@@ -367,6 +431,7 @@ height: 110px;
 }
 
 .relatedcourse {
+  position: relative;
   height: 170px;
   color: white;
   background-image: url("/static/img/relatedcourses.png");
@@ -376,6 +441,12 @@ height: 110px;
   margin-top: 10px;
   text-align: center;
   font-size: 90%;
+}
+
+.z-indexed-content {
+  position: relative;
+  z-index: 1;
+  width: 100%;
 }
 
 .relatedcourse p {
@@ -548,6 +619,11 @@ height: 110px;
   background: #eeeeee;
   padding: 10px;
 } */
+
+.nav-bar a:hover {
+  color: #a6c3ff;
+  transition: color 0.8s;
+}
 
 .user-welcome h3 {
   color: #4a74cc;
@@ -722,6 +798,123 @@ height: 110px;
 
 .eeee {
   height: 100vh;
+}
+
+/***************** courses categories *********************/
+
+.top-cat {
+	text-align: center;
+	background-color: #eeeeee;
+	padding: 40px;
+}
+
+.top-cat h5 {
+	margin-bottom: 20px;
+}
+
+.col-topcourse {
+	width: 100%;
+	background-image: url("/static/img/heading.png");
+	background-repeat: no-repeat;
+  	background-size: cover;
+  	padding: 110px 50px 10px 10px;
+  	text-align: left;
+    color: white;
+    position: relative;
+}
+
+/************ account stat div **************/
+
+.accountstats {
+	padding: 2px;
+	font-size: 85%;
+	position: relative;
+	box-shadow: 2px 2px 3px gray;
+}
+
+.profile-pic, .profile-name, .profile-stats {
+	display: inline-block;
+	text-align: center;
+}
+
+.profile-name {
+	margin-left: 24%;
+}
+
+.profile-pic {
+    position: absolute;
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    top: -80%;
+    left: 10%;
+}
+
+.profile-pic img {
+	border: 3px solid white;
+
+}
+
+.profile-stats {
+    width: 40%;
+    margin-left: 45%;
+}
+
+.profile-name {
+    position: absolute;
+    padding: 10px;
+}
+
+
+/*********** account forms *************/
+
+.accountforms {
+	background-color: #eeeeee;
+	padding: 80px;
+}
+
+.basic-info {
+	background-color: white;
+	padding: 20px;
+}
+
+.basic-info h5 {
+	text-align: center;
+}
+
+.basic-info input {
+	border-radius: 20px;
+	width: 100%;
+}
+
+.card-info {
+	padding: 20px;
+	background-color: white;
+}
+
+.basic-info, .card-info {
+	margin: 20px;
+	box-shadow: 1px 1px 2px gray;
+}
+
+.card-info h5, .addcard {
+	display: inline-block;
+}
+
+.card-info h5 {
+	text-align: center;
+}
+
+.card-info button {
+	border-radius: 20px;
+}
+
+.addcard {
+	right: 40px;
+	position: absolute;
+	background-color: transparent;
+	color: blue;
+	border: 1px solid blue !important;
 }
 
 /************* error page **************/
