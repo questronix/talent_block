@@ -15,9 +15,9 @@
             <ul>
               <div class="rightnav">
                 <li>
-                  <form action="" method="">
-                    <input class="form-control" type="text" name="search" placeholder="Search Courses">
-                  </form>
+                  <b-form @submit.prevent="onSearch">
+                    <input class="form-control" type="text" name="search" placeholder="Search Courses" v-model="search">
+                  </b-form>
                 </li>
                 <Links />
               </div>
@@ -103,10 +103,16 @@ export default {
       isAuthenticated: false,
       navHeight: this.height,
       dashImg: this.img,
+      search: '',
     };
   },
   components: {
     Links,
+  },
+  methods: {
+    onSearch() {
+      alert(this.search);
+    }
   }
 }
 </script>
