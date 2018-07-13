@@ -5,42 +5,14 @@
     </div>
     <div slot="space"></div>
     <div slot="body">
-	<div class="accountstats">
-		<!-- PROFILE PICTURE -->
-		<div class="profile-pic">
-			<img src="/static/img/photo1.png" class="rounded-circle">
-		</div>
-
-		<!-- PROFILE NAME -->
-		<div class="profile-name">
-			<h3>Jay Tacdoro</h3>
-		</div>
-
-      <div class="profile-stats">
-			<b-container>
-				<b-row>
-					<b-col>
-						<span>Certificates</span>
-						<h3>13</h3>
-					</b-col>
-					<b-col>
-						<span>Lecture Finished</span>
-						<h3>23</h3>
-					</b-col>
-					<b-col>
-						<span>Enrolled Course</span>
-						<h3>17</h3>
-					</b-col>
-				</b-row>
-			</b-container>
-		</div>
-	</div>
+	<AccountStats />
 	<div class="dashboard accountforms">
 		<b-container>
 
 			<b-row>
 				<b-col cols="3" class="dash-account-basic">
-					<button class="btn">Account Settings</button>
+					<router-link class="btn-acnt-sttngs" :to="{ name: 'settings' }">Account Settings</router-link>
+					<!-- <a class="btn">Account Settings</a> -->
 					<div class="dab-info">
 						
 						<p>jaytacdoro@gmail.com</p>
@@ -136,12 +108,23 @@
 <script>
 import BaseLayout from '../../layouts/BaseLayout.vue';
 import NavBar from '../../components/NavBar/NavBar.vue';
+import AccountStats from '../../components/AccountStats/AccountStats.vue';
 
 export default {
   name: 'dashboard',
   components: {
     BaseLayout,
-    NavBar,
+	NavBar,
+	AccountStats,
   }
 }
 </script>
+
+<style scoped>
+.btn-acnt-sttngs {
+	background-color: gray;
+	color: white;
+	padding: 10px;
+	border-radius: 10px;
+}
+</style>

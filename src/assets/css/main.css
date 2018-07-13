@@ -12,10 +12,6 @@ body {
   font-family: "Lato", sans-serif !important;
 }
 
-body.loginpage {
-  overflow: hidden;
-}
-
 .heading {
   height: 70vh;
   background-image: url("/static/img/heading.png");
@@ -38,15 +34,16 @@ body.loginpage {
 }
 
 .nav-bar {
-  padding: 20px;
   color: white;
   height: 65px;
   width: 100%;
   z-index: 999;
+  position: absolute;
 }
 
 .nav-bar a {
   color: white;
+  
 }
 
 .nav-bar.colored {
@@ -56,7 +53,7 @@ body.loginpage {
 .nav-bar ul li {
   display: inline-block;
   list-style: none;
-  margin: 0 10px;
+  padding: 20px 10px;
 }
 
 .btn:focus {
@@ -82,6 +79,10 @@ a:hover{
   float: left;
 }
 
+.title {
+  padding: 20px 10px;
+}
+
 .logo,
 .title {
   display: inline-block;
@@ -100,7 +101,6 @@ a:hover{
 
 .rightnav {
   float: right;
-  margin: 0 1e0px;
 }
 
 .rightnav input {
@@ -222,6 +222,8 @@ height: 110px;
 
 .signupform {
   padding: 20px;
+  display: table-cell;
+  vertical-align: middle;
 }
 
 .signupform form {
@@ -475,7 +477,10 @@ height: 110px;
   background-repeat: no-repeat;
   background-size: cover;
   width: 100%;
-  height: 100vh;
+  /* height: 100vh; */
+  height: -webkit-calc(100vh - 65px);
+  height:    -moz-calc(100vh - 65px);
+  height:         calc(100vh - 65px);
   display: table;
 }
 
@@ -484,7 +489,9 @@ height: 110px;
 }
 
 .signupcontainer {
-  padding: 5% 20%;
+  padding: 0 20%;
+  display: table-cell;
+  vertical-align: middle;
 }
 
 .signup-span {
@@ -545,7 +552,10 @@ height: 110px;
   background-repeat: no-repeat;
   background-size: cover;
   width: 100%;
-  height: 100vh;
+  /**height: 100vh;**/
+  height: -webkit-calc(100vh - 65px);
+  height:    -moz-calc(100vh - 65px);
+  height:         calc(100vh - 65px);
   display: table;
 }
 
@@ -621,8 +631,8 @@ height: 110px;
 } */
 
 .nav-bar a:hover {
-  color: #a6c3ff;
-  transition: color 0.8s;
+  color: #9ecb4b;
+  border-bottom: 3px solid;
 }
 
 .user-welcome h3 {
@@ -923,11 +933,6 @@ height: 110px;
 	text-align: center;
 	padding: 5rem;
 	height: auto;;
-}
-
-.h1-404 
-{
-	font-size: 250px;
 }
 
 /**************** page title ******************/
