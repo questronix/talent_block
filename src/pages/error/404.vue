@@ -2,6 +2,7 @@
   <div class="four04">
 		<h1 class="h1-404">404</h1>
 		<p>This is a missing page <br>look like.</p>
+		<p><router-link class="btn backbtn" :to="{ name: 'home' }">Go back home</router-link></p>
 	</div>
 </template>
 
@@ -19,8 +20,15 @@
 }
 
 .h1-404 {
-    font-size: 180px;
-		margin-top: 120px;
+    font-size: 160px;
+		margin-top: 100px;
 		font-weight: bolder;
+}
+
+.backbtn {
+    background-color: #f1c27d;
+    padding: 10px;
+    COLOR: #61523c;
+    border-radius: 10px;
 }
 </style>
