@@ -44,8 +44,9 @@
 </template>
 
 <script>  
-// TODO: Please fix keepSignIn bug.
+// FIXME: Please fix keepSignIn bug.
 import BaseLayout from '../layouts/BaseLayout.vue';
+import axios from 'axios';
 
 export default {
   name: 'loginPage',
@@ -64,7 +65,13 @@ export default {
   },
   methods: {
     onSubmit() {
-      alert(JSON.stringify(this.form));
+      axios.post('/login', this.form)
+        .then((response) => {
+          let user = response.data.user;
+          alert(`Welcome back ${user.username}!`);
+        }).catch((err) => {
+          alert('Invalid username or password.');
+        });
     }
   }
 }
