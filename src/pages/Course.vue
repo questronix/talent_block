@@ -12,17 +12,22 @@
             <span class="dot">5</span>
           </center>
           <div class="course-outline">
-            <div class="course-info">
-              <h4>Be a professional backend programmer in hours</h4>
-              <input type="radio" name="">
-              <input type="radio" name="">
-              <input type="radio" name="">
-              <input type="radio" name="">
-              <input type="radio" name="">
-              <span>by Jay Tacdoro</span>
-              <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce tincidunt finibus orci dictum consequat. </p>
+            <div class="transparentdiv">
+              <div class="course-info">
+                <div style="width: 50%;">
+                  <h4>Be a professional backend programmer in hours</h4>
+                  <input type="radio" name="">
+                  <input type="radio" name="">
+                  <input type="radio" name="">
+                  <input type="radio" name="">
+                  <input type="radio" name="">
+                  <span>by Jay Tacdoro</span>
+                  <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce tincidunt finibus orci dictum consequat. </p>
+                </div>
+                <button class="btn btn-primary">Continue with your course</button><button class="btn trans-bordered">Write a review</button>
+              </div>
             </div>
-            <button class="btn btn-primary">Continue with your course</button><button class="btn trans-bordered">Write a review</button>
+            
           </div>
           <div class="container dacbtn">
             <div class="row">
@@ -140,16 +145,25 @@
           </div>
           <h4>Related Course</h4>
           <div class="relatedcourse">
-            <h5>Become a better technical writer</h5>
-            <p>16hrs</p>
+            <div class="transparentdiv"></div>
+            <div class="z-indexed-content">
+              <h5>Become a better technical writer</h5>
+              <p>16hrs</p>
+            </div>
           </div>
           <div class="relatedcourse">
-            <h5>Become a better technical writer</h5>
-            <p>16hrs</p>
+            <div class="transparentdiv"></div>
+            <div class="z-indexed-content">
+              <h5>Become a better technical writer</h5>
+              <p>16hrs</p>
+            </div>
           </div>
           <div class="relatedcourse">
-            <h5>Become a better technical writer</h5>
-            <p>16hrs</p>
+            <div class="transparentdiv"></div>
+            <div class="z-indexed-content">
+              <h5>Become a better technical writer</h5>
+              <p>16hrs</p>
+            </div>
           </div>
         </div>
         <div class="clearfix"></div>

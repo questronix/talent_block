@@ -1,7 +1,7 @@
 <template>
   <div class="rightnav">
     <li><router-link :to="{ name: 'home' }">Home</router-link></li>
-    <li><router-link :to="{ name: 'course' }">Courses</router-link></li>
+    <li><router-link :to="{ name: 'courses' }">Courses</router-link></li>
     <li><router-link :to="{ name: 'about' }">About</router-link></li>
     <li><router-link :to="{ name: 'dashboard' }">Dashboard</router-link></li>
     <span v-if="!isAuthenticated">
