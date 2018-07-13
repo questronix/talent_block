@@ -6,7 +6,7 @@ const lm = require('./model/Login');
 const logger = require('../Common/services/Logger');
 
 router.post('/', (req, res, next)=>{
-  var ACTION = '[postLogin]';
+  const ACTION = '[postLogin]';
   logger.log('debug', TAG + ACTION + ' request body', req.body)
   lm.authenticate(req.body.username, req.body.password)
   .then(data=>{

@@ -1,33 +1,34 @@
 const TAG = '[Login]';
 const logger = require('../../Common/services/Logger');
-const Errors = require('../../Common/services/Errors');
+const err = require('../../Common/services/Errors');
+const db = require('../../Common/services/Database');
 
 module.exports.authenticate = (username, password)=>{
   const ACTION = '[authenticate]';
   logger.log('info', `${TAG}${ACTION}`, {username, password});
   return new Promise((resolve, reject)=>{
-    if(username == "johndoe"){
-      if(password == "P@ssw0rd"){
-        let user = {
-            id: '1',
-            email: 'john.doe@gmail.com',
-            username: 'johndoe',
-            fn: 'John',
-            ln: 'Doe',
-            address: 'San Pedro, Laguna',
-            status: 1,
-            date_created: new Date('2010/10/10')
-        };
-        resolve(user);
-      }else{
-        let err = Errors.raise('MISSING_INVALID_PARAMS');
-        err.error.params.push('password');
-        reject(err);
-      }
-    }else{
-      let err = Errors.raise('MISSING_INVALID_PARAMS');
-        err.error.params.push('username');
-        reject(err);
-    }
+    db.execute(`
+      SELECT
+        id, username, mobile_no, email, type
+      FROM user u
+      WHERE u.username = ? AND u.password = ?`,
+      [username, password])
+      .then((data) => {
+        if (data.length > 0) {
+          resolve({
+            status: 200,
+            user: data[0]
+          });
+        }
+        else {
+          // TODO: log error
+          // logger.log('error', TAG+ACTION, error);
+          reject(err.raise('NOT_FOUND'));
+        }
+      }).catch((err) => {
+        logger.log('error', TAG+ACTION, err);
+        reject(err.raise('INTERNAL_SERVER_ERROR', err));
+      });
+    
   });
 };

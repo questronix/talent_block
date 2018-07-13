@@ -36,7 +36,7 @@
                 <b-form-group>
                   <b-form-input 
                     id="mobile" type="text" 
-                    v-model="form.mobile" 
+                    v-model="form.mobile_no" 
                     placeholder="Mobile No.">
                   </b-form-input>
                 </b-form-group>
@@ -84,6 +84,7 @@
 
 <script>  
 import BaseLayout from '../layouts/BaseLayout.vue';
+import axios from 'axios';
 
 export default {
   name: 'signUpPage',
@@ -91,9 +92,10 @@ export default {
     return {
       form: {
         username: '',
+        password: '',
         email: '',
-        mobile: '',
-        password: ''
+        mobile_no: '',
+        type: 'TYPE_USER'
       },
     };
   },
@@ -102,7 +104,12 @@ export default {
   },
   methods: {
     onSubmit() {
-      alert(JSON.stringify(this.form));
+      axios.post('/signup', this.form)
+        .then((response) => {
+          alert('Account successfully created. We sent you a verification in your email.')
+        }).catch((err) => {
+          alert('Failed registration');
+        });
     }
   }
 }
