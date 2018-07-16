@@ -14,11 +14,12 @@ const school = {
                     resolve(data);
                 else
                     reject(err.raise('NOT_FOUND'));
-                
             })
             .catch(error=>{
                 logger.log('error', TAG+ACTION, error);
-                reject(err.raise('INTERNAL_SERVER_ERROR'));
+                let err = err.raise('INTERNAL_SERVER_ERROR');
+                err.error.details = error;
+                reject(err);
             })
         });
     },
@@ -35,7 +36,9 @@ const school = {
             })
             .catch(error=>{
                 logger.log('error', TAG+ACTION, error);
-                reject(err.raise('INTERNAL_SERVER_ERROR'));
+                let err = err.raise('INTERNAL_SERVER_ERROR');
+                err.error.details = error;
+                reject(err);
             })
         });
     },
@@ -49,7 +52,9 @@ const school = {
             })
             .catch(error=>{
                 logger.log('error', TAG+ACTION, error);
-                reject(err.raise('INTERNAL_SERVER_ERROR'));
+                let err = err.raise('INTERNAL_SERVER_ERROR');
+                err.error.details = error;
+                reject(err);
             })
         });
     },
@@ -66,7 +71,9 @@ const school = {
             })
             .catch(error=>{
                 logger.log('error', TAG+ACTION, error);
-                reject(err.raise('INTERNAL_SERVER_ERROR'));
+                let err = err.raise('INTERNAL_SERVER_ERROR');
+                err.error.details = error;
+                reject(err);
             })
         })
     },
@@ -102,7 +109,7 @@ const school = {
                         })
                     }else{
                         let error = err.raise('UNAUTHORIZED');
-                        logger.log('error', TAG + ACTION, error.error);
+                        logger.log('error', TAG + ACTION, error);
                         callback(error);
                     }
                 }]
