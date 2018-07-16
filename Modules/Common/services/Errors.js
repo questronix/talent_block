@@ -36,6 +36,13 @@ module.exports = {
 					code: -6,
 					message: 'Not Found'
 				}
+			},
+			CLOUDANT_ERROR: {
+				status: 400,
+				error: {
+					code: -7,
+					message: 'There is problem with cloudant store.'
+				}
 			}
 		};
 		return errors[tag];
