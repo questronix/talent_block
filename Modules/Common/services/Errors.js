@@ -61,8 +61,9 @@ module.exports = {
 		};
 		return errors[tag];
 	},
-	raise: function (e) {
+	raise: function (e, details) {
 		var error = JSON.parse(JSON.stringify(this.get(e)));
+		if(details) error.error.details = details;
 		return error;
 	}
 };
