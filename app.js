@@ -140,10 +140,12 @@ let home = require('./Modules/Home');
 let login = require('./Modules/Login');
 let user = require('./Modules/Users');
 let signup = require('./Modules/SignUp');
+let school = require('./Modules/School');
 
 app.use('/', home);
 app.use('/login', login);
 app.use('/user', user);
 app.use('/signup', signup);
+app.use('/schools', school);
 
 module.exports = app;
