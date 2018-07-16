@@ -63,7 +63,7 @@ function execute(sql, param) {
                 connection.query(sql, param, function (err, rows) {
                     connection.release();
                     if (!err) {
-                        resolve(rows);
+                        resolve(JSON.parse(JSON.stringify(rows)));
                     }
                     else {
                         reject(err);

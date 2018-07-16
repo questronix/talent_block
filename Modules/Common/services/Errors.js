@@ -50,6 +50,13 @@ module.exports = {
 					code: -8,
 					message: 'No affected rows.'
 				}
+			},
+			NO_USER_SESSION: {
+				status: 401,
+				error: {
+					code: -9,
+					message: 'There is no session for this user.'
+				}
 			}
 		};
 		return errors[tag];
