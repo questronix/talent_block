@@ -22,7 +22,8 @@
                     id="username" 
                     type="text" 
                     v-model="form.username" 
-                    placeholder="Username">
+                    placeholder="Username"
+                    required>
                   </b-form-input>
                 </b-form-group>
                 <b-form-group>
@@ -30,14 +31,16 @@
                     id="email" 
                     type="email" 
                     v-model="form.email" 
-                    placeholder="Email">
+                    placeholder="Email"
+                    required>
                   </b-form-input>
                 </b-form-group>
                 <b-form-group>
                   <b-form-input 
                     id="mobile" type="text" 
                     v-model="form.mobile_no" 
-                    placeholder="Mobile No.">
+                    placeholder="Mobile No."
+                    required>
                   </b-form-input>
                 </b-form-group>
                 <b-form-group>
@@ -45,7 +48,8 @@
                     id="password" 
                     type="password" 
                     v-model="form.password" 
-                    placeholder="Password">
+                    placeholder="Password"
+                    required>
                   </b-form-input>
                 </b-form-group>
                 <b-form-group>
