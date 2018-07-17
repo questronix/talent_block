@@ -2,15 +2,19 @@
   <base-layout>
     <div slot="body">  
       <div class="login">
-        <b-col cols="4" offset-md="4">
-        <div class="success-card">
-          <img src="/static/img/temporary_success.png">
-          <h5 class="text-center">Great! You have successfully signed up!</h5>
-          <h6>We've sent you a link to confirm your email address.</h6>
-          <h6>Please check your inbox.</h6>
-          
+        <div class="card text-center" style="width: 40rem;">
+          <div class="card-body">
+            <img class="mail" src="/static/img/mail.png">
+            <br/>
+            
+            <h5 class="card-title"><strong>Great! You've successfully signed up.</strong></h5>
+            <p class="card-text" id="text-details">We've sent you a link to confirm your email address.
+            <p class="continuation"id="text-details">Please check your inbox.</p>
+            <br/>
+            <p><strong>Didn't receive the email?</strong></p>
+            <a href="#" class="btn btn-outline-light">Resend Email Confirmation</a>
+          </div>
         </div>
-      </b-col>
       </div>
     </div>
   </base-layout>
@@ -35,14 +39,6 @@ body {
   overflow: hidden;
 }
 
-.success-card {
-  background-color: ##446ACB;
-  padding: 40px;
-  border-radius: 20px;
-  border: 1px solid rgba(0,0,0,.125);
-  margin: 40px;
-  color:white;
-}
 
 #btnGoogle {
   color: black;
@@ -53,5 +49,26 @@ body {
 #username, #password {
   border-radius: 20px;
 }
+
+.mail{
+  width: 30%;
+  height:auto;
+  margin-bottom:20px;
+}
+.login .card{
+  margin-left:25%;
+  margin-top:5%;
+  background-color: #446ACB;
+  color:white;
+  border:none;
+}
+.continuation{
+  margin-top:-20px;
+}
+
+#text-details{
+  color:lightgrey;
+}
+
 </style>
 
