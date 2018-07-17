@@ -119,10 +119,16 @@ let home = require('./Modules/Home');
 let login = require('./Modules/Login');
 let user = require('./Modules/Users');
 let signup = require('./Modules/SignUp');
+let category = require('./Modules/Category');
+let student = require('./Modules/Student');
+let eduBg = require('./Modules/EduBg');
 
 app.use('/', home);
 app.use('/login', login);
 app.use('/user', user);
 app.use('/signup', signup);
+app.use('/category', category);
+app.use('/students', student);
+app.use('/edubg', eduBg);
 
 module.exports = app;
