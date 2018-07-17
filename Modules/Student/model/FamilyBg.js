@@ -53,6 +53,7 @@ const family_bg = {
         return new Promise((resolve, reject) => {
             let fid = data.id;
             delete data.id;
+            data.updated_at = new Date();
             db.execute(`UPDATE family_bg SET ? WHERE user_id=? AND id=?`, [data, uid, fid])
             .then(data=>{
                 if(data.affectedRows > 0)
