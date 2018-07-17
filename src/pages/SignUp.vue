@@ -6,9 +6,11 @@
         <div class="signupcontainer">
           <div class="signupform">
             <div class="singupcontent">
+              <h5><strong>CHOOSE. PAY. LEARN.</strong></h5>
               <span class="signup-span">
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
-    Suspendisse id venenatis nibh, a porttitor libero.
+                Create a <strong>Talent Block</strong> account to enroll to courses in 
+                just a few clicks and pay without waiting in line.
+                Already have a Talent Block account? <a class="link" href=#login>Login here.</a>
               </span>
               <br>
               <img src="/static/img/signupimg.svg" height="200px">
@@ -22,7 +24,8 @@
                     id="username" 
                     type="text" 
                     v-model="form.username" 
-                    placeholder="Username">
+                    placeholder="Username"
+                    required>
                   </b-form-input>
                 </b-form-group>
                 <b-form-group>
@@ -30,14 +33,16 @@
                     id="email" 
                     type="email" 
                     v-model="form.email" 
-                    placeholder="Email">
+                    placeholder="Email"
+                    required>
                   </b-form-input>
                 </b-form-group>
                 <b-form-group>
                   <b-form-input 
                     id="mobile" type="text" 
                     v-model="form.mobile_no" 
-                    placeholder="Mobile No.">
+                    placeholder="Mobile No."
+                    required>
                   </b-form-input>
                 </b-form-group>
                 <b-form-group>
@@ -45,7 +50,8 @@
                     id="password" 
                     type="password" 
                     v-model="form.password" 
-                    placeholder="Password">
+                    placeholder="Password"
+                    required>
                   </b-form-input>
                 </b-form-group>
                 <b-form-group>
@@ -115,3 +121,12 @@ export default {
 }
 </script>
 
+<style scoped>
+.link{
+  color:white;
+}
+a:hover{
+  color:#9ecb4b;
+  text-decoration:none;
+}
+</style>
