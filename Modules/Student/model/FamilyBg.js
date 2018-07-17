@@ -1,7 +1,6 @@
 const db = require('../../Common/services/Database');
 const err = require('../../Common/services/Errors');
 const logger = require('../../Common/services/Logger');
-const async = require('async');
 const TAG = '[Family Background]';
 
 const family_bg = {
