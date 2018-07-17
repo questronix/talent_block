@@ -61,6 +61,17 @@ const routes = [
     path: '/transactionlog',
     component: TransactionLog
   },
+  {
+    name: 'dashboardSchool',
+    path: '/schooldashboard',
+    component: DashboardSchool
+  },
+  {
+    name: 'faculty_dashboard',
+    path: '/faculty_dashboard',
+    component: FacultyDashboard
+  }, 
+  {
     name: 'dashboardSchool',
     path: '/schooldashboard',
     component: DashboardSchool
