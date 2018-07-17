@@ -36,6 +36,20 @@ module.exports = {
 					code: -6,
 					message: 'Not Found'
 				}
+			},
+			CLOUDANT_ERROR: {
+				status: 400,
+				error: {
+					code: -7,
+					message: 'There is problem with cloudant store.'
+				}
+			},
+			NO_AFFECTED_ROWS: {
+				status: 400,
+				error: {
+					code: -8,
+					message: 'No affected rows.'
+				}
 			}
 		};
 		return errors[tag];
