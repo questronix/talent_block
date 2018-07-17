@@ -4,9 +4,10 @@
   "description": "Enrollment with digital certificate and Blockchain dApps.",
   "main": "server.js",
   "scripts": {
-    "start": "npm run build-prod & node server.js",
+    "start": "node server.js",
     "nodemon": "npm run build-dev & nodemon server.js",
-    "build-prod": "NODE_ENV=production webpack",
+    "dev": "npm run build-prod & nodemon server.js",
+    "build-prod": "NODE_ENV=production webpack --watch",
     "build-dev": "NODE_ENV=development webpack --watch"
   },
   "repository": {
@@ -27,9 +28,11 @@
   "dependencies": {
     "async": "^2.6.1",
     "axios": "^0.18.0",
+    "bcrypt": "^3.0.0",
     "bootstrap-vue": "^2.0.0-rc.11",
     "cfenv": "^1.1.0",
     "cloudant": "^1.10.0-NOTICE",
+    "connect-cloudant-store": "^0.1.2",
     "connect-redis": "^3.3.3",
     "dotenv": "^6.0.0",
     "ejs": "^2.6.1",

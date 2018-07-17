@@ -36,12 +36,34 @@ module.exports = {
 					code: -6,
 					message: 'Not Found'
 				}
+			},
+			CLOUDANT_ERROR: {
+				status: 400,
+				error: {
+					code: -7,
+					message: 'There is problem with cloudant store.'
+				}
+			},
+			NO_AFFECTED_ROWS: {
+				status: 400,
+				error: {
+					code: -8,
+					message: 'No affected rows.'
+				}
+			},
+			NO_USER_SESSION: {
+				status: 401,
+				error: {
+					code: -9,
+					message: 'There is no session for this user.'
+				}
 			}
 		};
 		return errors[tag];
 	},
-	raise: function (e) {
+	raise: function (e, details) {
 		var error = JSON.parse(JSON.stringify(this.get(e)));
+		if(details) error.error.details = details;
 		return error;
 	}
 };
