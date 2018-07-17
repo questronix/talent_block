@@ -115,19 +115,19 @@ if(process.env.SKIP_REDIS === 'true'){
 }
 
 //for CORS
-app.use(function(req, res, next) {
-  res.setHeader('Access-Control-Allow-Origin', '*');
-  res.setHeader('Access-Control-Allow-Credentials', 'true');
-  res.setHeader(
-    'Access-Control-Allow-Methods',
-    'GET,HEAD,OPTIONS,POST,PUT,DELETE'
-  );
-  res.setHeader(
-    'Access-Control-Allow-Headers',
-    'Access-Control-Allow-Headers, Origin,Accept, X-Requested-With, Content-Type, Access-Control-Request-Method, Access-Control-Request-Headers'
-  );
-  next();
-});
+// app.use(function(req, res, next) {
+//   res.setHeader('Access-Control-Allow-Origin', '*');
+//   res.setHeader('Access-Control-Allow-Credentials', 'true');
+//   res.setHeader(
+//     'Access-Control-Allow-Methods',
+//     'GET,HEAD,OPTIONS,POST,PUT,DELETE'
+//   );
+//   res.setHeader(
+//     'Access-Control-Allow-Headers',
+//     'Access-Control-Allow-Headers, Origin,Accept, X-Requested-With, Content-Type, Access-Control-Request-Method, Access-Control-Request-Headers'
+//   );
+//   next();
+// });
 
 /**
  * Routes
@@ -140,12 +140,18 @@ let home = require('./Modules/Home');
 let login = require('./Modules/Login');
 let user = require('./Modules/Users');
 let signup = require('./Modules/SignUp');
+let category = require('./Modules/Category');
+let student = require('./Modules/Student');
+let eduBg = require('./Modules/EduBg');
 let school = require('./Modules/School');
 
 app.use('/', home);
 app.use('/login', login);
 app.use('/user', user);
 app.use('/signup', signup);
+app.use('/category', category);
+app.use('/students', student);
+app.use('/edubg', eduBg);
 app.use('/schools', school);
 
 module.exports = app;

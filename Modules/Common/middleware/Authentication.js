@@ -1,27 +1,18 @@
-const JWT = require('../services/JWT');
+const TAG = `[MIDDLEWARE][Authentication]`;
 const Error = require('../services/Errors');
+const Logger = require('../../Common/services/Logger');
 
 module.exports.isAuthenticated = (req, res, next)=>{
-  //Get access token
-  let token = req.headers['x-access-token'];
-
-  //if token doen't exist
-  if(!token){
-    res.error(Error.raise('NO_ACCESS_TOKEN'));
+  const ACTION = `[isAuthenticated]`;
+  //Get user session
+  let user = req.session.user;
+  Logger.log('info', `${TAG}${ACTION} - session user`, user);
+  //if user doen't exist
+  if(!user){
+    res.error(Error.raise('NO_USER_SESSION'));
   }else{
-    //verify token
-    let jwt = new JWT();
-    jwt.verify(token, (err, result)=>{
-      if(err){
-        //show jwt error
-        let error = Error.raise('JWT_ERROR');
-        error.error.details = err;
-        res.error(error);
-      }else{
-        //go to next route
-        req.user = result;
-        next();
-      }
-    });
+    //return the session
+    req.user = req.session.user;
+    next();
   }
 };
