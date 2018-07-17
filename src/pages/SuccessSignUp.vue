@@ -4,7 +4,7 @@
       <div class="login">
         <div class="card text-center" style="width: 40rem;">
           <div class="card-body">
-            <img class="mail" src="/static/img/mail.png">
+            <img class="mail" src="/static/img/success.png">
             <br/>
             
             <h5 class="card-title"><strong>Great! You've successfully signed up.</strong></h5>
@@ -57,7 +57,7 @@ body {
 }
 .login .card{
   margin-left:25%;
-  margin-top:5%;
+  margin-top:4%;
   background-color: #446ACB;
   color:white;
   border:none;
