@@ -1,5 +1,5 @@
 const express = require('express');
-const session = require('express-session');
+
 
 const cfenv = require('cfenv');
 const appEnv = cfenv.getAppEnv();
@@ -59,8 +59,29 @@ mysqlConnect.then((connect)=>{
   logger.log('error', '[MySQLDB]', `Connection to ${error.address}:${error.port} failed - connect ${error.code} ${error.address}:${error.port}`);
 });
 
+const session = require('express-session');
 if(process.env.SKIP_REDIS === 'true'){
   //declare session middleware
+  if(process.env.SKIP_CLOUDANT === 'true'){
+    
+  }else{
+    let cloudant_store = require('connect-cloudant-store')(session);
+    let store = new cloudant_store({
+      url: process.env.CLOUDANT_URL
+    });
+    store.on('connect', function(){
+      logger.log('info', '[CLOUDANT][STORE] is connected!');
+      setInterval(function() { store.cleanupExpired(); }, 3600 * 1000);
+    });
+    store.on('disconnect', function(){
+      logger.log('info', '[CLOUDANT][STORE] is disconnected!');
+    });
+    store.on('error', function(err) {
+      let error = require('./Modules/Common/services/Errors').raise('CLOUDANT_ERROR');
+      error.error.details = err;
+      logger.log('error', '[CLOUDANT][STORE] has error!', err);
+    });
+  }
   app.use(session({
     secret: 'session.secret.key',
     saveUninitialized: false,
@@ -119,10 +140,12 @@ let home = require('./Modules/Home');
 let login = require('./Modules/Login');
 let user = require('./Modules/Users');
 let signup = require('./Modules/SignUp');
+let school = require('./Modules/School');
 
 app.use('/', home);
 app.use('/login', login);
 app.use('/user', user);
 app.use('/signup', signup);
+app.use('/schools', school);
 
 module.exports = app;
