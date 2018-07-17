@@ -58,6 +58,7 @@
         </b-container>
         <div class="courselist">
 			<div class="courses">
+        <!-- <course-list :courses="courses"></course-list> -->
         <ul>
           <li v-for="course in courses" :key="course.id">
             <img :src="course.imgUrl"><br>
@@ -66,8 +67,7 @@
               <h5>{{ course.title}}</h5>
             </router-link>
             <p>{{course.desc}}</p>
-            
-          </li>   
+          </li>
         </ul>
 			</div>
 
@@ -76,12 +76,15 @@
     </base-layout>
 </template>
 <script defer>
+// FIXME: CourseList component bug.
 import BaseLayout from '../layouts/BaseLayout.vue';
+// import CourseList from '../components/Course/CourseList.vue';
 
 export default {
   name: 'coursesPage',
   components: {
-    BaseLayout
+    BaseLayout,
+    // CourseList,
   },
   data() {
       return {
