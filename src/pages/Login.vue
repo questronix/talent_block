@@ -5,18 +5,27 @@
         <b-col cols="4" offset-md="4">
         <div class="login-card">
           <h4 class="text-center">Login</h4>
+          <b-alert variant="danger"
+             dismissible
+             :show="alert"
+             @dismissed="alert=false">
+            Invalid username or password.
+          </b-alert>
           <b-form @submit.prevent="onSubmit">
             <b-form-group>
-              <b-form-input id="username" type="text" v-model="form.username" placeholder="Username or Email"></b-form-input>
+              <b-form-input id="username" type="text" v-model="form.username" placeholder="Username or Email" :disabled="isLoading" required></b-form-input>
             </b-form-group>
             <b-form-group>
-              <b-form-input id="password" type="password" v-model="form.password" placeholder="Password"></b-form-input>
+              <b-form-input id="password" type="password" v-model="form.password" placeholder="Password" :disabled="isLoading" required></b-form-input>
             </b-form-group>
             <b-form-group>
               <a href="">Forgot Password?</a>
             </b-form-group>
             <b-form-group>
-              <b-button type="submit" variant="primary" :block="block">Login</b-button>
+              <b-button type="submit" variant="primary" :block="block" :disabled="isLoading">
+                <div v-show="isLoading" class="lds-hourglass"></div>
+                <div v-show="!isLoading">Login</div>
+              </b-button>
             </b-form-group>
             <b-form-group>
               <b-form-checkbox-group>
@@ -56,6 +65,8 @@ export default {
         keepSignIn: false,
       },
       block: true,
+      isLoading: false,
+      alert: false,
     };
   },
   components: {
@@ -63,12 +74,19 @@ export default {
   },
   methods: {
     onSubmit() {
+      this.isLoading = true;
       axios.post('/login', this.form)
         .then((response) => {
+          this.isLoading = false;
           let user = response.data.user;
           alert(`Welcome back ${user.username}!`);
-        }).catch((err) => {
-          alert('Invalid username or password.');
+        })
+        .catch((err) => {
+          this.isLoading = false;
+          this.alert = true;
+        })
+        .then(() => {
+          this.isLoading = false;
         });
     }
   }

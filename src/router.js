@@ -8,6 +8,7 @@ import Login from './pages/Login.vue';
 import SignUp from './pages/SignUp.vue';
 import SuccessSignUp from './pages/SuccessSignUp.vue';
 import Dashboard from './pages/account/Dashboard.vue';
+import TransactionLog from './pages/account/TransactionLog.vue';
 import DashboardSchool from './pages/school/Dashboard.vue';
 import Error404 from './pages/error/404.vue';
 import FacultyDashboard from './pages/faculty/FacultyDashboard.vue';
@@ -56,6 +57,10 @@ const routes = [
     component: Dashboard
   },
   {
+    name: 'settings',
+    path: '/transactionlog',
+    component: TransactionLog
+  },
     name: 'dashboardSchool',
     path: '/schooldashboard',
     component: DashboardSchool
