@@ -54,6 +54,9 @@
 // FIXME: Please fix keepSignIn bug.
 import BaseLayout from '../layouts/BaseLayout.vue';
 import axios from 'axios';
+import auth from '../modules/services/auth.js';
+
+console.log(auth.getName());
 
 export default {
   name: 'loginPage',
