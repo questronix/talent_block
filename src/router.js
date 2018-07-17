@@ -7,6 +7,7 @@ import About from './pages/About.vue';
 import Login from './pages/Login.vue';
 import SignUp from './pages/SignUp.vue';
 import Dashboard from './pages/account/Dashboard.vue';
+import DashboardSchool from './pages/school/Dashboard.vue';
 import Error404 from './pages/error/404.vue';
 
 Vue.use(VueRouter);
@@ -46,7 +47,12 @@ const routes = [
     name: 'dashboard',
     path: '/dashboard',
     component: Dashboard
-  }, 
+  },
+  {
+    name: 'dashboardSchool',
+    path: '/schooldashboard',
+    component: DashboardSchool
+  },
   {
     path: "/404",
     component: Error404
