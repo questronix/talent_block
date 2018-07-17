@@ -31,7 +31,8 @@
                                 <h4 class="h4-centered">Our Courses</h4>
                             </div>
                             <div class="col-sm-2">
-                                <button type="button" class="btn btn-primary float-right">Add a course</button>
+                                <button type="button" class="btn btn-primary float-right" data-toggle="modal" data-target="#addCourseModal">Add a course</button>
+                                <AddCourseModal />
                             </div>
                         </div>
                     </div>
@@ -50,7 +51,8 @@
                                     <td> {{course.code}} </td>
                                     <td> {{course.name}} </td>
                                     <td> {{course.students}} </td>
-                                    <td> <button type="button" class="btn btn-primary">Update</button> </td>
+                                    <td> <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#updateCourseModal">Update</button> </td>
+                                    <UpdateCourseModal />
                                 </tr>
                             </tbody>
                         </table>
@@ -63,7 +65,8 @@
                                 <h4 class="h4-centered">Faculty</h4>
                             </div>
                             <div class="col-sm-2">
-                                <button type="button" class="btn btn-primary float-right">Add a faculty</button>
+                                <button type="button" class="btn btn-primary float-right" data-toggle="modal" data-target="#addFacultyModal">Add a faculty</button>
+                                <AddFacultyModal />
                             </div>
                         </div>
                     </div>
@@ -82,7 +85,8 @@
                                     <td> {{member.id}} </td>
                                     <td> {{member.name}} </td>
                                     <td> {{member.subjects}} </td>
-                                    <td> <button type="button" class="btn btn-primary">Update</button> </td>
+                                    <td> <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#updateFacultyModal">Update</button> </td>
+                                    <UpdateFacultyModal />
                                 </tr>
                             </tbody>
                         </table>
@@ -101,12 +105,24 @@ import BaseLayout from '../../layouts/BaseLayout.vue';
 import NavBar from '../../components/NavBar/NavBar.vue';
 import SchoolStats from '../../components/AccountStats/SchoolStats.vue';
 
+import AddCourseModal from '../../components/Course/AddCourseModal.vue';
+import UpdateCourseModal from '../../components/Course/UpdateCourseModal.vue';
+
+import AddFacultyModal from '../../components/Faculty/AddFacultyModal.vue';
+import UpdateFacultyModal from '../../components/Faculty/UpdateFacultyModal.vue';
+
 export default {
   name: 'dashboardSchool',
   components: {
     BaseLayout,
 	NavBar,
-	SchoolStats,
+    SchoolStats,
+
+    AddFacultyModal,
+    UpdateFacultyModal,
+
+    AddCourseModal,
+    UpdateCourseModal,
   },
   data: function(){
       return {

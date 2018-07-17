@@ -1,10 +1,10 @@
 <template>
     <div>
-    <div class="modal fade bd-example-modal-lg" id="addCourseModal" tabindex="-1" role="dialog" aria-labelledby="addCourseModalLabel" aria-hidden="true">
+    <div class="modal fade bd-example-modal-lg" id="updateCourseModal" tabindex="-1" role="dialog" aria-labelledby="updateCourseModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg" role="document">
     <div class="modal-content">
         <div class="modal-header">
-            <h5 class="modal-title label" id="exampleModalLabel label">Add Course</h5>
+            <h5 class="modal-title label" id="exampleModalLabel label">Course Details</h5>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
             </button>
@@ -15,7 +15,7 @@
                 <div class="col">
                     <div class="form-group">
                         <label for="course-name" class="col-form-label">Name of course</label>
-                        <input type="text" class="form-control" id="#" placeholder="Name of course" required>
+                        <input type="text" class="form-control" id="#" value="Fundamentals of UI/UX Design" placeholder="Name of course" required>
                         <div class="invalid-feedback">
                             Please choose a valid course.
                         </div>
@@ -79,8 +79,9 @@
                 </div>
             </div>
             <div class="modal-footer">
+                <button type="button" class="btn btn-danger" style="margin-right:auto">Remove Course</button>
                 <button type="button" class="btn btn-outline-primary" data-dismiss="modal">Cancel</button>
-                <button type="submit" class="btn btn-primary">Add</button>
+                <button type="submit" class="btn btn-primary">Update</button>
             </div>
             </form>
         </div>
@@ -92,12 +93,12 @@
 
 <script>
 
-$('#addCourseModal').on('shown.bs.modal', function () {
+$('#updateCourseModal').on('shown.bs.modal', function () {
   $('#myInput').trigger('focus')
 })
 
 export default {
-  name: 'AddCourseModal',  
+  name: 'UpdateCourseModal',  
 }
 </script>
 
