@@ -19,8 +19,9 @@ exports.getProfile = (username)=> {
           user: data[0]
         });
       }else{
+        let error = err.raise('NOT_FOUND');
         logger.log('error', TAG+ACTION, error);
-        reject(err.raise('NOT_FOUND'))
+        reject(err.raise('NOT_FOUND'));
       }
     }).catch(error=>{
       logger.log('error', TAG+ACTION, error);
