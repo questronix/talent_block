@@ -71,6 +71,16 @@ const routes = [
     component: FacultyDashboard
   }, 
   {
+    name: 'dashboardSchool',
+    path: '/schooldashboard',
+    component: DashboardSchool
+  },
+  {
+    name: 'faculty_dashboard',
+    path: '/faculty_dashboard',
+    component: FacultyDashboard
+  }, 
+  {
     path: "/404",
     component: Error404
   },
