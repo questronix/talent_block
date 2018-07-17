@@ -1,10 +1,10 @@
 <template>
     <div>
-    <div class="modal fade bd-example-modal-lg" id="addCourseModal" tabindex="-1" role="dialog" aria-labelledby="addCourseModalLabel" aria-hidden="true">
+    <div class="modal fade bd-example-modal-lg" id="addFacultyModal" tabindex="-1" role="dialog" aria-labelledby="addFacultyModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg" role="document">
     <div class="modal-content">
         <div class="modal-header">
-            <h5 class="modal-title label" id="exampleModalLabel label">Add Course</h5>
+            <h5 class="modal-title label" id="addModalLabel">Add Faculty Personnel</h5>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
             </button>
@@ -14,37 +14,28 @@
             <div class="row">
                 <div class="col">
                     <div class="form-group">
-                        <label for="course-name" class="col-form-label">Name of course</label>
-                        <input type="text" class="form-control" id="#" placeholder="Name of course" required>
+                        <label for="personnel-name" class="col-form-label">Personnel name</label>
+                        <input type="text" class="form-control" id="#" placeholder="Name of Personnel">
+                    </div>
+                    <div class="form-group">
+                        <label for="address" class="col-form-label">Address</label>
+                        <input type="text" class="form-control" id="#"  placeholder="Address" required>
                         <div class="invalid-feedback">
-                            Please choose a valid course.
+                            Please enter a valid address.
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="faculty-assigned" class="col-form-label">Faculty assigned</label>
-                        <select class="form-control" required>
-                            <option>Jay Tacdoro</option>
-                        </select>
+                        <label for="contact-no" class="col-form-label">Contact number</label>
+                        <input type="text" class="form-control" id="#"  placeholder="+639-xxx-xxx" required>
                         <div class="invalid-feedback">
-                            Please choose a valid faculty.
+                            Please enter a valid contact number.
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="course-venue" class="col-form-label">Course venue</label>
-                        <select class="form-control" required>
-                            <option>Comp 302</option>
-                        </select>
+                        <label for="subj-handled" class="col-form-label">Subject handled</label>
+                        <input type="text" class="form-control" id="#"  placeholder="Subject handled" required>
                         <div class="invalid-feedback">
-                            Please choose a valid venue.
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="course-schedule" class="col-form-label">Course schedule</label>
-                        <select class="form-control" required>
-                            <option>14:00 - 16:30</option>
-                        </select>
-                        <div class="invalid-feedback">
-                            Please choose a valid timeslot.
+                            Please enter a valid subject.
                         </div>
                     </div>
                 </div>
@@ -52,16 +43,16 @@
                     <div class="row">
                         <div class="col">
                             <div class="form-group">
-                                <label for="course-code" class="col-form-label">Course code</label>
-                                <input type="text" class="form-control" id="#" placeholder="Course code" required>
+                                <label for="birthday" class="col-form-label">Birthday</label>
+                                <input type="text" class="form-control" id="#" placeholder="MM/DD/YYYY" required>
                                 <div class="invalid-feedback">
-                                    Please enter a valid course code.
+                                    Please enter a valid date.
                                 </div>
                             </div>
                         </div>
                         <div class="col">
                             <div class="form-group">
-                                <label for="max-students" class="col-form-label">Maximum students</label>
+                                <label for="age" class="col-form-label">Age</label>
                                 <input type="text" class="form-control" id="#" placeholder="Maximum students" required>
                                 <div class="invalid-feedback">
                                     Please enter a valid a number.
@@ -70,10 +61,10 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="course-desc" class="col-form-label">Course description</label>
-                        <textarea class="form-control" id="#" rows="8" placeholder="Course description" required></textarea>
+                        <label for="personnel-bg" class="col-form-label">Personnel Background</label>
+                        <textarea class="form-control" id="#" rows="8" placeholder="Personnel Background" required></textarea>
                         <div class="invalid-feedback">
-                            Please enter a valid description.
+                            Please enter a valid personnel background.
                         </div>
                     </div>
                 </div>
@@ -92,18 +83,18 @@
 
 <script>
 
-$('#addCourseModal').on('shown.bs.modal', function () {
+$('#addFacultyModal').on('shown.bs.modal', function () {
   $('#myInput').trigger('focus')
 })
 
 export default {
-  name: 'AddCourseModal',  
+  name: 'UpdateFacultyModal',  
 }
 </script>
 
 <style scoped>
 
-.label{
+#updateFacultyModalLabel{
     color: black;
 }
 
