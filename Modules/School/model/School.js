@@ -31,6 +31,7 @@ const school = {
         logger.log('info', `${TAG}${ACTION}`, { school_id, user_id, data });
 
         return new Promise ((resolve, reject) => {
+            data.updated_at = new Date();
             db.execute(`UPDATE school SET ? WHERE id = ? AND user_id = ?`, [data, school_id, user_id])
             .then(data=>{
                 if(data.affectedRows > 0)
