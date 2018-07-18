@@ -1,7 +1,7 @@
 <template>
   <base-layout>
     <div slot="header">
-      <NavBar type="dashboard" heading="About Talent Block" img="url('/static/img/bg2.png')"/>
+      <NavBar class="page-about" type="dashboard" heading="About Talent Block" />
     </div>
     <div slot="space"></div>
     <div slot="body">
@@ -19,7 +19,7 @@
           Lorem ipsum dolor sit amet, consectetur adipisscing elit.
           Lorem ipsum dolor sit amet, consectetur adipisscing elit.
           Lorem ipsum dolor sit amet, consectetur adipisscing elit.</span>     
-               
+
         </div>
       </div>
 
@@ -86,8 +86,20 @@
           </div>
 
       </div>
+
+      
+        
+      </div>
+      <div class="before-footer">
+          <img src="/static/img/guy-thinking.png">
+          <div class="before-footer-content">
+            <h3>Look around, it's free!</h3>
+            <a href="/#/"><button type="button" class="btn btn-outline-light">Home</button></a>
+          </div>
       </div>
     </div>
+    
+    
     
     <div slot="footer" class="footer">
       <div class="container">
@@ -196,4 +208,34 @@ export default {
     justify-content:space-evenly;
     align-items:center;
   }
+  .page-about .page-title{
+    background-size:100%;
+    height:482px;
+    background: url(/static/img/banner.png);
+  }
+
+
+  .before-footer{
+    align-items:center;
+    display:flex;
+    flex-direction:column;
+  }
+  .before-footer img{
+    width:100%;
+    margin-bottom: -20px;
+  }
+
+  .before-footer-content .span{
+    color:white;
+  }
+  .before-footer-content{
+    position:absolute;
+    align-items:center;
+    display:flex;
+    flex-direction:column;
+    color:white;
+    margin-top:5%;
+  }
+
+
 </style>
