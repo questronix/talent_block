@@ -144,6 +144,7 @@ let category = require('./Modules/Category');
 let student = require('./Modules/Student');
 let eduBg = require('./Modules/EduBg');
 let school = require('./Modules/School');
+let course = require('./Modules/Course');
 
 app.use('/', home);
 app.use('/login', login);
@@ -153,5 +154,6 @@ app.use('/category', category);
 app.use('/students', student);
 app.use('/edubg', eduBg);
 app.use('/schools', school);
+app.use('/courses', course);
 
 module.exports = app;
