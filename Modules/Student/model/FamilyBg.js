@@ -1,7 +1,7 @@
 const db = require('../../Common/services/Database');
 const err = require('../../Common/services/Errors');
 const logger = require('../../Common/services/Logger');
-const TAG = '[Family Background]';
+const TAG = '[FamilyBackground]';
 
 const family_bg = {
     add: function(data){
