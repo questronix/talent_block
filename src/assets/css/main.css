@@ -817,7 +817,12 @@ height: 110px;
 	background-color: #eeeeee;
 	padding: 40px;
 }
+.about-cat{
+  text-align: center;
+	background-color: white;
+	padding: 40px;
 
+}
 .top-cat h5 {
 	margin-bottom: 20px;
 }
