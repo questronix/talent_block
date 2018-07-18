@@ -26,7 +26,7 @@
               <img src="static/img/teacher.png" height="100">
               <div class="feature">
                 <h4>Licensed professionals</h4>
-                <p>Learn from quiped and experienced teachers.</p>
+                <p>Learn from equipped and experienced teachers.</p>
               </div>
             </div>
           </div>
