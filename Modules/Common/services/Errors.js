@@ -57,6 +57,13 @@ module.exports = {
 					code: -9,
 					message: 'There is no session for this user.'
 				}
+			},
+			DUPLICATE_RECORD: {
+				status: 409,
+				error: {
+					code: -10,
+					message: 'Data already exists.'
+				}
 			}
 		};
 		return errors[tag];
