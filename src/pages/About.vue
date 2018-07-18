@@ -8,7 +8,7 @@
       
       <div class="courselist">
         <div class="courses">
-          <h3><strong>Welcome in peace</strong></h3>
+          <h3><strong>We come in peace</strong></h3>
           <span>Lorem ipsum dolor sit amet, consectetur adipisscing elit. 
           Lorem ipsum dolor sit amet, consectetur adipisscing elit.
           Lorem ipsum dolor sit amet, consectetur adipisscing elit.
