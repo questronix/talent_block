@@ -15,7 +15,8 @@ exports.newCourse = (data)=>{
       {
         // checks Course table if School already uses the course code
         checker: function(callback){
-          db.execute(`SELECT code, name FROM course WHERE code='?'`,
+          console.log(data);
+          db.execute(`SELECT code, name FROM course WHERE code=?`,
           [data.code])
           .then( data=>{
             callback(null, data);
@@ -29,7 +30,8 @@ exports.newCourse = (data)=>{
         // add the course
         addCourse: ['checker',
           function(result, callback){
-            if (result.length === 0){
+            console.log(result.checker);
+            if (result.checker.length === 0){
               db.execute(`INSERT INTO course SET ?`, [data])
               .then( result=>{
                 logger.log('info', TAG+ACTION, result);
@@ -67,14 +69,15 @@ exports. search = (data)=>{
 
 function getCourseSchedule(course_id){
   return new Promise((resolve, reject)=>{
-    // not tested
-    db.execute(`
-    SELECT
-      s.id, s.start_time, s.end_time, s.start_date, s.end_date,
-      t.id, t.fn, t.ln, t.title, t.occupation, t.profile_img, t.thumbnail
-    FROM schedule s LEFT JOIN teacher t ON s.teacher_id=t.id
-    WHERE s.course_id=?`,
-    [course_id])
+    // QUERY TESTED
+    const query = `
+      SELECT
+        s.id, s.start_time, s.end_time, s.start_date, s.end_date,
+        t.id, t.fn, t.ln, t.title, t.occupation, t.profile_img, t.thumbnail
+      FROM schedule s LEFT JOIN teacher t ON s.teacher_id=t.id
+      WHERE s.course_id=?`;
+
+    db.execute(query,[course_id])
     .then( data=>{
       resolve(data);
     })
@@ -89,19 +92,13 @@ exports.getCourse = (course_id)=>{
 
   return new Promise( (resolve, reject) =>{
     // QUERY TESTED
-    db.execute(`SELECT
-      c.id,
-      c.code,
-      c.name,
-      c.banner_img,
-      c.thumbnail,
-      c.prereq,
-      c.tags,
-      c.full_desc,
-      (SELECT name FROM school WHERE id=c.school_id) "school",
-      (SELECT name FROM category WHERE id=c.category_id) "category"
-      FROM course c WHERE c.id=?`,
-    [course_id])
+    const query = `SELECT
+    c.id, c.code, c.name, c.banner_img, c.thumbnail, c.prereq, c.tags, c.full_desc,
+    (SELECT name FROM school WHERE id=c.school_id) "school",
+    (SELECT name FROM category WHERE id=c.category_id) "category"
+    FROM course c WHERE c.id=?`
+
+    db.execute(query,[course_id])
     .then( data=>{
       getCourseSchedule(course_id)
       .then(sched=>{
@@ -125,11 +122,12 @@ exports.getCourse = (course_id)=>{
 exports.getCourseStudents = (course_id)=>{
   const ACTION = '[getCourseStudents]';
 
-  const query = `SELECT * FROM student WHERE id in
+  return new Promise( (resolve, reject)=>{
+    // QUERY TESTED
+    const query = `SELECT * FROM student WHERE id in
       (SELECT student_id FROM student_schedule WHERE schedule_id in
       (SELECT id FROM schedule WHERE course_id=?))`;
 
-  return new Promise( (resolve, reject)=>{
     db.execute(query, [course_id])
     .then( data=>{
       resolve(data);
@@ -145,7 +143,7 @@ exports.updateCourse = (course_id, data)=>{
   const ACTION = '[updateCourse]';
 
   return new Promise( (resolve, reject)=>{
-    // query tested
+    // QUERY TESTED
     db.execute(`UPDATE course SET ? WHERE id=?`,
     [data, course_id])
     .then( result=>{
@@ -161,8 +159,8 @@ exports.updateCourse = (course_id, data)=>{
 
 exports.deleteCourse = (course_id)=>{
   const ACTION = '[deleteCourse]';
-  // query tested
   return new Promise( (resolve, reject)=>{
+    // QUERY TESTED
     db.execute(`DELETE FROM course WHERE id=?`, [course_id])
     .then( result=>{
       logger.log('info', TAG+ACTION, result);

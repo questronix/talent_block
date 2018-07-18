@@ -74,7 +74,7 @@ router.get('/:course_id/students', /*mw.isAuthenticated,*/
     const ACTION = '[getCourseStudents]';
     logger.log('debug', TAG+ACTION+' request parameters', req.params);    
 
-    course.getStudents(req.params.course_id)
+    course.getCourseStudents(req.params.course_id)
     .then( data=>{
       res.success(data);
     })
@@ -92,7 +92,7 @@ router.put('/:course_id',/*mw.isAuthenticated,*/
       ${req.body}\n
     `);
 
-    course.update(req.params.course_id, req.body)
+    course.updateCourse(req.params.course_id, req.body)
     .then( result=>{
       res.success(result);
     })
