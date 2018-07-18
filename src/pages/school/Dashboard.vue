@@ -22,8 +22,8 @@
 					</div>
 				</b-col>
 
-				<div class="col scheds">
-                    <div class="container-fluid">
+				<b-col>
+                    <b-container fluid>
                         <div class="row">
                             <div class="col-sm-2">
                             </div>
@@ -35,29 +35,19 @@
                                 <AddCourseModal />
                             </div>
                         </div>
-                    </div>
-					<div class="sched-calendar justify-content-end padded-white">
-						<table class="table table-borderless text-center">
-                            <thead>
-                                <tr>
-                                    <th>Subject Code</th>
-                                    <th>Course Name</th>
-                                    <th>Max Students</th>
-                                    <th>Action</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr v-for="(course, index) in courses" :key="index">
-                                    <td> {{course.code}} </td>
-                                    <td> {{course.name}} </td>
-                                    <td> {{course.students}} </td>
-                                    <td> <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#updateCourseModal">Update</button> </td>
-                                    <UpdateCourseModal />
-                                </tr>
-                            </tbody>
-                        </table>
-					</div>
-					<div class="container-fluid">
+                    </b-container>
+					<b-container class="justify-content-end padded-white">
+						<b-table :fields="coursesFields" per-page=5 :current-page="currentCoursePage" :items="courses" class="table table-borderless text-center">
+                            <template slot="action" slot-scope="row"> 
+                                <button class="btn btn-primary" data-toggle="modal" data-target="#updateCourseModal">Update</button>
+                                <UpdateCourseModal />
+                            </template>
+                        </b-table>
+
+                         <b-pagination align="center" :total-rows="coursesLength" per-page=5 v-model="currentCoursePage"/>
+					</b-container>
+                    
+					<b-container fluid class="mt-5">
                         <div class="row">
                             <div class="col-sm-2">
                             </div>
@@ -69,30 +59,20 @@
                                 <AddFacultyModal />
                             </div>
                         </div>
-                    </div>
-                    <div class="sched-calendar justify-content-end padded-white">
-						<table class="table table-borderless text-center">
-                            <thead>
-                                <tr>
-                                    <th>Faculty ID</th>
-                                    <th>Faculty Name</th>
-                                    <th>Subject Handled</th>
-                                    <th>Action</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr v-for="(member, index) in faculty" :key="index">
-                                    <td> {{member.id}} </td>
-                                    <td> {{member.name}} </td>
-                                    <td> {{member.subjects}} </td>
-                                    <td> <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#updateFacultyModal">Update</button> </td>
-                                    <UpdateFacultyModal />
-                                </tr>
-                            </tbody>
-                        </table>
-					</div>
+                    </b-container>
+                    <b-container class="justify-content-end padded-white">
+                        <b-table :fields="facultyFields" per-page=5 :current-page="currentFacultyPage" :items="faculty" class="table table-borderless text-center">
+                            <template slot="action" slot-scope="row"> 
+                                <button class="btn btn-primary" data-toggle="modal" data-target="#updateFacultyModal">Update</button>
+                                <UpdateFacultyModal />
+                            </template>
+                        </b-table>
+
+                         <b-pagination align="center" :total-rows="facultyLength" per-page=5 v-model="currentFacultyPage"/>
+						
+					</b-container>
 					
-				</div>
+				</b-col>
 			</b-row>			
 		</b-container>
 	</div>
@@ -124,19 +104,48 @@ export default {
     AddCourseModal,
     UpdateCourseModal,
   },
+  mounted(){
+      this.getCoursesFacultyLength();
+  },
   data: function(){
       return {
+          coursesFields: [{ key: 'code', label: 'Subject Code'},
+                          { key: 'name', label: 'Course Name' },
+                          { key: 'students', label: 'Maximum Students' },
+                          { key: 'action', label: 'Action' }],
           courses: [{code: 'course1', name: 'Fundamentals of UI/UX design', students: 30},
-                    {code: 'course1', name: 'Fundamentals of UI/UX design', students: 30},
-                    {code: 'course1', name: 'Fundamentals of UI/UX design', students: 30},
-                    {code: 'course1', name: 'Fundamentals of UI/UX design', students: 30},
-                    {code: 'course1', name: 'Fundamentals of UI/UX design', students: 30},
-                    {code: 'course1', name: 'Fundamentals of UI/UX design', students: 30}],
-          faculty: [{id: '12345', name: 'Jay Tacdoro', subjects: 30},
+                    {code: 'course2', name: 'Fundamentals of UI/UX design', students: 30},
+                    {code: 'course3', name: 'Fundamentals of UI/UX design', students: 30},
+                    {code: 'course4', name: 'Fundamentals of UI/UX design', students: 30},
+                    {code: 'course5', name: 'Fundamentals of UI/UX design', students: 30},
+                    {code: 'course6', name: 'Fundamentals of UI/UX design', students: 30},
+                    {code: 'course7', name: 'Fundamentals of UI/UX design', students: 30},
+                    {code: 'course8', name: 'Fundamentals of UI/UX design', students: 30},
+                    {code: 'course9', name: 'Fundamentals of UI/UX design', students: 30},
+                    {code: 'course10', name: 'Fundamentals of UI/UX design', students: 30},
+                    {code: 'course11', name: 'Fundamentals of UI/UX design', students: 30}],
+          facultyFields: [{key: 'id', label: 'Faculty ID'},
+                          {key: 'name', label: 'Faculty Name'},
+                          {key: 'subjects', label: 'Subject Handled'},
+                          {key: 'action', label: 'Action'}],
+          faculty: [{id: '12341', name: 'Jay Tacdoro', subjects: 30},
+                    {id: '12342', name: 'Jay Tacdoro', subjects: 30},
+                    {id: '12343', name: 'Jay Tacdoro', subjects: 30},
+                    {id: '12344', name: 'Jay Tacdoro', subjects: 30},
                     {id: '12345', name: 'Jay Tacdoro', subjects: 30},
-                    {id: '12345', name: 'Jay Tacdoro', subjects: 30},
-                    {id: '12345', name: 'Jay Tacdoro', subjects: 30},
-                    {id: '12345', name: 'Jay Tacdoro', subjects: 30},]
+                    {id: '12346', name: 'Jay Tacdoro', subjects: 30},
+                    {id: '12347', name: 'Jay Tacdoro', subjects: 30},
+                    {id: '12348', name: 'Jay Tacdoro', subjects: 30}],
+          currentCoursePage: 1,
+          currentFacultyPage: 1,
+          facultyLength: 0,
+          coursesLength: 0
+      }
+  },
+  methods: {
+      getCoursesFacultyLength(){
+          this.coursesLength = this.courses.length;
+          this.facultyLength = this.faculty.length;
       }
   }
 }
