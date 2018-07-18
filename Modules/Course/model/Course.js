@@ -27,10 +27,8 @@ exports.newCourse = (data)=>{
           })
         },
 
-        // add the course
         addCourse: ['checker',
           function(result, callback){
-            console.log(result.checker);
             if (result.checker.length === 0){
               db.execute(`INSERT INTO course SET ?`, [data])
               .then( result=>{
@@ -42,16 +40,21 @@ exports.newCourse = (data)=>{
                 callback(err.raise('INTERNAL_SERVER_ERROR'));
               });
             }else{
-              callback({
-                msg: 'Course Code already in use'
-              })
+              const error = err.raise('NO_AFFECTED_ROWS');
+              error.error.message = 'Course code already in use';
+              callback(error);
             }
           }
         ]
       },
       function(error, result){
-        if (error)  reject(error);
-        else        resolve(result);
+        if (error){
+          console.log('reject', error);
+          reject(error);
+        }else{
+          console.log('accept');
+          resolve(result.addCourse);
+        }
       }
     );
   });

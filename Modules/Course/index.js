@@ -28,10 +28,10 @@ router.post('/', /*mw.isAuthenticated,/*some middleware to verify admin*/
     logger.log('debug', TAG+ACTION+' request body', req.body);
 
     course.newCourse(req.body)
-    .then( (result)=>{
+    .then( result=>{
       res.success(result);
     })
-    .catch( (error)=>{
+    .catch( error=>{
       res.error(error);
     });
   }
