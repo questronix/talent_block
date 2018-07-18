@@ -37,14 +37,6 @@
                 </b-form-group>
                 <b-form-group>
                   <b-form-input 
-                    id="mobile" type="text" 
-                    v-model="form.mobile_no" 
-                    placeholder="Mobile No."
-                    required>
-                  </b-form-input>
-                </b-form-group>
-                <b-form-group>
-                  <b-form-input 
                     id="password" 
                     type="password" 
                     v-model="form.password" 
@@ -62,20 +54,6 @@
                     :block="true">Sign Up</b-button>
                 </b-form-group>
               </b-form>
-              <!-- <form >
-                <input class="form-control" type="text" name="username" placeholder="Username">
-                <br>
-                <input class="form-control" type="email" name="email" placeholder="Email">
-                <br>
-                <input class="form-control" type="text" name="mobileno" placeholder="Mobile No.">
-                <br>
-                <input class="form-control" type="password" name="password" placeholder="Password">
-                <br>
-                <div class="capcha">Capcha here</div>
-                <br>
-                <button class="btn primary signupbtn">Sign up</button>
-                <p>By signing up, you agree to our <a href="">Terms of Use</a> and <a href="">Privacy Policy.</a></p>
-              </form> -->
           </div>
           <div class="clearfix"></div>
         </div>
@@ -98,8 +76,6 @@ export default {
         username: '',
         password: '',
         email: '',
-        mobile_no: '',
-        type: 'TYPE_USER'
       },
     };
   },
