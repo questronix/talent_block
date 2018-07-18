@@ -15,10 +15,11 @@ module.exports.register = (user) => {
       INSERT INTO user SET ?
     `, user)
       .then((result) => {
-        console.log(result);
         if(result.affectedRows > 0){
           resolve({
             id: result.insertId,
+            email: user.email,
+            username: user.username
           });
         }else{
           reject(Errors.raise('NO_AFFECTED_ROWS' , result));

@@ -64,6 +64,20 @@ module.exports = {
 					code: -10,
 					message: 'Data already exists.'
 				}
+			},
+			JWT_TOKEN_ERROR: {
+				status: 400,
+				error:{
+					code: -11,
+					message: 'There is problem with Token in creating the token.'
+				}
+			},
+			JWT_TOKEN_VERIFY_ERROR: {
+				status: 400,
+				error:{
+					code: -12,
+					message: 'Token is malformed or already been used.'
+				}
 			}
 		};
 		return errors[tag];
