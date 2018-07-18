@@ -77,7 +77,7 @@
                       1:00PM - 3:30PM
                     </div>
                     <div class="col">
-                      <button class="btn btn-primary">Enroll Now</button>
+                      <button type="button" class="btn btn-primary" data-dismiss="modal" data-toggle="modal" data-target="#paymentModal">Enroll Now</button>
                     </div>
                   </div>
 
@@ -89,7 +89,7 @@
                       1:00PM - 3:30PM
                     </div>
                     <div class="col">
-                      <button class="btn btn-primary">Enroll Now</button>
+                      <button type="button" class="btn btn-primary" data-dismiss="modal" data-toggle="modal" data-target="#paymentModal">Enroll Now</button>
                     </div>
                   </div>
 
@@ -101,7 +101,7 @@
                       1:00PM - 3:30PM
                     </div>
                     <div class="col">
-                      <button class="btn btn-primary">Enroll Now</button>
+                      <button type="button" class="btn btn-primary" data-dismiss="modal" data-toggle="modal" data-target="#paymentModal">Enroll Now</button>
                     </div>
                   </div>
 
@@ -113,7 +113,7 @@
                       1:00PM - 3:30PM
                     </div>
                     <div class="col">
-                      <button class="btn btn-primary">Enroll Now</button>
+                      <button type="button" class="btn btn-primary" data-dismiss="modal" data-toggle="modal" data-target="#paymentModal">Enroll Now</button>
                     </div>
                   </div>
 
@@ -125,7 +125,7 @@
                       1:00PM - 3:30PM
                     </div>
                     <div class="col">
-                      <button class="btn btn-primary">Enroll Now</button>
+                      <button type="button" class="btn btn-primary" data-dismiss="modal" data-toggle="modal" data-target="#paymentModal">Enroll Now</button>
                     </div>
                   </div>
 
@@ -137,7 +137,7 @@
                       1:00PM - 3:30PM
                     </div>
                     <div class="col">
-                      <button class="btn btn-primary">Enroll Now</button>
+                      <button type="button" class="btn btn-primary" data-dismiss="modal" data-toggle="modal" data-target="#paymentModal">Enroll Now</button>
                     </div>
                   </div>
                 </div>
@@ -146,8 +146,27 @@
 
             </div>
           </div>
-        <div class="side-bar">
 
+        <!-- Modal -->
+        <div class="modal fade" id="paymentModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+          <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                <CardsPayment :cardsData="this.cardsData[0]"></CardsPayment>
+                <CardsPayment :cardsData="this.cardsData[1]"></CardsPayment>
+                <CardsPayment :cardsData="this.cardsData[2]"></CardsPayment>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- End of Modal -->
+
+        <div class="side-bar">
           <div class="sidebar-content">
             <ul>
               <li>
@@ -199,15 +218,39 @@
 
 <script>  
 import BaseLayout from '../layouts/BaseLayout.vue';
+import CardsPayment from '../components/Payment/CardsPayment.vue';
 
-$(function () {
+$(document).ready(function () {
   $('#myTab li:last-child a').tab('show')
+  $('#paymentModal').modal('show')
+  // $('button').click(function(e){
+  //   e.preventDefault();
+  //   this.cardsData.forEach(function(data){
+  //     for(var i=0; i<data.cardNumber.length; i++){
+  //       if(i>5 && data.cardNumber[i] != '-')
+  //         data.cardNumber[i] = 'x';
+  //     }
+  //     console.log(`Card Number: $(data.cardNumber)`);
+  //     this.filteredData.push(data.cardNumber);
+  //   })
+  // })
 })
 
 export default {
   name: 'coursePage',
+  data: () => {
+    return {  /*SAMPLE DATA for CardsPayment component*/
+      cardsData: [
+        {cardType: 'MasterCard', cardNumber: '5500-0000-0000-0004'},
+        {cardType: 'Visa', cardNumber: '4111-1111-1111-1111'},
+        {cardType: 'American Express', cardNumber: '3400-0000-0000-009'}
+      ],
+      filteredData: {}
+    }
+  },
   components: {
     BaseLayout,
+    CardsPayment
   }
 }
 </script>
@@ -232,9 +275,16 @@ export default {
   text-align: justify;
   color: #000;
 }
-span {
+.card-body span {
   align-content: justify;
   font-size: 1.25em;
   letter-spacing: 2px;
+}
+.modal-header {
+  border-bottom: 0 !important;
+}
+#centered {
+  text-align: center;
+  font-weight: bold;
 }
 </style>
