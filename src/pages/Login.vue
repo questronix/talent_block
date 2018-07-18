@@ -54,9 +54,9 @@
 // FIXME: Please fix keepSignIn bug.
 import BaseLayout from '../layouts/BaseLayout.vue';
 import axios from 'axios';
-import auth from '../modules/services/auth.js';
+import Category from '../modules/services/Category.js';
 
-console.log(auth.getName());
+let category = new Category('/category');
 
 export default {
   name: 'loginPage',
@@ -92,6 +92,25 @@ export default {
           this.isLoading = false;
         });
     }
+  },
+  created () {
+    // let cat = {
+    //   name: 'new category',
+    //   short_desc: 'new short desc',
+    //   full_desc: 'new desc',
+    // };
+    // category.add(cat)
+    //   .then((response) => {
+    //     console.log(response);
+    //   }).catch((err) => {
+    //     console.log(err);
+    //   });
+    category.findAll()
+      .then((response) => {
+        console.log(response.data);
+      }).catch((err) => {
+        console.log(err);
+      });
   }
 }
 </script>
