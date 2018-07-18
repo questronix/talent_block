@@ -136,17 +136,23 @@ if(process.env.SKIP_REDIS === 'true'){
  * POST /login
  */
 
-let home    = require('./Modules/Home');
-let login   = require('./Modules/Login');
-let user    = require('./Modules/Users');
-let signup  = require('./Modules/SignUp');
-let school  = require('./Modules/School');
-let course  = require('./Modules/Course');
+let home = require('./Modules/Home');
+let login = require('./Modules/Login');
+let user = require('./Modules/Users');
+let signup = require('./Modules/SignUp');
+let category = require('./Modules/Category');
+let student = require('./Modules/Student');
+let eduBg = require('./Modules/EduBg');
+let school = require('./Modules/School');
+let course = require('./Modules/Course');
 
 app.use('/', home);
 app.use('/login', login);
 app.use('/user', user);
 app.use('/signup', signup);
+app.use('/category', category);
+app.use('/students', student);
+app.use('/edubg', eduBg);
 app.use('/schools', school);
 app.use('/courses', course);
 

@@ -6,6 +6,7 @@ const logger = require('../Common/services/Logger');
 const session = require('../Common/middleware/Session');
 
 router.get('/', /*mw.isAuthenticated,*/(req, res, next)=>{
+
   var ACTION = '[index]';
   logger.log('info', TAG + ACTION)
   res.render('index');

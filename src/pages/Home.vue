@@ -11,22 +11,23 @@
             <div class="col-4 feat-detail">
               <img src="static/img/graduate.svg" height="100">
               <div class="feature">
-                <h4>100,995 Online courses</h4>
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                 <h4>Globally competitive courses</h4>
+                <p>Choose the courses that will surely help you in your professional life.</p>
               </div>
             </div>
+            
             <div class="col-4 feat-detail">
               <img src="static/img/payment.png" height="100">
               <div class="feature">
                 <h4>Keep what you pay for</h4>
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                <p>Guaranteed easy and reliable transactions with every course you wish to take.</p>
               </div>
             </div>
             <div class="col-4 feat-detail">
               <img src="static/img/teacher.png" height="100">
               <div class="feature">
-                <h4>Personal tutors on standby</h4>
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                <h4>Licensed professionals</h4>
+                <p>Learn from equipped and experienced teachers.</p>
               </div>
             </div>
           </div>
