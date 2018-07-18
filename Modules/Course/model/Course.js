@@ -68,33 +68,31 @@ exports. search = (data)=>{
     (SELECT name FROM category WHERE id=c.category_id) "category"
     FROM course c`;
 
-  // // suko na ako -- hard coded na ampota
-  // let keys = Object.keys(data);
-  // if (keys.length > 0){
-  //   if (data.code){
-  //     query += ' WHERE ';
-  //     query += `c.code='?'`;
-  //     values = values.concat(data.code);
-  //   }else if (data.school && data.category){
-  //     query += ' WHERE ';
-  //     query += `c.school_id in (SELECT id FROM school WHERE name like '%?%')
-  //       AND
-  //       c.category_id in (SELECT id FROM category WHERE name like '%?%')
-  //       `;
-  //     values = values.concat(data.school).concat(data.category);
-  //   }else if (data.school){
-  //     query += ' WHERE ';
-  //     query += `c.category_id in (SELECT id FROM category WHERE name like '%?%')`;
-  //     values = values.concat(data.school);
-  //   }else if (data.category){
-  //     query += ' WHERE ';
-  //     query += `c.category_id in (SELECT id FROM category WHERE name like '%?%')`;
-  //     values = values.concat(data.category);
-  //   }
-  // }
+  let values = [];
+  if (data.code){
+    query += ' WHERE ';
+    query += `c.code=?`;
+    values = values.concat(data.code);
+  }else if (data.school && data.category){
+    query += ' WHERE ';
+    query += `c.school_id in (SELECT id FROM school WHERE name like concat('%',?,'%'))
+      AND
+      c.category_id in (SELECT id FROM category WHERE name like concat('%',?,'%'))
+      `;
+    values = values.concat(data.school).concat(data.category);
+  }else if (data.school){
+    query += ' WHERE ';
+    query += `c.school_id in (SELECT id FROM school WHERE name like concat('%',?,'%'))`;
+    values = values.concat(data.school);
+  }else if (data.category){
+    query += ' WHERE ';
+    query += `c.category_id in (SELECT id FROM category WHERE name like concat('%',?,'%'))`;
+    values = values.concat(data.category);
+  }
 
   return new Promise((resolve,reject)=>{
-    db.execute(query)
+    console.log(query,values);
+    db.execute(query, values)
     .then( result=>{
       resolve(result);
     })
