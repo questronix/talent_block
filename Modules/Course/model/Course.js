@@ -42,6 +42,7 @@ exports.newCourse = (data)=>{
             }else{
               const error = err.raise('NO_AFFECTED_ROWS');
               error.error.message = 'Course code already in use';
+              logger.log('error', TAG+ACTION, error);
               callback(error);
             }
           }
@@ -49,10 +50,8 @@ exports.newCourse = (data)=>{
       },
       function(error, result){
         if (error){
-          console.log('reject', error);
           reject(error);
         }else{
-          console.log('accept');
           resolve(result.addCourse);
         }
       }
@@ -63,10 +62,46 @@ exports.newCourse = (data)=>{
 exports. search = (data)=>{
   const ACTION = '[searchCourse]';
 
-  // *in Juday voice* walang nangyayari
+  let query = `SELECT
+    c.id, c.code, c.name, c.banner_img, c.thumbnail, c.prereq, c.tags, c.full_desc,
+    (SELECT name FROM school WHERE id=c.school_id) "school",
+    (SELECT name FROM category WHERE id=c.category_id) "category"
+    FROM course c`;
+
+  // // suko na ako -- hard coded na ampota
+  // let keys = Object.keys(data);
+  // if (keys.length > 0){
+  //   if (data.code){
+  //     query += ' WHERE ';
+  //     query += `c.code='?'`;
+  //     values = values.concat(data.code);
+  //   }else if (data.school && data.category){
+  //     query += ' WHERE ';
+  //     query += `c.school_id in (SELECT id FROM school WHERE name like '%?%')
+  //       AND
+  //       c.category_id in (SELECT id FROM category WHERE name like '%?%')
+  //       `;
+  //     values = values.concat(data.school).concat(data.category);
+  //   }else if (data.school){
+  //     query += ' WHERE ';
+  //     query += `c.category_id in (SELECT id FROM category WHERE name like '%?%')`;
+  //     values = values.concat(data.school);
+  //   }else if (data.category){
+  //     query += ' WHERE ';
+  //     query += `c.category_id in (SELECT id FROM category WHERE name like '%?%')`;
+  //     values = values.concat(data.category);
+  //   }
+  // }
+
   return new Promise((resolve,reject)=>{
-    if(true)resolve({msg: "OK"});
-    else    reject( {msg: "NO"});
+    db.execute(query)
+    .then( result=>{
+      resolve(result);
+    })
+    .catch( error=>{
+      logger.log('error', TAG+ACTION, error);
+      reject(err.raise('INTERNAL_SERVER_ERROR'));
+    })
   });
 }
 
