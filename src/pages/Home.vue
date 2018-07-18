@@ -15,6 +15,7 @@
                 <p>Choose the courses that will surely help you in your professional life.</p>
               </div>
             </div>
+            
             <div class="col-4 feat-detail">
               <img src="static/img/payment.png" height="100">
               <div class="feature">

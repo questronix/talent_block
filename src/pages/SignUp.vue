@@ -10,13 +10,12 @@
               <span class="signup-span">
                 Create a <strong>Talent Block</strong> account to enroll to courses in 
                 just a few clicks and pay without waiting in line.
-                Already have a Talent Block account?<a class="link" href=#login>Login here.</a>
+                Already have a Talent Block account?<a class="linkg" href=#login>Login here.</a>
               </span>
               <br>
               <img src="/static/img/signupimg.svg" height="200px">
             </div>
             <div class="formsignup">
-            
             <h4>Sign Up</h4>
               <b-form @submit.prevent="onSubmit">
                 <b-form-group>
