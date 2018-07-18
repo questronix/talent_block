@@ -5,7 +5,42 @@
     </div>
     <div slot="space"></div>
     <div slot="body">
-	<SchoolStats />
+
+	    <div class="accountstats py-2">
+		<!-- PROFILE PICTURE -->
+		<div class="profile-pic">
+			<img src="/static/img/photo1.png" class="rounded-circle">
+		</div>
+
+		<!-- PROFILE NAME -->
+		<div class="profile-name">
+			<h3>PUP Sta. Mesa</h3>
+		</div>
+
+      <div class="profile-stats">
+			<b-container>
+				<b-row>
+					<b-col>
+						<span>Courses</span>
+						<h3>{{coursesLength}}</h3>
+					</b-col>
+					<b-col>
+						<span>Students</span>
+						<h3>23</h3>
+					</b-col>
+					<b-col>
+						<span>Professors</span>
+						<h3>{{facultyLength}}</h3>
+					</b-col>
+                    <b-col>
+						<span>Schedule</span>
+						<h3></h3>
+					</b-col>
+				</b-row>
+			</b-container>
+		</div>
+	</div>
+
 	<div class="dashboard accountforms">
 		<b-container>
 
