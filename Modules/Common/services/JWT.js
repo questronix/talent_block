@@ -6,7 +6,7 @@ const JWT = function(payload){
   this.payload = payload || {};
   this.secret = process.env.JWT_SECRET;
   this.options = {
-    expiresIn: '1m'
+    expiresIn: '24h'
   };
 }
 
