@@ -2,6 +2,9 @@ const TAG = '[Student]';
 const express = require('express');
 const router = express.Router();
 const logger = require('../Common/services/Logger');
+const err = require('../Common/services/Errors');
+const mw = require('../Common/middleware/Authentication');
+
 const student   = require('./model/Student');
 const famBg = require('./model/FamilyBg');
 
@@ -15,58 +18,6 @@ router.get('/', (req, res)=>{
   .catch(error=>{
     res.error(error);
   });
-});
-
-router.get('/family-background', (req, res, next) => {
-  const ACTION = '[getFamilyBackground]';
-  logger.log('debug', TAG + ACTION + ' request parameters', req.params);
-
-  famBg.view(req.user.id)
-  .then(data=>{
-      res.success(data);
-  })
-  .catch(error=>{
-      res.error(error);
-  })
-});
-
-router.post('/family-background', (req, res, next) => {
-  const ACTION = '[postFamilyBackground]';
-  logger.log('debug', TAG + ACTION, ' request body ', req.body);
-  
-  famBg.add(req.body)
-  .then(data=>{
-    res.success(data);
-  })
-  .catch(error=>{
-    res.error(error);
-  })
-});
-
-router.put('/family-background', (req, res, next) => {
-  const ACTION = '[putFamilyBackground]';
-  logger.log('debug', TAG + ACTION, ' request body ', req.body);
-
-  famBg.update(req.body, req.user.id)
-  .then(data=>{
-    res.success(data);
-  })
-  .catch(error=>{
-    res.error(error);
-  })
-});
-
-router.delete('/family-background', (req, res, next) => {
-  const ACTION = '[deleteFamilyBackground]';
-  logger.log('debug', TAG + ACTION + ' request body', req.body);
-
-  famBg.delete(req.user.id, req.body.id)
-  .then(data=>{
-    res.success(data);
-  })
-  .catch(error=>{
-    res.error(error);
-  })
 });
 
 router.get('/:id', (req, res)=>{
@@ -115,6 +66,79 @@ router.delete('/:id', (req, res)=>{
   .catch(error=>{
     res.error(error);
   });
+});
+
+router.get('/:id/family-background', (req, res, next) => {
+  const ACTION = '[getFamilyBackground]';
+  logger.log('debug', TAG + ACTION, ' request parameters ', req.params);
+
+  famBg.view(req.params.id)
+  .then(data=>{
+      res.success(data);
+  })
+  .catch(error=>{
+      res.error(error);
+  })
+});
+
+router.post('/:id/family-background', mw.isAuthenticated, (req, res, next) => {
+  const ACTION = '[postFamilyBackground]';
+  logger.log('debug', TAG + ACTION + ' request parameters', req.params);
+  logger.log('debug', TAG + ACTION + ' request body', req.body);
+
+  if(parseInt(req.params.id) === req.user.id){
+    famBg.add(req.body)
+    .then(data=>{
+      res.success(data);
+    })
+    .catch(error=>{
+      res.error(error);
+    })
+  }else{
+    let error = err.raise('UNAUTHORIZED');
+    logger.log('error', TAG + ACTION, error);
+    res.error(error);
+  }
+});
+
+router.put('/:id/family-background', mw.isAuthenticated, (req, res, next) => {
+  const ACTION = '[putFamilyBackground]';
+  logger.log('debug', TAG + ACTION, ' request parameters ', req.params);
+  logger.log('debug', TAG + ACTION, ' request body ', req.body);
+
+  if(parseInt(req.params.id) === req.user.id){
+    famBg.update(req.body, req.user.id)
+    .then(data=>{
+      res.success(data);
+    })
+    .catch(error=>{
+      res.error(error);
+    })
+  }else{
+    let error = err.raise('UNAUTHORIZED');
+    logger.log('error', TAG + ACTION, error);
+    res.error(error);
+  }
+});
+
+router.delete('/:id/family-background', mw.isAuthenticated, (req, res, next) => {
+  const ACTION = '[deleteFamilyBackground]';
+  logger.log('debug', TAG + ACTION, ' request parameters ', req.params);
+  logger.log('debug', TAG + ACTION + ' request body', req.body);
+
+  if(parseInt(req.params.id) === req.user.id){
+    famBg.delete(req.user.id, req.body.id)
+    .then(data=>{
+      res.success(data);
+    })
+    .catch(error=>{
+      res.error(error);
+    })
+  }else{
+    let error = err.raise('UNAUTHORIZED');
+    logger.log('error', TAG + ACTION, error);
+    res.error(error);
+  }
 });
 
 module.exports = router;
