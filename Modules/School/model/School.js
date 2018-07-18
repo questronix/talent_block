@@ -106,7 +106,7 @@ const school = {
 
                 create: ['getSchool', function(result, callback){
                     let rows = result.getSchool;
-                    console.log(rows);
+
                     if(rows.length === 0){
                         school.createSchool(data)
                         .then(data=>{

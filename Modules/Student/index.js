@@ -7,6 +7,7 @@ const mw = require('../Common/middleware/Authentication');
 
 const student   = require('./model/Student');
 const famBg = require('./model/FamilyBg');
+const idBg = require('./model/IdBg');
 
 router.get('/', (req, res)=>{
   const ACTION = '[getAllStudent]';
@@ -128,6 +129,79 @@ router.delete('/:id/family-background', mw.isAuthenticated, (req, res, next) => 
 
   if(parseInt(req.params.id) === req.user.id){
     famBg.delete(req.user.id, req.body.id)
+    .then(data=>{
+      res.success(data);
+    })
+    .catch(error=>{
+      res.error(error);
+    })
+  }else{
+    let error = err.raise('UNAUTHORIZED');
+    logger.log('error', TAG + ACTION, error);
+    res.error(error);
+  }
+});
+
+router.get('/:id/id-bg', (req, res, next) => {
+  const ACTION = '[getIdBackground]';
+  logger.log('debug', TAG + ACTION, ' request parameters ', req.params);
+
+  idBg.viewUserIds(req.params.id)
+  .then(data=>{
+    res.success(data);
+  })
+  .catch(error=>{
+    res.error(error);
+  })
+});
+
+router.post('/:id/id-bg', mw.isAuthenticated, (req, res, next) => {
+  const ACTION = '[postId]';
+  logger.log('debug', TAG + ACTION, ' request body ', req.body);
+
+  if(parseInt(req.params.id) === req.user.id){
+    req.body.user_id = req.user.id;
+    idBg.addAsync(req.body)
+    .then(data=>{
+      res.success(data);
+    })
+    .catch(error=>{
+      res.error(error);
+    })
+  }else{
+    let error = err.raise('UNAUTHORIZED');
+    logger.log('error', TAG + ACTION, error);
+    res.error(error);
+  }
+});
+
+router.put('/:id/id-bg', mw.isAuthenticated, (req, res, next) => {
+  const ACTION = '[putId]';
+  logger.log('debug', TAG + ACTION, ' request parameters ', req.params);
+  logger.log('debug', TAG + ACTION, ' request body ', req.body);
+
+  if(parseInt(req.params.id) === req.user.id){
+    idBg.update(req.body, req.user.id)
+    .then(data=>{
+      res.success(data);
+    })
+    .catch(error=>{
+      res.error(error);
+    })
+  }else{
+    let error = err.raise('UNAUTHORIZED');
+    logger.log('error', TAG + ACTION, error);
+    res.error(error);
+  }
+});
+
+router.delete('/:id/id-bg', mw.isAuthenticated, (req, res, next) => {
+  const ACTION = '[deleteId]';
+  logger.log('debug', TAG + ACTION, ' request parameters ', req.params);
+  logger.log('debug', TAG + ACTION, ' request body ', req.body);
+
+  if(parseInt(req.params.id) === req.user.id){
+    idBg.delete(req.user.id, req.body.id)
     .then(data=>{
       res.success(data);
     })
