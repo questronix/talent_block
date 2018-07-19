@@ -10,7 +10,7 @@
               <span class="signup-span">
                 Create a <strong>Talent Block</strong> account to enroll to courses in 
                 just a few clicks and pay without waiting in line.
-                Already have a Talent Block account?<a class="linkg" href=#login>Login here.</a>
+                Already have a Talent Block account?<a class="linking" href=#login>Login here.</a>
               </span>
               <br>
               <img src="/static/img/signupimg.svg" height="200px">
@@ -108,3 +108,17 @@ export default {
 }
 </script>
 
+<style>
+/******************sign up link**********************/
+.linking{
+  color:white;
+  text-decoration:underline;
+  
+}
+
+.linking:hover{
+  color:greenyellow;
+}
+
+
+</style>
