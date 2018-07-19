@@ -17,6 +17,12 @@
             </div>
             <div class="formsignup">
             <h4>Sign Up</h4>
+              <b-alert variant="danger"
+                dismissible
+                :show="alert"
+                @dismissed="alert=false">
+                {{ alertMsg }}
+              </b-alert>
               <b-form @submit.prevent="onSubmit">
                 <b-form-group>
                   <b-form-input 
@@ -45,15 +51,10 @@
                     required>
                   </b-form-input>
                 </b-form-group>
-                <b-form-group>
-                  <p>Captcha here</p>
-                </b-form-group>
-                <b-form-group>
-                  <b-button 
-                    type="submit" 
-                    variant="primary" 
-                    :block="true">Sign Up</b-button>
-                </b-form-group>
+                <b-button type="submit" variant="primary" :block="true" :disabled="isLoading">
+                  <div v-show="isLoading" class="lds-hourglass"></div>
+                  <div v-show="!isLoading">Sign Up</div>
+                </b-button>
               </b-form>
           </div>
           <div class="clearfix"></div>
@@ -78,6 +79,9 @@ export default {
         password: '',
         email: '',
       },
+      isLoading: false,
+      alert: false,
+      alertMsg: 'There\'s a problem wiht your request. Please try again.',
     };
   },
   components: {
@@ -85,14 +89,27 @@ export default {
   },
   methods: {
     onSubmit() {
-      axios.post('/signup', this.form)
+      this.isLoading = true;
+      this.alert = false;
+      axios.post('/signup/student', this.form)
         .then((response) => {
-          alert('Account successfully created. We sent you a verification in your email.')
+          this.isLoading = false;
+          window.location.href = '#/success';
         }).catch((err) => {
-          alert('Failed registration');
+          if (err.response.data) {
+            let errCode = err.response.data.details.code;
+            if (errCode === 'ER_DUP_ENTRY') {
+              this.alertMsg = "Username or Email is already taken.";
+            }
+          }
+          this.isLoading = false;
+          this.alert = true;
+        })
+        .then(() => {
+          this.isLoading = false;
         });
     }
-  },
+  },  
   computed: {
     isLoggedIn() {
       return this.$root.isLogged;

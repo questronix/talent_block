@@ -26,7 +26,8 @@
             <div class="heading-centered">
               <div class="heading-caption">
                 <h2>{{ heading }}</h2>
-                <button class="btn btn-primary">{{ linkCaption }}</button>
+                <b-button href="#/signup" v-if="!isLoggedIn" variant="primary">{{ linkCaption }}</b-button>
+                <b-button href="#/courses" v-if="isLoggedIn" variant="primary">Browse courses</b-button>
               </div>
             </div>
         </div>
@@ -49,7 +50,7 @@
             <ul>
               <div class="rightnav">
                 <li>
-                  <form action="" method="">
+                  <form @submit.prevent="onSearch">
                     <input class="form-control" type="text" name="search" placeholder="Search Courses">
                   </form>
                 </li>
@@ -79,7 +80,7 @@
         <ul>
           <div class="rightnav">
             <li>
-              <form action="" method="">
+              <form @submit.prevent="onSearch">
                 <input class="form-control" type="text" name="search" placeholder="Search Courses">
               </form>
             </li>
@@ -100,7 +101,6 @@ export default {
   props: ['type', 'heading', 'linkCaption', 'height', 'img'],
   data() {
     return {
-      isAuthenticated: false,
       navHeight: this.height,
       dashImg: this.img,
       search: '',
