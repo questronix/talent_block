@@ -8,7 +8,7 @@
     "nodemon": "npm run build-dev & nodemon server.js",
     "dev": "npm run build-prod & nodemon server.js",
     "build-prod": "NODE_ENV=production webpack --watch",
-    "build-dev": "NODE_ENV=development webpack --watch"
+    "build-dev": "NODE_ENV=development webpack --watch --hot"
   },
   "repository": {
     "type": "git",
@@ -44,6 +44,8 @@
     "redis": "^2.8.0",
     "vue": "^2.5.16",
     "vue-router": "^3.0.1",
+    "vuex": "^3.0.1",
+    "vuex-persistedstate": "^2.5.4",
     "winston": "^2.4.3"
   },
   "devDependencies": {
