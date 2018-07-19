@@ -5,7 +5,7 @@
     </div>
     <div slot="space"></div>
     <div slot="body">
-	<AccountStats />
+	<AccountStats :fn="profile.fn" :ln="profile.ln"/>
 	<div class="dashboard accountforms">
 		<b-container>
 
@@ -19,6 +19,25 @@
 						<p>617 Purok 6 Brgy. Nueva, San Pedro Laguna</p>
 						<p>Joined since <span>March 2, 2016</span></p>
 						<p>+64-9xx-xxxx-xxx</p>
+
+						<b-btn v-b-modal.profileModal>Update</b-btn>
+						<!-- Main UI -->
+						<!-- Modal Component -->
+						<b-modal id="profileModal" ok-only
+										ref="profileModal"
+										title="Submit your name" @ok="handleSubmit">
+							<form @submit.stop.prevent="handleSubmit">
+								<b-form-input type="text"
+									placeholder="Enter your first name"
+									v-model="profile.fn"></b-form-input>
+									<b-form-input type="text"
+									placeholder="Enter your last name"
+									v-model="profile.ln"></b-form-input>
+									<b-form-textarea type="text"
+									placeholder="Enter your address"
+									v-model="profile.address"></b-form-textarea>
+							</form>
+						</b-modal>
 					</div>
 				</b-col>
 
@@ -109,14 +128,68 @@
 import BaseLayout from '../../layouts/BaseLayout.vue';
 import NavBar from '../../components/NavBar/NavBar.vue';
 import AccountStats from '../../components/AccountStats/AccountStats.vue';
+// import StudentInfoModal from '../../components/Student/StudentInfoModal.vue';
+import axios from 'axios';
 
 export default {
-  name: 'dashboard',
+	name: 'dashboard',
+	data() {
+		return {
+			user: {},
+			profile: {},
+			needsUpdate: false,
+			form: {
+				firstName: '',
+				middleName: '',
+				lastName: '',
+				address: '',
+		},
+		};
+	},
   components: {
     BaseLayout,
-	NavBar,
-	AccountStats,
-  }
+		NavBar,
+		AccountStats,
+		// StudentInfoModal
+	},
+	methods: {
+		checkProfile() {
+			let id = 32;
+			this.profile.user_id = id;
+			axios.get(`/students/${id}`)
+				.then((response) => {
+					this.profile = response.data;
+				}).catch((err) => {
+					console.log(err);
+				})
+				.then(() => {
+					if (!this.profile.id) {
+						this.$refs.profileModal.show();
+					}
+				});
+		},
+		handleSubmit() {
+			axios.post('/students', this.profile)
+				.then((response) => {
+					console.log(response);
+					needsUpdate = false;
+				}).catch((err) => {
+					console.log(err);
+				});
+		}
+	},
+	mounted() {
+		this.checkProfile();
+
+	},
+	computed: {
+		hasProfile() {
+			if (!this.profile.id) {
+				this.$refs.profileModal.show();
+			}
+			// return false;
+		}
+	},
 }
 </script>
 

@@ -23,7 +23,7 @@ router.get('/', mw.isAuthenticated, (req, res)=>{
 });
 
 /* get one student */
-router.get('/:id', mw.isAuthenticated, (req, res)=>{
+router.get('/:id', (req, res)=>{
   const ACTION = '[getStudent]';
   logger.log('debug', TAG + ACTION + ' request parameters', req.params);
   student.getProfile(req.params.id)
@@ -35,7 +35,7 @@ router.get('/:id', mw.isAuthenticated, (req, res)=>{
   });
 });
 
-router.post('/', mw.isAuthenticated, (req, res)=>{
+router.post('/', (req, res)=>{
   const ACTION = '[postStudent]';
   logger.log('debug', TAG + ACTION + ' request parameters', req.body);
   student.add(req.body)
