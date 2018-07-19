@@ -54,7 +54,8 @@ const routes = [
   {
     name: 'dashboard',
     path: '/dashboard',
-    component: Dashboard
+    component: Dashboard,
+    meta: { requiresAuth: true }
   },
   {
     name: 'settings',

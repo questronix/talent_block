@@ -200,7 +200,10 @@ export default {
   },
   beforeMount(){
     this.getUnits()
-  }
+  },
+  // beforeCreate() {
+  //   alert('before create');
+  // },
 }
 </script>
 
