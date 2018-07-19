@@ -1,6 +1,7 @@
 const nodemailer = require('nodemailer');
 const Errors = require('./Errors');
 const Logger = require('./Logger');
+const fs = require('fs');
 
 const TAG = '[MAILER]';
 
@@ -10,21 +11,15 @@ const appEnv = cfenv.getAppEnv();
 const templates = {
   VERIFY_EMAIL : {
     subject: `Welcome to Talent Block $name!`,
-    html: `Hello, <br>
-    Thank you for registering in our app. You can activate your account by clicking this <a href="${appEnv.url}/verify/email/$token">link</a>. <br>
-    <br>
-    Regards, <br>
-    The Talent Block Team`
+    html: (name, token)=>{
+      return fs.readFileSync('../../../views/verify_email.html').replace(/$appEnv/g, appEnv.url).replace(/$token/g, token)
+    }
   },
   RESET_PASSWORD: {
     subject: `Reset your Password`,
-    html: `Hello, <br>
-    We’ve received a request to reset your password. <br>
-    If you didn’t make the request, just ignore this message. Otherwise, you can reset your password using this <a href="${appEnv.url}/reset/password/$token">link</a>. <br>
-    <br>
-    Thanks, <br>
-    The Talent Block Team
-    `
+    html: (name, token)=>{
+      return fs.readFileSync('../../../views/create_account_mail.html').replace(/$appEnv/g, appEnv.url).replace(/$token/g, token)
+    }
   }
 };
 
@@ -44,7 +39,7 @@ function sendEmail(to, template, data){
     from: process.env.MAILER_USER, // sender address
     to: to, // list of receivers
     subject: tmp.subject.replace(/\$name/gi, data.name), // Subject line
-    html: tmp.html.replace(/\$token/gi, data.token)// plain text body
+    html: tmp.html(name, data.token)// plain text body
   };
   console.log('MAILOPTIONS', mailOptions);
   Logger.log('info', `${TAG}${ACTION} - mailOptions`, mailOptions);
