@@ -43,17 +43,89 @@
 						<p><img src="/static/img/address.svg" height="24" width="24"> <!--address here --></p> 
 						 <p><img src="/static/img/calendar.svg" height="24" width="24"> Joined since <span><!-- join date --></span></p>
 						<p><img src="/static/img/mobile.svg" height="24" width="24"> <!--  number here --></p> 
+						<button id="show-modal" @click="showModal = true">Show Modal</button>
 					</div>
 				</b-col>
 
 				<div class="col scheds">
-					 <div v-if="student"> <!-- condition -->
+					<div class="sched-calendar padded-white stud-bg">
+						<div class="bg-student">
+							<h4>Educational Background</h4><button class="btn add">Add</button>
+							<hr>
+							<div class="stud-bg-content">
+								<b-row>
+								<button class="btn update btn-sm">Update</button>
+								</b-row>
+								<b-row class="stud-bg-row">
+									<b-col>
+										School:
+									</b-col>
+									<b-col>
+										CNSC
+									</b-col>
+								</b-row>				
+							</div>
+						</div>
+						<div class="bg-student">
+							<h4>Occupation Background</h4><button  class="btn add">Add</button>
+							<hr>
+							<div class="stud-bg-content">
+								<b-row>
+									<button class="btn update btn-sm">Update</button>
+									</b-row>
+									<b-row class="stud-bg-row">
+										<b-col>
+											Position
+										</b-col>
+										<b-col>
+											Web Developer
+										</b-col>
+									</b-row>
+							</div>
+						</div>
+						<div class="bg-student">
+							<h4>IDs</h4><button class="btn add">Add</button>
+							<hr>
+							<div class="stud-bg-content">
+								<b-row>
+								<button class="btn update btn-sm">Update</button>
+								</b-row>
+								<b-row class="stud-bg-row">
+									<b-col>
+										ID:
+									</b-col>
+									<b-col>
+										SSS ID
+									</b-col>
+								</b-row>
+							</div>
+						</div>
+						<div class="bg-student">
+							<h4>Family Background</h4><button class="btn add">Add</button>
+							<hr>
+							<div class="stud-bg-content">
+								<b-row>
+								<button class="btn update btn-sm">Update</button>
+								</b-row>
+								<b-row class="stud-bg-row">
+									<b-col>
+										Father's Name:
+									</b-col>
+									<b-col>
+										Juan Dela Cruz
+									</b-col>
+								</b-row>
+							</div>
+						</div>
+					</div>
+
+					 <!-- <div v-if="student">
 						<DashboardCotent />
-						
+					
 					</div>
 					<div v-else>
 						<Modal/>
-					</div>
+					</div> -->
 		
 				</div>
 			</b-row>			
@@ -150,5 +222,30 @@ export default {
 	color: white;
 	padding: 10px;
 	border-radius: 10px;
+}
+
+.stud-bg {
+	position: relative;
+}
+
+.stud-bg h4, .stud-bg button{
+	display: inline;
+}
+
+.btn.add {
+	right: 40px;
+	position: absolute;
+}
+
+.btn.update {
+	text-align: right;
+}
+
+.stud-bg-content {
+	padding: 10px;
+}
+
+.stud-bg-row {
+	margin-bottom: 5px;
 }
 </style>
