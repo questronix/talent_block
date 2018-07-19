@@ -10,8 +10,9 @@ const session = require('../Common/middleware/Session');
 
 router.get('/', (req, res, next)=>{
   var ACTION = '[index]';
-  logger.log('info', TAG + ACTION)
-  res.render('index');
+  let user = req.session.user;
+  logger.log('info', TAG + ACTION);
+  res.render('index', { user: user });
 });
 
 router.post('/logout', session.destroy , (req, res, next)=>{
