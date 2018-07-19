@@ -20,19 +20,16 @@ module.exports.findAll = () => {
   });
 };
 
-module.exports.find = (id) => {
+module.exports.getProfile = (id) => {
   const ACTION = '[find]';
   logger.log('info', `${TAG}${ACTION}`, { id });
+
   return new Promise((resolve, reject)=>{
-    db.execute(` SELECT * FROM student WHERE id = ?`, [id])
+    db.execute(` SELECT fn, ln, mn, address FROM student WHERE user_id = ?`, [id])
       .then((data) => {
         if (data.length > 0 ) {
-          resolve({
-            status: 200,
-            student: data
-          });
-        }
-        else {
+          resolve(data);
+        } else {
           let error = err.raise('NOT_FOUND');
           logger.log('error', TAG+ACTION, error);
           reject(err.raise('NOT_FOUND'));
