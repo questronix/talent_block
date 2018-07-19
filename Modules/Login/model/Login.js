@@ -30,6 +30,9 @@ module.exports.authenticateStudent = (username, password)=>{
       }else{
         reject(err.raise('UNAUTHORIZED'));
       }
+      else {
+        reject(err.raise('INVALID_CREDENTIALS'));
+      }
     })
     .catch(error=>{
       logger.log('error', TAG + ACTION, error);
@@ -62,6 +65,9 @@ module.exports.authenticateSchool = (username, password)=>{
           reject(err.raise('UNAUTHORIZED'));
         });
       }
+      else {
+        reject(err.raise('INVALID_CREDENTIALS'));
+      }
     })
     .catch(error=>{
       logger.log('error', TAG + ACTION, error);
@@ -93,6 +99,9 @@ module.exports.authenticateAdmin = (username, password)=>{
         }).catch(error=>{
           reject(err.raise('UNAUTHORIZED'));
         });
+      }
+      else {
+        reject(err.raise('INVALID_CREDENTIALS'));
       }
     })
     .catch(error=>{

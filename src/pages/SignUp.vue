@@ -92,6 +92,18 @@ export default {
           alert('Failed registration');
         });
     }
+  },
+  computed: {
+    isLoggedIn() {
+      return this.$root.isLogged;
+    }
+  },
+  beforeRouteEnter(to, from, next) {
+    next(vm => {
+      if (vm.isLoggedIn) {
+        window.location.href = `#${from.path}`;
+      }
+    });
   }
 }
 </script>

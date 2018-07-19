@@ -54,9 +54,6 @@
 // FIXME: Please fix keepSignIn bug.
 import BaseLayout from '../layouts/BaseLayout.vue';
 import axios from 'axios';
-import auth from '../modules/services/auth.js';
-
-console.log(auth.getName());
 
 export default {
   name: 'loginPage',
@@ -81,8 +78,9 @@ export default {
       axios.post('/login', this.form)
         .then((response) => {
           this.isLoading = false;
-          let user = response.data.user;
-          alert(`Welcome back ${user.username}!`);
+          let user = response.data;
+          this.$store.commit('SET_USER', user);
+          window.location.href = '/';
         })
         .catch((err) => {
           this.isLoading = false;
@@ -91,7 +89,19 @@ export default {
         .then(() => {
           this.isLoading = false;
         });
+    },
+  },
+  computed: {
+    isLoggedIn() {
+      return this.$root.isLogged;
     }
+  },
+  beforeRouteEnter(to, from, next) {
+    next(vm => {
+      if (vm.isLoggedIn) {
+        window.location.href = `#${from.path}`;
+      }
+    });
   }
 }
 </script>
