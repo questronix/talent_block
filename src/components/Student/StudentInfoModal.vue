@@ -7,6 +7,7 @@
              ref="studentInfoModal"
              title="Welcome to Talentblock!"
 			 size="lg"
+             ok-title="Submit"
 			 @ok="onOk"
 			 @cancel="onCancel">
 		<p class="text-primary" >Please fill out the form below.</p>
@@ -71,7 +72,7 @@ export default {
 		// Prevent modal from closing
 		// evt.preventDefault()
 		
-		alert(JSON.stringify(this.form));
+		// alert(JSON.stringify(this.form));
 		console.log(this.form);
 		this.$refs.studentInfoModal.hide()
 		// this.onCancel(); 
