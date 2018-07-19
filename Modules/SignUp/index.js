@@ -42,7 +42,7 @@ router.post('/student', (req, res, next) => {
     }]
   },function(err, result){
     if(err){
-      res.error(Errors.raise('INTERNAL_SERVER_ERROR', err));
+      res.error(err);
     }
     res.success(result.create);
   });
