@@ -3,7 +3,7 @@ const logger = require('../services/Logger');
 
 let TAG = 'JWT';
 const JWT = function(payload){
-  this.payload = payload;
+  this.payload = payload || {};
   this.secret = process.env.JWT_SECRET;
   this.options = {
     expiresIn: '24h'

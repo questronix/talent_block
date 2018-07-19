@@ -116,7 +116,7 @@ a:hover{
 
 .features {
   padding: 20px;
-  background: linear-gradient(to right, #9fcc4a, #4a74cc);
+  background: linear-gradient(to right, #f, #4a74cc);
   font-size: 80%;
   text-align: center;
   color: white;
@@ -355,7 +355,7 @@ height: 110px;
 }
 .course-outline {
   height: 370px;
-  background-image: url("/static/img/coursebg.png");
+  /* background-image: url("/static/img/coursebg.png"); */
   background-repeat: no-repeat;
   background-size: cover;
   padding: 110px 40px;
@@ -939,8 +939,9 @@ height: 110px;
 .page-title {
 	height: 300px;
 	background-color: green;
-	position: relative;
+  position: relative;
 }
+
 
 .title-centered {
 	height: 100%;

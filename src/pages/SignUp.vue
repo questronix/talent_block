@@ -6,15 +6,16 @@
         <div class="signupcontainer">
           <div class="signupform">
             <div class="singupcontent">
+              <h5><strong>CHOOSE. PAY. LEARN.</strong></h5>
               <span class="signup-span">
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
-    Suspendisse id venenatis nibh, a porttitor libero.
+                Create a <strong>Talent Block</strong> account to enroll to courses in 
+                just a few clicks and pay without waiting in line.
+                Already have a Talent Block account?<a class="linkg" href=#login>Login here.</a>
               </span>
               <br>
               <img src="/static/img/signupimg.svg" height="200px">
             </div>
             <div class="formsignup">
-            
             <h4>Sign Up</h4>
               <b-form @submit.prevent="onSubmit">
                 <b-form-group>
@@ -22,7 +23,8 @@
                     id="username" 
                     type="text" 
                     v-model="form.username" 
-                    placeholder="Username">
+                    placeholder="Username"
+                    required>
                   </b-form-input>
                 </b-form-group>
                 <b-form-group>
@@ -30,14 +32,8 @@
                     id="email" 
                     type="email" 
                     v-model="form.email" 
-                    placeholder="Email">
-                  </b-form-input>
-                </b-form-group>
-                <b-form-group>
-                  <b-form-input 
-                    id="mobile" type="text" 
-                    v-model="form.mobile_no" 
-                    placeholder="Mobile No.">
+                    placeholder="Email"
+                    required>
                   </b-form-input>
                 </b-form-group>
                 <b-form-group>
@@ -45,7 +41,8 @@
                     id="password" 
                     type="password" 
                     v-model="form.password" 
-                    placeholder="Password">
+                    placeholder="Password"
+                    required>
                   </b-form-input>
                 </b-form-group>
                 <b-form-group>
@@ -58,20 +55,6 @@
                     :block="true">Sign Up</b-button>
                 </b-form-group>
               </b-form>
-              <!-- <form >
-                <input class="form-control" type="text" name="username" placeholder="Username">
-                <br>
-                <input class="form-control" type="email" name="email" placeholder="Email">
-                <br>
-                <input class="form-control" type="text" name="mobileno" placeholder="Mobile No.">
-                <br>
-                <input class="form-control" type="password" name="password" placeholder="Password">
-                <br>
-                <div class="capcha">Capcha here</div>
-                <br>
-                <button class="btn primary signupbtn">Sign up</button>
-                <p>By signing up, you agree to our <a href="">Terms of Use</a> and <a href="">Privacy Policy.</a></p>
-              </form> -->
           </div>
           <div class="clearfix"></div>
         </div>
@@ -94,8 +77,6 @@ export default {
         username: '',
         password: '',
         email: '',
-        mobile_no: '',
-        type: 'TYPE_USER'
       },
     };
   },
@@ -111,6 +92,18 @@ export default {
           alert('Failed registration');
         });
     }
+  },
+  computed: {
+    isLoggedIn() {
+      return this.$root.isLogged;
+    }
+  },
+  beforeRouteEnter(to, from, next) {
+    next(vm => {
+      if (vm.isLoggedIn) {
+        window.location.href = `#${from.path}`;
+      }
+    });
   }
 }
 </script>

@@ -113,6 +113,11 @@ export default {
     onSearch() {
       alert(this.search);
     }
+  },
+  computed: {
+    isLoggedIn() {
+      return this.$root.isLogged;
+    }
   }
 }
 </script>
