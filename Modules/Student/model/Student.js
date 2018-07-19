@@ -25,10 +25,10 @@ module.exports.getProfile = (id) => {
   logger.log('info', `${TAG}${ACTION}`, { id });
 
   return new Promise((resolve, reject)=>{
-    db.execute(` SELECT fn, ln, mn, address FROM student WHERE user_id = ?`, [id])
+    db.execute(` SELECT user_id, fn, ln, mn, address FROM student WHERE user_id = ?`, [id])
       .then((data) => {
         if (data.length > 0 ) {
-          resolve(data);
+          resolve(data[0]);
         } else {
           let error = err.raise('NOT_FOUND');
           logger.log('error', TAG+ACTION, error);

@@ -7,6 +7,7 @@
 
 		<!-- PROFILE NAME -->
 		<div class="profile-name">
+			<h3>{{ fn }} {{ ln }}</h3>
 			 <h3></h3> <!-- student name -->
 		</div>
 
@@ -30,3 +31,13 @@
 		</div>
 	</div>
 </template>
+
+<script>
+export default {
+	name: 'AccountStats',
+	props: {
+		fn: String,
+		ln: String,
+	}
+}
+</script>

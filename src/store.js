@@ -7,9 +7,16 @@ Vue.use(Vuex);
 export default new Vuex.Store({
   state: {
     user: {},
+    profile: {},
     count: 0
   },
   getters: {
+    getProfile: (state) => {
+      return state.profile;
+    },
+    getUser: (state) => {
+      return state.user;
+    },
     getCount: (state) => {
       return state.count;
     }

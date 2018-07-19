@@ -10,7 +10,7 @@
              ok-title="Submit"
 			 @ok="onOk"
 			 @cancel="onCancel">
-		<p class="text-primary" >Please fill out the form below.</p>
+		<p class="text-primary" >Please update your profile.</p>
     	<form>
 			<b-form-group id="firstNameGroup"
 						  label="First name">
@@ -81,7 +81,7 @@ export default {
       this.form.firstName = '';
       this.form.middleName = '';
       this.form.lastName = '';
-	  this.form.address = '';
+	  	this.form.address = '';
 	  
     }
   }
