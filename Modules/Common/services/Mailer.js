@@ -20,7 +20,7 @@ const templates = {
     subject: `Reset your Password`,
     html: `Hello, <br>
     We’ve received a request to reset your password. <br>
-    If you didn’t make the request, just ignore this message. Otherwise, you can reset your password using this <a href="${appEnv.url}/verify/email/$token">link</a>. <br>
+    If you didn’t make the request, just ignore this message. Otherwise, you can reset your password using this <a href="${appEnv.url}/reset/password/$token">link</a>. <br>
     <br>
     Thanks, <br>
     The Talent Block Team
