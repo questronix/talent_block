@@ -4,13 +4,6 @@
       
       <div class="container course-details" v-if="courses.length">
         <div class="course-content">
-          <center>
-            <span class="dot">1</span>
-            <span class="dot">2</span>
-            <span class="dot">3</span>
-            <span class="dot">4</span>
-            <span class="dot">5</span>
-          </center>
           <div class="course-outline" :style="{ 'background-image': 'url(' + courses[0].banner_img + ')' }">
             <div class="transparentdiv">
               <div class="course-info">
@@ -241,6 +234,7 @@ export default {
   name: 'coursePage',
   data: () => {
     return {  /*SAMPLE DATA for CardsPayment component*/
+      courses: [],
       cardsData: [
         {cardType: 'MasterCard', cardNumber: '5500-0000-0000-0004'},
         {cardType: 'Visa', cardNumber: '4111-1111-1111-1111'},
@@ -252,10 +246,6 @@ export default {
   components: {
     BaseLayout,
     CardsPayment
-  },data() {
-    return {
-      courses: []
-    }
   },
   methods:{
     getUnits: function() {
