@@ -58,17 +58,17 @@
             <div class="col-lg-4">
               <img src="/static/img/eye.svg">
               <h4>Virtual</h4>
-              <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+              <p>Take courses in any of your devices. Have more control with your time.</p>
             </div>
             <div class="col-lg-4">
               <img src="/static/img/classroom.svg">
               <h4>Classroom</h4>
-              <p>Cras faucibus gravida nisl, at pellentesque eros consequat quis.</p>
+              <p> Traditional learning type with peers of your same interest.</p>
             </div>
             <div class="col-lg-4">
               <img src="/static/img/talking.svg">
               <h4>One-on-one</h4>
-              <p>Phasellus rutrum odio dapibus molestie commodo. </p>
+              <p>Engage in a more flexible and focused discussion.</p>
             </div>
           </div>
         </div>
