@@ -3,6 +3,7 @@
     <div slot="header">
       <NavBar type="dashboard" heading="Dashboard" img="url('/static/img/bg2.png')"/>
     </div>
+		
     <div slot="space"></div>
     <div slot="body">
 	<AccountStats :fn="profile.fn" :ln="profile.ln"/>
@@ -38,84 +39,22 @@
 									v-model="profile.address"></b-form-textarea>
 							</form>
 						</b-modal>
+						<p><img src="/static/img/msg.svg" height="24" width="24"> <!-- email here --></p> 
+						<p><img src="/static/img/address.svg" height="24" width="24"> <!--address here --></p> 
+						 <p><img src="/static/img/calendar.svg" height="24" width="24"> Joined since <span><!-- join date --></span></p>
+						<p><img src="/static/img/mobile.svg" height="24" width="24"> <!--  number here --></p> 
 					</div>
 				</b-col>
 
 				<div class="col scheds">
-					<h4 class="h4-centered">My Schedule</h4>
-					
-					<div class="sched-calendar padded-white">
+					 <div v-if="student"> <!-- condition -->
+						<DashboardCotent />
 						
 					</div>
-					<h4 class="h4-centered">Currently Enrolled Subjects</h4>
-					<div class="cur-enrld-sub padded-white">
-					
-						<h4>Fundamentals of UI/UX design</h4>
-						<div class="row">
-							<div class="col">
-								<p>at Polytechnic University of the Philippines</p>
-							</div>
-
-							<div class="col">
-								Enrolled since: July 30, 2018
-							</div>
-
-							<div class="col">
-								Certificate: Not available
-							</div>
-						</div>
-						
+					<div v-else>
+						<Modal/>
 					</div>
-					<div class="completed-sub">
-						<h4 class="h4-centered">Completed Subjects</h4>
-						<div class="padded-white">
-							<div class="completed-sub-detail">
-								<h4>Node JS: Getting Started</h4>
-								<b-row>
-									<b-col>
-										<p>at Polytechnic University of the Philippines</p>
-									</b-col>
-									<b-col>
-										<p>Enrolled since: July 30, 2018</p>
-									</b-col>
-									<b-col>
-										<p>Certificate:</p>
-									</b-col>
-								</b-row>
-							</div>
-
-							<div class="completed-sub-detail">
-								<h4>Node JS: Getting Started</h4>
-								<b-row>
-									<b-col>
-										<p>at Polytechnic University of the Philippines</p>
-									</b-col>
-									<b-col>
-										<p>Enrolled since: July 30, 2018</p>
-									</b-col>
-									<b-col>
-										<p>Certificate:</p>
-									</b-col>
-								</b-row>
-							</div>
-
-							<div class="completed-sub-detail">
-								<h4>Node JS: Getting Started</h4>
-								<b-row>
-									<b-col>
-										<p>at Polytechnic University of the Philippines</p>
-									</b-col>
-									<b-col>
-										<p>Enrolled since: July 30, 2018</p>
-									</b-col>
-									<b-col>
-										<p>Certificate:</p>
-									</b-col>
-								</b-row>
-							
-							</div>
-						</div>
-					</div>
+		
 				</div>
 			</b-row>			
 		</b-container>
@@ -128,8 +67,13 @@
 import BaseLayout from '../../layouts/BaseLayout.vue';
 import NavBar from '../../components/NavBar/NavBar.vue';
 import AccountStats from '../../components/AccountStats/AccountStats.vue';
+
 // import StudentInfoModal from '../../components/Student/StudentInfoModal.vue';
 import axios from 'axios';
+
+import DashboardCotent from '../../components/Dashboard/DashboardContent.vue';
+import Modal from '../../components/Student/StudentInfoModal.vue';
+
 
 export default {
 	name: 'dashboard',
@@ -147,6 +91,7 @@ export default {
 		};
 	},
   components: {
+
     BaseLayout,
 		NavBar,
 		AccountStats,
@@ -190,6 +135,12 @@ export default {
 			// return false;
 		}
 	},
+  BaseLayout,
+	NavBar,
+	AccountStats,
+	DashboardCotent,
+	Modal
+  }
 }
 </script>
 
