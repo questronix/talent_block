@@ -10,11 +10,9 @@ const appEnv = cfenv.getAppEnv();
 const templates = {
   VERIFY_EMAIL : {
     subject: `Welcome to Talent Block $name!`,
-    html: `Hello, <br>
-    Thank you for registering in our app. You can activate your account by clicking this <a href="${appEnv.url}/verify/email/$token">link</a>. <br>
-    <br>
-    Regards, <br>
-    The Talent Block Team`
+    html: (name, token) => {
+      return fs.readFileSync('../../../views/resetPassword.html').replace(/$appEnv/g, appEnv.url).replace(/$token/g, token).replace(/$name/g, name);
+    }  
   },
   RESET_PASSWORD: {
     subject: `Reset your Password`,
@@ -44,7 +42,7 @@ function sendEmail(to, template, data){
     from: process.env.MAILER_USER, // sender address
     to: to, // list of receivers
     subject: tmp.subject.replace(/\$name/gi, data.name), // Subject line
-    html: tmp.html.replace(/\$token/gi, data.token)// plain text body
+    html: tmp.html(data.name, data.token)// plain text body
   };
   console.log('MAILOPTIONS', mailOptions);
   Logger.log('info', `${TAG}${ACTION} - mailOptions`, mailOptions);
