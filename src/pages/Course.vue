@@ -2,7 +2,7 @@
   <base-layout>
     <div slot="body">
       
-      <div class="container course-details">
+      <div class="container course-details" v-if="courses.length">
         <div class="course-content">
           <center>
             <span class="dot">1</span>
@@ -11,18 +11,18 @@
             <span class="dot">4</span>
             <span class="dot">5</span>
           </center>
-          <div class="course-outline">
+          <div class="course-outline" :style="{ 'background-image': 'url(' + courses[0].banner_img + ')' }">
             <div class="transparentdiv">
               <div class="course-info">
                 <div style="width: 50%;">
-                  <h4>Be a professional backend programmer in hours</h4>
+                  <h4>{{courses[0].name}}</h4>
                   <input type="radio" name="">
                   <input type="radio" name="">
                   <input type="radio" name="">
                   <input type="radio" name="">
                   <input type="radio" name="">
                   <span>by Jay Tacdoro</span>
-                  <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce tincidunt finibus orci dictum consequat. </p>
+                  <p>{{courses[0].short_desc}}</p>
                 </div>
                 <button class="btn btn-primary">Continue with your course</button><button class="btn trans-bordered">Write a review</button>
               </div>
@@ -48,7 +48,7 @@
             <div class="tab-pane fade show active" id="description" role="tabpanel" aria-labelledby="description-tab">
               <div class="card">
                 <div class="card-body">
-                  <span>The AP English Literature and Composition course is intended to give you the experience of a typical introductory college literature course. It includes intensive study of representative works from various genres, periods, and cultures, concentrating on works of recognized literary merit.</span>
+                  <span>{{courses[0].full_desc}}</span>
                 </div>
               </div>
             </div>
@@ -199,6 +199,7 @@
 
 <script>  
 import BaseLayout from '../layouts/BaseLayout.vue';
+import axios from 'axios';
 
 $(function () {
   $('#myTab li:last-child a').tab('show')
@@ -208,6 +209,25 @@ export default {
   name: 'coursePage',
   components: {
     BaseLayout,
+  },data() {
+    return {
+      courses: []
+    }
+  },
+  methods:{
+    getUnits: function() {
+      axios.get('/courses/' + this.$route.query.id)
+      .then((response) => {
+        this.courses = response.data.course
+        console.log(response.data)
+      }).catch((err) => {
+        console.log('x')
+      });
+    }
+  },
+ 
+  beforeMount(){
+    this.getUnits()
   }
 }
 </script>

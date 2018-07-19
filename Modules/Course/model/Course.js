@@ -6,6 +6,50 @@ const logger  = require('../../Common/services/Logger');
 
 const async   = require('async');
 
+
+module.exports.findAll = () => {
+  const ACTION = '[findAll]';
+  logger.log('info', `${TAG}${ACTION}`);
+  return new Promise((resolve, reject)=>{
+    // temp for home and courses page to display courselist
+    db.execute(`SELECT * FROM course ORDER BY name ASC`)
+      .then((data) => {
+        resolve({
+          status: 200,
+          course: data
+        });
+      }).catch((err) => {
+        logger.log('error', TAG+ACTION, err);
+        reject(err.raise('INTERNAL_SERVER_ERROR', err));
+      });
+  });
+};
+
+//temporary for course page to display course info
+module.exports.find = (id) => {
+  const ACTION = '[find]';
+  logger.log('info', `${TAG}${ACTION}`, { id });
+  return new Promise((resolve, reject)=>{
+    db.execute(` SELECT * FROM course WHERE id = ?`, [id])
+      .then((data) => {
+        if (data.length > 0 ) {
+          resolve({
+            status: 200,
+            course: data
+          });
+        }
+        else {
+          let error = err.raise('NOT_FOUND');
+          logger.log('error', TAG+ACTION, error);
+          reject(err.raise('NOT_FOUND'));
+        }
+      }).catch((err) => {
+        logger.log('error', TAG+ACTION, err);
+        reject(err.raise('INTERNAL_SERVER_ERROR', err));
+      });
+  });
+};
+
 exports.newCourse = (data)=>{
   const ACTION = '[newCourse]'
 
