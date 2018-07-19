@@ -295,7 +295,8 @@ export default {
   text-align: justify;
   color: #000;
 }
-.card-body  span {
+.card-body span {
+
   align-content: justify;
   font-size: 1.25em;
   letter-spacing: 2px;
