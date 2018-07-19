@@ -35,6 +35,7 @@ router.get('/:id', mw.isAuthenticated, (req, res)=>{
   });
 });
 
+/* create student profile */
 router.post('/', mw.isAuthenticated, (req, res)=>{
   const ACTION = '[postStudent]';
   logger.log('debug', TAG + ACTION + ' request parameters', req.body);
@@ -47,6 +48,7 @@ router.post('/', mw.isAuthenticated, (req, res)=>{
   });
 });
 
+/* edit student profile */
 router.put('/:id', mw.isAuthenticated, (req, res)=>{
   const ACTION = '[putUpdateStudent]';
   logger.log('debug', TAG + ACTION + ' request parameters', req.body);
@@ -65,6 +67,7 @@ router.put('/:id', mw.isAuthenticated, (req, res)=>{
   }
 });
 
+/* delete student profile */
 router.delete('/:id', mw.isAuthenticated, (req, res)=>{
   const ACTION = '[deleteStudent]';
   logger.log('debug', TAG + ACTION + ' request parameters', req.params);
@@ -77,7 +80,7 @@ router.delete('/:id', mw.isAuthenticated, (req, res)=>{
   });
 });
 
-router.get('/:id/family-background', (req, res, next) => {
+router.get('/:id/family-background', mw.isAuthenticated, (req, res, next) => {
   const ACTION = '[getFamilyBackground]';
   logger.log('debug', TAG + ACTION, ' request parameters ', req.params);
 
