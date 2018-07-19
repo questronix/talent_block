@@ -9,13 +9,13 @@ const Token = require('../Common/model/Token');
 const Errors = require('../Common/services/Errors');
 
 
-router.post('/', (req, res, next) => {
+router.post('/student', (req, res, next) => {
   const ACTION = '[postSignUp]';
   logger.log('debug', TAG + ACTION, ' request body', req.body);
   
   async.auto({
     create: function(callback){
-      signUp.register(req.body)
+      signUp.registerStudent(req.body)
       .then(data => {
         callback(null, data)
       }).catch((err) => {
@@ -23,7 +23,6 @@ router.post('/', (req, res, next) => {
       });
     },
     token: ['create', function(result, callback){
-      console.log('Token', result);
       Token.createVerifyEmail(result.create.id, result.create).then(data=>{
         callback(null, data);
       }).catch(error=>{
