@@ -9,7 +9,7 @@ module.exports.authenticateStudent = (username, password)=>{
   logger.log('info', `${TAG}${ACTION}`, {username, password});
   return new Promise((resolve, reject)=>{
     //Find user name first
-    db.execute(`SELECT * FROM user WHERE username = ? and status = 1 and role = 1`, [username])
+    db.execute(`SELECT * FROM user WHERE (username = ? OR email = ?) and status = 1 and role = 1`, [username, username])
     .then(data=>{
       //if username found in db
       if(data.length > 0){
@@ -27,6 +27,11 @@ module.exports.authenticateStudent = (username, password)=>{
         }).catch(error=>{
           reject(err.raise('UNAUTHORIZED'));
         });
+      }else{
+        reject(err.raise('UNAUTHORIZED'));
+      }
+      else {
+        reject(err.raise('INVALID_CREDENTIALS'));
       }
     })
     .catch(error=>{
@@ -60,6 +65,9 @@ module.exports.authenticateSchool = (username, password)=>{
           reject(err.raise('UNAUTHORIZED'));
         });
       }
+      else {
+        reject(err.raise('INVALID_CREDENTIALS'));
+      }
     })
     .catch(error=>{
       logger.log('error', TAG + ACTION, error);
@@ -91,6 +99,9 @@ module.exports.authenticateAdmin = (username, password)=>{
         }).catch(error=>{
           reject(err.raise('UNAUTHORIZED'));
         });
+      }
+      else {
+        reject(err.raise('INVALID_CREDENTIALS'));
       }
     })
     .catch(error=>{

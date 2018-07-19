@@ -148,6 +148,7 @@ let course = require('./Modules/Course');
 let teacher = require('./Modules/Teacher');
 let occubg = require('./Modules/OccuBG');
 let schedule = require('./Modules/Schedule');
+let verify = require('./Modules/Tokens');
 
 app.use('/', home);
 app.use('/login', login);
@@ -161,5 +162,6 @@ app.use('/courses', course);
 app.use('/teacher', teacher);
 app.use('/occupation', occubg);
 app.use('/schedule', schedule);
+app.use('/verify', verify);
 
 module.exports = app;
