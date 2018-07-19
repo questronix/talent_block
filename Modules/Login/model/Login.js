@@ -27,8 +27,6 @@ module.exports.authenticateStudent = (username, password)=>{
         }).catch(error=>{
           reject(err.raise('UNAUTHORIZED'));
         });
-      }else{
-        reject(err.raise('UNAUTHORIZED'));
       }
       else {
         reject(err.raise('INVALID_CREDENTIALS'));
