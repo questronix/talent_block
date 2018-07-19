@@ -355,7 +355,7 @@ height: 110px;
 }
 .course-outline {
   height: 370px;
-  background-image: url("/static/img/coursebg.png");
+  /* background-image: url("/static/img/coursebg.png"); */
   background-repeat: no-repeat;
   background-size: cover;
   padding: 110px 40px;

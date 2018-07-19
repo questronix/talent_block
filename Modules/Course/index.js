@@ -22,6 +22,30 @@ const course  = require('./model/Course');
 // prereqs must be existing before adding it
 // course code must be unique per school
 
+ router.get('/', (req, res)=>{ //temporary for homepage, & courses page to display course list
+  const ACTION = '[getAllCourses]';
+  logger.log('debug', TAG + ACTION + ' request parameters', req.params);
+  course.findAll()
+  .then(data=>{
+    res.success(data);
+  })
+  .catch(error=>{
+    res.error(error);
+  });
+});
+
+router.get('/:id', (req, res)=>{//temporary for course page to display course info
+  const ACTION = '[getCourse]';
+  logger.log('debug', TAG + ACTION + ' request parameters', req.params);
+  course.find(req.params.id)
+  .then(data=>{
+    res.success(data);
+  })
+  .catch(error=>{
+    res.error(error);
+  });
+});
+
 router.post('/', /*mw.isAuthenticated,/*some middleware to verify admin*/
   (req,res)=>{
     const ACTION = '[createCourse]';
@@ -116,5 +140,7 @@ router.delete('/:course_id', /*mw.isAuthenticated,*/
     })
   }
 );
+
+
 
 module.exports = router;
