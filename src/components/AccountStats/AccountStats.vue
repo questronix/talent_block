@@ -7,23 +7,23 @@
 
 		<!-- PROFILE NAME -->
 		<div class="profile-name">
-			<h3>Jay Tacdoro</h3>
+			 <h3></h3> <!-- student name -->
 		</div>
 
       <div class="profile-stats">
 			<b-container>
 				<b-row>
 					<b-col>
-						<span>Certificates</span>
-						<h3>13</h3>
+						<span></span> <!-- Certificates -->
+						<h3></h3> <!-- number -->
 					</b-col>
 					<b-col>
-						<span>Lecture Finished</span>
-						<h3>23</h3>
+						<span></span> <!-- lecture Finished -->
+						<h3></h3> <!-- number -->
 					</b-col>
 					<b-col>
-						<span>Enrolled Course</span>
-						<h3>17</h3>
+						<span></span> <!-- Enrolled Course -->
+						<h3></h3> <!-- number -->
 					</b-col>
 				</b-row>
 			</b-container>
