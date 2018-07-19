@@ -6,7 +6,7 @@ const mw = require('../Common/middleware/Authentication');
 const logger = require('../Common/services/Logger');
 const profile = require('./model/Profile');
 
-router.get('/student/:user_id', (req, res)=>{
+router.get('/student/:user_id', mw.isAuthenticated, (req, res)=>{
   const ACTION = '[getStudentProfile]';
   logger.log('debug', TAG + ACTION + ' request parameters', req.params);
 
