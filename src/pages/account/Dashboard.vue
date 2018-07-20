@@ -89,24 +89,58 @@
 							</b-form-group>
 					</form>
 				</b-modal>
+
+				<b-modal id="educModal" ok-only
+								ref="educModal"
+								title="Educational Background" @ok="handleSubmit">
+					<form @submit.stop.prevent="handleSubmit">
+							<b-form-group
+								label="Enter School name:"
+								label-for="name"
+							>
+								<b-form-input 
+								id="name"
+								type="text"
+								placeholder="School Name"
+								v-model="educ.name"></b-form-input>
+							</b-form-group>
+
+							<b-form-group
+								label="Enter your course:"
+								label-for="course"
+							>
+							<b-form-input type="text"
+							id="course"
+							placeholder="Course"
+							v-model="educ.course"></b-form-input>
+							</b-form-group>
+
+							<b-form-group
+								label="Enter your address:"
+								label-for="address"
+							>
+							<b-form-textarea type="text"
+							id="address"
+							v-model="profile.address"></b-form-textarea>
+							</b-form-group>
+					</form>
+				</b-modal>
+
 				<div class="col scheds">
 					<div class="sched-calendar padded-white stud-bg">
 						<div class="bg-student">
-							<h4>Educational Background</h4><button class="btn add">Add</button>
+							<h4>Educational Background</h4><b-btn v-b-modal.educModal>ADD</b-btn>
 							<hr>
-							<div class="stud-bg-content">
-								<b-row>
-								<button class="btn update btn-sm">Update</button>
-								</b-row>
-								<b-row class="stud-bg-row">
-									<b-col>
-										School:
-									</b-col>
-									<b-col>
-										CNSC
-									</b-col>
-								</b-row>				
-							</div>
+							<p v-show="profile.educ.length == 0">Add educational background</p>
+							<ul class="list-unstyled" v-show="profile.educ.length > 0">
+								<b-media tag="li" v-for="educ in profile.educ" :key="educ.id">
+									<b-img slot="aside" blank blank-color="#abc" width="64" alt="placeholder" />
+									<h5 class="mt-0 mb-1">{{educ.name}}</h5>
+									<span>{{educ.course}}{{(educ.gpa)? ', GPA ' + educ.gpa : ''}}</span><br>
+									<span>{{ showEducYears(educ.start_date, educ.end_date) }}</span><br>
+									<span>{{educ.address}}</span><br>
+								</b-media>
+							</ul>
 						</div>
 						<div class="bg-student">
 							<h4>Occupation Background</h4><button  class="btn add">Add</button>
@@ -183,12 +217,24 @@ export default {
 	data() {
 		return {
 			user: this.$store.state.user || {},
+			educ: {
+				name: '',
+				start_date: null,
+				end_date: null,
+				gpa: null,
+				course: '',
+				type: '',
+				address: ''
+			},
 			profile: {
 				fn: '',
 				ln: '',
 				address: '',
 				mn: '',
-				contact_no: ''
+				contact_no: '',
+				educ: [],
+				ids: [],
+				fam: []
 			},
 			needsUpdate: false,
 			alert: {
@@ -206,6 +252,9 @@ export default {
 		// StudentInfoModal
 	},
 	methods: {
+		showEducYears: function(start_date, end_date){
+			return `${moment(start_date).format('YYYY')} - ${moment(end_date).format('YYYY')}`;
+		},
 		checkProfile() {
 			//by default user have session in the server
 			axios.get(`/students/me`)
@@ -224,12 +273,32 @@ export default {
 		onHide() {
 			if (this.needsUpdate) {
 				this.$root.$emit('bv::show::modal','profileModal');
-}																																																																														
+			}																																																																														
+		},
+		getEducationalBackground(){
+			axios.get(`/students/me`)
+			.then((response) => {
+				//if there is no record
+				this.profile = response.data;
+			}).catch((err) => {
+				console.log('Student Fetch' , err);
+				//if there is no record
+				if (!this.profile.id) {
+					this.$refs.profileModal.show();
+				}
+			});
 		},
 		handleSubmit() {
 			if(this.profile.user_id){
-				axios.put('/students', this.profile)
-				.then((response) => {																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																								
+				let body = {
+					fn : this.profile.fn,
+					ln : this.profile.ln,
+					mn : this.profile.mn,
+					contact_no : this.profile.contact_no,
+					address : this.profile.address
+				}
+				axios.put('/students', body)
+				.then((response) => {
 					console.log(response);
 					this.needsUpdate = false;
 					this.$toasted.success("Profile updated.");
@@ -241,8 +310,16 @@ export default {
 			}else{
 				this.profile.user_id = this.user.id;
 				axios.post('/students', this.profile)
+				let body = {
+					fn : this.profile.fn,
+					ln : this.profile.ln,
+					mn : this.profile.mn,
+					contact_no : this.profile.contact_no,
+					address : this.profile.address
+				}
+				axios.post('/students', body)
 				.then((response) => {
-					console.log(response);
+					this.checkProfile();
 					this.needsUpdate = false;
 					this.$toasted.success("Profile updated.");
 				}).catch((err) => {
@@ -254,7 +331,6 @@ export default {
 		}
 	},
 	mounted() {
-		console.log('Profile', this.$store.getters.getUser);
 		this.checkProfile();
 	},
 	computed: {
@@ -263,7 +339,7 @@ export default {
 		},
 		showJoinedDate(){
 			return moment(this.user.createdAt).format('YYYY-MM-DD');
-		}
+		},
 	},
 	created() {
 		this.$toasted.show(`Hi ${this.user.username}, Welcome back!`);
