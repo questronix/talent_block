@@ -246,6 +246,7 @@ export default {
 		}
 	},
 	mounted() {
+		console.log('Profile', this.$store.getters.getUser());
 		this.checkProfile();
 
 	},
