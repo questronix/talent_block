@@ -11,17 +11,16 @@
                 width: 100%;
                 height: auto;
                 font-family: 'Lato', sans-serif;
+                color: #fff;
             }
             div {
                 width: 500px;
-                height: 500px;
+                height: 260px;
                 background-color: #4A74CC;
-
                 position: absolute;
                 top:0;
                 left: 0;
                 right: 0;
-
                 margin: auto;
             }
             header {
@@ -39,9 +38,9 @@
             }
             article {
                 padding: 20px 20px;
-                margin-left: 40px;
+                margin-left: 20px;
                 color: #fff;
-                font-size: 1.25em;
+                font-size: 1em;
             }
             a {
                 color: #fff;
@@ -58,9 +57,9 @@
 
             <article>
                 <br/>
-                Hello,
+                Hello $name,
                 <br/><br/>
-                Thank you for registering in our app. You can activate your account by clicking this <a href="${appEnv.url}/verify/email/$token">link</a>.
+                Thank you for registering in our app. You can activate your account by clicking this <a href="$appEnv.url/verify/email/$token">link</a>.
                 <br/><br/>
                 Regards,
                 <br/>
@@ -68,3 +67,4 @@
             </article>
         </div>
     </body>
+</html>
