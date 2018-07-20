@@ -7,18 +7,15 @@
     <div slot="body">
       
       <div class="courselist">
-        <div class="courses">
-          <h3><strong>We come in peace</strong></h3>
-          <span>Lorem ipsum dolor sit amet, consectetur adipisscing elit. 
-          Lorem ipsum dolor sit amet, consectetur adipisscing elit.
-          Lorem ipsum dolor sit amet, consectetur adipisscing elit.
-          Lorem ipsum dolor sit amet, consectetur adipisscing elit.
-          Lorem ipsum dolor sit amet, consectetur adipisscing elit.
-          Lorem ipsum dolor sit amet, consectetur adipisscing elit.
-          Lorem ipsum dolor sit amet, consectetur adipisscing elit.
-          Lorem ipsum dolor sit amet, consectetur adipisscing elit.
-          Lorem ipsum dolor sit amet, consectetur adipisscing elit.
-          Lorem ipsum dolor sit amet, consectetur adipisscing elit.</span>     
+        <div class="courses" style="width:70%">
+          <h3><strong>Build Future With Us</strong></h3>
+          <span class="content">
+          Talent Block is an online learning platform. 
+          An avenue to take the world’s best courses to improve job-related skills.
+          It is dedicated to gear up one’s competence through accessibility and
+          affordability of vast subjects to pick from. 
+          Step up your game to step up your name by signing up for free!
+          </span>     
 
         </div>
       </div>
@@ -47,13 +44,15 @@
           <div class="card mb-3" style="max-width: 20rem;">
             <div class="card-header " style="background-color:#4a74cc"><br/> <br/></div>
             <div class="card-body ">
-              <p class="card-text" >Some quick example text to build on the card title and make up the bulk of the card's content. 
-              Some quick example text to build on the card title and make up the bulk of the card's content.
-              Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+              <p class="card-text" >
+              Programming peeked my interest and I am planning to take Computer Science
+              in college. Since, I don't have that much background, I took some programming courses virtually
+              and I feel like I have the edge compared with my soon to be classmates.              
+              </p>
             </div>
             <div class="card-footer bg-transparent ">
-              <img class="profile1" src="/static/img/photo1.png"/>
-              <span> <strong>Simran Kaur </strong></span>
+              <img class="profile1" src="/static/img/photo3.png"/>
+              <span> <strong>Princess Mojica </strong></span>
             </div>
           </div>
 
@@ -61,13 +60,15 @@
           <div class="card mb-3" style="max-width: 20rem;">
             <div class="card-header " style="background-color:#4a74cc"><br/> <br/></div>
             <div class="card-body ">
-              <p class="card-text" >Some quick example text to build on the card title and make up the bulk of the card's content. 
-              Some quick example text to build on the card title and make up the bulk of the card's content.
-              Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+              <p class="card-text" >
+              I am really into designing but my degree program in my undergraduate school does not have such courses
+              in my curriculum that's why I am really glad when I found out about Talent Block because it offers courses with different
+              approaches such as virtual, classroom and one-on-one. 
+              </p>
             </div>
             <div class="card-footer bg-transparent ">
-              <img class="profile1" src="/static/img/photo1.png"/>
-              <span> <strong>Simran Kaur </strong></span>
+              <img class="profile1" src="/static/img/photo2.png"/>
+              <span> <strong>Daimler Matienzo </strong></span>
             </div>
           </div>
 
@@ -75,13 +76,15 @@
           <div class="card mb-3" style="max-width: 20rem;">
             <div class="card-header " style="background-color:#4a74cc"><br/> <br/></div>
             <div class="card-body ">
-              <p class="card-text" >Some quick example text to build on the card title and make up the bulk of the card's content. 
-              Some quick example text to build on the card title and make up the bulk of the card's content.
-              Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+              <p class="card-text" > A new platform that caters my needs and there is vast range of 
+              courses that I can pick from. I have already recommended Talent Block to my friends and they
+               love it as much as I do. This really helps a lot of people to improve their skills and 
+               learn a new one.
+              </p> 
             </div>
             <div class="card-footer bg-transparent ">
-              <img class="profile1" src="/static/img/photo1.png"/>
-              <span> <strong>Simran Kaur </strong></span>
+              <img class="profile1" src="/static/img/photo4.png"/>
+              <span> <strong>Paolo Panganiban </strong></span>
             </div>
           </div>
 
@@ -209,9 +212,10 @@ export default {
     align-items:center;
   }
   .page-about .page-title{
-    background-size:100%;
-    height:482px;
+    width:100%;
+    height:480px;
     background: url(/static/img/banner.png);
+    background-size:100%;
   }
 
 
@@ -236,6 +240,12 @@ export default {
     color:white;
     margin-top:5%;
   }
+.content{
+  margin-left:5%;
+}
 
+#about .courses {
+  width:63%;
+}
 
 </style>

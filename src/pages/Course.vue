@@ -4,13 +4,6 @@
       
       <div class="container course-details" v-if="courses.length">
         <div class="course-content">
-          <center>
-            <span class="dot">1</span>
-            <span class="dot">2</span>
-            <span class="dot">3</span>
-            <span class="dot">4</span>
-            <span class="dot">5</span>
-          </center>
           <div class="course-outline" :style="{ 'background-image': 'url(' + courses[0].banner_img + ')' }">
             <div class="transparentdiv">
               <div class="course-info">
@@ -224,23 +217,13 @@ import axios from 'axios';
 $(document).ready(function () {
   $('#myTab li:last-child a').tab('show')
   $('#paymentModal').modal('show')
-  // $('button').click(function(e){
-  //   e.preventDefault();
-  //   this.cardsData.forEach(function(data){
-  //     for(var i=0; i<data.cardNumber.length; i++){
-  //       if(i>5 && data.cardNumber[i] != '-')
-  //         data.cardNumber[i] = 'x';
-  //     }
-  //     console.log(`Card Number: $(data.cardNumber)`);
-  //     this.filteredData.push(data.cardNumber);
-  //   })
-  // })
 })
 
 export default {
   name: 'coursePage',
   data: () => {
     return {  /*SAMPLE DATA for CardsPayment component*/
+      courses: [],
       cardsData: [
         {cardType: 'MasterCard', cardNumber: '5500-0000-0000-0004'},
         {cardType: 'Visa', cardNumber: '4111-1111-1111-1111'},
@@ -252,19 +235,14 @@ export default {
   components: {
     BaseLayout,
     CardsPayment
-  },data() {
-    return {
-      courses: []
-    }
   },
   methods:{
     getUnits: function() {
       axios.get('/courses/' + this.$route.query.id)
       .then((response) => {
         this.courses = response.data.course
-        console.log(response.data)
       }).catch((err) => {
-        console.log('x')
+        console.log('Course error ', err)
       });
     }
   },
@@ -296,6 +274,7 @@ export default {
   color: #000;
 }
 .card-body span {
+
   align-content: justify;
   font-size: 1.25em;
   letter-spacing: 2px;

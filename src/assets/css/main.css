@@ -116,7 +116,7 @@ a:hover{
 
 .features {
   padding: 20px;
-  background: linear-gradient(to right, #f, #4a74cc);
+  background: linear-gradient(to right, #9FCC4A, #4a74cc);
   font-size: 80%;
   text-align: center;
   color: white;
@@ -839,7 +839,8 @@ height: 110px;
 	padding: 2px;
 	font-size: 85%;
 	position: relative;
-	box-shadow: 2px 2px 3px gray;
+  box-shadow: 2px 2px 3px gray;
+  height: 65px;
 }
 
 .profile-pic, .profile-name, .profile-stats {
