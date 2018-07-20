@@ -7,12 +7,18 @@ Vue.use(Vuex);
 export default new Vuex.Store({
   state: {
     user: {},
-    redirectTo: '',
+    profile: {},
     count: 0
   },
   getters: {
-    getRedirectUrl: (state) => {
-      return state.redirectTo;
+    getProfile: (state) => {
+      return state.profile;
+    },
+    getUser: (state) => {
+      return state.user;
+    },
+    getCount: (state) => {
+      return state.count;
     }
   },
   mutations: {

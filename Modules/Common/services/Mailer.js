@@ -1,6 +1,8 @@
 const nodemailer = require('nodemailer');
 const Errors = require('./Errors');
 const Logger = require('./Logger');
+const fs = require('fs');
+const path = require('path');
 
 const TAG = '[MAILER]';
 
@@ -10,21 +12,23 @@ const appEnv = cfenv.getAppEnv();
 const templates = {
   VERIFY_EMAIL : {
     subject: `Welcome to Talent Block $name!`,
-    html: `Hello, <br>
-    Thank you for registering in our app. You can activate your account by clicking this <a href="${appEnv.url}/verify/email/$token">link</a>. <br>
-    <br>
-    Regards, <br>
-    The Talent Block Team`
+    html: (name, token)=>{
+      let file = fs.readFileSync(path.join(__dirname, '../../../views/verify_email.txt')).toString("utf8");
+      file = file.replace(/\$name/g, name);
+      file = file.replace(/\$appEnv/g, appEnv.url);
+      file = file.replace(/\$token/g, token);
+      return file;
+    }
   },
   RESET_PASSWORD: {
     subject: `Reset your Password`,
-    html: `Hello, <br>
-    We’ve received a request to reset your password. <br>
-    If you didn’t make the request, just ignore this message. Otherwise, you can reset your password using this <a href="${appEnv.url}/reset/password/$token">link</a>. <br>
-    <br>
-    Thanks, <br>
-    The Talent Block Team
-    `
+    html: (name, token)=>{
+      let file = fs.readFileSync(path.join(__dirname, '../../../views/resetPassword.html')).toString();
+      file = file.replace(/\$name/g, name);
+      file = file.replace(/\$appEnv/g, appEnv.url);
+      file = file.replace(/\$token/g, token);
+      return file;
+    }
   }
 };
 
@@ -44,7 +48,7 @@ function sendEmail(to, template, data){
     from: process.env.MAILER_USER, // sender address
     to: to, // list of receivers
     subject: tmp.subject.replace(/\$name/gi, data.name), // Subject line
-    html: tmp.html.replace(/\$token/gi, data.token)// plain text body
+    html: tmp.html(data.name, data.token)// plain text body
   };
   console.log('MAILOPTIONS', mailOptions);
   Logger.log('info', `${TAG}${ACTION} - mailOptions`, mailOptions);
