@@ -23,10 +23,10 @@ router.get('/', mw.isAuthenticated, (req, res)=>{
 });
 
 /* get one student */
-router.get('/:id', (req, res)=>{
+router.get('/me', mw.isAuthenticated, (req, res)=>{
   const ACTION = '[getStudent]';
   logger.log('debug', TAG + ACTION + ' request parameters', req.params);
-  student.getProfile(req.params.id)
+  student.getProfile(req.user.id)
   .then(data=>{
     res.success(data);
   })
@@ -35,7 +35,7 @@ router.get('/:id', (req, res)=>{
   });
 });
 
-router.post('/', (req, res)=>{
+router.post('/', mw.isAuthenticated, (req, res)=>{
   const ACTION = '[postStudent]';
   logger.log('debug', TAG + ACTION + ' request parameters', req.body);
   student.add(req.body)
@@ -47,22 +47,16 @@ router.post('/', (req, res)=>{
   });
 });
 
-router.put('/:id', mw.isAuthenticated, (req, res)=>{
+router.put('/', mw.isAuthenticated, (req, res)=>{
   const ACTION = '[putUpdateStudent]';
   logger.log('debug', TAG + ACTION + ' request parameters', req.body);
-  if(req.params.id === req.user.id){
-    student.update(req.body, req.params.id)
-    .then(data=>{
-      res.success(data);
-    })
-    .catch(error=>{
-      res.error(error);
-    });
-  }else{
-    let error = err.raise('UNAUTHORIZED');
-    logger.log('error', TAG + ACTION, error);
+  student.update(req.body, req.user.id)
+  .then(data=>{
+    res.success(data);
+  })
+  .catch(error=>{
     res.error(error);
-  }
+  });
 });
 
 router.delete('/:id', mw.isAuthenticated, (req, res)=>{

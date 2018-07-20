@@ -104,16 +104,14 @@ export default {
        axios.get('/courses')
         .then((response) => {
           this.courses = response.data.course
-          console.log('/')
         }).catch((err) => {
-          console.log('x')
+          console.log('Courses Error', err);
         });
         axios.get('/category')
         .then((response) => {
           this.categories = response.data.category
-          console.log(this.categories)
         }).catch((err) => {
-          console.log('x')
+          console.log('Categories Error', err);
         });
       }
   },

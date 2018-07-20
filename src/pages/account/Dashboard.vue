@@ -12,41 +12,75 @@
 
 			<b-row>
 				<b-col cols="3" class="dash-account-basic">
-					<router-link class="btn-acnt-sttngs" :to="{ name: 'settings' }">Account Settings</router-link>
+					<b-btn v-b-modal.profileModal>Account Settings</b-btn>
 					<!-- <a class="btn">Account Settings</a> -->
 					<div class="dab-info">
-						
-						<p>jaytacdoro@gmail.com</p>
-						<p>617 Purok 6 Brgy. Nueva, San Pedro Laguna</p>
-						<p>Joined since <span>March 2, 2016</span></p>
-						<p>+64-9xx-xxxx-xxx</p>
-
-						<b-btn v-b-modal.profileModal>Update</b-btn>
-						<!-- Main UI -->
-						<!-- Modal Component -->
-						<b-modal id="profileModal" ok-only
-										ref="profileModal"
-										title="Submit your name" @ok="handleSubmit">
-							<form @submit.stop.prevent="handleSubmit">
-								<b-form-input type="text"
-									placeholder="Enter your first name"
-									v-model="profile.fn"></b-form-input>
-									<b-form-input type="text"
-									placeholder="Enter your last name"
-									v-model="profile.ln"></b-form-input>
-									<b-form-textarea type="text"
-									placeholder="Enter your address"
-									v-model="profile.address"></b-form-textarea>
-							</form>
-						</b-modal>
-						<p><img src="/static/img/msg.svg" height="24" width="24"> <!-- email here --></p> 
-						<p><img src="/static/img/address.svg" height="24" width="24"> <!--address here --></p> 
-						 <p><img src="/static/img/calendar.svg" height="24" width="24"> Joined since <span><!-- join date --></span></p>
-						<p><img src="/static/img/mobile.svg" height="24" width="24"> <!--  number here --></p> 
-						<button id="show-modal" @click="showModal = true">Show Modal</button>
+						<p>{{showName}}</p>
+						<p><img src="/static/img/msg.svg" height="24" width="24"> {{user.email}}</p> 
+						<p><img src="/static/img/mobile.svg" height="24" width="24"> {{ profile.contact_no }}</p>
+						<p><img src="/static/img/address.svg" height="24" width="24"> {{profile.address}}</p> 
+						<p><img src="/static/img/calendar.svg" height="24" width="24"> Joined since <span>{{ showJoinedDate }}</span></p>
 					</div>
 				</b-col>
 
+				<!-- Main UI -->
+				<!-- Modal Component -->
+				<b-modal id="profileModal" ok-only
+								ref="profileModal"
+								title="Student Profile" @ok="handleSubmit">
+					<form @submit.stop.prevent="handleSubmit">
+							<b-form-group
+								label="Enter your first name:"
+								label-for="fn"
+							>
+								<b-form-input 
+								id="fn"
+								type="text"
+								placeholder="First Name"
+								v-model="profile.fn"></b-form-input>
+							</b-form-group>
+
+							<b-form-group
+								label="Enter your last name:"
+								label-for="ln"
+							>
+							<b-form-input type="text"
+							id="ln"
+							label="Enter your last name:"
+							placeholder="Last Name"
+							v-model="profile.ln"></b-form-input>
+							</b-form-group>
+
+							<b-form-group
+								label="Enter your middle name:"
+								label-for="mn"
+							>
+							<b-form-input type="text"
+							id="mn"
+							placeholder="Middle Name"
+							v-model="profile.mn"></b-form-input>
+							</b-form-group>
+
+							<b-form-group
+								label="Enter your contact no:"
+								label-for="contact"
+							>
+							<b-form-input type="text"
+							id="contact"
+							placeholder="Contact No"
+							v-model="profile.contact_no"></b-form-input>
+							</b-form-group>
+
+							<b-form-group
+								label="Enter your address:"
+								label-for="address"
+							>
+							<b-form-textarea type="text"
+							id="address"
+							v-model="profile.address"></b-form-textarea>
+							</b-form-group>
+					</form>
+				</b-modal>
 				<div class="col scheds">
 					<div class="sched-calendar padded-white stud-bg">
 						<div class="bg-student">
@@ -139,6 +173,7 @@
 import BaseLayout from '../../layouts/BaseLayout.vue';
 import NavBar from '../../components/NavBar/NavBar.vue';
 import AccountStats from '../../components/AccountStats/AccountStats.vue';
+import moment from 'moment';
 
 // import StudentInfoModal from '../../components/Student/StudentInfoModal.vue';
 import axios from 'axios';
@@ -151,8 +186,14 @@ export default {
 	name: 'dashboard',
 	data() {
 		return {
-			user: {},
-			profile: {},
+			user: this.$store.state.user || {},
+			profile: {
+				fn: '',
+				ln: '',
+				address: '',
+				mn: '',
+				contact_no: ''
+			},
 			needsUpdate: false,
 			form: {
 				firstName: '',
@@ -171,28 +212,37 @@ export default {
 	},
 	methods: {
 		checkProfile() {
-			let id = 32;
-			this.profile.user_id = id;
-			axios.get(`/students/${id}`)
+			//by default user have session in the server
+			axios.get(`/students/me`)
 				.then((response) => {
+					//if there is no record
 					this.profile = response.data;
 				}).catch((err) => {
-					console.log(err);
-				})
-				.then(() => {
+					console.log('Student Fetch' , err);
+					//if there is no record
 					if (!this.profile.id) {
 						this.$refs.profileModal.show();
 					}
 				});
 		},
 		handleSubmit() {
-			axios.post('/students', this.profile)
+			if(this.profile.user_id){
+				axios.put('/students', this.profile)
 				.then((response) => {
 					console.log(response);
-					needsUpdate = false;
+					this.needsUpdate = false;
 				}).catch((err) => {
 					console.log(err);
 				});
+			}else{
+				axios.post('/students', this.profile)
+				.then((response) => {
+					console.log(response);
+					this.needsUpdate = false;
+				}).catch((err) => {
+					console.log(err);
+				});
+			}
 		}
 	},
 	mounted() {
@@ -206,6 +256,12 @@ export default {
 				this.$refs.profileModal.show();
 			}
 			// return false;
+		},
+		showName(){
+			return `${this.profile.fn} ${this.profile.mn} ${this.profile.ln}`;
+		},
+		showJoinedDate(){
+			return moment(this.user.createdAt).format('YYYY-MM-DD');
 		}
 	},
   BaseLayout,
@@ -213,7 +269,7 @@ export default {
 	AccountStats,
 	DashboardCotent,
 	Modal
-  }
+}
 </script>
 
 <style scoped>
