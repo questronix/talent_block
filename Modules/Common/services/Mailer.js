@@ -12,12 +12,8 @@ const appEnv = cfenv.getAppEnv();
 const templates = {
   VERIFY_EMAIL : {
     subject: `Welcome to Talent Block $name!`,
-    html: (name, token)=>{
-      let file = fs.readFileSync(path.join(__dirname, '../../../views/verify_email.txt')).toString("utf8");
-      file = file.replace(/\$name/g, name);
-      file = file.replace(/\$appEnv/g, appEnv.url);
-      file = file.replace(/\$token/g, token);
-      return file;
+    html: (name, token)=>{  //Editted to .html
+      return fs.readFileSync('../../../views/verify_email.html').replace(/$appEnv/g, appEnv.url).replace(/$token/g, token)
     }
   },
   RESET_PASSWORD: {
