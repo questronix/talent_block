@@ -1,10 +1,24 @@
 <template>
-  <div class="four04">
-		<h1 class="h1-404">404</h1>
-		<p>This is a missing page <br>look like.</p>
-		<p><router-link class="btn backbtn" :to="{ name: 'home' }">Go back home</router-link></p>
-	</div>
+	<base-layout>
+		<div slot="body">
+			<div class="four04">
+				<h1 class="h1-404">404</h1>
+				<p>This is a missing page <br>look like.</p>
+				<p><router-link class="btn backbtn" :to="{ name: 'home' }">Go back home</router-link></p>
+			</div>
+		</div>
+	</base-layout>
 </template>
+
+<script>
+import BaseLayout from '../../layouts/BaseLayout.vue';
+
+export default {
+	components: {
+		BaseLayout
+	}
+}
+</script>
 
 <style scoped>
 .four04 {

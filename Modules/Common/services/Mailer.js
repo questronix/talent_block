@@ -1,6 +1,8 @@
 const nodemailer = require('nodemailer');
 const Errors = require('./Errors');
 const Logger = require('./Logger');
+const fs = require('fs');
+const path = require('path');
 
 const TAG = '[MAILER]';
 
@@ -16,13 +18,13 @@ const templates = {
   },
   RESET_PASSWORD: {
     subject: `Reset your Password`,
-    html: `Hello, <br>
-    We’ve received a request to reset your password. <br>
-    If you didn’t make the request, just ignore this message. Otherwise, you can reset your password using this <a href="${appEnv.url}/reset/password/$token">link</a>. <br>
-    <br>
-    Thanks, <br>
-    The Talent Block Team
-    `
+    html: (name, token)=>{
+      let file = fs.readFileSync(path.join(__dirname, '../../../views/resetPassword.html')).toString();
+      file = file.replace(/\$name/g, name);
+      file = file.replace(/\$appEnv/g, appEnv.url);
+      file = file.replace(/\$token/g, token);
+      return file;
+    }
   }
 };
 
