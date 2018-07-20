@@ -7,13 +7,9 @@ Vue.use(Vuex);
 export default new Vuex.Store({
   state: {
     user: {},
-    profile: {},
     count: 0
   },
   getters: {
-    getProfile: (state) => {
-      return state.profile;
-    },
     getUser: (state) => {
       return state.user;
     },
@@ -28,8 +24,8 @@ export default new Vuex.Store({
     CLEAR_REDIRECT_URL: (state) => state.redirectTo = '',
   },
   actions: {
-    setUser: () => {
-      commit('SET_USER');
+    setUser: (user) => {
+      commit('SET_USER', user);
     },
   },
   plugins: [createPersistedState()]

@@ -4,7 +4,7 @@
       
       <div class="container course-details" v-if="courses.length">
         <div class="course-content">
-          <div class="course-outline" :style="{ 'background-image': 'url(' + courses[0].banner_img + ')' }">
+          <div class="course-outline" :style="{ 'background-image': 'url(/static/' + courses[0].banner_img + ')' }">
             <div class="transparentdiv">
               <div class="course-info">
                 <div style="width: 50%;">
