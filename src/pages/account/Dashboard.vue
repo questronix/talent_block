@@ -90,14 +90,18 @@
 					</form>
 				</b-modal>
 
+
+
+
+
+				<!--  EDUCCATIONAL BACKGROUND -->
 				<b-modal id="educModal" ok-only
 								ref="educModal"
-								title="Educational Background" @ok="handleSubmit">
-					<form @submit.stop.prevent="handleSubmit">
+								title="Educational Background" @ok="educSubmit">
+					<form @submit.stop.prevent="educSubmit">
 							<b-form-group
 								label="Enter School name:"
-								label-for="name"
-							>
+								label-for="name">
 								<b-form-input 
 								id="name"
 								type="text"
@@ -119,12 +123,184 @@
 								label="Enter your address:"
 								label-for="address"
 							>
-							<b-form-textarea type="text"
+							<b-form-textarea type="text" rows="5"
 							id="address"
-							v-model="profile.address"></b-form-textarea>
+							v-model="educ.address"></b-form-textarea>
 							</b-form-group>
 					</form>
 				</b-modal>
+
+
+
+
+
+
+				<!--  OCCUPATIONAL BACKGROUND -->
+				<b-modal id="occupationModal" ok-only
+								ref="occupationModal"
+								title="Educational Background" @ok="occupationSubmit">
+					<form @submit.stop.prevent="occupationSubmit">
+							<b-form-group
+								label="Enter your Occupation Name:"
+								label-for="name">
+								<b-form-input 
+								id="occupation"
+								type="text"
+								placeholder="Occupation"
+								v-model="occupation.name"></b-form-input>
+							</b-form-group>
+
+							<b-form-group
+								label="Enter your Position:"
+								label-for="name">
+								<b-form-input 
+								id="position"
+								type="text"
+								placeholder="Position / Job Title"
+								v-model="occupation.position"></b-form-input>
+							</b-form-group>
+
+							<b-form-group
+								label="Enter your Department:"
+								label-for="name">
+								<b-form-input 
+								id="department"
+								type="text"
+								placeholder="Department"
+								v-model="occupation.department"></b-form-input>
+							</b-form-group>
+
+							<b-form-group
+								label="Enter your address:"
+								label-for="address"
+							>
+							<b-form-textarea type="text" rows="5"
+							id="address"
+							v-model="occupation.address"></b-form-textarea>
+							</b-form-group>
+
+							<b-form-group
+								label="Enter your Salary (Optional):"
+								label-for="salary">
+								<b-form-input 
+								id="name"
+								type="number"
+								placeholder="Salary"
+								v-model="occupation.salary"></b-form-input>
+							</b-form-group>
+
+							<b-form-group
+								label="What are your duties?"
+								label-for="duties"
+							>
+							<b-form-textarea type="text"
+							id="duties"
+							v-model="occupation.duties"></b-form-textarea>
+							</b-form-group>
+
+							<b-form-group
+								label="Enter your reason why you leave:"
+								label-for="reason"
+							>
+							<b-form-textarea type="text" rows="5"
+							id="reason"
+							v-model="occupation.reason"></b-form-textarea>
+							</b-form-group>
+							
+					</form>
+				</b-modal>
+
+
+
+				<!--  VALID ID BACKGROUND -->
+				<b-modal id="validIdModal" ok-only
+								ref="validIdModal"
+								title="Valid ID" @ok="validIdSubmit">
+					<form @submit.stop.prevent="validIdSubmit">
+							<b-form-group
+								label="ID Name:"
+								label-for="idName">
+								<b-form-input 
+								id="idName"
+								type="text"
+								placeholder="Valid ID"
+								v-model="validIds.name"></b-form-input>
+							</b-form-group>
+
+							<b-form-group
+								label="Number:"
+								label-for="number"
+							>
+							<b-form-input type="text"
+							id="number"
+							placeholder="Number"
+							v-model="validIds.number"></b-form-input>
+							</b-form-group>
+
+					</form>
+				</b-modal>
+
+
+
+					<!--  FAMILY BACKGROUND -->
+				<b-modal id="familyModal" ok-only
+								ref="familyModal"
+								title="Valid ID" @ok="familySubmit">
+					<form @submit.stop.prevent="familySubmit">
+							<b-form-group
+								label="First Name:"
+								label-for="fn">
+								<b-form-input 
+								id="idName"
+								type="text"
+								placeholder="First Name"
+								v-model="family.fn"></b-form-input>
+							</b-form-group>
+
+							<b-form-group
+								label="Last Name:"
+								label-for="fn">
+								<b-form-input 
+								id="idName"
+								type="text"
+								placeholder="Last Name"
+								v-model="family.ln"></b-form-input>
+							</b-form-group>
+
+							<b-form-group
+								label="Middle Name:"
+								label-for="fn">
+								<b-form-input 
+								id="idName"
+								type="text"
+								placeholder="First Name"
+								v-model="family.mn"></b-form-input>
+							</b-form-group>
+
+							<b-form-group
+								label="Contact No:"
+								label-for="fn">
+								<b-form-input 
+								id="idName"
+								type="text"
+								placeholder="Contact number"
+								v-model="family.contact"></b-form-input>
+							</b-form-group>
+
+							<b-form-group
+								label="Occupation:"
+								label-for="fn">
+								<b-form-input 
+								id="idName"
+								type="text"
+								placeholder="First Name"
+								v-model="family.occupation"></b-form-input>
+							</b-form-group>
+
+					</form>
+				</b-modal>
+
+				
 
 				<div class="col scheds">
 					<div class="sched-calendar padded-white stud-bg">
@@ -143,7 +319,7 @@
 							</ul>
 						</div>
 						<div class="bg-student">
-							<h4>Occupation Background</h4><button  class="btn add">Add</button>
+							<h4>Occupation Background</h4><b-btn v-b-modal.occupationModal>ADD</b-btn>
 							<hr>
 							<div class="stud-bg-content">
 								<b-row>
@@ -160,7 +336,7 @@
 							</div>
 						</div>
 						<div class="bg-student">
-							<h4>IDs</h4><button class="btn add">Add</button>
+							<h4>IDs</h4><b-btn v-b-modal.validIdModal>ADD</b-btn>
 							<hr>
 							<div class="stud-bg-content">
 								<b-row>
@@ -177,7 +353,7 @@
 							</div>
 						</div>
 						<div class="bg-student">
-							<h4>Family Background</h4><button class="btn add">Add</button>
+							<h4>Family Background</h4><b-btn v-b-modal.familyModal>ADD</b-btn>
 							<hr>
 							<div class="stud-bg-content">
 								<b-row>
@@ -226,6 +402,22 @@ export default {
 				type: '',
 				address: ''
 			},
+			occupation: {
+				name: '',
+				position: '',
+				department: '',
+				address: '',
+				salary: '',
+				duties: '',
+				start_date: null,
+				end_date: null,
+				reason: '',
+			},
+			validIds: {
+				name: '',
+				number: '',
+				type: '',
+			},
 			profile: {
 				fn: '',
 				ln: '',
@@ -235,6 +427,13 @@ export default {
 				educ: [],
 				ids: [],
 				fam: []
+			},
+			family: {
+				fn: '',
+				ln: '',
+				mn: '',
+				contact: '',
+				occupation: '',
 			},
 			needsUpdate: false,
 			alert: {
@@ -287,6 +486,18 @@ export default {
 					this.$refs.profileModal.show();
 				}
 			});
+		},
+		educSubmit() {
+			alert(JSON.stringify(this.educ));
+		},
+		occupationSubmit() {
+			alert(JSON.stringify(this.occupation));
+		},
+		validIdSubmit() {
+			alert(JSON.stringify(this.validIds));
+		},
+		familySubmit() {
+			alert(JSON.stringify(this.family));
 		},
 		handleSubmit() {
 			if(this.profile.user_id){
