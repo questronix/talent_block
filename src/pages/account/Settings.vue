@@ -122,8 +122,8 @@ export default {
   name: 'settings',
   components: {
     BaseLayout,
-	NavBar,
-	AccountStats,
+		NavBar,
+		AccountStats,
   }
 }
 </script>

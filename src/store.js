@@ -24,6 +24,8 @@ export default new Vuex.Store({
   mutations: {
     SET_USER: (state, user) => state.user = user,
     CLEAR_USER: (state) => state.user = {},
+    SET_REDIRECT_URL: (state, url) => state.redirectTo = url,
+    CLEAR_REDIRECT_URL: (state) => state.redirectTo = '',
   },
   actions: {
     setUser: () => {

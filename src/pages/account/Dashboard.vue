@@ -178,10 +178,6 @@ import moment from 'moment';
 // import StudentInfoModal from '../../components/Student/StudentInfoModal.vue';
 import axios from 'axios';
 
-import DashboardCotent from '../../components/Dashboard/DashboardContent.vue';
-import Modal from '../../components/Student/StudentInfoModal.vue';
-
-
 export default {
 	name: 'dashboard',
 	data() {
@@ -264,11 +260,6 @@ export default {
 			return moment(this.user.createdAt).format('YYYY-MM-DD');
 		}
 	},
-  BaseLayout,
-	NavBar,
-	AccountStats,
-	DashboardCotent,
-	Modal
 }
 </script>
 

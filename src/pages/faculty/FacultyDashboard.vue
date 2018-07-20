@@ -86,8 +86,8 @@ export default {
   name: 'faculty_dashboard',
   components: {
     BaseLayout,
-	NavBar,
-	AccountStats,
+		NavBar,
+		AccountStats,
   }
 }
 </script>

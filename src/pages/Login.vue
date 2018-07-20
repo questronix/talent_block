@@ -94,6 +94,9 @@ export default {
   computed: {
     isLoggedIn() {
       return this.$root.isLogged;
+    },
+    redirectUrl() {
+      return this.$store.getters.getRedirectUrl;
     }
   },
   beforeRouteEnter(to, from, next) {
@@ -102,7 +105,7 @@ export default {
         window.location.href = `#${from.path}`;
       }
     });
-  }
+  },
 }
 </script>
 

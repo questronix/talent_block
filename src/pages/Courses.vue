@@ -103,9 +103,9 @@ export default {
      getUnits: function() {
        axios.get('/courses')
         .then((response) => {
-          this.courses = response.data.course
+          this.courses = response.data.course;
         }).catch((err) => {
-          console.log('Courses Error', err);
+          console.log('Courses error ', err);
         });
         axios.get('/category')
         .then((response) => {

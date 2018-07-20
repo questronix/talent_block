@@ -217,17 +217,6 @@ import axios from 'axios';
 $(document).ready(function () {
   $('#myTab li:last-child a').tab('show')
   $('#paymentModal').modal('show')
-  // $('button').click(function(e){
-  //   e.preventDefault();
-  //   this.cardsData.forEach(function(data){
-  //     for(var i=0; i<data.cardNumber.length; i++){
-  //       if(i>5 && data.cardNumber[i] != '-')
-  //         data.cardNumber[i] = 'x';
-  //     }
-  //     console.log(`Card Number: $(data.cardNumber)`);
-  //     this.filteredData.push(data.cardNumber);
-  //   })
-  // })
 })
 
 export default {
@@ -252,9 +241,8 @@ export default {
       axios.get('/courses/' + this.$route.query.id)
       .then((response) => {
         this.courses = response.data.course
-        console.log(response.data)
       }).catch((err) => {
-        console.log('x')
+        console.log('Course error ', err)
       });
     }
   },
