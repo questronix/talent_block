@@ -4,8 +4,10 @@ const router = express.Router();
 const logger = require('../Common/services/Logger');
 const err = require('../Common/services/Errors');
 const mw = require('../Common/middleware/Authentication');
+const async = require('async');
 
 const student   = require('./model/Student');
+const eduBg = require('./model/EducBg');
 const famBg = require('./model/FamilyBg');
 const idBg = require('./model/IdBg');
 
@@ -26,17 +28,35 @@ router.get('/', mw.isAuthenticated, (req, res)=>{
 router.get('/me', mw.isAuthenticated, (req, res)=>{
   const ACTION = '[getStudent]';
   logger.log('debug', TAG + ACTION + ' request parameters', req.params);
-  student.getProfile(req.user.id)
-  .then(data=>{
-    res.success(data);
-  })
-  .catch(error=>{
-    res.error(error);
+  async.auto({
+    student_info: function(callback){
+      student.getProfile(req.user.id)
+      .then(data=>{
+        callback(null, data);
+      })
+      .catch(error=>{
+        callback(error);
+      });
+    },
+    student_edu_bg: ['student_info', function(result, callback){
+      eduBg.getStudentEduc(result.student_info.user_id).then(data=>{
+        callback(null, data);
+      }).catch(error=>{
+        callback(error);
+      });
+    }]
+  }, function(err, result){
+    if(err) res.error(err);
+    else{
+      result.student_info.educ = result.student_edu_bg;
+      res.success(result.student_info);
+    }
   });
 });
 
 router.post('/', mw.isAuthenticated, (req, res)=>{
   const ACTION = '[postStudent]';
+  req.body.user_id = req.user.id;
   logger.log('debug', TAG + ACTION + ' request parameters', req.body);
   student.add(req.body)
   .then(data=>{

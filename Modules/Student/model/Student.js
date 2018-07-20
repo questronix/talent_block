@@ -1,7 +1,8 @@
 const TAG = '[Student]';
 const logger = require('../../Common/services/Logger');
-const err = require('../../Common/services/Errors');
+const Errors = require('../../Common/services/Errors');
 const db = require('../../Common/services/Database');
+const moment = require('moment');
 
 module.exports.findAll = () => {
   const ACTION = '[findAll]';
@@ -15,7 +16,7 @@ module.exports.findAll = () => {
         });
       }).catch((err) => {
         logger.log('error', TAG+ACTION, err);
-        reject(err.raise('INTERNAL_SERVER_ERROR', err));
+        reject(Errors.raise('INTERNAL_SERVER_ERROR', err));
       });
   });
 };
@@ -30,13 +31,13 @@ module.exports.getProfile = (id) => {
         if (data.length > 0 ) {
           resolve(data[0]);
         } else {
-          let error = err.raise('NOT_FOUND');
+          let error = Errors.raise('NOT_FOUND');
           logger.log('error', TAG+ACTION, error);
-          reject(err.raise('NOT_FOUND'));
+          reject(error);
         }
       }).catch((err) => {
         logger.log('error', TAG+ACTION, err);
-        reject(err.raise('INTERNAL_SERVER_ERROR', err));
+        reject(Errors.raise('INTERNAL_SERVER_ERROR', err));
       });
   });
 };
@@ -55,7 +56,7 @@ module.exports.add = (student) => {
         }
       }).catch((err) => {
         logger.log('error', TAG+ACTION, err);
-        reject(err.raise('INTERNAL_SERVER_ERROR', err));
+        reject(Errors.raise('INTERNAL_SERVER_ERROR', err));
       });
   });
 };
@@ -69,7 +70,8 @@ module.exports.update = (student, id) => {
     ln: student.ln,
     mn: student.mn,
     contact_no: student.contact_no,
-    address: student.address
+    address: student.address,
+    updated_at: moment().format('YYYY-MM-DD HH:mm:ss')
   }
   return new Promise((resolve, reject)=>{
     db.execute(`UPDATE student SET ? WHERE user_id = ?`, [student, id])
@@ -82,13 +84,13 @@ module.exports.update = (student, id) => {
         });
        }
       else {
-        let error = err.raise('NOT_FOUND');
+        let error = Errors.raise('NOT_FOUND');
         logger.log('error', TAG+ACTION, error);
         reject(error);
       }
       }).catch((err) => {
         logger.log('error', TAG+ACTION, err);
-        reject(err.raise('INTERNAL_SERVER_ERROR', err));
+        reject(Errors.raise('INTERNAL_SERVER_ERROR', err));
       });
   });
 };
@@ -109,13 +111,13 @@ module.exports.remove = (id) => {
           });
         }
         else {
-          let error = err.raise('NOT_FOUND');
+          let error = Errors.raise('NOT_FOUND');
           logger.log('error', TAG+ACTION, error);
           reject(error);
         }
       }).catch((err) => {
         logger.log('error', TAG+ACTION, err);
-        reject(err.raise('INTERNAL_SERVER_ERROR', err));
+        reject(Errors.raise('INTERNAL_SERVER_ERROR', err));
       });
   });
 };
