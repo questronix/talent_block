@@ -51,7 +51,7 @@
               <div class="rightnav">
                 <li>
                   <form @submit.prevent="onSearch">
-                    <input class="form-control" type="text" name="search" placeholder="Search Courses">
+                    <input class="form-control" type="text" name="search" placeholder="Search Courses" v-model="search">
                   </form>
                 </li>
                 <Links />
@@ -81,7 +81,7 @@
           <div class="rightnav">
             <li>
               <form @submit.prevent="onSearch">
-                <input class="form-control" type="text" name="search" placeholder="Search Courses">
+                <input class="form-control" type="text" name="search" placeholder="Search Courses" v-model="search">
               </form>
             </li>
             <Links />
