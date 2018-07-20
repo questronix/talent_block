@@ -25,7 +25,7 @@ module.exports.getProfile = (id) => {
   logger.log('info', `${TAG}${ACTION}`, { id });
 
   return new Promise((resolve, reject)=>{
-    db.execute(` SELECT user_id, fn, ln, mn, address FROM student WHERE user_id = ?`, [id])
+    db.execute(` SELECT * FROM student WHERE user_id = ?`, [id])
       .then((data) => {
         if (data.length > 0 ) {
           resolve(data[0]);
@@ -49,10 +49,8 @@ module.exports.add = (student) => {
       .then((data) => {
         //TODO: add validation
         if (data.affectedRows > 0 ) {
-          student.id = data.insertId;
           resolve({
-            status: 200,
-            data: student
+            id: data.insertId
           });
         }
       }).catch((err) => {
@@ -66,8 +64,15 @@ module.exports.add = (student) => {
 module.exports.update = (student, id) => {
   const ACTION = '[update]';
   logger.log('info', `${TAG}${ACTION}`, { student, id });
+  student = {
+    fn: student.fn,
+    ln: student.ln,
+    mn: student.mn,
+    contact_no: student.contact_no,
+    address: student.address
+  }
   return new Promise((resolve, reject)=>{
-    db.execute(`UPDATE student SET ? WHERE id = ?`, [student, id])
+    db.execute(`UPDATE student SET ? WHERE user_id = ?`, [student, id])
       .then((data) => {
        if (data.affectedRows > 0) {
         student.id = id;
