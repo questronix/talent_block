@@ -15,7 +15,6 @@
 </template>
 
 <script>
-// NOTE: Hindi nasasama sa pag build to (don't know why) pero pag gumawa ka ng changes make sure to manually rebuild.
 import axios from 'axios';
 
 export default {
@@ -31,7 +30,7 @@ export default {
           this.$store.commit('CLEAR_USER');
           window.location.href = response.data.redirectUrl;
         }).catch((err) => {
-          alert('failed to logout');
+          console.log('Logout error ' ,err);
         });
     }
   }

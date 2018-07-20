@@ -100,14 +100,10 @@ export default {
     }
   },
   beforeRouteEnter(to, from, next) {
-    // this.$store.commit('SET_REDIRECT_URL', to.query.redirect);
     next(vm => {
       if (vm.isLoggedIn) {
         window.location.href = `#${from.path}`;
       }
-      // else {
-        
-      // }
     });
   },
 }

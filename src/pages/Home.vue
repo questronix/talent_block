@@ -192,18 +192,14 @@ export default {
        axios.get('/courses')
         .then((response) => {
           this.courses = response.data.course
-          console.log('/')
         }).catch((err) => {
-          console.log('x')
+          console.log('Home error', err);
         });
      }
   },
   beforeMount(){
     this.getUnits()
   },
-  // beforeCreate() {
-  //   alert('before create');
-  // },
 }
 </script>
 

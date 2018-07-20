@@ -114,8 +114,8 @@ export default {
   name: 'dashboard',
   components: {
     BaseLayout,
-	NavBar,
-	AccountStats,
+		NavBar,
+		AccountStats,
   }
 }
 </script>
