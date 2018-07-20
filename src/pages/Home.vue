@@ -39,7 +39,7 @@
           <h3>Check our courses</h3>
           <ul>
             <li v-for="c in courses.slice(0,12)" :key="c.id">
-              <img :src="c.thumbnail"><br>
+              <img :src="'/static/' + c.thumbnail"><br>
               <!-- TODO: change c.slot to num of students enrolled to this course -->
               <p>+ {{ c.slot }} students</p>
               <router-link :to="{ path: 'courses/course?id=' + c.id }">
@@ -200,6 +200,13 @@ export default {
   beforeMount(){
     this.getUnits()
   },
+  beforeCreate() {
+    let url = this.$store.getters.getRedirectLink;
+    if (url) {
+      this.$store.commit('CLEAR_REDIRECT_URL');
+      window.location.href = `#${url}`;
+    }
+  }
 }
 </script>
 
