@@ -11,7 +11,7 @@ const appEnv = cfenv.getAppEnv();
 const templates = {
   VERIFY_EMAIL : {
     subject: `Welcome to Talent Block $name!`,
-    html: (name, token)=>{
+    html: (name, token)=>{  //Editted to .html
       return fs.readFileSync('../../../views/verify_email.html').replace(/$appEnv/g, appEnv.url).replace(/$token/g, token)
     }
   },
