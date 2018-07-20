@@ -60,38 +60,21 @@ const routes = [
   {
     name: 'settings',
     path: '/transactionlog',
-    component: TransactionLog
+    component: TransactionLog,
+    meta: { requiresAuth: true }
   },
   {
     name: 'dashboardSchool',
     path: '/schooldashboard',
-    component: DashboardSchool
+    component: DashboardSchool,
+    meta: { requiresAuth: true }
   },
   {
     name: 'faculty_dashboard',
     path: '/faculty_dashboard',
-    component: FacultyDashboard
-  }, 
-  {
-    name: 'dashboardSchool',
-    path: '/schooldashboard',
-    component: DashboardSchool
+    component: FacultyDashboard,
+    meta: { requiresAuth: true }
   },
-  {
-    name: 'faculty_dashboard',
-    path: '/faculty_dashboard',
-    component: FacultyDashboard
-  }, 
-  {
-    name: 'dashboardSchool',
-    path: '/schooldashboard',
-    component: DashboardSchool
-  },
-  {
-    name: 'faculty_dashboard',
-    path: '/faculty_dashboard',
-    component: FacultyDashboard
-  }, 
   {
     path: "/404",
     component: Error404
