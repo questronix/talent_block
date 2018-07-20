@@ -25,9 +25,17 @@
 
 				<!-- Main UI -->
 				<!-- Modal Component -->
-				<b-modal id="profileModal" ok-only
+				<b-modal id="profileModal" 
+								ok-only
+								:no-close-on-esc="true"
+								:hide-header-close="true"
+								:header-bg-variant="headerBgVariant"
+								:header-text-variant="headerTextVariant"
+								ok-title="Save"
 								ref="profileModal"
-								title="Student Profile" @ok="handleSubmit">
+								title="Update Profile" 
+								@hidden="onHide"
+								@ok="handleSubmit">
 					<form @submit.stop.prevent="handleSubmit">
 							<b-form-group
 								label="Enter your first name:"
@@ -77,7 +85,7 @@
 							>
 							<b-form-textarea type="text"
 							id="address"
-							v-model="profile.address"></b-form-textarea>
+							v-model="profile.address" rows="5"></b-form-textarea>
 							</b-form-group>
 					</form>
 				</b-modal>
@@ -152,14 +160,6 @@
 							</div>
 						</div>
 					</div>
-
-					 <!-- <div v-if="student">
-						<DashboardCotent />
-					
-					</div>
-					<div v-else>
-						<Modal/>
-					</div> -->
 		
 				</div>
 			</b-row>			
@@ -191,12 +191,11 @@ export default {
 				contact_no: ''
 			},
 			needsUpdate: false,
-			form: {
-				firstName: '',
-				middleName: '',
-				lastName: '',
-				address: '',
-		},
+			alert: {
+				profile: 'You need to update your profile before you can enter to dashboard.'
+			},
+			headerBgVariant: 'primary',
+			headerTextVariant: 'light'
 		};
 	},
   components: {
@@ -217,42 +216,48 @@ export default {
 					console.log('Student Fetch' , err);
 					//if there is no record
 					if (!this.profile.id) {
+						this.needsUpdate = true;
 						this.$refs.profileModal.show();
 					}
-				});
+				});																															 
+		},
+		onHide() {
+			if (this.needsUpdate) {
+				this.$root.$emit('bv::show::modal','profileModal');
+}																																																																														
 		},
 		handleSubmit() {
 			if(this.profile.user_id){
 				axios.put('/students', this.profile)
-				.then((response) => {
+				.then((response) => {																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																								
 					console.log(response);
 					this.needsUpdate = false;
+					this.$toasted.success("Profile updated.");
 				}).catch((err) => {
-					console.log(err);
+					console.log(err);																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																															
+					this.$toasted.error("Something went wrong. Please try again or reload the page.");
+					this.$root.$emit('bv::show::modal','profileModal');
 				});
 			}else{
+				this.profile.user_id = this.user.id;
 				axios.post('/students', this.profile)
 				.then((response) => {
 					console.log(response);
 					this.needsUpdate = false;
+					this.$toasted.success("Profile updated.");
 				}).catch((err) => {
 					console.log(err);
+					this.$toasted.error("Something went wrong. Please try again or reload the page.");
+					this.$root.$emit('bv::show::modal','profileModal');
 				});
 			}
 		}
 	},
 	mounted() {
-		console.log('Profile', this.$store.getters.getUser());
+		console.log('Profile', this.$store.getters.getUser);
 		this.checkProfile();
-
 	},
 	computed: {
-		hasProfile() {
-			if (!this.profile.id) {
-				this.$refs.profileModal.show();
-			}
-			// return false;
-		},
 		showName(){
 			return `${this.profile.fn} ${this.profile.mn} ${this.profile.ln}`;
 		},
@@ -260,6 +265,9 @@ export default {
 			return moment(this.user.createdAt).format('YYYY-MM-DD');
 		}
 	},
+	created() {
+		this.$toasted.show(`Hi ${this.user.username}, Welcome back!`);
+	}
 }
 </script>
 
