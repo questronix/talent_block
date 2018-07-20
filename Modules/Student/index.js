@@ -9,7 +9,8 @@ const student   = require('./model/Student');
 const famBg = require('./model/FamilyBg');
 const idBg = require('./model/IdBg');
 
-router.get('/', (req, res)=>{
+/* get all students */
+router.get('/', mw.isAuthenticated, (req, res)=>{
   const ACTION = '[getAllStudent]';
   logger.log('debug', TAG + ACTION + ' request parameters', req.params);
   student.findAll()
@@ -21,10 +22,11 @@ router.get('/', (req, res)=>{
   });
 });
 
-router.get('/:id', (req, res)=>{
+/* get one student */
+router.get('/me', mw.isAuthenticated, (req, res)=>{
   const ACTION = '[getStudent]';
   logger.log('debug', TAG + ACTION + ' request parameters', req.params);
-  student.find(req.params.id)
+  student.getProfile(req.user.id)
   .then(data=>{
     res.success(data);
   })
@@ -33,7 +35,7 @@ router.get('/:id', (req, res)=>{
   });
 });
 
-router.post('/', (req, res)=>{
+router.post('/', mw.isAuthenticated, (req, res)=>{
   const ACTION = '[postStudent]';
   logger.log('debug', TAG + ACTION + ' request parameters', req.body);
   student.add(req.body)
@@ -45,10 +47,10 @@ router.post('/', (req, res)=>{
   });
 });
 
-router.put('/:id', (req, res)=>{
+router.put('/', mw.isAuthenticated, (req, res)=>{
   const ACTION = '[putUpdateStudent]';
   logger.log('debug', TAG + ACTION + ' request parameters', req.body);
-  student.update(req.body, req.params.id)
+  student.update(req.body, req.user.id)
   .then(data=>{
     res.success(data);
   })
@@ -57,7 +59,7 @@ router.put('/:id', (req, res)=>{
   });
 });
 
-router.delete('/:id', (req, res)=>{
+router.delete('/:id', mw.isAuthenticated, (req, res)=>{
   const ACTION = '[deleteStudent]';
   logger.log('debug', TAG + ACTION + ' request parameters', req.params);
   student.remove(req.params.id)

@@ -2,6 +2,7 @@ const nodemailer = require('nodemailer');
 const Errors = require('./Errors');
 const Logger = require('./Logger');
 const fs = require('fs');
+const path = require('path');
 
 const TAG = '[MAILER]';
 
@@ -18,7 +19,11 @@ const templates = {
   RESET_PASSWORD: {
     subject: `Reset your Password`,
     html: (name, token)=>{
-      return fs.readFileSync('../../../views/create_account_mail.html').replace(/$appEnv/g, appEnv.url).replace(/$token/g, token)
+      let file = fs.readFileSync(path.join(__dirname, '../../../views/resetPassword.html')).toString();
+      file = file.replace(/\$name/g, name);
+      file = file.replace(/\$appEnv/g, appEnv.url);
+      file = file.replace(/\$token/g, token);
+      return file;
     }
   }
 };
@@ -39,7 +44,7 @@ function sendEmail(to, template, data){
     from: process.env.MAILER_USER, // sender address
     to: to, // list of receivers
     subject: tmp.subject.replace(/\$name/gi, data.name), // Subject line
-    html: tmp.html(name, data.token)// plain text body
+    html: tmp.html(data.name, data.token)// plain text body
   };
   console.log('MAILOPTIONS', mailOptions);
   Logger.log('info', `${TAG}${ACTION} - mailOptions`, mailOptions);

@@ -6,11 +6,11 @@
           <h5>Our Top Categories</h5>
           <div class="container">
             <div class="row top-cat-row">
-              <div class="col" v-for="category in categories" :key="category.id">
-                <div class="col-topcourse" :style="{ 'background-image': 'url(' + category.imgUrl + ')' }">
+              <div class="col" v-for="category in categories.slice(0,3)" :key="category.id">
+                <div class="col-topcourse" :style="{ 'background-image': 'url(/static/' + category.banner_img + ')' }">
                   <div class="transparentdiv"></div>
                   <div class="z-indexed-content">
-                      <h4>{{category.category}}</h4>
+                      <h4>{{category.name}}</h4>
                       <p>{{category.available}} Courses available</p>  
                   </div>
                 </div>
@@ -61,7 +61,7 @@
         <!-- <course-list :courses="courses"></course-list> -->
         <ul>
           <li v-for="course in courses" :key="course.id">
-            <img :src="course.thumbnail"><br>
+            <img :src="'/static/' + course.thumbnail"><br>
             <!-- TODO: change course.slot to num of students enrolled to this course -->
             <p>+ {{ course.slot }} students</p>
             <router-link :to="{ path: 'courses/course?id=' + course.id }">
@@ -93,9 +93,9 @@ export default {
       courses: [],
       categories: 
       [
-        {id: 1, category: 'Backend developer', available: '3,215', imgUrl: '/static/img/backend.png'},
-        {id: 2, category: 'Business', available: '6,285', imgUrl: '/static/img/business.jpg'},
-        {id: 3, category: 'Personal Development', available: '5,525', imgUrl: '/static/img/heading.png'}
+        // {id: 1, category: 'Backend developer', available: '3,215', imgUrl: '/static/img/backend.png'},
+        // {id: 2, category: 'Business', available: '6,285', imgUrl: '/static/img/business.jpg'},
+        // {id: 3, category: 'Personal Development', available: '5,525', imgUrl: '/static/img/heading.png'}
       ]
     }
   },
@@ -103,12 +103,17 @@ export default {
      getUnits: function() {
        axios.get('/courses')
         .then((response) => {
-          this.courses = response.data.course
-          console.log('/')
+          this.courses = response.data.course;
         }).catch((err) => {
-          console.log('x')
+          console.log('Courses error ', err);
         });
-     }
+        axios.get('/category')
+        .then((response) => {
+          this.categories = response.data.category
+        }).catch((err) => {
+          console.log('Categories Error', err);
+        });
+      }
   },
  
   beforeMount(){
