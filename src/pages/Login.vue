@@ -80,6 +80,7 @@ export default {
           this.isLoading = false;
           let user = response.data;
           this.$store.commit('SET_USER', user);
+          this.$store.commit('SET_REDIRECT_URL', this.$route.query.redirect);
           window.location.href = '/';
         })
         .catch((err) => {

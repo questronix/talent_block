@@ -7,7 +7,8 @@ Vue.use(Vuex);
 export default new Vuex.Store({
   state: {
     user: {},
-    count: 0
+    count: 0,
+    redirectTo: '/',
   },
   getters: {
     getUser: (state) => {
@@ -15,6 +16,9 @@ export default new Vuex.Store({
     },
     getCount: (state) => {
       return state.count;
+    },
+    getRedirectLink: (state) => {
+      return state.redirectTo;
     }
   },
   mutations: {
