@@ -7,7 +7,7 @@
           <div class="container">
             <div class="row top-cat-row">
               <div class="col" v-for="category in categories.slice(0,3)" :key="category.id">
-                <div class="col-topcourse" :style="{ 'background-image': 'url(/static/' + category.banner_img + ')' }">
+                <div class="col-topcourse" :style="{ 'background-image': 'url(' + category.banner_img + ')' }">
                   <div class="transparentdiv"></div>
                   <div class="z-indexed-content">
                       <h4>{{category.name}}</h4>
@@ -61,7 +61,7 @@
         <!-- <course-list :courses="courses"></course-list> -->
         <ul>
           <li v-for="course in courses" :key="course.id">
-            <img :src="'/static/' + course.thumbnail"><br>
+            <img :src="course.thumbnail"><br>
             <!-- TODO: change course.slot to num of students enrolled to this course -->
             <p>+ {{ course.slot }} students</p>
             <router-link :to="{ path: 'courses/course?id=' + course.id }">

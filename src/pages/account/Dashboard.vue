@@ -110,6 +110,15 @@
 							</b-form-group>
 
 							<b-form-group
+														label="Degree"
+														label-for="degree">
+								<b-form-select id="degree"
+															:options="{ 'Undergraduate': 'Undergraduate', 'Masteral': 'Masteral', 'Graduate': 'Graduate', 'Doctoral':'Doctoral', 'Vocational':'Vocational'}"
+															v-model="educ.type">
+								</b-form-select>
+							</b-form-group>
+
+							<b-form-group
 								label="Enter your course:"
 								label-for="course"
 							>
@@ -119,8 +128,38 @@
 							v-model="educ.course"></b-form-input>
 							</b-form-group>
 
+							<b-form inline>
+								<label class="mr-sm-2" for="start_year">School Years</label>
+								<b-form-select class="mb-3"
+															:options="years"
+															v-model="educ.start_year"
+															id="start_year">
+										<template slot="first">
+											<option :value="null" disabled>Select Start Year</option>
+										</template>
+								</b-form-select> - &nbsp;
+								<b-form-select class="mb-3"
+															:options="years"
+															v-model="educ.end_year"
+															id="end_year">
+										<template slot="first">
+											<option :value="null" disabled>Select End Year</option>
+										</template>
+								</b-form-select>
+							</b-form>
+
 							<b-form-group
-								label="Enter your address:"
+								label="GPA (Optional)"
+								label-for="gpa"
+							>
+							<b-form-input type="number"
+							id="gpa"
+							placeholder="Grade"
+							v-model="educ.gpa"></b-form-input>
+							</b-form-group>
+
+							<b-form-group
+								label="Enter school address:"
 								label-for="address"
 							>
 							<b-form-textarea type="text" rows="5"
@@ -129,10 +168,6 @@
 							</b-form-group>
 					</form>
 				</b-modal>
-
-
-
-
 
 
 				<!--  OCCUPATIONAL BACKGROUND -->
@@ -313,7 +348,7 @@
 									<b-img slot="aside" blank blank-color="#abc" width="64" alt="placeholder" />
 									<h5 class="mt-0 mb-1">{{educ.name}}</h5>
 									<span>{{educ.course}}{{(educ.gpa)? ', GPA ' + educ.gpa : ''}}</span><br>
-									<span>{{ showEducYears(educ.start_date, educ.end_date) }}</span><br>
+									<span>{{ showEducYears(educ.start_year, educ.end_year) }}</span><br>
 									<span>{{educ.address}}</span><br>
 								</b-media>
 							</ul>
@@ -388,15 +423,25 @@ import moment from 'moment';
 // import StudentInfoModal from '../../components/Student/StudentInfoModal.vue';
 import axios from 'axios';
 
+
+let base_year = 1974;
+let years = Array.from({length: (moment().get('year') - base_year)}, (v, k) => {
+	return {
+		value: k+base_year + 1,
+		text: k+base_year + 1	
+	};
+});
+
 export default {
 	name: 'dashboard',
 	data() {
 		return {
+			years: years,
 			user: this.$store.state.user || {},
 			educ: {
 				name: '',
-				start_date: null,
-				end_date: null,
+				start_year: null,
+				end_year: null,
 				gpa: null,
 				course: '',
 				type: '',
@@ -488,7 +533,16 @@ export default {
 			});
 		},
 		educSubmit() {
-			alert(JSON.stringify(this.educ));
+			axios.post(`/students/education`, this.educ).then(data=>{
+				this.profile.educ.push({
+					id: data.data.insertId,
+					user_id: this.profile.user_id,
+					...this.educ
+				})
+			}).catch(error=>{
+				console.log(error);
+				// alert(JSON.stringify(error));
+			});
 		},
 		occupationSubmit() {
 			alert(JSON.stringify(this.occupation));

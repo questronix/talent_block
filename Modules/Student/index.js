@@ -91,6 +91,20 @@ router.delete('/:id', mw.isAuthenticated, (req, res)=>{
   });
 });
 
+// Educational Background
+router.post(`/education`, mw.isAuthenticated, (req,res)=>{
+  const ACTION = '[education]';
+  logger.log('debug', TAG + ACTION + ' request body', req.body);
+
+  req.body.user_id = req.user.id;
+  eduBg.add(req.body).then(data=>{
+    res.success(data);
+  }).catch(error=>{
+    res.error(error);
+  })
+});
+
+
 router.get('/:id/family-background', (req, res, next) => {
   const ACTION = '[getFamilyBackground]';
   logger.log('debug', TAG + ACTION, ' request parameters ', req.params);
