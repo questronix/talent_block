@@ -54,6 +54,7 @@ router.get('/me', mw.isAuthenticated, (req, res)=>{
   });
 });
 
+/* create student profile */
 router.post('/', mw.isAuthenticated, (req, res)=>{
   const ACTION = '[postStudent]';
   req.body.user_id = req.user.id;
@@ -79,6 +80,7 @@ router.put('/', mw.isAuthenticated, (req, res)=>{
   });
 });
 
+/* delete student profile */
 router.delete('/:id', mw.isAuthenticated, (req, res)=>{
   const ACTION = '[deleteStudent]';
   logger.log('debug', TAG + ACTION + ' request parameters', req.params);
