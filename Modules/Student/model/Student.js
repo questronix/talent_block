@@ -61,7 +61,6 @@ module.exports.add = (student) => {
   });
 };
 
-
 module.exports.update = (student, id) => {
   const ACTION = '[update]';
   logger.log('info', `${TAG}${ACTION}`, { student, id });
