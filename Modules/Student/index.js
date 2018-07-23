@@ -44,11 +44,19 @@ router.get('/me', mw.isAuthenticated, (req, res)=>{
       }).catch(error=>{
         callback(error);
       });
+    }],
+    student_fam_bg: ['student_edu_bg', function(result, callback){
+      famBg.getStudentFam(result.student_info.user_id).then((data) => {
+        callback(null, data);
+      }).catch((error) => {
+        callback(error);
+      });
     }]
   }, function(err, result){
     if(err) res.error(err);
     else{
       result.student_info.educ = result.student_edu_bg;
+      result.student_info.fam = result.student_fam_bg;
       res.success(result.student_info);
     }
   });
@@ -126,6 +134,19 @@ router.delete(`/education/:id`, mw.isAuthenticated, (req,res)=>{
     res.success(data);
   }).catch(error=>{
     console.log(error);
+    res.error(error);
+  })
+});
+
+// Family Background
+router.post(`/family`, mw.isAuthenticated, (req,res)=>{
+  const ACTION = '[postFamily]';
+  logger.log('debug', TAG + ACTION + ' request body', req.body);
+
+  req.body.user_id = req.user.id;
+  famBg.add(req.body).then(data=>{
+    res.success(data);
+  }).catch(error=>{
     res.error(error);
   })
 });

@@ -170,7 +170,7 @@
 						title="Educational Background" @ok="occupationSubmit">
 			<form @submit.stop.prevent="occupationSubmit">
 					<b-form-group
-						label="Enter your Occupation Name:"
+						label="Enter your Occupation:"
 						label-for="name">
 						<b-form-input 
 						id="occupation"
@@ -309,7 +309,7 @@
 						id="idName"
 						type="text"
 						placeholder="Contact number"
-						v-model="family.contact"></b-form-input>
+						v-model="family.contact_no"></b-form-input>
 					</b-form-group>
 
 					<b-form-group
@@ -377,12 +377,13 @@
 								<button class="btn update btn-sm">Update</button>
 								</b-row>
 								<b-row class="stud-bg-row">
-									<b-col>
+									<!-- <fam-bg-list :families="profile.fam" @updateList="updateFamilyBackgroundList"></fam-bg-list> -->
+									<!-- <b-col>
 										Father's Name:
 									</b-col>
 									<b-col>
 										Juan Dela Cruz
-									</b-col>
+									</b-col> -->
 								</b-row>
 							</div>
 						</div>
@@ -401,6 +402,7 @@ import BaseLayout from '../../layouts/BaseLayout.vue';
 import NavBar from '../../components/NavBar/NavBar.vue';
 import AccountStats from '../../components/AccountStats/AccountStats.vue';
 import EduBgList from '../../components/EducationalBackground/EduBgList.vue';
+import FamBgList from '../../components/FamilyBackground/FamBgList.vue';
 import moment from 'moment';
 import axios from 'axios';
 
@@ -458,8 +460,9 @@ export default {
 				fn: '',
 				ln: '',
 				mn: '',
-				contact: '',
+				contact_no: '',
 				occupation: '',
+				type: 1,
 			},
 			needsUpdate: false,
 			alert: {
@@ -475,6 +478,7 @@ export default {
 		NavBar,
 		AccountStats,
 		EduBgList,
+		FamBgList,
 	},
 	methods: {
 		showEducYears: function(start_date, end_date){
@@ -485,7 +489,7 @@ export default {
 			axios.get(`/students/me`)
 				.then((response) => {
 					//if there is no record
-					this.profile = response.data;
+					this.profile = Object.assign({}, this.profile, response.data);
 				}).catch((err) => {
 					console.log('Student Fetch' , err);
 					//if there is no record
@@ -499,19 +503,6 @@ export default {
 			if (this.needsUpdate) {
 				this.$root.$emit('bv::show::modal','profileModal');
 			}																																																																														
-		},
-		getEducationalBackground(){
-			axios.get(`/students/me`)
-			.then((response) => {
-				//if there is no record
-				this.profile = response.data;
-			}).catch((err) => {
-				console.log('Student Fetch' , err);
-				//if there is no record
-				if (!this.profile.id) {
-					this.$refs.profileModal.show();
-				}
-			});
 		},
 		updateEducationalBackgroundList(index) {
 			this.profile.educ.splice(index, 1);
@@ -528,14 +519,27 @@ export default {
 				// alert(JSON.stringify(error));
 			});
 		},
+		familySubmit() {
+			axios.post(`/students/family`, this.family).then(data=>{
+				console.log(data);
+				console.log(this.profile.fam);
+				this.profile.fam.push({
+					id: data.data.insertId,
+					user_id: this.profile.user_id,
+					...this.family
+				})
+			}).catch(error=>{
+				console.log(error);
+			});
+		},
+		updateFamilyBackgroundList(index) {
+			this.profile.fam.splice(index, 1);
+		},
 		occupationSubmit() {
 			alert(JSON.stringify(this.occupation));
 		},
 		validIdSubmit() {
 			alert(JSON.stringify(this.validIds));
-		},
-		familySubmit() {
-			alert(JSON.stringify(this.family));
 		},
 		handleSubmit() {
 			if(this.profile.user_id){

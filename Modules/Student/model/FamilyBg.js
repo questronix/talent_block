@@ -25,6 +25,23 @@ const family_bg = {
         });
     },
 
+    getStudentFam: function(user_id){
+        const ACTION = '[getStudentFam]';
+        logger.log('info', `${TAG}${ACTION}`, user_id);
+
+        return new Promise((resolve, reject) => {
+            db.execute(`SELECT * FROM family_bg WHERE user_id = ?`, [user_id])
+            .then(data=>{
+              resolve(data);
+            })
+            .catch(error=>{
+                logger.log('error', TAG+ACTION, error);
+                let err = Errors.raise('INTERNAL_SERVER_ERROR', error);
+                reject(err);
+            })
+        });
+    },
+
     view: function(id){
         const ACTION = '[view]';
         logger.log('info', `${TAG}${ACTION}`, id);
