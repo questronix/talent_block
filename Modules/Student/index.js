@@ -9,6 +9,7 @@ const async = require('async');
 const student   = require('./model/Student');
 const eduBg = require('./model/EducBg');
 const famBg = require('./model/FamilyBg');
+const occuBg = require('./model/OccuBg');
 const idBg = require('./model/IdBg');
 
 /* get all students */
@@ -51,12 +52,20 @@ router.get('/me', mw.isAuthenticated, (req, res)=>{
       }).catch((error) => {
         callback(error);
       });
+    }],
+    student_occu_bg: ['student_fam_bg', function(result, callback){
+      occuBg.getStudentOccu(result.student_info.user_id).then((data) => {
+        callback(null, data);
+      }).catch((error) => { 
+        callback(error);
+      });
     }]
   }, function(err, result){
     if(err) res.error(err);
     else{
       result.student_info.educ = result.student_edu_bg;
       result.student_info.fam = result.student_fam_bg;
+      result.student_info.occupations = result.student_occu_bg;
       res.success(result.student_info);
     }
   });
@@ -168,6 +177,31 @@ router.delete(`/family/:id`, mw.isAuthenticated, (req,res)=>{
   logger.log('debug', TAG + ACTION + ' request body', req.params);
 
   famBg.delete(req.params.id).then(data=>{
+    res.success(data);
+  }).catch(error=>{
+    console.log(error);
+    res.error(error);
+  })
+});
+
+// Occupational Background
+router.post(`/occupation`, mw.isAuthenticated, (req,res)=>{
+  const ACTION = '[postOccupation]';
+  logger.log('debug', TAG + ACTION + ' request body', req.body);
+
+  req.body.user_id = req.user.id;
+  occuBg.add(req.body).then(data=>{
+    res.success(data);
+  }).catch(error=>{
+    res.error(error);
+  })
+});
+
+router.put(`/occupation`, mw.isAuthenticated, (req,res)=>{
+  const ACTION = '[putOccupationBackground]';
+  logger.log('debug', TAG + ACTION + ' request body', req.body);
+
+  occuBg.update(req.body).then(data=>{
     res.success(data);
   }).catch(error=>{
     console.log(error);

@@ -189,6 +189,42 @@
 						v-model="occupation.position"></b-form-input>
 					</b-form-group>
 
+					<label class="mr-sm-2" for="start_year">Date Started</label>
+						<b-form-select class="mb-3"
+													:options="{ 1 : 'Janauary', 2 : 'Febrauary', 3 : 'March', 4 : 'April', 5 : 'May', 6 : 'June', 7 : 'July', 8 : 'August', 9 : 'September', 10 : 'October', 11 : 'November', 12 : 'December'}"
+													v-model="occupation.start_month"
+													id="start_year">
+								<template slot="first">
+									<option :value="null" disabled>Select Month</option>
+								</template>
+						</b-form-select>
+						<b-form-select class="mb-3"
+													:options="years"
+													v-model="occupation.start_year"
+													id="end_year">
+								<template slot="first">
+									<option :value="null" disabled>Select Year</option>
+								</template>
+						</b-form-select>
+
+						<label class="mr-sm-2" for="start_year">Date Ended </label>
+						<b-form-select class="mb-3"
+													:options="{ 1 : 'Janauary', 2 : 'Febrauary', 3 : 'March', 4 : 'April', 5 : 'May', 6 : 'June', 7 : 'July', 8 : 'August', 9 : 'September', 10 : 'October', 11 : 'November', 12 : 'December'}"
+													v-model="occupation.end_month"
+													id="start_year">
+								<template slot="first">
+									<option :value="null" disabled>Select Month</option>
+								</template>
+						</b-form-select>
+						<b-form-select class="mb-3"
+													:options="years"
+													v-model="occupation.end_year"
+													id="end_year">
+								<template slot="first">
+									<option :value="null" disabled>Select Year</option>
+								</template>
+						</b-form-select>
+
 					<b-form-group
 						label="Enter your Department:"
 						label-for="name">
@@ -200,7 +236,7 @@
 					</b-form-group>
 
 					<b-form-group
-						label="Enter your address:"
+						label="Enter address:"
 						label-for="address"
 					>
 					<b-form-textarea type="text" rows="5"
@@ -222,7 +258,7 @@
 						label="What are your duties?"
 						label-for="duties"
 					>
-					<b-form-textarea type="text"
+					<b-form-textarea type="text" rows="5"
 					id="duties"
 					v-model="occupation.duties"></b-form-textarea>
 					</b-form-group>
@@ -351,12 +387,7 @@
 									<button class="btn update btn-sm">Update</button>
 									</b-row>
 									<b-row class="stud-bg-row">
-										<b-col>
-											Position
-										</b-col>
-										<b-col>
-											Web Developer
-										</b-col>
+										<occu-bg-list :occupations="profile.occupations" @updateList="updateOccupationBackgroundList"></occu-bg-list>
 									</b-row>
 							</div>
 						</div>
@@ -405,6 +436,7 @@ import NavBar from '../../components/NavBar/NavBar.vue';
 import AccountStats from '../../components/AccountStats/AccountStats.vue';
 import EduBgList from '../../components/EducationalBackground/EduBgList.vue';
 import FamBgList from '../../components/FamilyBackground/FamBgList.vue';
+import OccuBgList from '../../components/OccupationalBackground/OccuBgList.vue';
 import moment from 'moment';
 import axios from 'axios';
 
@@ -439,8 +471,10 @@ export default {
 				address: '',
 				salary: '',
 				duties: '',
-				start_date: null,
-				end_date: null,
+				start_year: null,
+				end_year: null,
+				start_month: null,
+				end_month: null,
 				reason: '',
 			},
 			validIds: {
@@ -456,7 +490,8 @@ export default {
 				contact_no: '',
 				educ: [],
 				ids: [],
-				fam: []
+				fam: [],
+				occupations: [],
 			},
 			family: {
 				fn: '',
@@ -481,6 +516,7 @@ export default {
 		AccountStats,
 		EduBgList,
 		FamBgList,
+		OccuBgList,
 	},
 	methods: {
 		showEducYears: function(start_date, end_date){
@@ -515,11 +551,15 @@ export default {
 					id: data.data.insertId,
 					user_id: this.profile.user_id,
 					...this.educ
-				})
+				});
+				this.$toasted.success('Educational background was succesfully updated');
 			}).catch(error=>{
 				console.log(error);
 				// alert(JSON.stringify(error));
 			});
+		},
+		updateFamilyBackgroundList(index) {
+			this.profile.fam.splice(index, 1);
 		},
 		familySubmit() {
 			axios.post(`/students/family`, this.family).then(data=>{
@@ -529,16 +569,28 @@ export default {
 					id: data.data.insertId,
 					user_id: this.profile.user_id,
 					...this.family
-				})
+				});
+				this.$toasted.success('Family background was succesfully updated');
 			}).catch(error=>{
 				console.log(error);
 			});
 		},
-		updateFamilyBackgroundList(index) {
-			this.profile.fam.splice(index, 1);
+		updateOccupationBackgroundList(index) {
+			this.profile.occupations.splice(index, 1);
 		},
 		occupationSubmit() {
-			alert(JSON.stringify(this.occupation));
+			axios.post(`/students/occupation`, this.occupation).then(data=>{
+				console.log(data);
+				console.log(this.profile.occupation);
+				this.profile.occupation.push({
+					id: data.data.insertId,
+					user_id: this.profile.user_id,
+					...this.family
+				});
+				this.$toasted.success('Occupational background was succesfully updated');
+			}).catch(error=>{
+				console.log(error);
+			});
 		},
 		validIdSubmit() {
 			alert(JSON.stringify(this.validIds));
