@@ -90,6 +90,7 @@
 <script>
 import moment from 'moment';
 import EduBgListItem from "./EduBgListItem.vue";
+import axios from 'axios';
 
 let base_year = 1974;
 let years = Array.from({length: (moment().get('year') - base_year)}, (v, k) => {
@@ -107,6 +108,7 @@ export default {
   data() {
     return {
       education: {},
+      tempEduc: {},
       years: years,
     }
   },
@@ -119,7 +121,23 @@ export default {
       this.$root.$emit('bv::show::modal','educUpdateModal');
     },
     educUpdateSubmit() {
-      alert('sample');
+      axios.put('/students/education', this.education)
+        .then((response) => {
+          this.$toasted.success('Successfully updated.');
+        }).catch((err) => {
+          this.$toasted.error('Error while updating your background information. Please try again or reload the page.')
+          console.log('Background Info Update Error: ', err);
+        });
+    },
+    onRemove(id) {
+      axios.delete(`/students/education/${id}`)
+        .then((response) => {
+          this.educations.filter(function(educ) { return educ.id !== id; });
+          this.$toasted.success('Successfully removed.');
+        }).catch((err) => {
+          this.$toasted.error('Error while removing data. Please try again or reload the page.')
+          console.log('Background Info Delte Error: ', err);
+        });
     }
   }
 }

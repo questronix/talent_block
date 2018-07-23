@@ -8,13 +8,13 @@
       <span>{{ education.start_year }} - {{ education.end_year }}</span><br>
       <span>{{education.address}}</span><br>
       <span><b-button @click="update">Update</b-button></span>
+      <span><b-button @click="remove" variant="danger">Remove</b-button></span>
     </b-media>
 
   </div>
 </template>
 
 <script>
-import axios from 'axios';
 import moment from 'moment';
 
 export default {
@@ -29,6 +29,9 @@ export default {
     update() {
       this.$emit('onUpdate');
     },
+    remove () {
+      this.$emit('onRemove');
+    }
   }
 }
 </script>
