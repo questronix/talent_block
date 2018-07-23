@@ -46,6 +46,10 @@ exports.enrollCourse = (student_id, schedule_id)=>{
     .then( result=>{
       if (result.affectedRows > 0 ) {
         resolve(result);
+      }else{
+        let error = Errors.raise('NO_AFFECTED_ROWS', result);
+        logger.log('error', TAG+ACTION, error);
+        reject(error);
       }
     })
     .catch( error=>{
@@ -65,7 +69,13 @@ exports.dropCourse = (student_id, schedule_id)=>{
       where student_id=? and schedule_id=? and status=0
     `, [student_id, schedule_id])
     .then( result=>{
-      resolve(result);
+      if (result.affectedRows > 0 ) {
+        resolve(result);
+      }else{
+        let error = Errors.raise('NO_AFFECTED_ROWS', result);
+        logger.log('error', TAG+ACTION, error);
+        reject(error);
+      }
     })
     .catch( error=>{
       logger.log('error', TAG+ACTION, error);
@@ -84,7 +94,13 @@ exports.completeCourse = (student_id, schedule_id)=>{
       where student_id=? and schedule_id=? and status=0
     `, [student_id, schedule_id])
     .then( result=>{
-      resolve(result);
+      if (result.affectedRows > 0 ) {
+        resolve(result);
+      }else{
+        let error = Errors.raise('NO_AFFECTED_ROWS', result);
+        logger.log('error', TAG+ACTION, error);
+        reject(error);
+      }
     })
     .catch( error=>{
       logger.log('error', TAG+ACTION, error);
