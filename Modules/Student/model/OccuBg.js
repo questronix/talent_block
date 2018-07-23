@@ -77,6 +77,27 @@ const occu_bg = {
     });
   },
 
+  delete: function (id) {
+    const ACTION = '[delete]';
+    logger.log('info', `${TAG}${ACTION}`, id);
+
+    return new Promise((resolve, reject) => {
+      db.execute(`DELETE FROM occu_bg WHERE id=?`, id)
+        .then(data => {
+          if (data.affectedRows > 0)
+            resolve(data);
+          else
+            reject(err.raise('NO_AFFECTED_ROWS'));
+        })
+        .catch(error => {
+          logger.log('error', TAG + ACTION, error);
+          let err = err.raise('INTERNAL_SERVER_ERROR');
+          err.error.details = error;
+          reject(err);
+        })
+    });
+  }
+
 };
 
 module.exports = { ...occu_bg };

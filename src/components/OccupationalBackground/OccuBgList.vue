@@ -135,7 +135,13 @@ import OccuBgListItem from "./OccuBgListItem.vue";
 import moment from 'moment';
 import axios from 'axios';
 
-
+let base_year = 1974;
+let years = Array.from({length: (moment().get('year') - base_year)}, (v, k) => {
+	return {
+		value: k+base_year + 1,
+		text: k+base_year + 1	
+	};
+});
 
 export default {
   name: 'occuBgList',
@@ -146,15 +152,13 @@ export default {
     return {
       occupation: {},
       selectedIndex: -1,
+      years: years,
     }
   },
   components: {
     OccuBgListItem,
   },
   methods: {
-    showEducYears: function(start_date, end_date){
-			return `${moment(start_date).format('YYYY')} - ${moment(end_date).format('YYYY')}`;
-    },
     onUpdate(occupation) {
       this.occupation = occupation;
       this.$root.$emit('bv::show::modal','occupationUpdateModal');

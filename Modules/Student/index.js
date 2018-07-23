@@ -209,6 +209,18 @@ router.put(`/occupation`, mw.isAuthenticated, (req,res)=>{
   })
 });
 
+router.delete(`/occupation/:id`, mw.isAuthenticated, (req,res)=>{
+  const ACTION = '[deleteOccupation]';
+  logger.log('debug', TAG + ACTION + ' request body', req.params);
+
+  occuBg.delete(req.params.id).then(data=>{
+    res.success(data);
+  }).catch(error=>{
+    console.log(error);
+    res.error(error);
+  })
+});
+
 
 
 

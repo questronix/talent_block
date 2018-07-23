@@ -23,9 +23,6 @@ export default {
     education: Object,
   },
   methods: {
-    showEducYears: function(start_date, end_date){
-			return `${moment(start_date).format('YYYY')} - ${moment(end_date).format('YYYY')}`;
-    },
     update() {
       this.$emit('onUpdate');
     },

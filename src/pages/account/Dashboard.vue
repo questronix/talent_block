@@ -581,11 +581,11 @@ export default {
 		occupationSubmit() {
 			axios.post(`/students/occupation`, this.occupation).then(data=>{
 				console.log(data);
-				console.log(this.profile.occupation);
-				this.profile.occupation.push({
+				console.log(this.profile.occupations);
+				this.profile.occupations.push({
 					id: data.data.insertId,
 					user_id: this.profile.user_id,
-					...this.family
+					...this.occupation
 				});
 				this.$toasted.success('Occupational background was succesfully updated');
 			}).catch(error=>{
