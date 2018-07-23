@@ -5,7 +5,6 @@
         <b-col cols="4" offset-md="4">
         <div class="login-card">
           <h4 class="text-center">Login</h4>
-          <font-awesome-icon icon="coffee" />
           <b-alert variant="danger"
              dismissible
              :show="alert"
