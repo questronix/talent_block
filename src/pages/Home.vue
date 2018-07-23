@@ -8,7 +8,7 @@
       <div class="features">
         <div class="feat-details container">
           <div class="row">
-            <div class="col-4 feat-detail">
+            <div class="col feat-detail">
               <img src="static/img/graduate.svg" height="100">
               <div class="feature">
                  <h4>Globally competitive courses</h4>
@@ -16,14 +16,14 @@
               </div>
             </div>
             
-            <div class="col-4 feat-detail">
+            <div class="col feat-detail">
               <img src="static/img/payment.png" height="100">
               <div class="feature">
                 <h4>Keep what you pay for</h4>
                 <p>Guaranteed easy and reliable transactions with every course you wish to take.</p>
               </div>
             </div>
-            <div class="col-4 feat-detail">
+            <div class="col feat-detail">
               <img src="static/img/teacher.png" height="100">
               <div class="feature">
                 <h4>Licensed professionals</h4>
@@ -77,40 +77,40 @@
       <div class="amazing container">
         <h4>Become something amazing</h4>
         <div class="row">
-          <div class="col-8 besomething">
+          <div class="col-lg-8 besomething">
             <div class="container besmthing">
               <div class="row">
-                <div class="col-4 course backend">
+                <div class="col-lg-4 course backend">
                   <div class="transparentdiv"></div>
                   <div class="z-indexed-content">
                     Back-end Developer
                   </div>
                 </div>
-                <div class="col-4 course projlead">
+                <div class="col-lg-4 course projlead">
                 <div class="transparentdiv"></div>
                   <div class="z-indexed-content">
                    Project Leader
                   </div>
                 </div>
-                <div class="col-4 course ui-ux">
+                <div class="col-lg-4 course ui-ux">
                   <div class="transparentdiv"></div>
                   <div class="z-indexed-content">
                    UI/UX Designer
                   </div>
                 </div>
-                <div class="col-4 course proj-analyst">
+                <div class="col-lg-4 course proj-analyst">
                   <div class="transparentdiv"></div>
                   <div class="z-indexed-content">
                     Project Analyst
                   </div>
                 </div>
-                <div class="col-4 course projmngr">
+                <div class="col-lg-4 course projmngr">
                 <div class="transparentdiv"></div>
                   <div class="z-indexed-content">
                   Project Manager
                   </div>
                 </div>
-                <div class="col-4 course webdev">
+                <div class="col-lg-4 course webdev">
                 <div class="transparentdiv"></div>
                   <div class="z-indexed-content">
                   Web Developer
@@ -211,6 +211,11 @@ export default {
 </script>
 
 <style>
+.col.feat-detail {
+    display: flex;
+    text-align: left;
+}
+
 .col.socialmedia img {
     margin-top: -7px;
     margin-right: 10px;
@@ -220,7 +225,16 @@ export default {
     color: gray;
 }
 
+.courses ul {
+    padding: 0;
+    text-align: center;
+}
+
 .col.footer-title {
     text-align: right;
+}
+
+.col.socialmedia {
+  padding: 0;
 }
 </style>

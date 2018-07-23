@@ -3,26 +3,17 @@
     <div v-if="type === 'homepage'">
       <div slot="header">
         <div class="heading">
-          <div class="nav-bar">
-            <div class="header">
-              <div class="logo">
-                <img src="/static/img/logo-2.png" height="30" width="30">
-              </div>
+          <b-navbar class="navbar-transparent" toggleable="md" type="light" variant="info">
+            <b-navbar-toggle target="nav_collapse"></b-navbar-toggle>
               <div class="title">
-                <a href="" class="brand">Talent Block</a>
+                <img src="/static/img/logo-2.png" height="30" width="30">
+                <router-link :to="{ name: 'home' }">Talent Block</router-link>
               </div>
-            </div>
-            <ul>
-              <div class="rightnav">
-                <li>
-                  <b-form @submit.prevent="onSearch">
-                    <input class="form-control" type="text" name="search" placeholder="Search Courses" v-model="search">
-                  </b-form>
-                </li>
-                <Links />
-              </div>
-            </ul>
-          </div>
+            <b-collapse is-nav id="nav_collapse">
+              <!-- Right aligned nav items -->
+              <Links/>
+            </b-collapse>
+          </b-navbar>
             <div class="heading-centered">
               <div class="heading-caption">
                 <h2>{{ heading }}</h2>
@@ -38,26 +29,17 @@
     <div v-else-if="type === 'dashboard'">
       	<div class="page-title" :style="{ backgroundImage: dashImg }">
           <div class="title-centered">
-          <div class="nav-bar">
-            <div class="header">
-              <div class="logo">
-                <img src="/static/img/logo-2.png" height="30" width="30">
-              </div>
+            <b-navbar class="navbar-transparent" toggleable="md" type="light" variant="info">
+            <b-navbar-toggle target="nav_collapse"></b-navbar-toggle>
               <div class="title">
-                <a href="" class="brand">Talent Block</a>
+                <img src="/static/img/logo-2.png" height="30" width="30">
+                <router-link :to="{ name: 'home' }">Talent Block</router-link>
               </div>
-            </div>
-            <ul>
-              <div class="rightnav">
-                <li>
-                  <form @submit.prevent="onSearch">
-                    <input class="form-control" type="text" name="search" placeholder="Search Courses" v-model="search">
-                  </form>
-                </li>
-                <Links />
-              </div>
-            </ul>
-          </div>
+            <b-collapse is-nav id="nav_collapse">
+              <!-- Right aligned nav items -->
+              <Links/>
+            </b-collapse>
+          </b-navbar>
           <center>
             <div class="breadcrum">
               <h1>{{ heading }}</h1>
@@ -68,25 +50,18 @@
     </div>
 
     <div v-else>
-      <div class="nav-bar colored fixed">
-        <div class="header">
-          <div class="logo">
-            <img src="/static/img/logo-2.png" height="30" width="30">
-          </div>
-          <div class="title">
-            <a href="" class="brand">Talent Block</a>
-          </div>
-        </div>
-        <ul>
-          <div class="rightnav">
-            <li>
-              <form @submit.prevent="onSearch">
-                <input class="form-control" type="text" name="search" placeholder="Search Courses" v-model="search">
-              </form>
-            </li>
-            <Links />
-          </div>
-        </ul>
+      <div style="background: #4a74cc;">
+          <b-navbar class="navbar-transparent" toggleable="md" type="light" variant="info">
+            <b-navbar-toggle target="nav_collapse"></b-navbar-toggle>
+              <div class="title">
+                <img src="/static/img/logo-2.png" height="30" width="30">
+                <router-link :to="{ name: 'home' }">Talent Block</router-link>
+              </div>
+            <b-collapse is-nav id="nav_collapse">
+              <!-- Right aligned nav items -->
+              <Links/>
+            </b-collapse>
+          </b-navbar>
       </div>
     </div>
 
@@ -122,4 +97,52 @@ export default {
 }
 </script>
 
+<style scoped>
+.bg-info {
+  background-color: transparent !important;
+  width: 100%;
+  z-index: 999;
+}
 
+.bg-dash {
+  background-color: #4a74cc;
+}
+
+@media all and (min-width: 480px) and (max-width: 768px) {
+  .bg-info {
+    background-color: rgba(78, 120, 198, 0.85)!important;
+    position: fixed;
+  }
+
+ .bg-dash {
+    background-color: rgba(78, 120, 198, 0.85)!important;
+    position: fixed;
+  }
+}
+
+@media all and (max-width: 480px) {
+  .bg-info {
+    background-color: rgba(78, 120, 198, 0.85)!important;
+    position: fixed;
+  }
+
+  .bg-dash {
+    background-color: rgba(78, 120, 198, 0.85)!important;
+    position: fixed;
+  }
+}
+
+.bg-dash a{
+  color: #fff;
+}
+
+.bg-info a {
+  color: #fff;
+}
+
+.bg-dash input {
+    border-radius: 20px;
+    width: 250px;
+    z-index: 999;
+}
+</style>
