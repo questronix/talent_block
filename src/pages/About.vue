@@ -42,7 +42,13 @@
         <br/>
         <div class="comments">
           <div class="card mb-3" style="max-width: 20rem;">
-            <div class="card-header " style="background-color:#4a74cc"><br/> <br/></div>
+            <div class="card-header " style="background-color:#4a74cc">
+              <center>
+              <img class="profile1" src="/static/img/photo3.png"/>
+              <h4>Princess Mojica</h4>
+              <hr>
+              </center>
+            </div>
             <div class="card-body ">
               <p class="card-text" >
               Programming peeked my interest and I am planning to take Computer Science
@@ -51,14 +57,19 @@
               </p>
             </div>
             <div class="card-footer bg-transparent ">
-              <img class="profile1" src="/static/img/photo3.png"/>
-              <span> <strong>Princess Mojica </strong></span>
+              
             </div>
           </div>
 
 
           <div class="card mb-3" style="max-width: 20rem;">
-            <div class="card-header " style="background-color:#4a74cc"><br/> <br/></div>
+            <div class="card-header " style="background-color:#4a74cc">
+              <center>
+              <img class="profile1" src="/static/img/photo2.png"/>
+              <h4>Daimler Matienzo</h4>
+              <hr>
+              </center>
+            </div>
             <div class="card-body ">
               <p class="card-text" >
               I am really into designing but my degree program in my undergraduate school does not have such courses
@@ -67,14 +78,19 @@
               </p>
             </div>
             <div class="card-footer bg-transparent ">
-              <img class="profile1" src="/static/img/photo2.png"/>
-              <span> <strong>Daimler Matienzo </strong></span>
+              
             </div>
           </div>
 
 
           <div class="card mb-3" style="max-width: 20rem;">
-            <div class="card-header " style="background-color:#4a74cc"><br/> <br/></div>
+            <div class="card-header " style="background-color:#4a74cc">
+              <center>
+                <img class="profile1" src="/static/img/photo4.png"/>
+                <h4>Paolo Panganiban</h4>
+                <hr>
+              </center>
+            </div>
             <div class="card-body ">
               <p class="card-text" > A new platform that caters my needs and there is vast range of 
               courses that I can pick from. I have already recommended Talent Block to my friends and they
@@ -83,8 +99,7 @@
               </p> 
             </div>
             <div class="card-footer bg-transparent ">
-              <img class="profile1" src="/static/img/photo4.png"/>
-              <span> <strong>Paolo Panganiban </strong></span>
+              
             </div>
           </div>
 
@@ -204,7 +219,7 @@ export default {
   .profile1{
     border-radius:50%;
     max-width:35%;
-    margin-right:20px;
+    /* margin-right:20px; */
   }
   .comments{
     display:flex;
@@ -246,6 +261,18 @@ export default {
 
 #about .courses {
   width:63%;
+}
+
+.comments .card-header {
+  height: 80px;
+}
+
+.comments .card-body {
+  padding: 6rem 1.25rem 1.25rem 1.25rem !important;
+}
+
+.comments center {
+  margin-top: 15px;
 }
 
 </style>
