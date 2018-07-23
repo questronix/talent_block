@@ -36,7 +36,7 @@
 									<b-img slot="aside" blank blank-color="#abc" width="64" alt="placeholder" />
 									<h5 class="mt-0 mb-1">{{educ.name}}</h5>
 									<span>{{educ.course}}{{(educ.gpa)? ', GPA ' + educ.gpa : ''}}</span><br>
-									<span>{{ showEducYears(educ.start_date, educ.end_date) }}</span><br>
+									<span>{{ showEducYears(educ.start_year, educ.end_year) }}</span><br>
 									<span>{{educ.address}}</span><br>
 								</b-media>
 							</ul>
@@ -390,15 +390,25 @@ import moment from 'moment';
 // import StudentInfoModal from '../../components/Student/StudentInfoModal.vue';
 import axios from 'axios';
 
+
+let base_year = 1974;
+let years = Array.from({length: (moment().get('year') - base_year)}, (v, k) => {
+	return {
+		value: k+base_year + 1,
+		text: k+base_year + 1	
+	};
+});
+
 export default {
 	name: 'dashboard',
 	data() {
 		return {
+			years: years,
 			user: this.$store.state.user || {},
 			educ: {
 				name: '',
-				start_date: null,
-				end_date: null,
+				start_year: null,
+				end_year: null,
 				gpa: null,
 				course: '',
 				type: '',
@@ -490,7 +500,16 @@ export default {
 			});
 		},
 		educSubmit() {
-			alert(JSON.stringify(this.educ));
+			axios.post(`/students/education`, this.educ).then(data=>{
+				this.profile.educ.push({
+					id: data.data.insertId,
+					user_id: this.profile.user_id,
+					...this.educ
+				})
+			}).catch(error=>{
+				console.log(error);
+				// alert(JSON.stringify(error));
+			});
 		},
 		occupationSubmit() {
 			alert(JSON.stringify(this.occupation));
