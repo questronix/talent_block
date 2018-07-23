@@ -151,6 +151,30 @@ router.post(`/family`, mw.isAuthenticated, (req,res)=>{
   })
 });
 
+router.put(`/family`, mw.isAuthenticated, (req,res)=>{
+  const ACTION = '[putFamilyEducation]';
+  logger.log('debug', TAG + ACTION + ' request body', req.body);
+
+  famBg.update(req.body).then(data=>{
+    res.success(data);
+  }).catch(error=>{
+    console.log(error);
+    res.error(error);
+  })
+});
+
+router.delete(`/family/:id`, mw.isAuthenticated, (req,res)=>{
+  const ACTION = '[deleteFamily]';
+  logger.log('debug', TAG + ACTION + ' request body', req.params);
+
+  famBg.delete(req.params.id).then(data=>{
+    res.success(data);
+  }).catch(error=>{
+    console.log(error);
+    res.error(error);
+  })
+});
+
 
 
 

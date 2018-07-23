@@ -10,10 +10,18 @@
     </ul>
 
 	<!--  FAMILY BACKGROUND -->
-		<b-modal id="familyModal" ok-only
-						ref="familyModal"
-						title="Valid ID" @ok="famUpdateSubmit">
+		<b-modal id="familyUpdateModal" ok-only
+						ref="familyUpdateModal"
+						title="Family Background" @ok="famUpdateSubmit">
 			<form @submit.stop.prevent="famSubmit">
+          <b-form-group
+												label="Relationship"
+												label-for="type">
+						<b-form-select id="type"
+													:options="{ 'Father': 'Father', 'Mother' : 'Mother', 'Sister': 'Sister', 'Brother': 'Brother', 'Wife': 'Wife', 'Husband': 'Husband', 'Dependents': 'Dependents'}"
+													v-model="family.type">
+						</b-form-select>
+					</b-form-group>
 					<b-form-group
 						label="First Name:"
 						label-for="fn">
@@ -51,7 +59,7 @@
 						id="idName"
 						type="text"
 						placeholder="Contact number"
-						v-model="family.contact"></b-form-input>
+						v-model="family.contact_no"></b-form-input>
 					</b-form-group>
 
 					<b-form-group
@@ -68,9 +76,9 @@
 		</b-modal>
 
     <b-modal 
-      id="confirmRemoveModal"
+      id="famConfirmRemoveModal"
       title="Confirm" 
-      @ok="educRemoveSubmit">
+      @ok="famRemoveSubmit">
       Are you sure you want to remove this item?
     </b-modal>
   </div>
@@ -98,9 +106,9 @@ export default {
   methods: {
     onUpdate(family) {
       this.family = family;
-      this.$root.$emit('bv::show::modal','educUpdateModal');
+      this.$root.$emit('bv::show::modal','familyUpdateModal');
     },
-    educUpdateSubmit() {
+    famUpdateSubmit() {
       axios.put('/students/family', this.family)
         .then((response) => {
           this.$toasted.success('Successfully updated.');
@@ -110,12 +118,12 @@ export default {
         });
     },
     onRemove(index, id) {
-      this.$root.$emit('bv::show::modal','confirmRemoveModal');
+      this.$root.$emit('bv::show::modal','famConfirmRemoveModal');
       this.family = {};
       this.family.id = id;
       this.selectedIndex = index;
     },
-    educRemoveSubmit() {
+    famRemoveSubmit() {
       axios.delete(`/students/family/${this.family.id}`)
         .then((response) => {
           this.$emit('updateList', this.selectedIndex);

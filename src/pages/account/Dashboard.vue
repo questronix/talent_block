@@ -272,6 +272,14 @@
 						ref="familyModal"
 						title="Valid ID" @ok="familySubmit">
 			<form @submit.stop.prevent="familySubmit">
+						<b-form-group
+												label="Relationship"
+												label-for="type">
+						<b-form-select id="type"
+													:options="{ 'Father': 'Father', 'Mother' : 'Mother', 'Sister': 'Sister', 'Brother': 'Brother', 'Wife': 'Wife', 'Husband': 'Husband', 'Dependents': 'Dependents'}"
+													v-model="family.type">
+						</b-form-select>
+					</b-form-group>
 					<b-form-group
 						label="First Name:"
 						label-for="fn">
@@ -377,13 +385,7 @@
 								<button class="btn update btn-sm">Update</button>
 								</b-row>
 								<b-row class="stud-bg-row">
-									<!-- <fam-bg-list :families="profile.fam" @updateList="updateFamilyBackgroundList"></fam-bg-list> -->
-									<!-- <b-col>
-										Father's Name:
-									</b-col>
-									<b-col>
-										Juan Dela Cruz
-									</b-col> -->
+									<fam-bg-list :families="profile.fam" @updateList="updateFamilyBackgroundList"></fam-bg-list>
 								</b-row>
 							</div>
 						</div>
@@ -462,7 +464,7 @@ export default {
 				mn: '',
 				contact_no: '',
 				occupation: '',
-				type: 1,
+				type: '',
 			},
 			needsUpdate: false,
 			alert: {
