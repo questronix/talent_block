@@ -1,15 +1,15 @@
-const TAG = '[Student]';
-const express = require('express');
-const router = express.Router();
-const logger = require('../Common/services/Logger');
-const err = require('../Common/services/Errors');
-const mw = require('../Common/middleware/Authentication');
-const async = require('async');
+const TAG     = '[Student]';
+const router  = require('express').Router();
+const logger  = require('../Common/services/Logger');
+const err     = require('../Common/services/Errors');
+const mw      = require('../Common/middleware/Authentication');
+const async   = require('async');
 
-const student   = require('./model/Student');
-const eduBg = require('./model/EducBg');
-const famBg = require('./model/FamilyBg');
-const idBg = require('./model/IdBg');
+const student = require('./model/Student');
+const eduBg   = require('./model/EducBg');
+const famBg   = require('./model/FamilyBg');
+const idBg    = require('./model/IdBg');
+const ss      = require('./model/Student_Schedule');
 
 /* get all students */
 router.get('/', mw.isAuthenticated, (req, res)=>{
@@ -251,6 +251,91 @@ router.delete('/:id/id-bg', mw.isAuthenticated, (req, res, next) => {
     logger.log('error', TAG + ACTION, error);
     res.error(error);
   }
+});
+
+
+// temporary routes for student_schedule
+
+router.get('/:student_id/courses', (req,res)=>{
+  const ACTION = '[getCourses]';
+  logger.log('debug', TAG+ACTION, `request parameters:\n${JSON.stringify(req.params)}`);
+
+  ss.getCourses(req.params.student_id)
+  .then( data=>{
+    res.success(data);
+  })
+  .catch( error=>{
+    res.error(error);
+  })
+
+})
+
+router.get('/:student_id/coursesEnrolled', (req,res)=>{
+  const ACTION = '[getCoursesEnrolled]';
+  logger.log('debug', TAG+ACTION, `request parameters:\n${JSON.stringify(req.params)}`);
+
+  ss.getCourses(req.params.student_id, 'enrolled')
+  .then( data=>{
+    res.success(data);
+  })
+  .catch( error=>{
+    res.error(error);
+  })
+});
+
+router.get('/:student_id/coursesTaken', (req,res)=>{
+  const ACTION = '[getCoursesTaken]';
+  logger.log('debug', TAG+ACTION, `request parameters:\n${JSON.stringify(req.params)}`);
+
+  ss.getCourses(req.params.student_id, 'taken')
+  .then( data=>{
+    res.success(data);
+  })
+  .catch( error=>{
+    res.error(error);
+  })
+});
+
+router.post('/:student_id/enroll', (req,res)=>{
+  const ACTION = '[postEnrollCourse]';
+  logger.log('debug', TAG+ACTION,
+  `request parameters:\n${JSON.stringify(req.params)}\nrequest body:\n${JSON.stringify(req.body)}`);
+
+  ss.enrollCourse(req.params.student_id, req.body.sched_id)
+  .then( result=>{
+    res.success(result);
+  })
+  .catch(error=>{
+    res.error(error);
+  })
+
+});
+
+router.put('/:student_id/complete', (req,res)=>{
+  const ACTION = '[putCompleteCourse]';
+  logger.log('debug', TAG+ACTION,
+  `request parameters:\n${JSON.stringify(req.params)}\nrequest body:\n${JSON.stringify(req.body)}`);
+
+  ss.completeCourse(req.params.student_id, req.body.sched_id)
+  .then( result=>{
+    res.success(result);
+  })
+  .catch( error=>{
+    res.error(error);
+  })
+});
+
+router.delete('/:student_id/drop/:sched_id', (req,res)=>{
+  const ACTION ='[deleteDropCourse]';
+  logger.log('debug', TAG+ACTION, `request parameters:\n${JSON.stringify(req.params)}`);
+
+  ss.dropCourse(req.params.student_id, req.params.sched_id)
+  .then( result=>{
+    res.success(result);
+  })
+  .catch( error=>{
+    res.error(error);
+  })
 });
 
 module.exports = router;
