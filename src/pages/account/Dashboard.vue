@@ -334,16 +334,6 @@
 							<hr>
 							<p v-show="profile.educ.length == 0">Add educational background</p>
 							<edu-bg-list :educations="profile.educ"></edu-bg-list>
-
-						 <!-- <ul class="list-unstyled" v-show="profile.educ.length > 0">
-							// 	<b-media tag="li" v-for="educ in profile.educ" :key="educ.id">
-							// 		<b-img slot="aside" blank blank-color="#abc" width="64" alt="placeholder" />
-							// 		<h5 class="mt-0 mb-1">{{educ.name}}</h5>
-							// 		<span>{{educ.course}}{{(educ.gpa)? ', GPA ' + educ.gpa : ''}}</span><br>
-							// 		<span>{{ showEducYears(educ.start_year, educ.end_year) }}</span><br>
-							// 		<span>{{educ.address}}</span><br>
-							// 	</b-media>
-							// </ul> -->
 						</div>
 						<div class="bg-student">
 							<h4>Occupation Background</h4><b-btn v-b-modal.occupationModal>ADD</b-btn>
@@ -412,8 +402,6 @@ import NavBar from '../../components/NavBar/NavBar.vue';
 import AccountStats from '../../components/AccountStats/AccountStats.vue';
 import EduBgList from '../../components/EducationalBackground/EduBgList.vue';
 import moment from 'moment';
-
-// import StudentInfoModal from '../../components/Student/StudentInfoModal.vue';
 import axios from 'axios';
 
 
@@ -487,7 +475,6 @@ export default {
 		NavBar,
 		AccountStats,
 		EduBgList,
-		// StudentInfoModal
 	},
 	methods: {
 		showEducYears: function(start_date, end_date){
