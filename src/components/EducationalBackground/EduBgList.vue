@@ -5,6 +5,7 @@
         v-for="education in educations" 
         :key="education.id" 
         :education="education"
+        @onRemove="onRemove(education.id)"
         @onUpdate="onUpdate(education)"></edu-bg-list-item>
     </ul>
 
@@ -83,6 +84,13 @@
           </b-form-group>
       </form>
     </b-modal>
+
+    <b-modal 
+      id="confirmRemoveModal"
+      title="Confirm" 
+      @ok="educRemoveSubmit">
+      Are you sure you want to remove this item?
+    </b-modal>
   </div>
 </template>
 
@@ -130,9 +138,14 @@ export default {
         });
     },
     onRemove(id) {
-      axios.delete(`/students/education/${id}`)
+      this.$root.$emit('bv::show::modal','confirmRemoveModal');
+      this.education = {};
+      this.education.id = id;
+    },
+    educRemoveSubmit() {
+      axios.delete(`/students/education/${this.education.id}`)
         .then((response) => {
-          this.educations.filter(function(educ) { return educ.id !== id; });
+          this.$emit('updateList', this.education.id);
           this.$toasted.success('Successfully removed.');
         }).catch((err) => {
           this.$toasted.error('Error while removing data. Please try again or reload the page.')

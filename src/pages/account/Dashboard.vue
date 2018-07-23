@@ -333,7 +333,7 @@
 							<h4>Educational Background</h4><b-btn v-b-modal.educModal>ADD</b-btn>
 							<hr>
 							<p v-show="profile.educ.length == 0">Add educational background</p>
-							<edu-bg-list :educations="profile.educ"></edu-bg-list>
+							<edu-bg-list :educations="profile.educ" @updateList="updateEducationalBackgroundList"></edu-bg-list>
 						</div>
 						<div class="bg-student">
 							<h4>Occupation Background</h4><b-btn v-b-modal.occupationModal>ADD</b-btn>
@@ -512,6 +512,13 @@ export default {
 					this.$refs.profileModal.show();
 				}
 			});
+		},
+		updateEducationalBackgroundList(id) {
+			let index = this.profile.educ.map(function(educ) {
+				return educ.id;
+			}).indexOf(id);
+
+			this.profile.educ.splice(index, 1);
 		},
 		educSubmit() {
 			axios.post(`/students/education`, this.educ).then(data=>{

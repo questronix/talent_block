@@ -29,7 +29,7 @@ export default {
     update() {
       this.$emit('onUpdate');
     },
-    remove () {
+    remove() {
       this.$emit('onRemove');
     }
   }
