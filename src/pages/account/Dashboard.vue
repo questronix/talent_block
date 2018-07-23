@@ -1,6 +1,4 @@
 <template>
-<div>
-	<div :class="{'blur-content': handleSubmit}">
   <base-layout>
     <div slot="header">
       <NavBar type="dashboard" heading="Dashboard" img="url('/static/img/bg2.png')"/>
@@ -25,24 +23,330 @@
 					</div>
 				</b-col>
 
+		<!-- Modal Component -->
+		<b-modal id="profileModal" 
+						ok-only
+						:no-close-on-esc="true"
+						:hide-header-close="true"
+						:header-bg-variant="headerBgVariant"
+						:header-text-variant="headerTextVariant"
+						ok-title="Save"
+						ref="profileModal"
+						title="Update Profile" 
+						@hidden="onHide"
+						@ok="handleSubmit">
+			<form @submit.stop.prevent="handleSubmit">
+					<b-form-group
+						label="Enter your first name:"
+						label-for="fn"
+					>
+						<b-form-input 
+						id="fn"
+						type="text"
+						placeholder="First Name"
+						v-model="profile.fn"></b-form-input>
+					</b-form-group>
+
+					<b-form-group
+						label="Enter your last name:"
+						label-for="ln"
+					>
+					<b-form-input type="text"
+					id="ln"
+					label="Enter your last name:"
+					placeholder="Last Name"
+					v-model="profile.ln"></b-form-input>
+					</b-form-group>
+
+					<b-form-group
+						label="Enter your middle name:"
+						label-for="mn"
+					>
+					<b-form-input type="text"
+					id="mn"
+					placeholder="Middle Name"
+					v-model="profile.mn"></b-form-input>
+					</b-form-group>
+
+					<b-form-group
+						label="Enter your contact no:"
+						label-for="contact"
+					>
+					<b-form-input type="text"
+					id="contact"
+					placeholder="Contact No"
+					v-model="profile.contact_no"></b-form-input>
+					</b-form-group>
+
+					<b-form-group
+						label="Enter your address:"
+						label-for="address"
+					>
+					<b-form-textarea type="text"
+					id="address"
+					v-model="profile.address" rows="5"></b-form-textarea>
+					</b-form-group>
+			</form>
+		</b-modal>
+
+		<!--  EDUCCATIONAL BACKGROUND -->
+		<b-modal id="educModal" ok-only
+						ref="educModal"
+						title="Educational Background" @ok="educSubmit">
+			<form @submit.stop.prevent="educSubmit">
+					<b-form-group
+						label="Enter School name:"
+						label-for="name">
+						<b-form-input 
+						id="name"
+						type="text"
+						placeholder="School Name"
+						v-model="educ.name"></b-form-input>
+					</b-form-group>
+
+					<b-form-group
+												label="Degree"
+												label-for="degree">
+						<b-form-select id="degree"
+													:options="{ 'Undergraduate': 'Undergraduate', 'Masteral': 'Masteral', 'Graduate': 'Graduate', 'Doctoral':'Doctoral', 'Vocational':'Vocational'}"
+													v-model="educ.type">
+						</b-form-select>
+					</b-form-group>
+
+					<b-form-group
+						label="Enter your course:"
+						label-for="course"
+					>
+					<b-form-input type="text"
+					id="course"
+					placeholder="Course"
+					v-model="educ.course"></b-form-input>
+					</b-form-group>
+
+					<b-form inline>
+						<label class="mr-sm-2" for="start_year">School Years</label>
+						<b-form-select class="mb-3"
+													:options="years"
+													v-model="educ.start_year"
+													id="start_year">
+								<template slot="first">
+									<option :value="null" disabled>Select Start Year</option>
+								</template>
+						</b-form-select> - &nbsp;
+						<b-form-select class="mb-3"
+													:options="years"
+													v-model="educ.end_year"
+													id="end_year">
+								<template slot="first">
+									<option :value="null" disabled>Select End Year</option>
+								</template>
+						</b-form-select>
+					</b-form>
+
+					<b-form-group
+						label="GPA (Optional)"
+						label-for="gpa"
+					>
+					<b-form-input type="number"
+					id="gpa"
+					placeholder="Grade"
+					v-model="educ.gpa"></b-form-input>
+					</b-form-group>
+
+					<b-form-group
+						label="Enter school address:"
+						label-for="address"
+					>
+					<b-form-textarea type="text" rows="5"
+					id="address"
+					v-model="educ.address"></b-form-textarea>
+					</b-form-group>
+			</form>
+		</b-modal>
+
+		<!--  OCCUPATIONAL BACKGROUND -->
+		<b-modal id="occupationModal" ok-only
+						ref="occupationModal"
+						title="Educational Background" @ok="occupationSubmit">
+			<form @submit.stop.prevent="occupationSubmit">
+					<b-form-group
+						label="Enter your Occupation Name:"
+						label-for="name">
+						<b-form-input 
+						id="occupation"
+						type="text"
+						placeholder="Occupation"
+						v-model="occupation.name"></b-form-input>
+					</b-form-group>
+
+					<b-form-group
+						label="Enter your Position:"
+						label-for="name">
+						<b-form-input 
+						id="position"
+						type="text"
+						placeholder="Position / Job Title"
+						v-model="occupation.position"></b-form-input>
+					</b-form-group>
+
+					<b-form-group
+						label="Enter your Department:"
+						label-for="name">
+						<b-form-input 
+						id="department"
+						type="text"
+						placeholder="Department"
+						v-model="occupation.department"></b-form-input>
+					</b-form-group>
+
+					<b-form-group
+						label="Enter your address:"
+						label-for="address"
+					>
+					<b-form-textarea type="text" rows="5"
+					id="address"
+					v-model="occupation.address"></b-form-textarea>
+					</b-form-group>
+
+					<b-form-group
+						label="Enter your Salary (Optional):"
+						label-for="salary">
+						<b-form-input 
+						id="name"
+						type="number"
+						placeholder="Salary"
+						v-model="occupation.salary"></b-form-input>
+					</b-form-group>
+
+					<b-form-group
+						label="What are your duties?"
+						label-for="duties"
+					>
+					<b-form-textarea type="text"
+					id="duties"
+					v-model="occupation.duties"></b-form-textarea>
+					</b-form-group>
+
+					<b-form-group
+						label="Enter your reason why you leave:"
+						label-for="reason"
+					>
+					<b-form-textarea type="text" rows="5"
+					id="reason"
+					v-model="occupation.reason"></b-form-textarea>
+					</b-form-group>
+					
+			</form>
+		</b-modal>
+
+		<!--  VALID ID BACKGROUND -->
+		<b-modal id="validIdModal" ok-only
+						ref="validIdModal"
+						title="Valid ID" @ok="validIdSubmit">
+			<form @submit.stop.prevent="validIdSubmit">
+					<b-form-group
+						label="ID Name:"
+						label-for="idName">
+						<b-form-input 
+						id="idName"
+						type="text"
+						placeholder="Valid ID"
+						v-model="validIds.name"></b-form-input>
+					</b-form-group>
+
+					<b-form-group
+						label="Number:"
+						label-for="number"
+					>
+					<b-form-input type="text"
+					id="number"
+					placeholder="Number"
+					v-model="validIds.number"></b-form-input>
+					</b-form-group>
+
+			</form>
+		</b-modal>
+
+			<!--  FAMILY BACKGROUND -->
+		<b-modal id="familyModal" ok-only
+						ref="familyModal"
+						title="Valid ID" @ok="familySubmit">
+			<form @submit.stop.prevent="familySubmit">
+					<b-form-group
+						label="First Name:"
+						label-for="fn">
+						<b-form-input 
+						id="idName"
+						type="text"
+						placeholder="First Name"
+						v-model="family.fn"></b-form-input>
+					</b-form-group>
+
+					<b-form-group
+						label="Last Name:"
+						label-for="fn">
+						<b-form-input 
+						id="idName"
+						type="text"
+						placeholder="Last Name"
+						v-model="family.ln"></b-form-input>
+					</b-form-group>
+
+					<b-form-group
+						label="Middle Name:"
+						label-for="fn">
+						<b-form-input 
+						id="idName"
+						type="text"
+						placeholder="First Name"
+						v-model="family.mn"></b-form-input>
+					</b-form-group>
+
+					<b-form-group
+						label="Contact No:"
+						label-for="fn">
+						<b-form-input 
+						id="idName"
+						type="text"
+						placeholder="Contact number"
+						v-model="family.contact"></b-form-input>
+					</b-form-group>
+
+					<b-form-group
+						label="Occupation:"
+						label-for="fn">
+						<b-form-input 
+						id="idName"
+						type="text"
+						placeholder="First Name"
+						v-model="family.occupation"></b-form-input>
+					</b-form-group>
+
+			</form>
+		</b-modal>
+
+				
+
 				<div class="col scheds">
 					<div class="sched-calendar padded-white stud-bg">
 						<div class="bg-student">
-							<h4>Educational Background</h4><b-btn v-b-modal.educModal class="addbtns btn-success">+</b-btn>
+							<h4>Educational Background</h4><b-btn v-b-modal.educModal>ADD</b-btn>
 							<hr>
 							<p v-show="profile.educ.length == 0">Add educational background</p>
-							<ul class="list-unstyled" v-show="profile.educ.length > 0">
-								<b-media tag="li" v-for="educ in profile.educ" :key="educ.id">
-									<b-img slot="aside" blank blank-color="#abc" width="64" alt="placeholder" />
-									<h5 class="mt-0 mb-1">{{educ.name}}</h5>
-									<span>{{educ.course}}{{(educ.gpa)? ', GPA ' + educ.gpa : ''}}</span><br>
-									<span>{{ showEducYears(educ.start_year, educ.end_year) }}</span><br>
-									<span>{{educ.address}}</span><br>
-								</b-media>
-							</ul>
+							<edu-bg-list :educations="profile.educ"></edu-bg-list>
+
+						 <!-- <ul class="list-unstyled" v-show="profile.educ.length > 0">
+							// 	<b-media tag="li" v-for="educ in profile.educ" :key="educ.id">
+							// 		<b-img slot="aside" blank blank-color="#abc" width="64" alt="placeholder" />
+							// 		<h5 class="mt-0 mb-1">{{educ.name}}</h5>
+							// 		<span>{{educ.course}}{{(educ.gpa)? ', GPA ' + educ.gpa : ''}}</span><br>
+							// 		<span>{{ showEducYears(educ.start_year, educ.end_year) }}</span><br>
+							// 		<span>{{educ.address}}</span><br>
+							// 	</b-media>
+							// </ul> -->
 						</div>
 						<div class="bg-student">
-							<h4>Occupation Background</h4><b-btn v-b-modal.occupationModal class="addbtns btn-success">+</b-btn>
+							<h4>Occupation Background</h4><b-btn v-b-modal.occupationModal>ADD</b-btn>
 							<hr>
 							<div class="stud-bg-content">
 								<b-row>
@@ -59,7 +363,7 @@
 							</div>
 						</div>
 						<div class="bg-student">
-							<h4>IDs</h4><b-btn v-b-modal.validIdModal class="addbtns btn-success">+</b-btn>
+							<h4>IDs</h4><b-btn v-b-modal.validIdModal>ADD</b-btn>
 							<hr>
 							<div class="stud-bg-content">
 								<b-row>
@@ -76,7 +380,7 @@
 							</div>
 						</div>
 						<div class="bg-student">
-							<h4>Family Background</h4><b-btn v-b-modal.familyModal class="addbtns btn-success">+</b-btn>
+							<h4>Family Background</h4><b-btn v-b-modal.familyModal>ADD</b-btn>
 							<hr>
 							<div class="stud-bg-content">
 								<b-row>
@@ -100,291 +404,13 @@
 	</div>
 	</div>
   </base-layout>
-	</div>
-  
-	<!-- Main UI -->
-	<!-- Modal Component -->
-	<b-modal id="profileModal" 
-					ok-only
-					:no-close-on-esc="true"
-					:hide-header-close="true"
-					:header-bg-variant="headerBgVariant"
-					:header-text-variant="headerTextVariant"
-					ok-title="Save"
-					ref="profileModal"
-					title="Update Profile" 
-					@hidden="onHide"
-					@ok="handleSubmit">
-		<form @submit.stop.prevent="handleSubmit">
-				<b-form-group
-					label="Enter your first name:"
-					label-for="fn"
-				>
-					<b-form-input 
-					id="fn"
-					type="text"
-					placeholder="First Name"
-					v-model="profile.fn"></b-form-input>
-				</b-form-group>
-
-				<b-form-group
-					label="Enter your last name:"
-					label-for="ln"
-				>
-				<b-form-input type="text"
-				id="ln"
-				label="Enter your last name:"
-				placeholder="Last Name"
-				v-model="profile.ln"></b-form-input>
-				</b-form-group>
-
-				<b-form-group
-					label="Enter your middle name:"
-					label-for="mn"
-				>
-				<b-form-input type="text"
-				id="mn"
-				placeholder="Middle Name"
-				v-model="profile.mn"></b-form-input>
-				</b-form-group>
-
-				<b-form-group
-					label="Enter your contact no:"
-					label-for="contact"
-				>
-				<b-form-input type="text"
-				id="contact"
-				placeholder="Contact No"
-				v-model="profile.contact_no"></b-form-input>
-				</b-form-group>
-
-				<b-form-group
-					label="Enter your address:"
-					label-for="address"
-				>
-				<b-form-textarea type="text"
-				id="address"
-				v-model="profile.address" rows="5"></b-form-textarea>
-				</b-form-group>
-		</form>
-	</b-modal>
-
-
-
-
-
-	<!--  EDUCCATIONAL BACKGROUND -->
-	<b-modal id="educModal" ok-only
-					ref="educModal"
-					title="Educational Background" @ok="educSubmit">
-		<form @submit.stop.prevent="educSubmit">
-				<b-form-group
-					label="Enter School name:"
-					label-for="name">
-					<b-form-input 
-					id="name"
-					type="text"
-					placeholder="School Name"
-					v-model="educ.name"></b-form-input>
-				</b-form-group>
-
-				<b-form-group
-					label="Enter your course:"
-					label-for="course"
-				>
-				<b-form-input type="text"
-				id="course"
-				placeholder="Course"
-				v-model="educ.course"></b-form-input>
-				</b-form-group>
-
-				<b-form-group
-					label="Enter your address:"
-					label-for="address"
-				>
-				<b-form-textarea type="text" rows="5"
-				id="address"
-				v-model="educ.address"></b-form-textarea>
-				</b-form-group>
-		</form>
-	</b-modal>
-
-
-
-
-
-
-	<!--  OCCUPATIONAL BACKGROUND -->
-	<b-modal id="occupationModal" ok-only
-					ref="occupationModal"
-					title="Educational Background" @ok="occupationSubmit">
-		<form @submit.stop.prevent="occupationSubmit">
-				<b-form-group
-					label="Enter your Occupation Name:"
-					label-for="name">
-					<b-form-input 
-					id="occupation"
-					type="text"
-					placeholder="Occupation"
-					v-model="occupation.name"></b-form-input>
-				</b-form-group>
-
-				<b-form-group
-					label="Enter your Position:"
-					label-for="name">
-					<b-form-input 
-					id="position"
-					type="text"
-					placeholder="Position / Job Title"
-					v-model="occupation.position"></b-form-input>
-				</b-form-group>
-
-				<b-form-group
-					label="Enter your Department:"
-					label-for="name">
-					<b-form-input 
-					id="department"
-					type="text"
-					placeholder="Department"
-					v-model="occupation.department"></b-form-input>
-				</b-form-group>
-
-				<b-form-group
-					label="Enter your address:"
-					label-for="address"
-				>
-				<b-form-textarea type="text" rows="5"
-				id="address"
-				v-model="occupation.address"></b-form-textarea>
-				</b-form-group>
-
-				<b-form-group
-					label="Enter your Salary (Optional):"
-					label-for="salary">
-					<b-form-input 
-					id="name"
-					type="number"
-					placeholder="Salary"
-					v-model="occupation.salary"></b-form-input>
-				</b-form-group>
-
-				<b-form-group
-					label="What are your duties?"
-					label-for="duties"
-				>
-				<b-form-textarea type="text"
-				id="duties"
-				v-model="occupation.duties"></b-form-textarea>
-				</b-form-group>
-
-				<b-form-group
-					label="Enter your reason why you leave:"
-					label-for="reason"
-				>
-				<b-form-textarea type="text" rows="5"
-				id="reason"
-				v-model="occupation.reason"></b-form-textarea>
-				</b-form-group>
-				
-		</form>
-	</b-modal>
-
-
-
-	<!--  VALID ID BACKGROUND -->
-	<b-modal id="validIdModal" ok-only
-					ref="validIdModal"
-					title="Valid ID" @ok="validIdSubmit">
-		<form @submit.stop.prevent="validIdSubmit">
-				<b-form-group
-					label="ID Name:"
-					label-for="idName">
-					<b-form-input 
-					id="idName"
-					type="text"
-					placeholder="Valid ID"
-					v-model="validIds.name"></b-form-input>
-				</b-form-group>
-
-				<b-form-group
-					label="Number:"
-					label-for="number"
-				>
-				<b-form-input type="text"
-				id="number"
-				placeholder="Number"
-				v-model="validIds.number"></b-form-input>
-				</b-form-group>
-
-		</form>
-	</b-modal>
-
-
-
-		<!--  FAMILY BACKGROUND -->
-	<b-modal id="familyModal" ok-only
-					ref="familyModal"
-					title="Valid ID" @ok="familySubmit">
-		<form @submit.stop.prevent="familySubmit">
-				<b-form-group
-					label="First Name:"
-					label-for="fn">
-					<b-form-input 
-					id="idName"
-					type="text"
-					placeholder="First Name"
-					v-model="family.fn"></b-form-input>
-				</b-form-group>
-
-				<b-form-group
-					label="Last Name:"
-					label-for="fn">
-					<b-form-input 
-					id="idName"
-					type="text"
-					placeholder="Last Name"
-					v-model="family.ln"></b-form-input>
-				</b-form-group>
-
-				<b-form-group
-					label="Middle Name:"
-					label-for="fn">
-					<b-form-input 
-					id="idName"
-					type="text"
-					placeholder="First Name"
-					v-model="family.mn"></b-form-input>
-				</b-form-group>
-
-				<b-form-group
-					label="Contact No:"
-					label-for="fn">
-					<b-form-input 
-					id="idName"
-					type="text"
-					placeholder="Contact number"
-					v-model="family.contact"></b-form-input>
-				</b-form-group>
-
-				<b-form-group
-					label="Occupation:"
-					label-for="fn">
-					<b-form-input 
-					id="idName"
-					type="text"
-					placeholder="First Name"
-					v-model="family.occupation"></b-form-input>
-				</b-form-group>
-
-		</form>
-	</b-modal>
-  </div>
 </template>
 
 <script>
 import BaseLayout from '../../layouts/BaseLayout.vue';
 import NavBar from '../../components/NavBar/NavBar.vue';
 import AccountStats from '../../components/AccountStats/AccountStats.vue';
+import EduBgList from '../../components/EducationalBackground/EduBgList.vue';
 import moment from 'moment';
 
 // import StudentInfoModal from '../../components/Student/StudentInfoModal.vue';
@@ -460,6 +486,7 @@ export default {
     BaseLayout,
 		NavBar,
 		AccountStats,
+		EduBgList,
 		// StudentInfoModal
 	},
 	methods: {
@@ -610,13 +637,5 @@ export default {
 
 .stud-bg-row {
 	margin-bottom: 5px;
-}
-
-.addbtns {
-	float: right;
-}
-
-.modal-open .blur-content{
-  filter: blur(5px); 
 }
 </style>
