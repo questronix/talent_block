@@ -59,6 +59,13 @@ router.get('/me', mw.isAuthenticated, (req, res)=>{
       }).catch((error) => { 
         callback(error);
       });
+    }],
+    student_ids_bg: ['student_occu_bg', function(result, callback){
+      idBg.getStudentIds(result.student_info.user_id).then((data) => {
+        callback(null, data);
+      }).catch((error) => { 
+        callback(error);
+      });
     }]
   }, function(err, result){
     if(err) res.error(err);
@@ -66,6 +73,7 @@ router.get('/me', mw.isAuthenticated, (req, res)=>{
       result.student_info.educ = result.student_edu_bg;
       result.student_info.fam = result.student_fam_bg;
       result.student_info.occupations = result.student_occu_bg;
+      result.student_info.ids = result.student_ids_bg;
       res.success(result.student_info);
     }
   });
@@ -214,6 +222,43 @@ router.delete(`/occupation/:id`, mw.isAuthenticated, (req,res)=>{
   logger.log('debug', TAG + ACTION + ' request body', req.params);
 
   occuBg.delete(req.params.id).then(data=>{
+    res.success(data);
+  }).catch(error=>{
+    console.log(error);
+    res.error(error);
+  })
+});
+
+// IDs Background
+router.post(`/ids`, mw.isAuthenticated, (req,res)=>{
+  const ACTION = '[postIDs]';
+  logger.log('debug', TAG + ACTION + ' request body', req.body);
+
+  req.body.user_id = req.user.id;
+  idBg.add(req.body).then(data=>{
+    res.success(data);
+  }).catch(error=>{
+    res.error(error);
+  })
+});
+
+router.put(`/ids`, mw.isAuthenticated, (req,res)=>{
+  const ACTION = '[putUpdateIDs]';
+  logger.log('debug', TAG + ACTION + ' request body', req.body);
+
+  idBg.update(req.body).then(data=>{
+    res.success(data);
+  }).catch(error=>{
+    console.log(error);
+    res.error(error);
+  })
+});
+
+router.delete(`/ids/:id`, mw.isAuthenticated, (req,res)=>{
+  const ACTION = '[deleteIDs]';
+  logger.log('debug', TAG + ACTION + ' request body', req.params);
+
+  idBg.delete(req.params.id).then(data=>{
     res.success(data);
   }).catch(error=>{
     console.log(error);

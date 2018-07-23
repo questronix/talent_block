@@ -287,7 +287,7 @@
 						id="idName"
 						type="text"
 						placeholder="Valid ID"
-						v-model="validIds.name"></b-form-input>
+						v-model="ids.name"></b-form-input>
 					</b-form-group>
 
 					<b-form-group
@@ -297,7 +297,7 @@
 					<b-form-input type="text"
 					id="number"
 					placeholder="Number"
-					v-model="validIds.number"></b-form-input>
+					v-model="ids.number"></b-form-input>
 					</b-form-group>
 
 			</form>
@@ -399,12 +399,7 @@
 								<button class="btn update btn-sm">Update</button>
 								</b-row>
 								<b-row class="stud-bg-row">
-									<b-col>
-										ID:
-									</b-col>
-									<b-col>
-										SSS ID
-									</b-col>
+									<id-bg-list :ids="profile.ids" @updateList="updateIdBackgroundList"></id-bg-list>
 								</b-row>
 							</div>
 						</div>
@@ -437,6 +432,7 @@ import AccountStats from '../../components/AccountStats/AccountStats.vue';
 import EduBgList from '../../components/EducationalBackground/EduBgList.vue';
 import FamBgList from '../../components/FamilyBackground/FamBgList.vue';
 import OccuBgList from '../../components/OccupationalBackground/OccuBgList.vue';
+import IdBgList from '../../components/IDsBackground/IdBgList.vue';
 import moment from 'moment';
 import axios from 'axios';
 
@@ -477,7 +473,7 @@ export default {
 				end_month: null,
 				reason: '',
 			},
-			validIds: {
+			ids: {
 				name: '',
 				number: '',
 				type: '',
@@ -517,6 +513,7 @@ export default {
 		EduBgList,
 		FamBgList,
 		OccuBgList,
+		IdBgList,
 	},
 	methods: {
 		showEducYears: function(start_date, end_date){
@@ -592,8 +589,22 @@ export default {
 				console.log(error);
 			});
 		},
+		updateIdBackgroundList(index) {
+			this.profile.ids.splice(index, 1);
+		},
 		validIdSubmit() {
-			alert(JSON.stringify(this.validIds));
+			axios.post(`/students/ids`, this.ids).then(data=>{
+				console.log(data);
+				console.log(this.profile.ids);
+				this.profile.ids.push({
+					id: data.data.insertId,
+					user_id: this.profile.user_id,
+					...this.ids
+				});
+				this.$toasted.success('Occupational background was succesfully updated');
+			}).catch(error=>{
+				console.log(error);
+			});
 		},
 		handleSubmit() {
 			if(this.profile.user_id){
