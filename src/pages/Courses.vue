@@ -123,7 +123,5 @@ export default {
 </script>
 
 <style scoped>
-.title {
-    margin: 20px;
-}
+
 </style>
