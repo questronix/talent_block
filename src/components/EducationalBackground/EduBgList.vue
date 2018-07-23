@@ -2,10 +2,10 @@
   <div>
     <ul class="list-unstyled" v-show="educations.length > 0">
       <edu-bg-list-item 
-        v-for="education in educations" 
+        v-for="(education, index) in educations" 
         :key="education.id" 
         :education="education"
-        @onRemove="onRemove(education.id)"
+        @onRemove="onRemove(index, education.id)"
         @onUpdate="onUpdate(education)"></edu-bg-list-item>
     </ul>
 
@@ -118,6 +118,7 @@ export default {
       education: {},
       tempEduc: {},
       years: years,
+      selectedIndex: -1,
     }
   },
   components: {
@@ -137,15 +138,16 @@ export default {
           console.log('Background Info Update Error: ', err);
         });
     },
-    onRemove(id) {
+    onRemove(index, id) {
       this.$root.$emit('bv::show::modal','confirmRemoveModal');
       this.education = {};
       this.education.id = id;
+      this.selectedIndex = index;
     },
     educRemoveSubmit() {
       axios.delete(`/students/education/${this.education.id}`)
         .then((response) => {
-          this.$emit('updateList', this.education.id);
+          this.$emit('updateList', this.selectedIndex);
           this.$toasted.success('Successfully removed.');
         }).catch((err) => {
           this.$toasted.error('Error while removing data. Please try again or reload the page.')

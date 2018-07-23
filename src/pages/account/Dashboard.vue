@@ -513,11 +513,7 @@ export default {
 				}
 			});
 		},
-		updateEducationalBackgroundList(id) {
-			let index = this.profile.educ.map(function(educ) {
-				return educ.id;
-			}).indexOf(id);
-
+		updateEducationalBackgroundList(index) {
 			this.profile.educ.splice(index, 1);
 		},
 		educSubmit() {
