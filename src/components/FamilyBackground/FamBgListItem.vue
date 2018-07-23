@@ -1,12 +1,19 @@
 <template>
   <div>
-    <b-media>
-      <span>{{ family.fn }} {{ family.mn }} {{ family.ln }}</span><br>
+    <b-media style="width: 100%;">
+      <h5>
+        <div class="bnts-prfile">
+          <span class="updbtn"><b-btn size="sm" variant="outline-primary" @click="update"><font-awesome-icon icon="edit" /></b-btn></span>
+          <span class="rembtn"><b-btn size="sm" variant="outline-danger" @click="remove"><font-awesome-icon icon="times-circle" /></b-btn></span>
+        </div>
+      </h5>
+      <span class="fambg">{{ family.fn }} {{ family.mn }} {{ family.ln }}
+        
+      </span><br>
       <span>{{ family.contact }}</span>
       <span>{{ family.occupation }}</span>
       <span>{{ family.address }}</span><br>
-      <span><b-button @click="update">Update</b-button></span>
-      <span><b-button @click="remove" variant="danger">Remove</b-button></span>
+
     </b-media>
   </div>
 </template>
@@ -28,4 +35,3 @@ export default {
   }
 }
 </script>
-

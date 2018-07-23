@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div style="width: 100%;">
     <ul class="list-unstyled" v-show="ids.length > 0">
       <id-bg-list-item 
         v-for="(idBg, index) in ids" 

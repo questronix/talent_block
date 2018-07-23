@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div style="width: 100%">
     <ul class="list-unstyled" v-show="families.length > 0">
       <fam-bg-list-item 
         v-for="(family, index) in families" 

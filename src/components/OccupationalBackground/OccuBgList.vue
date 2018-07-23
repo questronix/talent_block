@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div style="width: 100%;">
     <ul class="list-unstyled" v-show="occupations.length > 0">
       <occu-bg-list-item 
         v-for="(occupation, index) in occupations" 

@@ -374,17 +374,17 @@
 				<div class="col scheds">
 					<div class="sched-calendar padded-white stud-bg">
 						<div class="bg-student">
-							<h4>Educational Background</h4><b-btn v-b-modal.educModal>ADD</b-btn>
+							<h4>Educational Background</h4><b-btn v-b-modal.educModal class="addbtns btn-success"><font-awesome-icon icon="plus-circle" /></b-btn>
 							<hr>
 							<p v-show="profile.educ.length == 0">Add educational background</p>
 							<edu-bg-list :educations="profile.educ" @updateList="updateEducationalBackgroundList"></edu-bg-list>
 						</div>
 						<div class="bg-student">
-							<h4>Occupation Background</h4><b-btn v-b-modal.occupationModal>ADD</b-btn>
+							<h4>Occupation Background</h4><b-btn v-b-modal.occupationModal class="addbtns btn-success"><font-awesome-icon icon="plus-circle" /></b-btn>
 							<hr>
 							<div class="stud-bg-content">
 								<b-row>
-									<button class="btn update btn-sm">Update</button>
+									
 									</b-row>
 									<b-row class="stud-bg-row">
 										<occu-bg-list :occupations="profile.occupations" @updateList="updateOccupationBackgroundList"></occu-bg-list>
@@ -392,11 +392,11 @@
 							</div>
 						</div>
 						<div class="bg-student">
-							<h4>IDs</h4><b-btn v-b-modal.validIdModal>ADD</b-btn>
+							<h4>IDs</h4><b-btn v-b-modal.validIdModal class="addbtns btn-success"><font-awesome-icon icon="plus-circle" /></b-btn>
 							<hr>
 							<div class="stud-bg-content">
 								<b-row>
-								<button class="btn update btn-sm">Update</button>
+
 								</b-row>
 								<b-row class="stud-bg-row">
 									<id-bg-list :ids="profile.ids" @updateList="updateIdBackgroundList"></id-bg-list>
@@ -404,11 +404,11 @@
 							</div>
 						</div>
 						<div class="bg-student">
-							<h4>Family Background</h4><b-btn v-b-modal.familyModal>ADD</b-btn>
+							<h4>Family Background</h4><b-btn v-b-modal.familyModal class="addbtns btn-success"><font-awesome-icon icon="plus-circle" /></b-btn>
 							<hr>
 							<div class="stud-bg-content">
 								<b-row>
-								<button class="btn update btn-sm">Update</button>
+								
 								</b-row>
 								<b-row class="stud-bg-row">
 									<fam-bg-list :families="profile.fam" @updateList="updateFamilyBackgroundList"></fam-bg-list>
@@ -696,5 +696,9 @@ export default {
 
 .stud-bg-row {
 	margin-bottom: 5px;
+}
+
+.addbtns {
+	float: right;
 }
 </style>
