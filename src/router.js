@@ -12,6 +12,7 @@ import TransactionLog from './pages/account/TransactionLog.vue';
 import DashboardSchool from './pages/school/Dashboard.vue';
 import Error404 from './pages/error/404.vue';
 import FacultyDashboard from './pages/faculty/FacultyDashboard.vue';
+import ChangePassword from './pages/changePassword.vue';
 
 Vue.use(VueRouter);
 
@@ -62,6 +63,11 @@ const routes = [
     path: '/transactionlog',
     component: TransactionLog,
     meta: { requiresAuth: true }
+  },
+  {
+    name: 'changepassword',
+    path: '/changepassword',
+    component: ChangePassword
   },
   {
     name: 'dashboardSchool',

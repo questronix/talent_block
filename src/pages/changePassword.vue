@@ -1,54 +1,20 @@
 <template>
   <base-layout>
-    <div slot="body">
-      
-      <div class="signuppage">
-        <div class="signupcontainer">
-          <div class="signupform">
-            <div class="singupcontent">
-              <h5><strong>CHOOSE. PAY. LEARN.</strong></h5>
-              <span class="signup-span">
-                Create a <strong>Talent Block</strong> account to enroll to courses in 
-                just a few clicks and pay without waiting in line.
-                Already have a Talent Block account?<a class="linking" href=#login>Login here.</a>
-              </span>
-              <br>
-              <img src="/static/img/signupimg.svg" height="200px">
-            </div>
-            <div class="formsignup">
-            <h4>Sign Up</h4>
-              <b-alert variant="danger"
-                dismissible
-                :show="alert"
-                @dismissed="alert=false">
-                {{ alertMsg }}
-              </b-alert>
-              <b-form @submit.prevent="onSubmit">
-                <b-form-group>
-                  <b-form-input 
-                    id="username" 
-                    type="text" 
-                    v-model="form.username" 
-                    placeholder="Username"
-                    required>
-                  </b-form-input>
-                </b-form-group>
-                <b-form-group>
-                  <b-form-input 
-                    id="email" 
-                    type="email" 
-                    v-model="form.email" 
-                    placeholder="Email"
-                    required>
-                  </b-form-input>
-                </b-form-group>
+    <div slot="body">  
+      <div class="login">
+        <div class="card text-center" style="width: 40rem;">
+          <div class="card-body">
+            <br/>
+                <h2> Change Your Password</h2>
+            <br/>
+            <b-form @submit.prevent="onSubmit">
 
                 <b-form-group> 
                   <b-form-input 
                     id="ch-reg-password" 
                     type="password" 
-                    v-model="form.password" 
-                    placeholder="Password"
+                    v-model="password" 
+                    placeholder="New Password"
                     required>
                   </b-form-input>
                 </b-form-group>
@@ -76,20 +42,17 @@
                 </b-container>
 
                 <b-button type="submit" variant="primary" :block="true" :disabled="isLoading">
-                  <div v-show="isLoading" class="lds-hourglass"></div>
-                  <div v-show="!isLoading">Sign Up</div>
+                    CHANGE PASSWORD
                 </b-button>
               </b-form>
           </div>
-          <div class="clearfix"></div>
         </div>
       </div>
-      </div>
-
     </div>
   </base-layout>
 </template>
-<script>
+
+<script>  
 let missing = [];
 let strength = false;
 $(document).off('keyup').on('keyup', function(e){
@@ -184,97 +147,61 @@ $(document).off('keyup').on('keyup', function(e){
         }
     });
 
-
 import BaseLayout from '../layouts/BaseLayout.vue';
-import axios from 'axios';
+
 
 export default {
-  name: 'signUpPage',
-  data() {
-    return {
-      form: {
-        username: '',
-        password: '',
-        email: '',
-      },
-
-      conpassword: '',
-      missing: missing,
-      strength: strength,
-      isLoading: false,
-      alert: false,
-      alertMsg: 'There\'s a problem with your request. Please try again.',
-    };
-  },
+  name: 'changepassword',  
   components: {
     BaseLayout,
   },
-  methods: {
-    validate(){
-      let valid = true;
-      if(this.missing.length !== 0 || !strength){
-        valid = false;
-        this.alertMsg = 'Password strength is too weak.';
-        this.alert = true;
+  data(){
+      return{
+          password: '',
+          conpassword: '',
+          missing: missing,
+          strength: strength
       }
-      else if(this.form.password !== this.conpassword) {
-        valid = false
-        this.alertMsg = 'Passwords do not match.';
-        this.alert = true;
-      }
-      return valid;
-    },
-    onSubmit() {
-      if(this.validate()){
-      this.isLoading = true;
-      this.alert = false;
-      axios.post('/signup/student', this.form)
-        .then((response) => {
-          this.isLoading = false;
-          window.location.href = '#/success';
-        }).catch((err) => {
-          if (err.response.data) {
-            let errCode = err.response.data.details.code;
-            if (errCode === 'ER_DUP_ENTRY') {
-              this.alertMsg = "Username or Email is already taken.";
-            }
-          }
-          this.isLoading = false;
-          this.alert = true;
-        })
-        .then(() => {
-          this.isLoading = false;
-        });
-      }
-    }
-  },  
-  computed: {
-    isLoggedIn() {
-      return this.$root.isLogged;
-    }
-  },
-  beforeRouteEnter(to, from, next) {
-    next(vm => {
-      if (vm.isLoggedIn) {
-        window.location.href = `#${from.path}`;
-      }
-    });
   }
 }
 </script>
 
-<style>
-/******************sign up link**********************/
-.linking{
-  color:white;
-  text-decoration:underline;
-  
+
+<style scoped>
+body {
+  overflow: hidden;
 }
 
-.linking:hover{
-  color:greenyellow;
+
+#btnGoogle {
+  color: black;
+  background-color: #dcdcdc;
+  border-style: none;
 }
 
+#username, #password {
+  border-radius: 20px;
+}
+
+.mail{
+  width: 30%;
+  height:auto;
+  margin-bottom:20px;
+}
+.login .card{
+  margin-left:25%;
+  margin-top:4%;
+  background-color: white;
+  color:black;
+  border:none;
+}
+.continuation{
+  margin-top:-20px;
+}
+
+#text-details{
+  color:lightgrey;
+}
 
 </style>
 
