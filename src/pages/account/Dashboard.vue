@@ -373,14 +373,6 @@
 
 				<div class="col scheds">
 					<div class="sched-calendar padded-white stud-bg">
-						<calendar
-							:first-day="1"
-							:all-events="events"
-							:canAddEvent="true"
-							:canDeleteEvent="true"
-							@eventAdded="eventAdded"
-							@eventDeleted="eventDeleted"
-			></calendar>
 						<div class="bg-student">
 							<h4>Educational Background</h4><b-btn v-b-modal.educModal class="addbtns btn-success"><font-awesome-icon icon="plus-circle" /></b-btn>
 							<hr>
@@ -444,7 +436,6 @@ import EduBgList from '../../components/EducationalBackground/EduBgList.vue';
 import FamBgList from '../../components/FamilyBackground/FamBgList.vue';
 import OccuBgList from '../../components/OccupationalBackground/OccuBgList.vue';
 import IdBgList from '../../components/IDsBackground/IdBgList.vue';
-import { Calendar } from 'vue-bootstrap4-calendar';
 import moment from 'moment';
 import axios from 'axios';
 
@@ -528,7 +519,6 @@ export default {
 		FamBgList,
 		OccuBgList,
 		IdBgList,
-		Calendar,
 	},
 	methods: {
 		eventAdded(event) {
@@ -680,25 +670,6 @@ export default {
 	},
 	mounted() {
 		this.checkProfile();
-		let me = this;
-		window.setTimeout(function () {
-				me.events = [ // you can make ajax call here
-						{
-								id:1,
-								title:'Event 1',
-								description: 'Dummy Desc',
-								color: 'card-danger card-inverse',
-								date: new Date()
-						},
-						{
-								id:2,
-								title:'Event 2',
-								description: 'Dummy Desc 2',
-								color: 'card-primary card-inverse',
-								date: new Date()
-						},
-				];
-		}, 1000);
 	},
 	computed: {
 		showName(){
