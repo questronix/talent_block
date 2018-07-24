@@ -21,8 +21,11 @@ Vue.use(Toasted, {
   duration: 5000,
   position: 'bottom-right',
   action: {
-    text: 'CLOSE'
-  }
+    text: 'CLOSE',
+    onClick: (e, toastObject) => {
+      toastObject.goAway(0);
+    }
+  },
 });
 
 
