@@ -58,18 +58,7 @@
         </b-container>
         <div class="courselist">
 			<div class="courses">
-        <!-- <course-list :courses="courses"></course-list> -->
-        <ul>
-          <li v-for="course in courses" :key="course.id">
-            <img :src="course.thumbnail"><br>
-            <!-- TODO: change course.slot to num of students enrolled to this course -->
-            <p>+ {{ course.slot }} students</p>
-            <router-link :to="{ path: 'courses/course?id=' + course.id }">
-              <h5>{{ course.name}}</h5>
-            </router-link>
-            <p>{{course.short_desc}}</p>
-          </li>
-        </ul>
+        <course-list :courses="courses"></course-list>
 			</div>
 
 		</div>
@@ -79,14 +68,14 @@
 <script defer>
 // FIXME: CourseList component bug.
 import BaseLayout from '../layouts/BaseLayout.vue';
-// import CourseList from '../components/Course/CourseList.vue';
+import CourseList from '../components/Course/CourseList.vue';
 import axios from 'axios';
 
 export default {
   name: 'coursesPage',
   components: {
     BaseLayout,
-    // CourseList,
+    CourseList,
   },
   data() {
     return {
