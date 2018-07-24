@@ -376,7 +376,7 @@
 						<div class="bg-student">
 							<h4>Educational Background</h4><b-btn v-b-modal.educModal class="addbtns btn-success"><font-awesome-icon icon="plus-circle" /></b-btn>
 							<hr>
-							<p v-show="profile.educ.length == 0">Add educational background</p>
+							<p v-show="profile.educ.length == 0">Add educational background now</p>
 							<edu-bg-list :educations="profile.educ" @updateList="updateEducationalBackgroundList"></edu-bg-list>
 						</div>
 						<div class="bg-student">
@@ -387,7 +387,7 @@
 									
 									</b-row>
 								<b-row class="stud-bg-row">
-									
+									<p v-show="profile.occupations.length == 0">Add occupational background now</p>
 									<occu-bg-list :occupations="profile.occupations" @updateList="updateOccupationBackgroundList"></occu-bg-list>
 								</b-row>
 							</div>
@@ -400,6 +400,7 @@
 
 								</b-row>
 								<b-row class="stud-bg-row">
+									<p v-show="profile.ids.length == 0">Add valid IDs now</p>
 									<id-bg-list :ids="profile.ids" @updateList="updateIdBackgroundList"></id-bg-list>
 								</b-row>
 							</div>
@@ -412,6 +413,7 @@
 								
 								</b-row>
 								<b-row class="stud-bg-row">
+									<p v-show="profile.fam.length == 0">Add family background now</p>
 									<fam-bg-list :families="profile.fam" @updateList="updateFamilyBackgroundList"></fam-bg-list>
 								</b-row>
 							</div>
