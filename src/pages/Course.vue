@@ -161,23 +161,70 @@
 
         <div class="side-bar">
           <div class="sidebar-content">
-            <ul>
-              <li>
-                1.) Introduction to becoming a backend dev
-              </li>
-              <li>
-                2.) Learning your basics
-              </li>
-              <li>
-                3.) Lets expand on this
-              </li>
-              <li>
-                4.) Test your skills
-              </li>
-              <li>
-                5.) Honing your skills
-              </li>
-            </ul>
+            <div role="tablist">
+              <b-card no-body class="mb-1">
+                <b-card-header header-tag="header" class="p-1" role="tab">
+                  <b-btn block href="#" v-b-toggle.accordion1 variant="info">1.) Introduction to becoming a backend dev</b-btn>
+                </b-card-header>
+                <b-collapse id="accordion1" visible accordion="my-accordion" role="tabpanel">
+                  <b-card-body>
+                    <p class="card-text">
+                      <b-list-group>
+                        <b-list-group-item>Introduction to becoming a backend dev</b-list-group-item>
+                      </b-list-group>
+                    </p>
+                  </b-card-body>
+                </b-collapse>
+              </b-card>
+              <b-card no-body class="mb-1">
+                <b-card-header header-tag="header" class="p-1" role="tab">
+                  <b-btn block href="#" v-b-toggle.accordion2 variant="info">2.) Learning your basic</b-btn>
+                </b-card-header>
+                <b-collapse id="accordion2" accordion="my-accordion" role="tabpanel">
+                  <b-card-body>
+                    <p class="card-text">
+                      Learning your basic
+                    </p>
+                  </b-card-body>
+                </b-collapse>
+              </b-card>
+              <b-card no-body class="mb-1">
+                <b-card-header header-tag="header" class="p-1" role="tab">
+                  <b-btn block href="#" v-b-toggle.accordion3 variant="info">3.) Let's expand on this</b-btn>
+                </b-card-header>
+                <b-collapse id="accordion3" accordion="my-accordion" role="tabpanel">
+                  <b-card-body>
+                    <p class="card-text">
+                      Let's expand on this
+                    </p>
+                  </b-card-body>
+                </b-collapse>
+              </b-card>
+              <b-card no-body class="mb-1">
+                <b-card-header header-tag="header" class="p-1" role="tab">
+                  <b-btn block href="#" v-b-toggle.accordion4 variant="info">4.) Test your skill</b-btn>
+                </b-card-header>
+                <b-collapse id="accordion4" accordion="my-accordion" role="tabpanel">
+                  <b-card-body>
+                    <p class="card-text">
+                      Test your skill
+                    </p>
+                  </b-card-body>
+                </b-collapse>
+              </b-card>
+              <b-card no-body class="mb-1">
+                <b-card-header header-tag="header" class="p-1" role="tab">
+                  <b-btn block href="#" v-b-toggle.accordion5 variant="info">5.) Honing your skill</b-btn>
+                </b-card-header>
+                <b-collapse id="accordion5" accordion="my-accordion" role="tabpanel">
+                  <b-card-body>
+                    <p class="card-text">
+                      Honing your skill
+                    </p>
+                  </b-card-body>
+                </b-collapse>
+              </b-card>
+            </div>
           </div>
           <h4>Related Course</h4>
           <div class="relatedcourse">
@@ -285,5 +332,15 @@ export default {
 #centered {
   text-align: center;
   font-weight: bold;
+}
+
+a.btn.btn-info.btn-block.collapsed {
+  background: gray;
+  border: 0;
+}
+
+a.btn.btn-info.btn-block {
+    background: #4c4c4c;
+    border: 0;
 }
 </style>

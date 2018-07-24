@@ -102,6 +102,7 @@ export default {
   background-color: transparent !important;
   width: 100%;
   z-index: 999;
+  height: 65px;
 }
 
 .bg-dash {

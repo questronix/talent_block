@@ -1,7 +1,7 @@
 <template>
   <div>
     <b-media>
-      <b-img src="/static/img/education.svg" slot="aside" top width="64" height="64" alt="placeholder" />
+      <b-img src="/static/img/school_circle.svg" slot="aside" top width="64" height="64" alt="placeholder" />
       <h5 class="mt-0 mb-1">{{education.name}}
         <div class="bnts-prfile">
           <span class="updbtn"><b-btn size="sm" variant="outline-primary" @click="update"><font-awesome-icon icon="edit" /></b-btn></span>

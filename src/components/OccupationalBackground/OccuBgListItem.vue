@@ -1,7 +1,7 @@
 <template>
   <div>
     <b-media>
-      <b-img src="/static/img/occupation.svg" slot="aside" top width="64" height="64" alt="placeholder" />
+      <b-img src="/static/img/occupation_circle.svg" slot="aside" top width="64" height="64" alt="placeholder" />
       <h5>
         <span>{{ occupation.name }}</span>
         <div class="bnts-prfile">
