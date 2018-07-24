@@ -27,14 +27,16 @@
               <p class="desc">{{courses[0].full_desc}}</p>
             </b-tab>
             <b-tab title="About the Author" >
-              <br>I'm the second tab content
+              <p class="desc"><span>John Ronald Reuel Tolkien, CBE FRSL was an English writer, poet, philologist, and university professor who is best known as the author of the classic high fantasy works The Hobbit, The Lord of the Rings, and The Silmarillion.</span></p>
             </b-tab>
             <b-tab title="Comments">
-              <br>Disabled tab!
+               <b-list-group>
+                  <b-list-group-item>Sample Comment</b-list-group-item>
+                </b-list-group>
             </b-tab>
             <b-tab title="Schedule">
               <div class="course-sched">
-            <div class="container">
+            <div class="container sched">
               <div class="row" v-for="sched in schedules" :key="sched.id">
                 <div class="col day">
                   {{ sched.day }}
@@ -178,6 +180,26 @@ export default {
   data: () => {
     return {  /*SAMPLE DATA for CardsPayment component*/
       courses: [],
+      schedules: [
+        {
+          day: 'Monday', time: '1:00PM - 3:30PM'
+        },
+        {
+          day: 'Tuesday', time: '1:00PM - 3:30PM'
+        },
+        {
+          day: 'Wednesday', time: '1:00PM - 3:30PM'
+        },
+        {
+          day: 'Thursday', time: '1:00PM - 3:30PM'
+        },
+        {
+          day: 'Friday', time: '1:00PM - 3:30PM'
+        },
+        {
+          day: 'Saturday', time: '1:00PM - 3:30PM'
+        }
+      ],
       cardsData: [
         {cardType: 'MasterCard', cardNumber: '5500-0000-0000-0004'},
         {cardType: 'Visa', cardNumber: '4111-1111-1111-1111'},
@@ -207,7 +229,7 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 .nav {
   border-style: inset;
 }
@@ -221,7 +243,7 @@ export default {
   margin-top: 0 !important;
 }
 .tab-content>.active {
-  padding-top: 40px;
+  box-shadow: 1px 1px 1px 2px #eeeeee;
 }
 .card {
   text-align: justify;
@@ -252,11 +274,18 @@ a.btn.btn-info.btn-block {
 }
 
 ul#__BVID__12__BV_tab_controls_ {
-    box-shadow: 1px 2px 3px grey;
+  box-shadow: 1px 2px 3px grey;
 }
 
 p.desc {
   padding: 20px;
   color: black;
+}
+.tab-pane {
+  color: black;
+}
+
+.container.sched {
+  margin-top: 20px;
 }
 </style>
