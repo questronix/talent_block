@@ -1,70 +1,99 @@
 <!DOCTYPE html>
-    <head>
-        <title>Account Activation</title>
-        <style scoped>
-            html, body {
-                margin: 0;
-                top: 0;
-                bottom: 0;
-                left: 0;
-                right: 0;
-                width: 100%;
-                height: auto;
-                font-family: 'Lato', sans-serif;
-                color: #fff;
-            }
-            div {
-                width: 500px;
-                height: 260px;
-                background-color: #4A74CC;
-                position: absolute;
-                top:0;
-                left: 0;
-                right: 0;
-                margin: auto;
-            }
-            header {
-                padding: 20px 20px;
-                text-align: center;
-            }
-            img {
-                width: 30px;
-                height: 30px;
-            }
-            #header-text {
-                color: #fff;
-                vertical-align: super;
-                padding-left: 5px;
-            }
-            article {
-                padding: 20px 20px;
-                margin-left: 20px;
-                color: #fff;
-                font-size: 1em;
-            }
-            a {
-                color: #fff;
-            }
-        </style>
-    </head>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Reset Your Password</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style>
+      html{
+          font-family: "Lato", sans-serif !important;
+      }
+      .container{
+          margin: 0;
+                }
+      .email{
+        background-size: cover;
+        background-image: url(https://i.imgur.com/4LSgSVz.png);
+        display: table;
+      }
+      .header{
+          margin-bottom: 20px;
+          background-color: #4a74cc;
+          color: white;
+      }
+      .header td{
+        padding: 20px;
+      }
+      .header span{
+        font-size: x-large;
+        margin-left: 10px;
+      }
+      .header img{
+          float: left;
+      }
+      .message{
+        margin: 50px 50px;
+        padding: 20px 20px 55px;
+        background-color: #4a74cc;
+        border-radius: 20px;
+        color: white;
+        font-size: larger;
+        width: 30rem;
+      }
+      button{
+        width: 100%;
+        margin: 10px auto;
+        padding: 15px;
+        color: white;
+        background-color: #4a74cc;
+        border-color: white;
+        border-radius: 3px;
+        border-style: solid;
+        border-width: 1px;
+        font-weight: bold;
+      }
+      button:hover{
+        border-color: white;
+        background-color: white;
+        color: black;
+      }
+      .greeting{
+        font-size: larger;
+      }
 
-    <body>
-        <div>
-            <header>
-                <img src="https://i.imgur.com/7c7Maj6.png"/>
-                <span id="header-text"> Talent Block </span>
-            </header>
+  </style>
+</head>
+<body class="container">
 
-            <article>
-                <br/>
-                Hello $name,
-                <br/><br/>
-                Thank you for registering in our app. You can activate your account by clicking this <a href="$appEnv.url/verify/email/$token">link</a>.
-                <br/><br/>
-                Regards,
-                <br/>
-                The Talent Block Team
-            </article>
-        </div>
-    </body>
+    <table class="email" align="center">
+        <tbody>
+            <tr class="header">
+                <td> <img src="https://i.imgur.com/7c7Maj6.png" height="30" width="30"><span> Talent Block </span> </td>
+            </tr>
+
+            <tr>
+                <td>
+                    <div class="message">
+                    <br>
+                        <span class="greeting">Hello $name! <br></span>
+                    <br>
+                
+                    <br>
+                    Thank you for registering in our app. You can activate your account by clicking the button below.<br>
+                    <a href="$appEnv/verify/email/$token"> <button> VERIFY EMAIL </button> </a> <br>
+                    <span class="notice">If you didn’t sign-up for an account, just ignore this message.<br></span>                   
+                    <br>
+                    <br>
+                    Thanks, <br>
+                    The Talent Block Team
+
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+</body>
+
 </html>
