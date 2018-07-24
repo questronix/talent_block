@@ -2,9 +2,10 @@
   <div>
     <ul class="list-unstyled" v-show="educations.length > 0">
       <edu-bg-list-item 
-        v-for="education in educations" 
+        v-for="(education, index) in educations" 
         :key="education.id" 
         :education="education"
+        @onRemove="onRemove(index, education.id)"
         @onUpdate="onUpdate(education)"></edu-bg-list-item>
     </ul>
 
@@ -83,6 +84,13 @@
           </b-form-group>
       </form>
     </b-modal>
+
+    <b-modal 
+      id="confirmRemoveModal"
+      title="Confirm" 
+      @ok="educRemoveSubmit">
+      Are you sure you want to remove this item?
+    </b-modal>
   </div>
 </template>
 
@@ -90,6 +98,7 @@
 <script>
 import moment from 'moment';
 import EduBgListItem from "./EduBgListItem.vue";
+import axios from 'axios';
 
 let base_year = 1974;
 let years = Array.from({length: (moment().get('year') - base_year)}, (v, k) => {
@@ -107,7 +116,9 @@ export default {
   data() {
     return {
       education: {},
+      tempEduc: {},
       years: years,
+      selectedIndex: -1,
     }
   },
   components: {
@@ -119,7 +130,29 @@ export default {
       this.$root.$emit('bv::show::modal','educUpdateModal');
     },
     educUpdateSubmit() {
-      alert('sample');
+      axios.put('/students/education', this.education)
+        .then((response) => {
+          this.$toasted.success('Successfully updated.');
+        }).catch((err) => {
+          this.$toasted.error('Error while updating your background information. Please try again or reload the page.')
+          console.log('Background Info Update Error: ', err);
+        });
+    },
+    onRemove(index, id) {
+      this.$root.$emit('bv::show::modal','confirmRemoveModal');
+      this.education = {};
+      this.education.id = id;
+      this.selectedIndex = index;
+    },
+    educRemoveSubmit() {
+      axios.delete(`/students/education/${this.education.id}`)
+        .then((response) => {
+          this.$emit('updateList', this.selectedIndex);
+          this.$toasted.success('Successfully removed.');
+        }).catch((err) => {
+          this.$toasted.error('Error while removing data. Please try again or reload the page.')
+          console.log('Background Info Delte Error: ', err);
+        });
     }
   }
 }

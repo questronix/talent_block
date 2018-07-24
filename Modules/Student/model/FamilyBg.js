@@ -1,6 +1,7 @@
 const db = require('../../Common/services/Database');
 const err = require('../../Common/services/Errors');
 const logger = require('../../Common/services/Logger');
+const moment = require('moment');
 const TAG = '[FamilyBackground]';
 
 const family_bg = {
@@ -20,6 +21,23 @@ const family_bg = {
                 logger.log('error', TAG+ACTION, error);
                 let err = err.raise('INTERNAL_SERVER_ERROR');
                 err.error.details = error;
+                reject(err);
+            })
+        });
+    },
+
+    getStudentFam: function(user_id){
+        const ACTION = '[getStudentFam]';
+        logger.log('info', `${TAG}${ACTION}`, user_id);
+
+        return new Promise((resolve, reject) => {
+            db.execute(`SELECT * FROM family_bg WHERE user_id = ?`, [user_id])
+            .then(data=>{
+              resolve(data);
+            })
+            .catch(error=>{
+                logger.log('error', TAG+ACTION, error);
+                let err = Errors.raise('INTERNAL_SERVER_ERROR', error);
                 reject(err);
             })
         });
@@ -46,15 +64,25 @@ const family_bg = {
         });
     },
 
-    update: function(data, uid){
+    update: function(data){
         const ACTION = '[update]';
-        logger.log('info', `${TAG}${ACTION}`, { data, uid });
+        logger.log('info', `${TAG}${ACTION}`, data);
+
+        let fid = data.id;
+        if (data.user_id) {
+            delete data.user_id;
+        }
+        if (data.id) {
+            delete data.id;
+        }
+        if (data.created_at) {
+            delete data.created_at;
+        }
+        data.updated_at = moment().format('YYYY-MM-DD HH:mm:ss');
 
         return new Promise((resolve, reject) => {
-            let fid = data.id;
-            delete data.id;
-            data.updated_at = new Date();
-            db.execute(`UPDATE family_bg SET ? WHERE user_id=? AND id=?`, [data, uid, fid])
+
+            db.execute(`UPDATE family_bg SET ? WHERE id=?`, [data, fid])
             .then(data=>{
                 if(data.affectedRows > 0)
                     resolve(data);
@@ -70,12 +98,12 @@ const family_bg = {
         });
     },
 
-    delete: function(uid, fid){
+    delete: function(id){
         const ACTION = '[delete]';
-        logger.log('info', `${TAG}${ACTION}`, { uid, fid });
+        logger.log('info', `${TAG}${ACTION}`, id);
 
         return new Promise((resolve, reject) => {
-            db.execute(`DELETE FROM family_bg WHERE user_id=? AND id=?`, [uid, fid])
+            db.execute(`DELETE FROM family_bg WHERE id=?`, id)
             .then(data=>{
                 if(data.affectedRows > 0)
                     resolve(data);

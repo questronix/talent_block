@@ -1,7 +1,6 @@
 <template>
   <div>
     <slot name="header"><NavBar /></slot>
-    <slot name="space"><div style="height: 65px; width: 100%;"></div></slot>
     <slot name="body"></slot>
     <slot name="footer"></slot>
   </div>

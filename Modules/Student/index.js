@@ -1,14 +1,16 @@
-const TAG     = '[Student]';
-const router  = require('express').Router();
-const logger  = require('../Common/services/Logger');
-const err     = require('../Common/services/Errors');
-const mw      = require('../Common/middleware/Authentication');
-const async   = require('async');
+const TAG = '[Student]';
+const express = require('express');
+const router = express.Router();
+const logger = require('../Common/services/Logger');
+const err = require('../Common/services/Errors');
+const mw = require('../Common/middleware/Authentication');
+const async = require('async');
 
-const student = require('./model/Student');
-const eduBg   = require('./model/EducBg');
-const famBg   = require('./model/FamilyBg');
-const idBg    = require('./model/IdBg');
+const student   = require('./model/Student');
+const eduBg = require('./model/EducBg');
+const famBg = require('./model/FamilyBg');
+const occuBg = require('./model/OccuBg');
+const idBg = require('./model/IdBg');
 const ss      = require('./model/Student_Schedule');
 
 /* get all students */
@@ -44,11 +46,35 @@ router.get('/me', mw.isAuthenticated, (req, res)=>{
       }).catch(error=>{
         callback(error);
       });
+    }],
+    student_fam_bg: ['student_edu_bg', function(result, callback){
+      famBg.getStudentFam(result.student_info.user_id).then((data) => {
+        callback(null, data);
+      }).catch((error) => {
+        callback(error);
+      });
+    }],
+    student_occu_bg: ['student_fam_bg', function(result, callback){
+      occuBg.getStudentOccu(result.student_info.user_id).then((data) => {
+        callback(null, data);
+      }).catch((error) => { 
+        callback(error);
+      });
+    }],
+    student_ids_bg: ['student_occu_bg', function(result, callback){
+      idBg.getStudentIds(result.student_info.user_id).then((data) => {
+        callback(null, data);
+      }).catch((error) => { 
+        callback(error);
+      });
     }]
   }, function(err, result){
     if(err) res.error(err);
     else{
       result.student_info.educ = result.student_edu_bg;
+      result.student_info.fam = result.student_fam_bg;
+      result.student_info.occupations = result.student_occu_bg;
+      result.student_info.ids = result.student_ids_bg;
       res.success(result.student_info);
     }
   });
@@ -95,7 +121,7 @@ router.delete('/:id', mw.isAuthenticated, (req, res)=>{
 
 // Educational Background
 router.post(`/education`, mw.isAuthenticated, (req,res)=>{
-  const ACTION = '[education]';
+  const ACTION = '[postEducation]';
   logger.log('debug', TAG + ACTION + ' request body', req.body);
 
   req.body.user_id = req.user.id;
@@ -105,6 +131,144 @@ router.post(`/education`, mw.isAuthenticated, (req,res)=>{
     res.error(error);
   })
 });
+
+router.put(`/education`, mw.isAuthenticated, (req,res)=>{
+  const ACTION = '[putUpdateEducation]';
+  logger.log('debug', TAG + ACTION + ' request body', req.body);
+
+  eduBg.update(req.body).then(data=>{
+    res.success(data);
+  }).catch(error=>{
+    console.log(error);
+    res.error(error);
+  })
+});
+
+router.delete(`/education/:id`, mw.isAuthenticated, (req,res)=>{
+  const ACTION = '[deleteEducation]';
+  logger.log('debug', TAG + ACTION + ' request body', req.params);
+
+  eduBg.delete(req.params.id).then(data=>{
+    res.success(data);
+  }).catch(error=>{
+    console.log(error);
+    res.error(error);
+  })
+});
+
+// Family Background
+router.post(`/family`, mw.isAuthenticated, (req,res)=>{
+  const ACTION = '[postFamily]';
+  logger.log('debug', TAG + ACTION + ' request body', req.body);
+
+  req.body.user_id = req.user.id;
+  famBg.add(req.body).then(data=>{
+    res.success(data);
+  }).catch(error=>{
+    res.error(error);
+  })
+});
+
+router.put(`/family`, mw.isAuthenticated, (req,res)=>{
+  const ACTION = '[putFamilyEducation]';
+  logger.log('debug', TAG + ACTION + ' request body', req.body);
+
+  famBg.update(req.body).then(data=>{
+    res.success(data);
+  }).catch(error=>{
+    console.log(error);
+    res.error(error);
+  })
+});
+
+router.delete(`/family/:id`, mw.isAuthenticated, (req,res)=>{
+  const ACTION = '[deleteFamily]';
+  logger.log('debug', TAG + ACTION + ' request body', req.params);
+
+  famBg.delete(req.params.id).then(data=>{
+    res.success(data);
+  }).catch(error=>{
+    console.log(error);
+    res.error(error);
+  })
+});
+
+// Occupational Background
+router.post(`/occupation`, mw.isAuthenticated, (req,res)=>{
+  const ACTION = '[postOccupation]';
+  logger.log('debug', TAG + ACTION + ' request body', req.body);
+
+  req.body.user_id = req.user.id;
+  occuBg.add(req.body).then(data=>{
+    res.success(data);
+  }).catch(error=>{
+    res.error(error);
+  })
+});
+
+router.put(`/occupation`, mw.isAuthenticated, (req,res)=>{
+  const ACTION = '[putOccupationBackground]';
+  logger.log('debug', TAG + ACTION + ' request body', req.body);
+
+  occuBg.update(req.body).then(data=>{
+    res.success(data);
+  }).catch(error=>{
+    console.log(error);
+    res.error(error);
+  })
+});
+
+router.delete(`/occupation/:id`, mw.isAuthenticated, (req,res)=>{
+  const ACTION = '[deleteOccupation]';
+  logger.log('debug', TAG + ACTION + ' request body', req.params);
+
+  occuBg.delete(req.params.id).then(data=>{
+    res.success(data);
+  }).catch(error=>{
+    console.log(error);
+    res.error(error);
+  })
+});
+
+// IDs Background
+router.post(`/ids`, mw.isAuthenticated, (req,res)=>{
+  const ACTION = '[postIDs]';
+  logger.log('debug', TAG + ACTION + ' request body', req.body);
+
+  req.body.user_id = req.user.id;
+  idBg.add(req.body).then(data=>{
+    res.success(data);
+  }).catch(error=>{
+    res.error(error);
+  })
+});
+
+router.put(`/ids`, mw.isAuthenticated, (req,res)=>{
+  const ACTION = '[putUpdateIDs]';
+  logger.log('debug', TAG + ACTION + ' request body', req.body);
+
+  idBg.update(req.body).then(data=>{
+    res.success(data);
+  }).catch(error=>{
+    console.log(error);
+    res.error(error);
+  })
+});
+
+router.delete(`/ids/:id`, mw.isAuthenticated, (req,res)=>{
+  const ACTION = '[deleteIDs]';
+  logger.log('debug', TAG + ACTION + ' request body', req.params);
+
+  idBg.delete(req.params.id).then(data=>{
+    res.success(data);
+  }).catch(error=>{
+    console.log(error);
+    res.error(error);
+  })
+});
+
+
+
 
 
 router.get('/:id/family-background', (req, res, next) => {

@@ -170,7 +170,7 @@
 						title="Educational Background" @ok="occupationSubmit">
 			<form @submit.stop.prevent="occupationSubmit">
 					<b-form-group
-						label="Enter your Occupation Name:"
+						label="Enter your Occupation:"
 						label-for="name">
 						<b-form-input 
 						id="occupation"
@@ -189,6 +189,42 @@
 						v-model="occupation.position"></b-form-input>
 					</b-form-group>
 
+					<label class="mr-sm-2" for="start_year">Date Started</label>
+						<b-form-select class="mb-3"
+													:options="{ 1 : 'Janauary', 2 : 'Febrauary', 3 : 'March', 4 : 'April', 5 : 'May', 6 : 'June', 7 : 'July', 8 : 'August', 9 : 'September', 10 : 'October', 11 : 'November', 12 : 'December'}"
+													v-model="occupation.start_month"
+													id="start_year">
+								<template slot="first">
+									<option :value="null" disabled>Select Month</option>
+								</template>
+						</b-form-select>
+						<b-form-select class="mb-3"
+													:options="years"
+													v-model="occupation.start_year"
+													id="end_year">
+								<template slot="first">
+									<option :value="null" disabled>Select Year</option>
+								</template>
+						</b-form-select>
+
+						<label class="mr-sm-2" for="start_year">Date Ended </label>
+						<b-form-select class="mb-3"
+													:options="{ 1 : 'Janauary', 2 : 'Febrauary', 3 : 'March', 4 : 'April', 5 : 'May', 6 : 'June', 7 : 'July', 8 : 'August', 9 : 'September', 10 : 'October', 11 : 'November', 12 : 'December'}"
+													v-model="occupation.end_month"
+													id="start_year">
+								<template slot="first">
+									<option :value="null" disabled>Select Month</option>
+								</template>
+						</b-form-select>
+						<b-form-select class="mb-3"
+													:options="years"
+													v-model="occupation.end_year"
+													id="end_year">
+								<template slot="first">
+									<option :value="null" disabled>Select Year</option>
+								</template>
+						</b-form-select>
+
 					<b-form-group
 						label="Enter your Department:"
 						label-for="name">
@@ -200,7 +236,7 @@
 					</b-form-group>
 
 					<b-form-group
-						label="Enter your address:"
+						label="Enter address:"
 						label-for="address"
 					>
 					<b-form-textarea type="text" rows="5"
@@ -222,7 +258,7 @@
 						label="What are your duties?"
 						label-for="duties"
 					>
-					<b-form-textarea type="text"
+					<b-form-textarea type="text" rows="5"
 					id="duties"
 					v-model="occupation.duties"></b-form-textarea>
 					</b-form-group>
@@ -251,7 +287,7 @@
 						id="idName"
 						type="text"
 						placeholder="Valid ID"
-						v-model="validIds.name"></b-form-input>
+						v-model="ids.name"></b-form-input>
 					</b-form-group>
 
 					<b-form-group
@@ -261,7 +297,7 @@
 					<b-form-input type="text"
 					id="number"
 					placeholder="Number"
-					v-model="validIds.number"></b-form-input>
+					v-model="ids.number"></b-form-input>
 					</b-form-group>
 
 			</form>
@@ -272,6 +308,14 @@
 						ref="familyModal"
 						title="Valid ID" @ok="familySubmit">
 			<form @submit.stop.prevent="familySubmit">
+						<b-form-group
+												label="Relationship"
+												label-for="type">
+						<b-form-select id="type"
+													:options="{ 'Father': 'Father', 'Mother' : 'Mother', 'Sister': 'Sister', 'Brother': 'Brother', 'Wife': 'Wife', 'Husband': 'Husband', 'Dependents': 'Dependents'}"
+													v-model="family.type">
+						</b-form-select>
+					</b-form-group>
 					<b-form-group
 						label="First Name:"
 						label-for="fn">
@@ -309,7 +353,7 @@
 						id="idName"
 						type="text"
 						placeholder="Contact number"
-						v-model="family.contact"></b-form-input>
+						v-model="family.contact_no"></b-form-input>
 					</b-form-group>
 
 					<b-form-group
@@ -330,69 +374,44 @@
 				<div class="col scheds">
 					<div class="sched-calendar padded-white stud-bg">
 						<div class="bg-student">
-							<h4>Educational Background</h4><b-btn v-b-modal.educModal>ADD</b-btn>
+							<h4>Educational Background</h4><b-btn v-b-modal.educModal class="addbtns btn-success"><font-awesome-icon icon="plus-circle" /></b-btn>
 							<hr>
 							<p v-show="profile.educ.length == 0">Add educational background</p>
-							<edu-bg-list :educations="profile.educ"></edu-bg-list>
-
-						 <!-- <ul class="list-unstyled" v-show="profile.educ.length > 0">
-							// 	<b-media tag="li" v-for="educ in profile.educ" :key="educ.id">
-							// 		<b-img slot="aside" blank blank-color="#abc" width="64" alt="placeholder" />
-							// 		<h5 class="mt-0 mb-1">{{educ.name}}</h5>
-							// 		<span>{{educ.course}}{{(educ.gpa)? ', GPA ' + educ.gpa : ''}}</span><br>
-							// 		<span>{{ showEducYears(educ.start_year, educ.end_year) }}</span><br>
-							// 		<span>{{educ.address}}</span><br>
-							// 	</b-media>
-							// </ul> -->
+							<edu-bg-list :educations="profile.educ" @updateList="updateEducationalBackgroundList"></edu-bg-list>
 						</div>
 						<div class="bg-student">
-							<h4>Occupation Background</h4><b-btn v-b-modal.occupationModal>ADD</b-btn>
+							<h4>Occupation Background</h4><b-btn v-b-modal.occupationModal class="addbtns btn-success"><font-awesome-icon icon="plus-circle" /></b-btn>
 							<hr>
 							<div class="stud-bg-content">
 								<b-row>
-									<button class="btn update btn-sm">Update</button>
+									
 									</b-row>
 									<b-row class="stud-bg-row">
-										<b-col>
-											Position
-										</b-col>
-										<b-col>
-											Web Developer
-										</b-col>
+										<occu-bg-list :occupations="profile.occupations" @updateList="updateOccupationBackgroundList"></occu-bg-list>
 									</b-row>
 							</div>
 						</div>
 						<div class="bg-student">
-							<h4>IDs</h4><b-btn v-b-modal.validIdModal>ADD</b-btn>
+							<h4>IDs</h4><b-btn v-b-modal.validIdModal class="addbtns btn-success"><font-awesome-icon icon="plus-circle" /></b-btn>
 							<hr>
 							<div class="stud-bg-content">
 								<b-row>
-								<button class="btn update btn-sm">Update</button>
+
 								</b-row>
 								<b-row class="stud-bg-row">
-									<b-col>
-										ID:
-									</b-col>
-									<b-col>
-										SSS ID
-									</b-col>
+									<id-bg-list :ids="profile.ids" @updateList="updateIdBackgroundList"></id-bg-list>
 								</b-row>
 							</div>
 						</div>
 						<div class="bg-student">
-							<h4>Family Background</h4><b-btn v-b-modal.familyModal>ADD</b-btn>
+							<h4>Family Background</h4><b-btn v-b-modal.familyModal class="addbtns btn-success"><font-awesome-icon icon="plus-circle" /></b-btn>
 							<hr>
 							<div class="stud-bg-content">
 								<b-row>
-								<button class="btn update btn-sm">Update</button>
+								
 								</b-row>
 								<b-row class="stud-bg-row">
-									<b-col>
-										Father's Name:
-									</b-col>
-									<b-col>
-										Juan Dela Cruz
-									</b-col>
+									<fam-bg-list :families="profile.fam" @updateList="updateFamilyBackgroundList"></fam-bg-list>
 								</b-row>
 							</div>
 						</div>
@@ -411,9 +430,10 @@ import BaseLayout from '../../layouts/BaseLayout.vue';
 import NavBar from '../../components/NavBar/NavBar.vue';
 import AccountStats from '../../components/AccountStats/AccountStats.vue';
 import EduBgList from '../../components/EducationalBackground/EduBgList.vue';
+import FamBgList from '../../components/FamilyBackground/FamBgList.vue';
+import OccuBgList from '../../components/OccupationalBackground/OccuBgList.vue';
+import IdBgList from '../../components/IDsBackground/IdBgList.vue';
 import moment from 'moment';
-
-// import StudentInfoModal from '../../components/Student/StudentInfoModal.vue';
 import axios from 'axios';
 
 
@@ -447,11 +467,13 @@ export default {
 				address: '',
 				salary: '',
 				duties: '',
-				start_date: null,
-				end_date: null,
+				start_year: null,
+				end_year: null,
+				start_month: null,
+				end_month: null,
 				reason: '',
 			},
-			validIds: {
+			ids: {
 				name: '',
 				number: '',
 				type: '',
@@ -464,14 +486,16 @@ export default {
 				contact_no: '',
 				educ: [],
 				ids: [],
-				fam: []
+				fam: [],
+				occupations: [],
 			},
 			family: {
 				fn: '',
 				ln: '',
 				mn: '',
-				contact: '',
+				contact_no: '',
 				occupation: '',
+				type: '',
 			},
 			needsUpdate: false,
 			alert: {
@@ -487,7 +511,9 @@ export default {
 		NavBar,
 		AccountStats,
 		EduBgList,
-		// StudentInfoModal
+		FamBgList,
+		OccuBgList,
+		IdBgList,
 	},
 	methods: {
 		showEducYears: function(start_date, end_date){
@@ -498,7 +524,7 @@ export default {
 			axios.get(`/students/me`)
 				.then((response) => {
 					//if there is no record
-					this.profile = response.data;
+					this.profile = Object.assign({}, this.profile, response.data);
 				}).catch((err) => {
 					console.log('Student Fetch' , err);
 					//if there is no record
@@ -513,18 +539,8 @@ export default {
 				this.$root.$emit('bv::show::modal','profileModal');
 			}																																																																														
 		},
-		getEducationalBackground(){
-			axios.get(`/students/me`)
-			.then((response) => {
-				//if there is no record
-				this.profile = response.data;
-			}).catch((err) => {
-				console.log('Student Fetch' , err);
-				//if there is no record
-				if (!this.profile.id) {
-					this.$refs.profileModal.show();
-				}
-			});
+		updateEducationalBackgroundList(index) {
+			this.profile.educ.splice(index, 1);
 		},
 		educSubmit() {
 			axios.post(`/students/education`, this.educ).then(data=>{
@@ -532,20 +548,63 @@ export default {
 					id: data.data.insertId,
 					user_id: this.profile.user_id,
 					...this.educ
-				})
+				});
+				this.$toasted.success('Educational background was succesfully updated');
 			}).catch(error=>{
 				console.log(error);
 				// alert(JSON.stringify(error));
 			});
 		},
-		occupationSubmit() {
-			alert(JSON.stringify(this.occupation));
-		},
-		validIdSubmit() {
-			alert(JSON.stringify(this.validIds));
+		updateFamilyBackgroundList(index) {
+			this.profile.fam.splice(index, 1);
 		},
 		familySubmit() {
-			alert(JSON.stringify(this.family));
+			axios.post(`/students/family`, this.family).then(data=>{
+				console.log(data);
+				console.log(this.profile.fam);
+				this.profile.fam.push({
+					id: data.data.insertId,
+					user_id: this.profile.user_id,
+					...this.family
+				});
+				this.$toasted.success('Family background was succesfully updated');
+			}).catch(error=>{
+				console.log(error);
+			});
+		},
+		updateOccupationBackgroundList(index) {
+			this.profile.occupations.splice(index, 1);
+		},
+		occupationSubmit() {
+			axios.post(`/students/occupation`, this.occupation).then(data=>{
+				console.log(data);
+				console.log(this.profile.occupations);
+				this.profile.occupations.push({
+					id: data.data.insertId,
+					user_id: this.profile.user_id,
+					...this.occupation
+				});
+				this.$toasted.success('Occupational background was succesfully updated');
+			}).catch(error=>{
+				console.log(error);
+			});
+		},
+		updateIdBackgroundList(index) {
+			this.profile.ids.splice(index, 1);
+		},
+		validIdSubmit() {
+			axios.post(`/students/ids`, this.ids).then(data=>{
+				console.log(data);
+				console.log(this.profile.ids);
+				this.profile.ids.push({
+					id: data.data.insertId,
+					user_id: this.profile.user_id,
+					...this.ids
+				});
+				this.$toasted.success('Occupational background was succesfully updated');
+			}).catch(error=>{
+				console.log(error);
+			});
 		},
 		handleSubmit() {
 			if(this.profile.user_id){
@@ -637,5 +696,9 @@ export default {
 
 .stud-bg-row {
 	margin-bottom: 5px;
+}
+
+.addbtns {
+	float: right;
 }
 </style>
