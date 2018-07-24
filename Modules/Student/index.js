@@ -273,11 +273,11 @@ router.delete(`/ids/:id`, (req,res)=>{
 
 // temporary routes for student_schedule
 
-router.get('/:student_id/courses', (req,res)=>{
+router.get('/:id/courses', (req,res)=>{
   const ACTION = '[getCourses]';
   logger.log('debug', TAG+ACTION, `request parameters:\n${JSON.stringify(req.params)}`);
 
-  ss.getCourses(req.params.student_id)
+  ss.getCoursesScheduled(req.params.id)
   .then( data=>{
     res.success(data);
   })
@@ -287,11 +287,11 @@ router.get('/:student_id/courses', (req,res)=>{
 
 })
 
-router.get('/:student_id/coursesEnrolled', (req,res)=>{
+router.get('/:id/coursesEnrolled', (req,res)=>{
   const ACTION = '[getCoursesEnrolled]';
   logger.log('debug', TAG+ACTION, `request parameters:\n${JSON.stringify(req.params)}`);
 
-  ss.getCourses(req.params.student_id, 'enrolled')
+  ss.getCoursesScheduled(req.params.id, 'enrolled')
   .then( data=>{
     res.success(data);
   })
@@ -300,11 +300,11 @@ router.get('/:student_id/coursesEnrolled', (req,res)=>{
   })
 });
 
-router.get('/:student_id/coursesTaken', (req,res)=>{
+router.get('/:id/coursesTaken', (req,res)=>{
   const ACTION = '[getCoursesTaken]';
   logger.log('debug', TAG+ACTION, `request parameters:\n${JSON.stringify(req.params)}`);
 
-  ss.getCourses(req.params.student_id, 'taken')
+  ss.getCoursesScheduled(req.params.id, 'taken')
   .then( data=>{
     res.success(data);
   })
@@ -313,12 +313,12 @@ router.get('/:student_id/coursesTaken', (req,res)=>{
   })
 });
 
-router.post('/:student_id/enroll', (req,res)=>{
+router.post('/:id/enroll', (req,res)=>{
   const ACTION = '[postEnrollCourse]';
   logger.log('debug', TAG+ACTION,
   `request parameters:\n${JSON.stringify(req.params)}\nrequest body:\n${JSON.stringify(req.body)}`);
 
-  ss.enrollCourse(req.params.student_id, req.body.sched_id)
+  ss.enrollCourse(req.params.id, req.body.sched_id)
   .then( result=>{
     res.success(result);
   })
@@ -328,12 +328,12 @@ router.post('/:student_id/enroll', (req,res)=>{
 
 });
 
-router.put('/:student_id/complete', (req,res)=>{
+router.put('/:id/complete', (req,res)=>{
   const ACTION = '[putCompleteCourse]';
   logger.log('debug', TAG+ACTION,
   `request parameters:\n${JSON.stringify(req.params)}\nrequest body:\n${JSON.stringify(req.body)}`);
 
-  ss.completeCourse(req.params.student_id, req.body.sched_id)
+  ss.completeCourse(req.params.id, req.body.sched_id)
   .then( result=>{
     res.success(result);
   })
@@ -342,11 +342,11 @@ router.put('/:student_id/complete', (req,res)=>{
   })
 });
 
-router.delete('/:student_id/drop/:sched_id', (req,res)=>{
+router.delete('/:id/drop/:sched_id', (req,res)=>{
   const ACTION ='[deleteDropCourse]';
   logger.log('debug', TAG+ACTION, `request parameters:\n${JSON.stringify(req.params)}`);
 
-  ss.dropCourse(req.params.student_id, req.params.sched_id)
+  ss.dropCourse(req.params.id, req.params.sched_id)
   .then( result=>{
     res.success(result);
   })

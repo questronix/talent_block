@@ -63,7 +63,7 @@
 						label-for="fn">
 						<b-form-input 
 						type="text"
-						placeholder="First Name"
+						placeholder="Occupation"
 						v-model="family.occupation"></b-form-input>
 					</b-form-group>
 

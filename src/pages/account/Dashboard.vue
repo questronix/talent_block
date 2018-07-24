@@ -170,7 +170,7 @@
 						title="Educational Background" @ok="occupationSubmit">
 			<form @submit.stop.prevent="occupationSubmit">
 					<b-form-group
-						label="Enter your Occupation:"
+						label="Enter your Employer Name:"
 						label-for="name">
 						<b-form-input 
 						id="occupation"
@@ -191,7 +191,7 @@
 
 					<label class="mr-sm-2" for="start_year">Date Started</label>
 						<b-form-select class="mb-3"
-													:options="{ 1 : 'Janauary', 2 : 'Febrauary', 3 : 'March', 4 : 'April', 5 : 'May', 6 : 'June', 7 : 'July', 8 : 'August', 9 : 'September', 10 : 'October', 11 : 'November', 12 : 'December'}"
+													:options="{ 1 : 'January', 2 : 'February', 3 : 'March', 4 : 'April', 5 : 'May', 6 : 'June', 7 : 'July', 8 : 'August', 9 : 'September', 10 : 'October', 11 : 'November', 12 : 'December'}"
 													v-model="occupation.start_month"
 													id="start_year">
 								<template slot="first">
@@ -362,7 +362,7 @@
 						label-for="fn">
 						<b-form-input 
 						type="text"
-						placeholder="First Name"
+						placeholder="Occupation"
 						v-model="family.occupation"></b-form-input>
 					</b-form-group>
 
@@ -469,7 +469,7 @@ export default {
 				position: '',
 				department: '',
 				address: '',
-				salary: '',
+				salary: 0,
 				duties: '',
 				start_year: null,
 				end_year: -1,
