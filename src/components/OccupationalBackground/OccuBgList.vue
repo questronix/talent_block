@@ -13,7 +13,7 @@
 		<b-modal id="occupationUpdateModal" ok-only
 						ref="occupationUpdateModal"
 						title="Occupational Background" @ok="occuUpdateSubmit">
-			<form @submit.stop.prevent="occuUpdateSubmit">
+			<form @submit.stop.prevent="occupationSubmit">
 					<b-form-group
 						label="Enter your Occupation:"
 						label-for="name">
@@ -53,7 +53,12 @@
 						</b-form-select>
 
 						<label class="mr-sm-2" for="start_year">Date Ended </label>
-						<b-form-select class="mb-3"
+						<b-form-checkbox
+                     v-model="isPresentOccupation"
+                     checked>
+							I'm currently working here
+						</b-form-checkbox>
+						<b-form-select class="mb-3" v-show="!isPresentOccupation"
 													:options="{ 1 : 'Janauary', 2 : 'Febrauary', 3 : 'March', 4 : 'April', 5 : 'May', 6 : 'June', 7 : 'July', 8 : 'August', 9 : 'September', 10 : 'October', 11 : 'November', 12 : 'December'}"
 													v-model="occupation.end_month"
 													id="start_year">
@@ -61,7 +66,7 @@
 									<option :value="null" disabled>Select Month</option>
 								</template>
 						</b-form-select>
-						<b-form-select class="mb-3"
+						<b-form-select class="mb-3" v-show="!isPresentOccupation"
 													:options="years"
 													v-model="occupation.end_year"
 													id="end_year">
@@ -108,11 +113,11 @@
 					v-model="occupation.duties"></b-form-textarea>
 					</b-form-group>
 
-					<b-form-group
+					<b-form-group v-show="!isPresentOccupation"
 						label="Enter your reason why you leave:"
 						label-for="reason"
 					>
-					<b-form-textarea type="text" rows="5"
+					<b-form-textarea type="text" rows="5" 
 					id="reason"
 					v-model="occupation.reason"></b-form-textarea>
 					</b-form-group>
@@ -150,7 +155,8 @@ export default {
   },
   data() {
     return {
-      occupation: {},
+			occupation: {},
+			isPresentOccupation: false,
       selectedIndex: -1,
       years: years,
     }
@@ -164,6 +170,11 @@ export default {
       this.$root.$emit('bv::show::modal','occupationUpdateModal');
     },
     occuUpdateSubmit() {
+			if (this.isPresentOccupation) {
+				this.occupation.end_month = -1;
+				this.occupation.end_year = -1;
+				this.occupation.reason = "";
+			}
       axios.put('/students/occupation', this.occupation)
         .then((response) => {
           this.$toasted.success('Successfully updated.');
@@ -188,6 +199,16 @@ export default {
           console.log('Background Info Delte Error: ', err);
         });
     }
-  }
+	},
+	watch: {
+		occupation() {
+			if(this.occupation.end_month === -1 && this.occupation.end_year === -1) {
+				this.isPresentOccupation = true;
+			}
+			else {
+				this.isPresentOccupation = false;
+			}
+		}
+	}
 }
 </script>

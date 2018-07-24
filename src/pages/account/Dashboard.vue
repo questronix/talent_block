@@ -208,7 +208,12 @@
 						</b-form-select>
 
 						<label class="mr-sm-2" for="start_year">Date Ended </label>
-						<b-form-select class="mb-3"
+						<b-form-checkbox id="isPresent"
+                     v-model="isPresentOccupation"
+                     checked>
+							I'm currently working here
+						</b-form-checkbox>
+						<b-form-select class="mb-3" v-show="!isPresentOccupation"
 													:options="{ 1 : 'Janauary', 2 : 'Febrauary', 3 : 'March', 4 : 'April', 5 : 'May', 6 : 'June', 7 : 'July', 8 : 'August', 9 : 'September', 10 : 'October', 11 : 'November', 12 : 'December'}"
 													v-model="occupation.end_month"
 													id="start_year">
@@ -216,7 +221,7 @@
 									<option :value="null" disabled>Select Month</option>
 								</template>
 						</b-form-select>
-						<b-form-select class="mb-3"
+						<b-form-select class="mb-3" v-show="!isPresentOccupation"
 													:options="years"
 													v-model="occupation.end_year"
 													id="end_year">
@@ -263,11 +268,11 @@
 					v-model="occupation.duties"></b-form-textarea>
 					</b-form-group>
 
-					<b-form-group
+					<b-form-group v-show="!isPresentOccupation"
 						label="Enter your reason why you leave:"
 						label-for="reason"
 					>
-					<b-form-textarea type="text" rows="5"
+					<b-form-textarea type="text" rows="5" 
 					id="reason"
 					v-model="occupation.reason"></b-form-textarea>
 					</b-form-group>
@@ -320,7 +325,6 @@
 						label="First Name:"
 						label-for="fn">
 						<b-form-input 
-						id="idName"
 						type="text"
 						placeholder="First Name"
 						v-model="family.fn"></b-form-input>
@@ -330,7 +334,6 @@
 						label="Last Name:"
 						label-for="fn">
 						<b-form-input 
-						id="idName"
 						type="text"
 						placeholder="Last Name"
 						v-model="family.ln"></b-form-input>
@@ -340,9 +343,8 @@
 						label="Middle Name:"
 						label-for="fn">
 						<b-form-input 
-						id="idName"
 						type="text"
-						placeholder="First Name"
+						placeholder="Middle Name"
 						v-model="family.mn"></b-form-input>
 					</b-form-group>
 
@@ -350,7 +352,6 @@
 						label="Contact No:"
 						label-for="fn">
 						<b-form-input 
-						id="idName"
 						type="text"
 						placeholder="Contact number"
 						v-model="family.contact_no"></b-form-input>
@@ -360,7 +361,6 @@
 						label="Occupation:"
 						label-for="fn">
 						<b-form-input 
-						id="idName"
 						type="text"
 						placeholder="First Name"
 						v-model="family.occupation"></b-form-input>
@@ -471,11 +471,12 @@ export default {
 				salary: '',
 				duties: '',
 				start_year: null,
-				end_year: null,
+				end_year: -1,
 				start_month: null,
-				end_month: null,
+				end_month: -1,
 				reason: '',
 			},
+			isPresentOccupation: false,
 			ids: {
 				name: '',
 				number: '',
@@ -553,6 +554,7 @@ export default {
 					...this.educ
 				});
 				this.$toasted.success('Educational background was succesfully updated');
+				this.educ = {};
 			}).catch(error=>{
 				console.log(error);
 				// alert(JSON.stringify(error));
@@ -571,6 +573,7 @@ export default {
 					...this.family
 				});
 				this.$toasted.success('Family background was succesfully updated');
+				this.family = {};
 			}).catch(error=>{
 				console.log(error);
 			});
@@ -579,6 +582,10 @@ export default {
 			this.profile.occupations.splice(index, 1);
 		},
 		occupationSubmit() {
+			if (this.isPresentOccupation) {
+				this.occupation.end_month = -1;
+				this.occupation.end_year = -1;
+			}
 			axios.post(`/students/occupation`, this.occupation).then(data=>{
 				console.log(data);
 				console.log(this.profile.occupations);
@@ -588,6 +595,8 @@ export default {
 					...this.occupation
 				});
 				this.$toasted.success('Occupational background was succesfully updated');
+				this.occupation = {};
+				this.isPresentOccupation = false;
 			}).catch(error=>{
 				console.log(error);
 			});
@@ -605,6 +614,7 @@ export default {
 					...this.ids
 				});
 				this.$toasted.success('Occupational background was succesfully updated');
+				this.ids = {};
 			}).catch(error=>{
 				console.log(error);
 			});
@@ -664,7 +674,7 @@ export default {
 	},
 	created() {
 		this.$toasted.show(`Hi ${this.user.username}, Welcome back!`);
-	}
+	},
 }
 </script>
 
