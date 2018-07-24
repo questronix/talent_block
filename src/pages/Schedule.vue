@@ -38,7 +38,7 @@ export default {
           title: 'Happy Birthday!',
           startDate: '2018-07-11 08:30:00',
           endDate: '2018-07-12 02:00:00',
-          url: 'www.google.com',
+          classes: 'birthday'
         }
       ],
     };
@@ -52,7 +52,7 @@ export default {
       this.showDate = d;
     },
     showEvent(event) {
-      // alert(event);
+      alert(event.title);
       console.log(event);
     },
     preveMonth() {
@@ -64,13 +64,45 @@ export default {
 
 <style scoped>
 #calendar {
-		font-family: 'Avenir', Helvetica, Arial, sans-serif;
-		color: #2c3e50;
-		height: 67vh;
-		width: 90vw;
-		margin-left: auto;
-		margin-right: auto;
-	}
+  font-family: 'Avenir', Helvetica, Arial, sans-serif;
+  color: #2c3e50;
+  height: 67vh;
+  width: 90vw;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.calendar-controls {
+	margin-right: 1rem;
+	min-width: 14rem;
+	max-width: 14rem;
+}
+.calendar-parent {
+	display: flex;
+	flex-direction: column;
+	flex-grow: 1;
+	overflow-x: hidden;
+	overflow-y: hidden;
+	max-height: 80vh;
+	background-color: white;
+}
+/* For long calendars, ensure each week gets sufficient height. The body of the calendar will scroll if needed */
+.cv-wrapper.period-month.periodCount-2 .cv-week,
+.cv-wrapper.period-month.periodCount-3 .cv-week,
+.cv-wrapper.period-year .cv-week {
+	min-height: 6rem;
+}
+/* These styles are optional, to illustrate the flexbility of styling the calendar purely with CSS. */
+
+/* Add some styling for events tagged with the "birthday" class */
+.calendar .event.birthday {
+	background-color: #e0f0e0;
+	border-color: #d7e7d7;
+}
+.calendar .event.birthday::before {
+	content: "\1F382";
+	margin-right: 0.5em;
+}
 </style>
 
 
