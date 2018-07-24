@@ -468,7 +468,7 @@ export default {
 				position: '',
 				department: '',
 				address: '',
-				salary: '',
+				salary: 0,
 				duties: '',
 				start_year: null,
 				end_year: -1,
