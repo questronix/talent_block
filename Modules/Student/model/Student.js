@@ -4,16 +4,13 @@ const Errors = require('../../Common/services/Errors');
 const db = require('../../Common/services/Database');
 const moment = require('moment');
 
-module.exports.findAll = () => {
+module.exports.getAllStudents = () => {
   const ACTION = '[findAll]';
   logger.log('info', `${TAG}${ACTION}`);
   return new Promise((resolve, reject)=>{
     db.execute(`SELECT * FROM student`)
       .then((data) => {
-        resolve({
-          status: 200,
-          student: data
-        });
+        resolve(data);
       }).catch((err) => {
         logger.log('error', TAG+ACTION, err);
         reject(Errors.raise('INTERNAL_SERVER_ERROR', err));
@@ -21,7 +18,7 @@ module.exports.findAll = () => {
   });
 };
 
-module.exports.getProfile = (id) => {
+module.exports.getStudentProfile = (id) => {
   const ACTION = '[find]';
   logger.log('info', `${TAG}${ACTION}`, { id });
 
@@ -42,7 +39,7 @@ module.exports.getProfile = (id) => {
   });
 };
 
-module.exports.add = (student) => {
+module.exports.addStudentInfo = (student) => {
   const ACTION = '[add]';
   logger.log('info', `${TAG}${ACTION}`, { student });
   return new Promise((resolve, reject)=>{
@@ -61,7 +58,7 @@ module.exports.add = (student) => {
   });
 };
 
-module.exports.update = (student, id) => {
+module.exports.updateStudentInfo = (student, id) => {
   const ACTION = '[update]';
   logger.log('info', `${TAG}${ACTION}`, { student, id });
   student = {
@@ -77,10 +74,7 @@ module.exports.update = (student, id) => {
       .then((data) => {
        if (data.affectedRows > 0) {
         student.id = id;
-        resolve({
-          status: 200,
-          data: student
-        });
+        resolve(data);
        }
       else {
         let error = Errors.raise('NOT_FOUND');
@@ -94,7 +88,7 @@ module.exports.update = (student, id) => {
   });
 };
 
-module.exports.remove = (id) => {
+module.exports.removeStudent = (id) => {
   const ACTION = '[remove]';
   logger.log('info', `${TAG}${ACTION}`, { id });
   return new Promise((resolve, reject)=>{

@@ -5,7 +5,7 @@ const TAG = '[EducationalBackground]';
 const moment = require('moment');
 
 const edu_bg = {
-    add: function(data){
+    addStudentEduc: function(data){
         const ACTION = '[add]';
         logger.log('info', `${TAG}${ACTION}`, data);
 
@@ -63,7 +63,7 @@ const edu_bg = {
         });
     },
 
-    update: function(data){
+    updateStudentEduc: function(data){
         const ACTION = '[update]';
         logger.log('info', `${TAG}${ACTION}`, data);
         let fid = data.id;
@@ -79,7 +79,6 @@ const edu_bg = {
         data.updated_at = moment().format('YYYY-MM-DD HH:mm:ss');
 
         return new Promise((resolve, reject) => {
-            
             db.execute(`UPDATE edu_bg SET ? WHERE id=?`, [data, fid])
             .then(results=>{
                 if(results.affectedRows > 0)
@@ -95,7 +94,7 @@ const edu_bg = {
         });
     },
 
-    delete: function(id){
+    deleteStudentEduc: function(id){
         const ACTION = '[delete]';
         logger.log('info', `${TAG}${ACTION}`, id);
 
