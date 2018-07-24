@@ -214,11 +214,6 @@ import BaseLayout from '../layouts/BaseLayout.vue';
 import CardsPayment from '../components/Payment/CardsPayment.vue';
 import axios from 'axios';
 
-$(document).ready(function () {
-  $('#myTab li:last-child a').tab('show')
-  $('#paymentModal').modal('show')
-})
-
 export default {
   name: 'coursePage',
   data: () => {

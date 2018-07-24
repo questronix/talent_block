@@ -11,8 +11,8 @@
             <p class="card-text" id="text-details">We've sent you a link to confirm your email address.
             <p class="continuation" id="text-details">Please check your inbox.</p>
             <br/>
-            <p><strong>Didn't receive the email?</strong></p>
-            <a href="#" class="btn btn-outline-light">Resend Email Confirmation</a>
+            <!-- <p><strong>Didn't receive the email?</strong></p>
+            <a href="#" class="btn btn-outline-light">Resend Email Confirmation</a> -->
           </div>
         </div>
       </div>

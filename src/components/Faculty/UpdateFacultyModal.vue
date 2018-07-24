@@ -83,11 +83,6 @@
 </template>
 
 <script>
-
-$('#updateFacultyModal').on('shown.bs.modal', function () {
-  $('#myInput').trigger('focus')
-})
-
 export default {
   name: 'UpdateFacultyModal',  
 }
