@@ -5,7 +5,7 @@ const moment = require('moment');
 const TAG = '[OccupationalBackground]';
 
 const occu_bg = {
-  add: function (data) {
+  addStudentOccu: function (data) {
     const ACTION = '[add]';
     logger.log('info', `${TAG}${ACTION}`, data);
 
@@ -43,7 +43,7 @@ const occu_bg = {
     });
   },
 
-  update: function (data) {
+  updateStudentOccu: function (data) {
     const ACTION = '[update]';
     logger.log('info', `${TAG}${ACTION}`, data);
 
@@ -77,7 +77,7 @@ const occu_bg = {
     });
   },
 
-  delete: function (id) {
+  deleteStudentOccu: function (id) {
     const ACTION = '[delete]';
     logger.log('info', `${TAG}${ACTION}`, id);
 
