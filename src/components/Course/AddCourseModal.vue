@@ -92,10 +92,6 @@
 
 <script>
 
-$('#addCourseModal').on('shown.bs.modal', function () {
-  $('#myInput').trigger('focus')
-})
-
 export default {
   name: 'AddCourseModal',  
 }

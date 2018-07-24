@@ -9,19 +9,19 @@
           <span class="rembtn"><b-btn size="sm" variant="outline-danger" @click="remove"><font-awesome-icon icon="times-circle" /></b-btn></span>
         </div>
       </h5>
-
       <span>{{ occupation.position }}</span>
       <span>{{ occupation.department }}</span>
       <span>{{ occupation.address }}</span><br>
       <span>{{ occupation.salary }}</span><br>
       <span>{{ occupation.duties }}</span><br>
-      <span>{{ occupation.start_month }} {{ occupation.start_year }} - {{ occupation.end_month }} {{ occupation.end_year }}</span><br>
+      <span>{{ displayOccupationDate }}</span><br>
       <span>{{ occupation.reasone }}</span><br>
     </b-media>
   </div>
 </template>
 
 <script>
+import moment from 'moment';
 
 export default {
   name: 'OccuBgListItem',
@@ -34,6 +34,14 @@ export default {
     },
     remove() {
       this.$emit('onRemove');
+    },
+  },
+  computed: {
+    displayOccupationDate() {
+      if (this.occupation.end_month === -1 && this.occupation.end_year === -1) {
+        return `${moment(this.occupation.start_month, 'MM').format('MMM')} ${this.occupation.start_year} - Present`;
+      }
+      return `${moment(this.occupation.start_month, 'MM').format('MMM')} ${this.occupation.start_year} - ${moment(this.occupation.end_month, 'MM').format('MMM')} ${this.occupation.end_year}`;
     }
   }
 }

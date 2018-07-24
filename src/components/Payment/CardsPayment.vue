@@ -26,12 +26,6 @@
 <script>
 import PaymentSuccess from './PaymentSuccess.vue'
 
-$(document).ready(function(){
-    $('#paymentSuccessModal').on('shown', function (){
-        $('#paymentModal').modal('hide')
-    })
-})
-
 export default {
     props: ['cardsData', 'filteredData'],
     components: {

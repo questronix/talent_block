@@ -13,8 +13,8 @@
 		<b-modal id="familyUpdateModal" ok-only
 						ref="familyUpdateModal"
 						title="Family Background" @ok="famUpdateSubmit">
-			<form @submit.stop.prevent="famSubmit">
-          <b-form-group
+			<form @submit.stop.prevent="familySubmit">
+						<b-form-group
 												label="Relationship"
 												label-for="type">
 						<b-form-select id="type"
@@ -26,7 +26,6 @@
 						label="First Name:"
 						label-for="fn">
 						<b-form-input 
-						id="idName"
 						type="text"
 						placeholder="First Name"
 						v-model="family.fn"></b-form-input>
@@ -36,7 +35,6 @@
 						label="Last Name:"
 						label-for="fn">
 						<b-form-input 
-						id="idName"
 						type="text"
 						placeholder="Last Name"
 						v-model="family.ln"></b-form-input>
@@ -46,9 +44,8 @@
 						label="Middle Name:"
 						label-for="fn">
 						<b-form-input 
-						id="idName"
 						type="text"
-						placeholder="First Name"
+						placeholder="Middle Name"
 						v-model="family.mn"></b-form-input>
 					</b-form-group>
 
@@ -56,7 +53,6 @@
 						label="Contact No:"
 						label-for="fn">
 						<b-form-input 
-						id="idName"
 						type="text"
 						placeholder="Contact number"
 						v-model="family.contact_no"></b-form-input>
@@ -66,7 +62,6 @@
 						label="Occupation:"
 						label-for="fn">
 						<b-form-input 
-						id="idName"
 						type="text"
 						placeholder="First Name"
 						v-model="family.occupation"></b-form-input>
