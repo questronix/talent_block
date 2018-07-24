@@ -18,6 +18,7 @@
 <script>
 import BaseLayout from '../layouts/BaseLayout.vue';
 import CalendarView from 'vue-simple-calendar';
+import axios from 'axios';
 require("vue-simple-calendar/dist/static/css/default.css");
 require("vue-simple-calendar/dist/static/css/holidays-us.css");
 
@@ -57,7 +58,28 @@ export default {
     },
     preveMonth() {
       this.$emit('previousPeriod');
+    },
+    getEnrolledCourses() {
+      //FIXME: Dapat nakukuha yung id ng schedule
+      let id = 35;
+      axios.get(`/students/${id}/coursesEnrolled`)
+        .then((response) => {
+          let e = response.data[0];
+          this.events.push({
+            id: 2,
+            title: e.course_name,
+            startDate: `2018-07-16 08:30:00`,
+            endDate: '2018-07-17 02:00:00',
+            classes: 'birthday'
+          });
+          console.log(response.data);
+        }).catch((err) => {
+          console.log('Error while getting enrolled courses: ', err);
+        });
     }
+  },
+  created() {
+    this.getEnrolledCourses();
   }
 }
 </script>
