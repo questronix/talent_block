@@ -33,7 +33,7 @@ router.get('/me', mw.isAuthenticated, (req, res)=>{
   logger.log('debug', TAG + ACTION + ' request parameters', req.params);
   async.auto({
     student_info: function(callback){
-      student.getProfile(req.user.id)
+      student.getStudentProfile(req.user.id)
       .then(data=>{
         callback(null, data);
       })
