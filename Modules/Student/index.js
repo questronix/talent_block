@@ -15,9 +15,10 @@ const ss      = require('./model/Student_Schedule');
 
 /* get all students */
 router.get('/', mw.isAuthenticated, (req, res)=>{
-  const ACTION = '[getAllStudent]';
+  const ACTION = '[getAllStudents]';
   logger.log('debug', TAG + ACTION + ' request parameters', req.params);
-  student.findAll()
+  
+  student.getAllStudents()
   .then(data=>{
     res.success(data);
   })
@@ -32,7 +33,7 @@ router.get('/me', mw.isAuthenticated, (req, res)=>{
   logger.log('debug', TAG + ACTION + ' request parameters', req.params);
   async.auto({
     student_info: function(callback){
-      student.getProfile(req.user.id)
+      student.getStudentProfile(req.user.id)
       .then(data=>{
         callback(null, data);
       })
@@ -80,12 +81,13 @@ router.get('/me', mw.isAuthenticated, (req, res)=>{
   });
 });
 
-/* create student profile */
+/* add student info */
 router.post('/', mw.isAuthenticated, (req, res)=>{
   const ACTION = '[postStudent]';
   req.body.user_id = req.user.id;
   logger.log('debug', TAG + ACTION + ' request parameters', req.body);
-  student.add(req.body)
+  
+  student.addStudentInfo(req.body)
   .then(data=>{
     res.success(data);
   })
@@ -97,7 +99,8 @@ router.post('/', mw.isAuthenticated, (req, res)=>{
 router.put('/', mw.isAuthenticated, (req, res)=>{
   const ACTION = '[putUpdateStudent]';
   logger.log('debug', TAG + ACTION + ' request parameters', req.body);
-  student.update(req.body, req.user.id)
+  
+  student.updateStudentInfo(req.body, req.user.id)
   .then(data=>{
     res.success(data);
   })
@@ -110,7 +113,8 @@ router.put('/', mw.isAuthenticated, (req, res)=>{
 router.delete('/:id', mw.isAuthenticated, (req, res)=>{
   const ACTION = '[deleteStudent]';
   logger.log('debug', TAG + ACTION + ' request parameters', req.params);
-  student.remove(req.params.id)
+  
+  student.removeStudent(req.params.id)
   .then(data=>{
     res.success(data);
   })
@@ -125,7 +129,7 @@ router.post(`/education`, mw.isAuthenticated, (req,res)=>{
   logger.log('debug', TAG + ACTION + ' request body', req.body);
 
   req.body.user_id = req.user.id;
-  eduBg.add(req.body).then(data=>{
+  eduBg.addStudentEduc(req.body).then(data=>{
     res.success(data);
   }).catch(error=>{
     res.error(error);
@@ -136,7 +140,7 @@ router.put(`/education`, mw.isAuthenticated, (req,res)=>{
   const ACTION = '[putUpdateEducation]';
   logger.log('debug', TAG + ACTION + ' request body', req.body);
 
-  eduBg.update(req.body).then(data=>{
+  eduBg.updateStudentEduc(req.body).then(data=>{
     res.success(data);
   }).catch(error=>{
     console.log(error);
@@ -148,7 +152,7 @@ router.delete(`/education/:id`, mw.isAuthenticated, (req,res)=>{
   const ACTION = '[deleteEducation]';
   logger.log('debug', TAG + ACTION + ' request body', req.params);
 
-  eduBg.delete(req.params.id).then(data=>{
+  eduBg.deleteStudentEduc(req.params.id).then(data=>{
     res.success(data);
   }).catch(error=>{
     console.log(error);
@@ -162,7 +166,7 @@ router.post(`/family`, mw.isAuthenticated, (req,res)=>{
   logger.log('debug', TAG + ACTION + ' request body', req.body);
 
   req.body.user_id = req.user.id;
-  famBg.add(req.body).then(data=>{
+  famBg.addStudentFam(req.body).then(data=>{
     res.success(data);
   }).catch(error=>{
     res.error(error);
@@ -173,7 +177,7 @@ router.put(`/family`, mw.isAuthenticated, (req,res)=>{
   const ACTION = '[putFamilyEducation]';
   logger.log('debug', TAG + ACTION + ' request body', req.body);
 
-  famBg.update(req.body).then(data=>{
+  famBg.updateStudentFam(req.body).then(data=>{
     res.success(data);
   }).catch(error=>{
     console.log(error);
@@ -185,7 +189,7 @@ router.delete(`/family/:id`, mw.isAuthenticated, (req,res)=>{
   const ACTION = '[deleteFamily]';
   logger.log('debug', TAG + ACTION + ' request body', req.params);
 
-  famBg.delete(req.params.id).then(data=>{
+  famBg.deleteStudentFam(req.params.id).then(data=>{
     res.success(data);
   }).catch(error=>{
     console.log(error);
@@ -199,7 +203,7 @@ router.post(`/occupation`, mw.isAuthenticated, (req,res)=>{
   logger.log('debug', TAG + ACTION + ' request body', req.body);
 
   req.body.user_id = req.user.id;
-  occuBg.add(req.body).then(data=>{
+  occuBg.addStudentOccu(req.body).then(data=>{
     res.success(data);
   }).catch(error=>{
     res.error(error);
@@ -210,7 +214,7 @@ router.put(`/occupation`, mw.isAuthenticated, (req,res)=>{
   const ACTION = '[putOccupationBackground]';
   logger.log('debug', TAG + ACTION + ' request body', req.body);
 
-  occuBg.update(req.body).then(data=>{
+  occuBg.updateStudentOccu(req.body).then(data=>{
     res.success(data);
   }).catch(error=>{
     console.log(error);
@@ -222,7 +226,7 @@ router.delete(`/occupation/:id`, mw.isAuthenticated, (req,res)=>{
   const ACTION = '[deleteOccupation]';
   logger.log('debug', TAG + ACTION + ' request body', req.params);
 
-  occuBg.delete(req.params.id).then(data=>{
+  occuBg.deleteStudentOccu(req.params.id).then(data=>{
     res.success(data);
   }).catch(error=>{
     console.log(error);
@@ -232,11 +236,11 @@ router.delete(`/occupation/:id`, mw.isAuthenticated, (req,res)=>{
 
 // IDs Background
 router.post(`/ids`, mw.isAuthenticated, (req,res)=>{
-  const ACTION = '[postIDs]';
+  const ACTION = '[postStudentIDs]';
   logger.log('debug', TAG + ACTION + ' request body', req.body);
 
   req.body.user_id = req.user.id;
-  idBg.add(req.body).then(data=>{
+  idBg.addStudentIdAsync(req.body).then(data=>{
     res.success(data);
   }).catch(error=>{
     res.error(error);
@@ -244,10 +248,10 @@ router.post(`/ids`, mw.isAuthenticated, (req,res)=>{
 });
 
 router.put(`/ids`, mw.isAuthenticated, (req,res)=>{
-  const ACTION = '[putUpdateIDs]';
+  const ACTION = '[putUpdateStudentIDs]';
   logger.log('debug', TAG + ACTION + ' request body', req.body);
 
-  idBg.update(req.body).then(data=>{
+  idBg.updateStudentId(req.body).then(data=>{
     res.success(data);
   }).catch(error=>{
     console.log(error);
@@ -255,168 +259,17 @@ router.put(`/ids`, mw.isAuthenticated, (req,res)=>{
   })
 });
 
-router.delete(`/ids/:id`, mw.isAuthenticated, (req,res)=>{
-  const ACTION = '[deleteIDs]';
+router.delete(`/ids/:id`, (req,res)=>{
+  const ACTION = '[deleteStudentIDs]';
   logger.log('debug', TAG + ACTION + ' request body', req.params);
 
-  idBg.delete(req.params.id).then(data=>{
+  idBg.deleteStudentId(req.params.id).then(data=>{
     res.success(data);
   }).catch(error=>{
     console.log(error);
     res.error(error);
   })
 });
-
-
-
-
-
-router.get('/:id/family-background', (req, res, next) => {
-  const ACTION = '[getFamilyBackground]';
-  logger.log('debug', TAG + ACTION, ' request parameters ', req.params);
-
-  famBg.view(req.params.id)
-  .then(data=>{
-      res.success(data);
-  })
-  .catch(error=>{
-      res.error(error);
-  })
-});
-
-router.post('/:id/family-background', mw.isAuthenticated, (req, res, next) => {
-  const ACTION = '[postFamilyBackground]';
-  logger.log('debug', TAG + ACTION + ' request parameters', req.params);
-  logger.log('debug', TAG + ACTION + ' request body', req.body);
-
-  if(parseInt(req.params.id) === req.user.id){
-    famBg.add(req.body)
-    .then(data=>{
-      res.success(data);
-    })
-    .catch(error=>{
-      res.error(error);
-    })
-  }else{
-    let error = err.raise('UNAUTHORIZED');
-    logger.log('error', TAG + ACTION, error);
-    res.error(error);
-  }
-});
-
-router.put('/:id/family-background', mw.isAuthenticated, (req, res, next) => {
-  const ACTION = '[putFamilyBackground]';
-  logger.log('debug', TAG + ACTION, ' request parameters ', req.params);
-  logger.log('debug', TAG + ACTION, ' request body ', req.body);
-
-  if(parseInt(req.params.id) === req.user.id){
-    famBg.update(req.body, req.user.id)
-    .then(data=>{
-      res.success(data);
-    })
-    .catch(error=>{
-      res.error(error);
-    })
-  }else{
-    let error = err.raise('UNAUTHORIZED');
-    logger.log('error', TAG + ACTION, error);
-    res.error(error);
-  }
-});
-
-router.delete('/:id/family-background', mw.isAuthenticated, (req, res, next) => {
-  const ACTION = '[deleteFamilyBackground]';
-  logger.log('debug', TAG + ACTION, ' request parameters ', req.params);
-  logger.log('debug', TAG + ACTION + ' request body', req.body);
-
-  if(parseInt(req.params.id) === req.user.id){
-    famBg.delete(req.user.id, req.body.id)
-    .then(data=>{
-      res.success(data);
-    })
-    .catch(error=>{
-      res.error(error);
-    })
-  }else{
-    let error = err.raise('UNAUTHORIZED');
-    logger.log('error', TAG + ACTION, error);
-    res.error(error);
-  }
-});
-
-router.get('/:id/id-bg', (req, res, next) => {
-  const ACTION = '[getIdBackground]';
-  logger.log('debug', TAG + ACTION, ' request parameters ', req.params);
-
-  idBg.viewUserIds(req.params.id)
-  .then(data=>{
-    res.success(data);
-  })
-  .catch(error=>{
-    res.error(error);
-  })
-});
-
-router.post('/:id/id-bg', mw.isAuthenticated, (req, res, next) => {
-  const ACTION = '[postId]';
-  logger.log('debug', TAG + ACTION, ' request body ', req.body);
-
-  if(parseInt(req.params.id) === req.user.id){
-    req.body.user_id = req.user.id;
-    idBg.addAsync(req.body)
-    .then(data=>{
-      res.success(data);
-    })
-    .catch(error=>{
-      res.error(error);
-    })
-  }else{
-    let error = err.raise('UNAUTHORIZED');
-    logger.log('error', TAG + ACTION, error);
-    res.error(error);
-  }
-});
-
-router.put('/:id/id-bg', mw.isAuthenticated, (req, res, next) => {
-  const ACTION = '[putId]';
-  logger.log('debug', TAG + ACTION, ' request parameters ', req.params);
-  logger.log('debug', TAG + ACTION, ' request body ', req.body);
-
-  if(parseInt(req.params.id) === req.user.id){
-    idBg.update(req.body, req.user.id)
-    .then(data=>{
-      res.success(data);
-    })
-    .catch(error=>{
-      res.error(error);
-    })
-  }else{
-    let error = err.raise('UNAUTHORIZED');
-    logger.log('error', TAG + ACTION, error);
-    res.error(error);
-  }
-});
-
-router.delete('/:id/id-bg', mw.isAuthenticated, (req, res, next) => {
-  const ACTION = '[deleteId]';
-  logger.log('debug', TAG + ACTION, ' request parameters ', req.params);
-  logger.log('debug', TAG + ACTION, ' request body ', req.body);
-
-  if(parseInt(req.params.id) === req.user.id){
-    idBg.delete(req.user.id, req.body.id)
-    .then(data=>{
-      res.success(data);
-    })
-    .catch(error=>{
-      res.error(error);
-    })
-  }else{
-    let error = err.raise('UNAUTHORIZED');
-    logger.log('error', TAG + ACTION, error);
-    res.error(error);
-  }
-});
-
 
 // temporary routes for student_schedule
 

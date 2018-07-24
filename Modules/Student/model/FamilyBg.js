@@ -5,7 +5,7 @@ const moment = require('moment');
 const TAG = '[FamilyBackground]';
 
 const family_bg = {
-    add: function(data){
+    addStudentFam: function(data){
         const ACTION = '[add]';
         logger.log('info', `${TAG}${ACTION}`, data);
 
@@ -43,28 +43,7 @@ const family_bg = {
         });
     },
 
-    view: function(id){
-        const ACTION = '[view]';
-        logger.log('info', `${TAG}${ACTION}`, id);
-
-        return new Promise((resolve, reject) => {
-            db.execute(`SELECT * FROM family_bg WHERE user_id = ?`, [id])
-            .then(data=>{
-                if(data.length > 0)
-                    resolve(data);
-                else
-                    reject(err.raise('NOT_FOUND'));
-            })
-            .catch(error=>{
-                logger.log('error', TAG+ACTION, error);
-                let err = err.raise('INTERNAL_SERVER_ERROR');
-                err.error.details = error;
-                reject(err);
-            })
-        });
-    },
-
-    update: function(data){
+    updateStudentFam: function(data){
         const ACTION = '[update]';
         logger.log('info', `${TAG}${ACTION}`, data);
 
@@ -98,7 +77,7 @@ const family_bg = {
         });
     },
 
-    delete: function(id){
+    deleteStudentFam: function(id){
         const ACTION = '[delete]';
         logger.log('info', `${TAG}${ACTION}`, id);
 
