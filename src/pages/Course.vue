@@ -1,65 +1,42 @@
 <template>
   <base-layout>
     <div slot="body">
-      
       <div class="container course-details" v-if="courses.length">
         <div class="course-content">
-          <div class="course-outline" :style="{ 'background-image': 'url(' + courses[0].banner_img +')' }">
+          <div class="course-outline" :style="{ 'background-image': 'url(/static/' + courses[0].banner_img + ')' }">
             <div class="transparentdiv">
               <div class="course-info">
-                <div style="width: 50%;">
+                <div class="radio-part">
                   <h4>{{courses[0].name}}</h4>
-                  <input type="radio" name="">
-                  <input type="radio" name="">
-                  <input type="radio" name="">
-                  <input type="radio" name="">
-                  <input type="radio" name="">
+                  <b-form-group>
+                    <b-form-radio-group v-model="selected" :options="options" name="radioInline">
+                    </b-form-radio-group>
+                  </b-form-group>
                   <span>by Jay Tacdoro</span>
-                  <p>{{courses[0].short_desc}}</p>
+                  <span id="selected-text">{{selected}}</span>
                 </div>
-                <button class="btn btn-primary">Continue with your course</button><button class="btn trans-bordered">Write a review</button>
+                <b-button variant="primary">Continue with your course</b-button><b-button>Write a review</b-button>
               </div>
             </div>
-            
           </div>
-          <ul class="nav nav-tabs" id="myTab" role="tablist">
-            <li class="nav-item">
-              <a class="nav-link active" id="description-tab" data-toggle="tab" href="#description" role="tab" aria-controls="description" aria-selected="true">Description</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" id="author-tab" data-toggle="tab" href="#author" role="tab" aria-controls="author" aria-selected="false">About the Author</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" id="comments-tab" data-toggle="tab" href="#comments" role="tab" aria-controls="comments" aria-selected="false">Comments</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" id="schedules-tab" data-toggle="tab" href="#schedules" role="tab" aria-controls="schedules" aria-selected="false">Schedules</a>
-            </li>
-          </ul>
 
-          <div class="tab-content">
-            <div class="tab-pane fade show active" id="description" role="tabpanel" aria-labelledby="description-tab">
-              <div class="card">
-                <div class="card-body">
-                  <span>{{courses[0].full_desc}}</span>
-                </div>
-              </div>
-            </div>
-            <div class="tab-pane fade" id="author" role="tabpanel" aria-labelledby="author-tab">
-              <div class="card">
-                <div class="card-body">
-                  <span>John Ronald Reuel Tolkien, CBE FRSL was an English writer, poet, philologist, and university professor who is best known as the author of the classic high fantasy works The Hobbit, The Lord of the Rings, and The Silmarillion.</span>
-                </div>
-              </div>
-            </div>
-            <div class="tab-pane fade" id="comments" role="tabpanel" aria-labelledby="comments-tab">
-              <div class="card">
-                <div class="card-body">
-                  <span>Comments Section Sample</span>
-                </div>
-              </div>
-            </div>
-            <div class="tab-pane fade" id="schedules" role="tabpanel" aria-labelledby="schedules-tab">
+          <b-tabs>
+            <b-tab title="Description" active>
+              <b-card>
+                <span>{{courses[0].full_desc}}</span>
+              </b-card>
+            </b-tab>
+            <b-tab title="About the Author">
+              <b-card>
+                <span>John Ronald Reuel Tolkien, CBE FRSL was an English writer, poet, philologist, and university professor who is best known as the author of the classic high fantasy works The Hobbit, The Lord of the Rings, and The Silmarillion.</span>
+              </b-card>
+            </b-tab>
+            <b-tab title="Comments">
+              <b-card>
+                <span>Comments Section Sample</span>
+              </b-card>
+            </b-tab>
+            <b-tab title="Schedules">
               <div class="course-sched">
                 <div class="container">
                   <div class="row">
@@ -70,7 +47,7 @@
                       1:00PM - 3:30PM
                     </div>
                     <div class="col">
-                      <button type="button" class="btn btn-primary" data-dismiss="modal" data-toggle="modal" data-target="#paymentModal">Enroll Now</button>
+                      <b-btn v-b-modal.paymentModal> Enroll now </b-btn>
                     </div>
                   </div>
 
@@ -82,7 +59,7 @@
                       1:00PM - 3:30PM
                     </div>
                     <div class="col">
-                      <button type="button" class="btn btn-primary" data-dismiss="modal" data-toggle="modal" data-target="#paymentModal">Enroll Now</button>
+                      <b-btn v-b-modal.paymentModal> Enroll now </b-btn>
                     </div>
                   </div>
 
@@ -94,7 +71,7 @@
                       1:00PM - 3:30PM
                     </div>
                     <div class="col">
-                      <button type="button" class="btn btn-primary" data-dismiss="modal" data-toggle="modal" data-target="#paymentModal">Enroll Now</button>
+                      <b-btn v-b-modal.paymentModal> Enroll now </b-btn>
                     </div>
                   </div>
 
@@ -106,7 +83,7 @@
                       1:00PM - 3:30PM
                     </div>
                     <div class="col">
-                      <button type="button" class="btn btn-primary" data-dismiss="modal" data-toggle="modal" data-target="#paymentModal">Enroll Now</button>
+                      <b-btn v-b-modal.paymentModal> Enroll now </b-btn>
                     </div>
                   </div>
 
@@ -118,7 +95,7 @@
                       1:00PM - 3:30PM
                     </div>
                     <div class="col">
-                      <button type="button" class="btn btn-primary" data-dismiss="modal" data-toggle="modal" data-target="#paymentModal">Enroll Now</button>
+                      <b-btn v-b-modal.paymentModal> Enroll now </b-btn>
                     </div>
                   </div>
 
@@ -130,33 +107,32 @@
                       1:00PM - 3:30PM
                     </div>
                     <div class="col">
-                      <button type="button" class="btn btn-primary" data-dismiss="modal" data-toggle="modal" data-target="#paymentModal">Enroll Now</button>
+                      <b-btn v-b-modal.paymentModal> Enroll now </b-btn>
                     </div>
                   </div>
                 </div>
               </div>
-            </div>
-
-            </div>
-          </div>
-
-        <!-- Modal -->
-        <div class="modal fade" id="paymentModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-          <div class="modal-dialog modal-dialog-centered" role="document">
-            <div class="modal-content">
-              <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                  <span aria-hidden="true">&times;</span>
-                </button>
-              </div>
-              <div class="modal-body">
-                <CardsPayment :cardsData="this.cardsData[0]"></CardsPayment>
-                <CardsPayment :cardsData="this.cardsData[1]"></CardsPayment>
-                <CardsPayment :cardsData="this.cardsData[2]"></CardsPayment>
-              </div>
-            </div>
-          </div>
+            </b-tab>
+          </b-tabs>
         </div>
+        <!-- Modal -->
+        <b-modal id="paymentModal" hide-footer centered>
+          <div class="paymentModal-content">
+            <div class="close-icon">
+              <i class="times" aria-hidden="true"></i>
+            </div>
+            <div class="card-options">
+              <CardsPayment :cardsData="this.cardsData[0]" @showModal="showSuccessWindow"></CardsPayment>
+              <CardsPayment :cardsData="this.cardsData[1]" @showModal="showSuccessWindow"></CardsPayment>
+              <CardsPayment :cardsData="this.cardsData[2]" @showModal="showSuccessWindow"></CardsPayment>
+            </div>
+          </div>
+        </b-modal>
+        <!-- End of Modal -->
+        <!-- Modal -->
+        <b-modal ref="paymentSuccess" hide-header hide-footer centered>
+            <PaymentSuccess url="https://upload.wikimedia.org/wikipedia/commons/thumb/e/eb/Blue_check.svg/2000px-Blue_check.svg.png" @closeModal="closeSuccessWindow"/>
+        </b-modal>
         <!-- End of Modal -->
 
         <div class="side-bar">
@@ -204,7 +180,6 @@
         </div>
         <div class="clearfix"></div>
       </div>
-
     </div>
   </base-layout>
 </template>
@@ -212,33 +187,49 @@
 <script>  
 import BaseLayout from '../layouts/BaseLayout.vue';
 import CardsPayment from '../components/Payment/CardsPayment.vue';
+import PaymentSuccess from '../components/Payment/PaymentSuccess.vue';
 import axios from 'axios';
 
 export default {
   name: 'coursePage',
   data: () => {
-    return {  /*SAMPLE DATA for CardsPayment component*/
+    return {  /*SAMPLE DATA for CardsPayment component and Radio inputs*/
       courses: [],
       cardsData: [
         {cardType: 'MasterCard', cardNumber: '5500-0000-0000-0004'},
         {cardType: 'Visa', cardNumber: '4111-1111-1111-1111'},
         {cardType: 'American Express', cardNumber: '3400-0000-0000-009'}
       ],
-      filteredData: {}
+      selected: '',
+      options: []
     }
   },
   components: {
     BaseLayout,
-    CardsPayment
+    CardsPayment,
+    PaymentSuccess
   },
   methods:{
     getUnits: function() {
       axios.get('/courses/' + this.$route.query.id)
       .then((response) => {
-        this.courses = response.data.course
+        this.courses = response.data.course;
+        this.options.push({text: '', value: `${response.data.course[0].short_desc}`});
+        this.options.push({text: '', value: `Updated at: ${response.data.course[0].updated_at}`});
+        this.options.push({text: '', value: `Created at: ${response.data.course[0].created_at}`});
+        this.options.push({text: '', value: `Tags: ${response.data.course[0].tags}`});
+        this.options.push({text: '', value: `Slots: ${response.data.course[0].slot}`});
+        this.selected = response.data.course[0].short_desc;
       }).catch((err) => {
         console.log('Course error ', err)
       });
+    },
+    showSuccessWindow: function() {
+      this.$root.$emit('bv::hide::modal','paymentModal')
+      this.$refs.paymentSuccess.show()
+    },
+    closeSuccessWindow: function() {
+      this.$refs.paymentSuccess.hide()
     }
   },
  
@@ -249,33 +240,57 @@ export default {
 </script>
 
 <style>
-.nav {
-  border-style: inset;
-}
-.nav a {
-  color: #000;
-}
-.nav-pills .nav-link.active, .nav-pills .show>.nav-link {
-  background-color: lightgray !important;
-}
 .course-sched{
   margin-top: 0 !important;
-}
-.tab-content>.active {
-  padding-top: 40px;
 }
 .card {
   text-align: justify;
   color: #000;
 }
 .card-body span {
-
   align-content: justify;
   font-size: 1.25em;
   letter-spacing: 2px;
 }
+.nav-link {
+  color: #000;
+}
+.nav-link.active {
+  color: #4a74cc !important;
+}
+.tab-content>.tab-pane {
+  padding-top: 40px;
+}
+.btn-primary {
+  background-color: #4a74cc !important;
+}
+.btn-secondary {
+  background-color: #4a74cc !important;
+}
 .modal-header {
   border-bottom: 0 !important;
+}
+.radio-part {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+#selected-text {
+  margin-bottom: 10px;
+}
+.paymentModal-content {
+  display: flex;
+  flex-direction: column;
+}
+.close-icon {
+  display: inherit;
+  flex-direction: inherit;
+  justify-content: flex-end;
+}
+.card-options {
+  display: inherit;
+  flex-direction: inherit;
+  justify-content: flex-start
 }
 #centered {
   text-align: center;
