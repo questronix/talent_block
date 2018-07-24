@@ -1,13 +1,15 @@
 <template>
   <div>
     <b-media>
+      <b-img src="/static/img/occupation.svg" slot="aside" top width="64" height="64" alt="placeholder" />
       <h5>
+        <span>{{ occupation.name }}</span>
         <div class="bnts-prfile">
           <span class="updbtn"><b-btn size="sm" variant="outline-primary" @click="update"><font-awesome-icon icon="edit" /></b-btn></span>
           <span class="rembtn"><b-btn size="sm" variant="outline-danger" @click="remove"><font-awesome-icon icon="times-circle" /></b-btn></span>
         </div>
       </h5>
-      <span>{{ occupation.name }}</span><br>
+
       <span>{{ occupation.position }}</span>
       <span>{{ occupation.department }}</span>
       <span>{{ occupation.address }}</span><br>
@@ -36,4 +38,19 @@ export default {
   }
 }
 </script>
+
+<style>
+.media {
+  padding: 10px;
+  border: 2px solid #f3f3f3;
+  margin-bottom: 10px;
+}
+
+.media:hover {
+  background-color: #eeeeee;
+  transition: background-color 0.9s;
+}
+
+
+</style>
 

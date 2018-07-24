@@ -15,11 +15,11 @@
 					<b-btn v-b-modal.profileModal>Account Settings</b-btn>
 					<!-- <a class="btn">Account Settings</a> -->
 					<div class="dab-info">
-						<p>{{showName}}</p>
-						<p><img src="/static/img/msg.svg" height="24" width="24"> {{user.email}}</p> 
-						<p><img src="/static/img/mobile.svg" height="24" width="24"> {{ profile.contact_no }}</p>
-						<p><img src="/static/img/address.svg" height="24" width="24"> {{profile.address}}</p> 
-						<p><img src="/static/img/calendar.svg" height="24" width="24"> Joined since <span>{{ showJoinedDate }}</span></p>
+						<p><span class="fa-width"><font-awesome-icon icon="user" /></span> {{showName}}</p>
+						<p><span class="fa-width"><font-awesome-icon icon="envelope" /></span> {{user.email}}</p> 
+						<p><span class="fa-width"><font-awesome-icon icon="mobile-alt" /></span> {{ profile.contact_no }}</p>
+						<p><span class="fa-width"><font-awesome-icon icon="map-marker-alt" /></span> {{profile.address}}</p> 
+						<p><span class="fa-width"><font-awesome-icon icon="calendar-alt" /></span> Joined since <span>{{ showJoinedDate }}</span></p>
 					</div>
 				</b-col>
 
@@ -386,9 +386,10 @@
 								<b-row>
 									
 									</b-row>
-									<b-row class="stud-bg-row">
-										<occu-bg-list :occupations="profile.occupations" @updateList="updateOccupationBackgroundList"></occu-bg-list>
-									</b-row>
+								<b-row class="stud-bg-row">
+									
+									<occu-bg-list :occupations="profile.occupations" @updateList="updateOccupationBackgroundList"></occu-bg-list>
+								</b-row>
 							</div>
 						</div>
 						<div class="bg-student">
@@ -700,5 +701,9 @@ export default {
 
 .addbtns {
 	float: right;
+}
+
+.fa-width {
+	width: 25px;
 }
 </style>
