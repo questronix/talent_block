@@ -1,7 +1,13 @@
 <template>
   <div>
     <b-media style="width: 100%;">
-      <b-img src="/static/img/family.svg" slot="aside" top width="64" height="64" alt="placeholder" />
+      <b-img v-if="family.type == 'Father'" src="/static/img/familyType1.svg" slot="aside" top width="64" height="64" alt="placeholder" />
+      <b-img v-if="family.type == 'Mother'" src="/static/img/familyType2.svg" slot="aside" top width="64" height="64" alt="placeholder" />
+      <b-img v-if="family.type == 'Brother'" src="/static/img/familyType3.svg" slot="aside" top width="64" height="64" alt="placeholder" />
+      <b-img v-if="family.type == 'Sister'" src="/static/img/familyType4.svg" slot="aside" top width="64" height="64" alt="placeholder" />
+      <b-img v-if="family.type == 'Grandfather'" src="/static/img/familyType5.svg" slot="aside" top width="64" height="64" alt="placeholder" />
+      <b-img v-if="family.type == 'Grandmother'" src="/static/img/familyType6.svg" slot="aside" top width="64" height="64" alt="placeholder" />
+      
       <h5>
         <span class="fambg">{{ family.fn }} {{ family.mn }} {{ family.ln }}
         <div class="bnts-prfile">
