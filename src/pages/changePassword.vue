@@ -26,7 +26,7 @@
                 </b-form-group>
 
                 <b-container>
-                    <b-alert v-if="password.length > 0" id="ch-pass-str-msg"  :variant="variant"> {{strengthMsg}} </b-alert>
+                    <b-alert v-if="password.length > 0" id="ch-pass-str-msg" show="true" :variant="variant"> {{strengthMsg}} </b-alert>
                 </b-container>
 
                 <b-container id="ch-pass-str-miss-msg" v-if="missing.length > 0">
