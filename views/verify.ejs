@@ -75,7 +75,7 @@ text-decoration: none;
             <h1>Congratulations!</h1>
             <hr>
                 <p>Hi <%= data.username %>, you have successfully verified your email. <br/>
-                You may now click the button bellow to login.</p>
+                You may now click the button below to login.</p>
                 <a class="loginbtnonsv" href="/#/login">Login</a>
           </div>
         </div>
@@ -87,7 +87,7 @@ text-decoration: none;
             <img src="/static/img/warning.svg" height="100"	width="100">
             <h1>Error!</h1>
             <hr>
-              <p>There is problem activating the email.</p>
+              <p>There is a problem in activating the email.</p>
               <p>Reason : 
                 <% if (error.error.details){ %>
                   Token was already expired.
