@@ -93,6 +93,7 @@
 		<b-modal id="educModal" ok-only
 						ref="educModal"
 						title="Educational Background" @ok="educSubmit">
+			<b-alert :show="alert" variant="danger"> {{alertMsg}} </b-alert>
 			<form @submit.stop.prevent="educSubmit">
 					<b-form-group
 						label="Enter School name:"
@@ -167,7 +168,8 @@
 		<!--  OCCUPATIONAL BACKGROUND -->
 		<b-modal id="occupationModal" ok-only
 						ref="occupationModal"
-						title="Educational Background" @ok="occupationSubmit">
+						title="Ocucupational Background" @ok="occupationSubmit">
+			<b-alert :show="alert" variant="danger"> {{alertMsg}} </b-alert>
 			<form @submit.stop.prevent="occupationSubmit">
 					<b-form-group
 						label="Enter your Employer Name:"
@@ -284,6 +286,7 @@
 		<b-modal id="validIdModal" ok-only
 						ref="validIdModal"
 						title="Valid ID" @ok="validIdSubmit">
+			<b-alert :show="alert" variant="danger"> {{alertMsg}} </b-alert>
 			<form @submit.stop.prevent="validIdSubmit">
 					<b-form-group
 						label="ID Name:"
@@ -312,6 +315,7 @@
 		<b-modal id="familyModal" ok-only
 						ref="familyModal"
 						title="Family Background" @ok="familySubmit">
+			<b-alert :show="alert" variant="danger"> {{alertMsg}} </b-alert>
 			<form @submit.stop.prevent="familySubmit">
 						<b-form-group
 												label="Relationship"
@@ -384,13 +388,13 @@
 					
 						<Timeline v-show="schedDisplay === 'list'" />
 						<div class="bg-student">
-							<h4>Educational Background</h4><b-btn v-b-modal.educModal class="addbtns btn-success"><font-awesome-icon icon="plus-circle" /></b-btn>
+							<h4>Educational Background</h4><b-btn v-b-modal.educModal @click="addInfoProfile" class="addbtns btn-success"><font-awesome-icon icon="plus-circle" /></b-btn>
 							<hr>
 							<p v-show="profile.educ.length == 0">Add educational background now</p>
 							<edu-bg-list :educations="profile.educ" @updateList="updateEducationalBackgroundList"></edu-bg-list>
 						</div>
 						<div class="bg-student">
-							<h4>Occupation Background</h4><b-btn v-b-modal.occupationModal class="addbtns btn-success"><font-awesome-icon icon="plus-circle" /></b-btn>
+							<h4>Occupation Background</h4><b-btn v-b-modal.occupationModal @click="addInfoProfile" class="addbtns btn-success"><font-awesome-icon icon="plus-circle" /></b-btn>
 							<hr>
 							<div class="stud-bg-content">
 								<b-row>
@@ -403,7 +407,7 @@
 							</div>
 						</div>
 						<div class="bg-student">
-							<h4>IDs</h4><b-btn v-b-modal.validIdModal class="addbtns btn-success"><font-awesome-icon icon="plus-circle" /></b-btn>
+							<h4>IDs</h4><b-btn v-b-modal.validIdModal @click="addInfoProfile" class="addbtns btn-success"><font-awesome-icon icon="plus-circle" /></b-btn>
 							<hr>
 							<div class="stud-bg-content">
 								<b-row>
@@ -416,7 +420,7 @@
 							</div>
 						</div>
 						<div class="bg-student">
-							<h4>Family Background</h4><b-btn v-b-modal.familyModal class="addbtns btn-success"><font-awesome-icon icon="plus-circle" /></b-btn>
+							<h4>Family Background</h4><b-btn v-b-modal.familyModal @click="addInfoProfile" class="addbtns btn-success"><font-awesome-icon icon="plus-circle" /></b-btn>
 							<hr>
 							<div class="stud-bg-content">
 								<b-row>
@@ -520,6 +524,8 @@ export default {
 			},
 			headerBgVariant: 'primary',
 			headerTextVariant: 'light',
+			alert: false,
+			alertMsg: 'Please fill up all the fields.'
 			schedDisplay: 'calendar',
 		};
 	},
@@ -568,78 +574,138 @@ export default {
 		updateEducationalBackgroundList(index) {
 			this.profile.educ.splice(index, 1);
 		},
-		educSubmit() {
-			axios.post(`/students/education`, this.educ).then(data=>{
-				this.profile.educ.push({
-					id: data.data.insertId,
-					user_id: this.profile.user_id,
-					...this.educ
+		addInfoProfile() {
+			this.alert = false;
+			this.educ = {name: '', start_year: null, end_year: null, gpa: null, course: '', type: '', address: ''};
+			this.family = {fn: '', ln: '', mn: '', contact_no: '', occupation: '', type: ''};
+			this.occupation = {name: '',position: '',department: '',address: '',salary: 0,duties: '',start_year: null,end_year: -1,start_month: null,end_month: -1,reason: ''};
+			this.ids = {name: '',number: '',type: ''};
+		},
+		educSubmit(e) {
+			e.preventDefault();
+			if(this.educ.name === '' ||
+				this.educ.start_year === null ||
+				this.educ.end_year === null ||
+				this.educ.gpa === null ||
+				this.educ.course === '' ||
+				this.educ.type === '' ||
+				this.educ.address === ''){
+
+				this.alert = true;
+			}else {
+				axios.post(`/students/education`, this.educ).then(data=>{
+					this.profile.educ.push({
+						id: data.data.insertId,
+						user_id: this.profile.user_id,
+						...this.educ
+					});
+					this.$toasted.success('Educational background was succesfully updated');
+					this.educ = {name: '', start_year: null, end_year: null, gpa: null, course: '', type: '', address: ''};
+					this.alert = false;
+					this.$refs.educModal.hide();
+				}).catch(error=>{
+					console.log(error);
 				});
-				this.$toasted.success('Educational background was succesfully updated');
-				this.educ = {};
-			}).catch(error=>{
-				console.log(error);
-				// alert(JSON.stringify(error));
-			});
+			}
 		},
 		updateFamilyBackgroundList(index) {
 			this.profile.fam.splice(index, 1);
 		},
-		familySubmit() {
-			axios.post(`/students/family`, this.family).then(data=>{
-				console.log(data);
-				console.log(this.profile.fam);
-				this.profile.fam.push({
-					id: data.data.insertId,
-					user_id: this.profile.user_id,
-					...this.family
+		familySubmit(e) {
+			e.preventDefault();
+			if(this.family.fn === '' ||
+				this.family.ln === '' ||
+				this.family.mn === '' ||
+				this.family.contact_no === '' ||
+				this.family.occupation === '' ||
+				this.family.type === ''){
+			
+				this.alert = true;
+			}else {
+				axios.post(`/students/family`, this.family).then(data=>{
+					console.log(data);
+					console.log(this.profile.fam);
+					this.profile.fam.push({
+						id: data.data.insertId,
+						user_id: this.profile.user_id,
+						...this.family
+					});
+					this.$toasted.success('Family background was succesfully updated');
+					this.family = {fn: '', ln: '', mn: '', contact_no: '', occupation: '', type: ''};
+					this.alert = false;
+					this.$refs.familyModal.hide();
+				}).catch(error=>{
+					console.log(error);
 				});
-				this.$toasted.success('Family background was succesfully updated');
-				this.family = {};
-			}).catch(error=>{
-				console.log(error);
-			});
+			}
 		},
 		updateOccupationBackgroundList(index) {
 			this.profile.occupations.splice(index, 1);
 		},
-		occupationSubmit() {
-			if (this.isPresentOccupation) {
-				this.occupation.end_month = -1;
-				this.occupation.end_year = -1;
-			}
-			axios.post(`/students/occupation`, this.occupation).then(data=>{
-				console.log(data);
-				console.log(this.profile.occupations);
-				this.profile.occupations.push({
-					id: data.data.insertId,
-					user_id: this.profile.user_id,
-					...this.occupation
+		occupationSubmit(e) {
+			e.preventDefault();
+			if(this.occupation.name === '' ||
+				this.occupation.position === '' ||
+				this.occupation.department === '' ||
+				this.occupation.address === '' ||
+				this.occupation.salary === 0 ||
+				this.occupation.duties === '',
+				this.occupation.start_year === null ||
+				this.occupation.end_year === -1 ||
+				this.occupation.start_month === null ||
+				this.occupation.end_month === -1 ||
+				this.occupation.reason === '') {
+
+				this.alert = true;
+			}else {
+				if (this.isPresentOccupation) {
+					this.occupation.end_month = -1;
+					this.occupation.end_year = -1;
+				}
+				axios.post(`/students/occupation`, this.occupation).then(data=>{
+					console.log(data);
+					console.log(this.profile.occupations);
+					this.profile.occupations.push({
+						id: data.data.insertId,
+						user_id: this.profile.user_id,
+						...this.occupation
+					});
+					this.$toasted.success('Occupational background was succesfully updated');
+					this.occupation = {name: '',position: '',department: '',address: '',salary: 0,duties: '',start_year: null,end_year: -1,start_month: null,end_month: -1,reason: ''};
+					this.isPresentOccupation = false;
+					this.alert = false;
+					this.$refs.occupationModal.hide();
+				}).catch(error=>{
+					console.log(error);
 				});
-				this.$toasted.success('Occupational background was succesfully updated');
-				this.occupation = {};
-				this.isPresentOccupation = false;
-			}).catch(error=>{
-				console.log(error);
-			});
+			}
 		},
 		updateIdBackgroundList(index) {
 			this.profile.ids.splice(index, 1);
 		},
-		validIdSubmit() {
-			axios.post(`/students/ids`, this.ids).then(data=>{
-				console.log(data);
-				console.log(this.profile.ids);
-				this.profile.ids.push({
-					id: data.data.insertId,
-					user_id: this.profile.user_id,
-					...this.ids
+		validIdSubmit(e) {
+			e.preventDefault();
+			if(this.ids.name === '' ||
+				this.ids.number === '') {
+
+				this.alert = true;
+			}else {
+				axios.post(`/students/ids`, this.ids).then(data=>{
+					console.log(data);
+					console.log(this.profile.ids);
+					this.profile.ids.push({
+						id: data.data.insertId,
+						user_id: this.profile.user_id,
+						...this.ids
+					});
+					this.$toasted.success('Occupational background was succesfully updated');
+					this.ids = {name: '',number: '',type: ''};
+					this.alert = false;
+					this.$refs.validIdModal.hide();
+				}).catch(error=>{
+					console.log(error);
 				});
-				this.$toasted.success('Occupational background was succesfully updated');
-				this.ids = {};
-			}).catch(error=>{
-				console.log(error);
-			});
+			}
 		},
 		handleSubmit() {
 			if(this.profile.user_id){
