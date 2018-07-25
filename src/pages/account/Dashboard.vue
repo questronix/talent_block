@@ -368,12 +368,15 @@
 
 			</form>
 		</b-modal>
-			
-
 
 				<div class="col scheds">
 					<div class="sched-calendar padded-white stud-bg">
-						<Timeline />
+
+						<div class="cal">
+							<Calendar />
+						</div>
+					
+						<!-- <Timeline /> -->
 						<div class="bg-student">
 							<h4>Educational Background</h4><b-btn v-b-modal.educModal class="addbtns btn-success"><font-awesome-icon icon="plus-circle" /></b-btn>
 							<hr>
@@ -438,6 +441,7 @@ import FamBgList from '../../components/FamilyBackground/FamBgList.vue';
 import OccuBgList from '../../components/OccupationalBackground/OccuBgList.vue';
 import IdBgList from '../../components/IDsBackground/IdBgList.vue';
 import Timeline from '../../components/Schedule/Timeline.vue';
+import Calendar from '../../components/Schedule/Calendar.vue';
 import moment from 'moment';
 import axios from 'axios';
 
@@ -521,7 +525,8 @@ export default {
 		FamBgList,
 		OccuBgList,
 		IdBgList,
-		Timeline
+		Timeline,
+		Calendar
 	},
 	methods: {
 		eventAdded(event) {
@@ -727,5 +732,11 @@ export default {
 
 .fa-width {
 	width: 25px;
+}
+
+.cal {
+	display: flex;
+	flex-direction: column;
+	flex-grow: 1;
 }
 </style>

@@ -1,40 +1,38 @@
 <template>
-  <base-layout>
-    <div id="calendar" slot="body">
-      <h2 class="text-center mt-3">My Schedule</h2>
-      <calendar-view
-        :show-date="showDate"
-        @show-date-change="setShowDate"
-        :displayPeriodUom="calendar.displayPeriod"
-        :time-format-options="{hour: 'numeric', minute:'2-digit'}"
-        :show-event-times="calendar.showEventTimes"
-        :events="events"
-        @click-event="showEvent"
-        class="theme-default">
-        <!-- <span slot="header"></span> -->
-      </calendar-view>
-      
-      <!-- Event Modal Information -->
-      <b-modal id="eventInfoModal"
-        title="Information"
-        ok-only
-        >
-        <div slot="modal-header"></div>
-        <b-card :title="selectedEvent.title"
-            :sub-title="selectedEvent.school">
-          <p class="card-text">
-              <font-awesome-icon icon="clock" /> {{ selectedEvent.time }} 
-              <font-awesome-icon icon="calendar" class="ml-2" /> {{ selectedEvent.date }} <br />
-              <font-awesome-icon icon="map-marker" /> {{ selectedEvent.address }} <br />
-              <font-awesome-icon icon="chalkboard-teacher" /> {{ selectedEvent.teacher }}
-          </p>
-        </b-card>
-      </b-modal>
-    </div>
-  </base-layout>
+  <div id="calendar">
+    <h2 class="text-center mt-3">My Schedule</h2>
+    <calendar-view
+      :show-date="showDate"
+      @show-date-change="setShowDate"
+      :displayPeriodUom="calendar.displayPeriod"
+      :time-format-options="{hour: 'numeric', minute:'2-digit'}"
+      :show-event-times="calendar.showEventTimes"
+      :events="events"
+      @click-event="showEvent"
+      class="theme-default">
+      <!-- <span slot="header"></span> -->
+    </calendar-view>
+    
+    <!-- Event Modal Information -->
+    <b-modal id="eventInfoModal"
+      title="Information"
+      ok-only
+      >
+      <div slot="modal-header"></div>
+      <b-card :title="selectedEvent.title"
+          :sub-title="selectedEvent.school">
+        <p class="card-text">
+            <font-awesome-icon icon="clock" /> {{ selectedEvent.time }} 
+            <font-awesome-icon icon="calendar" class="ml-2" /> {{ selectedEvent.date }} <br />
+            <font-awesome-icon icon="map-marker" /> {{ selectedEvent.address }} <br />
+            <font-awesome-icon icon="chalkboard-teacher" /> {{ selectedEvent.teacher }}
+        </p>
+      </b-card>
+    </b-modal>
+  </div>
 </template>
 <script>
-import BaseLayout from '../layouts/BaseLayout.vue';
+// import BaseLayout from '../layouts/BaseLayout.vue';
 import CalendarView from 'vue-simple-calendar';
 import axios from 'axios';
 import moment from 'moment';
@@ -44,7 +42,7 @@ require("vue-simple-calendar/dist/static/css/holidays-us.css");
 // TODO: try mo mag gawa ng sarili mong button tapos try to emit default controls from header.
 
 export default {
-  name: 'Schedule',
+  name: 'Calendar',
   data() {
     return { 
       showDate: new Date(),
@@ -57,7 +55,6 @@ export default {
     };
   },
   components: {
-    BaseLayout,
     CalendarView
   },
   methods: {
@@ -108,9 +105,10 @@ export default {
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
   color: #2c3e50;
   height: 67vh;
-  width: 90vw;
+  width: 100%;
   margin-left: auto;
   margin-right: auto;
+  margin-bottom: 100px;
 }
 
 .calendar-controls {

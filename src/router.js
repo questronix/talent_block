@@ -13,7 +13,6 @@ import DashboardSchool from './pages/school/Dashboard.vue';
 import Error404 from './pages/error/404.vue';
 import FacultyDashboard from './pages/faculty/FacultyDashboard.vue';
 import ChangePassword from './pages/changePassword.vue';
-import Schedule from './pages/Schedule.vue';
 
 Vue.use(VueRouter);
 
@@ -80,12 +79,6 @@ const routes = [
     name: 'faculty_dashboard',
     path: '/faculty_dashboard',
     component: FacultyDashboard,
-    meta: { requiresAuth: true }
-  },
-  {
-    name: 'schedule',
-    path: '/schedule',
-    component: Schedule,
     meta: { requiresAuth: true }
   },
   {
