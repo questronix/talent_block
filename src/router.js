@@ -86,6 +86,7 @@ const routes = [
     name: 'schedule',
     path: '/schedule',
     component: Schedule,
+    meta: { requiresAuth: true }
   },
   {
     path: "/404",
