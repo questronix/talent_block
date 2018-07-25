@@ -15,11 +15,11 @@
 					<b-btn v-b-modal.profileModal>Account Settings</b-btn>
 					<!-- <a class="btn">Account Settings</a> -->
 					<div class="dab-info">
-						<p><span class="fa-width"><font-awesome-icon icon="user" /></span> {{showName}}</p>
-						<p><span class="fa-width"><font-awesome-icon icon="envelope" /></span> {{user.email}}</p> 
-						<p><span class="fa-width"><font-awesome-icon icon="mobile-alt" /></span> {{ profile.contact_no }}</p>
-						<p><span class="fa-width"><font-awesome-icon icon="map-marker-alt" /></span> {{profile.address}}</p> 
-						<p><span class="fa-width"><font-awesome-icon icon="calendar-alt" /></span> Joined since <span>{{ showJoinedDate }}</span></p>
+						<p><span class="fa-width"><font-awesome-icon icon="user" v-if="profile.fn || profile.ln" /></span> {{showName}}</p>
+						<p><span class="fa-width"><font-awesome-icon icon="envelope" v-if="user.email" /></span> {{user.email}}</p> 
+						<p><span class="fa-width"><font-awesome-icon icon="mobile-alt" v-if="profile.contact_no" /></span> {{ profile.contact_no }}</p>
+						<p><span class="fa-width"><font-awesome-icon icon="map-marker-alt" v-if="profile.address" /></span> {{profile.address}}</p> 
+						<p><span class="fa-width"><font-awesome-icon icon="calendar-alt" v-if="showJoinedDate" /></span> Joined since <span>{{ showJoinedDate }}</span></p>
 					</div>
 				</b-col>
 
@@ -745,5 +745,9 @@ export default {
 	display: flex;
 	flex-direction: column;
 	flex-grow: 1;
+}
+
+.dab-info p {
+    word-wrap: break-word;
 }
 </style>
