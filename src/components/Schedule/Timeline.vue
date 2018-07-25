@@ -8,42 +8,20 @@
           <b-col>
             <span>{{ toDay(event.startDate) }}</span>
             <br>
-            <h4>{{ toDate(event.startDate, event.endDate) }}</h4>
+            <h5> {{ toDate(event.startDate, event.endDate) }}</h5>
           </b-col>
-          <b-col cols="9">
+          <b-col cols="7">
             <!-- time and course name -->
             <b-row class="timeline-timecourse-row">
-              {{ event.title }}
-              <br>{{ toTime(event.startDate) }} - {{ toTime(event.endDate) }}
+              <h6>{{ event.title }}</h6>
+              <p> <font-awesome-icon icon="clock" /> {{ toTime(event.startDate) }} - {{ toTime(event.endDate) }} <br />
+              <font-awesome-icon icon="map" /> {{ event.address }}</p>
             </b-row>
           </b-col>
         </b-row>
       </b-container>
     </b-card>
-
-        <!-- <b-card class="text-left sched-card">
-            <b-container>
-                <b-row>
-                    <b-col>
-                        <span>Monday</span>
-                        <br>
-                        <h4>July 30, 2017</h4>
-                    </b-col>
-                    <b-col cols="9">
-                      <b-row class="timeline-timecourse-row">
-                          Responsive Website Basics: Code with HTML, CSS, and JavaScript
-                          <br>1:00PM-2:00PM
-                      </b-row>
-
-                      <b-row class="timeline-timecourse-row">
-                          Responsive Web Design
-                          <br>3:00PM-2:00PM
-                      </b-row>
-                    </b-col>
-                </b-row>
-            </b-container>
-        </b-card> -->
-    </b-list-group-item>
+  </b-list-group-item>
 </b-list-group>
 </template>
 
