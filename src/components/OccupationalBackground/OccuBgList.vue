@@ -114,7 +114,7 @@
 					</b-form-group>
 
 					<b-form-group v-show="!isPresentOccupation"
-						label="Enter your reason why you leave:"
+						label="Indicate reason why you left:"
 						label-for="reason"
 					>
 					<b-form-textarea type="text" rows="5" 
