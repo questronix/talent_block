@@ -7,7 +7,7 @@
                 <h3 class="text-center"> Change Your Password</h3>
             <br/>
             <b-form @submit.prevent="onSubmit" v-on:input="validateInput">
-                <b-alert variant="danger"
+                <b-alert :variant="alertVariant"
                     dismissible
                     :show="alert"
                     @dismissed="alert=false">
@@ -26,10 +26,10 @@
                 </b-form-group>
 
                 <b-container>
-                    <b-alert v-if="password.length > 0" id="ch-pass-str-msg" show="true" :variant="variant"> {{strengthMsg}} </b-alert>
+                    <b-alert v-if="password.length > 0" :show="strengthAlert" :variant="variant"> {{strengthMsg}} </b-alert>
                 </b-container>
 
-                <b-container id="ch-pass-str-miss-msg" v-if="missing.length > 0">
+                <b-container v-if="missing.length > 0">
                     Password must contain: <br/>
                     <ul>
                         <li v-for="(errormsg, index) in missing" :key="index">
@@ -85,8 +85,10 @@ export default {
           strength: strength,
           strengthMsg: '',
           variant: '',
+          alertVariant: '',
           alert: false,
           alertMsg: 'There\'s a problem with your request. Please try again.',
+          strengthAlert: false
 
       }
   },
@@ -111,9 +113,6 @@ export default {
             if(/^(?=.*[!@#$%^&*?_])/g.test(this.password)){ //has special character
                 pts += 1;
             }else{
-                if(/(?=.*\s)/g.test(this.password)) //has a whitespace
-                    this.missing.push("NO SPACES");
-                
                 this.missing.push("at least one special character (!@#$%^&*?_) excluding spaces");
             }
 
@@ -157,6 +156,7 @@ export default {
             this.strengthMsg = `Strength: Strong`;
             this.strength = true;
         }
+        this.strengthAlert = true;
       },
       validateInput(){
           this.checkMissing();
@@ -164,8 +164,8 @@ export default {
 
       },
       validate(){
-      let valid = true;
-      
+      let valid = this.passwordValidationHelper();
+      this.alertVariant = "danger";
       if(this.password !== this.conpassword) {
         valid = false
         this.alertMsg = 'Passwords do not match.';
@@ -174,16 +174,24 @@ export default {
         valid = false;
         this.alertMsg = 'Password strength is too weak.';
         this.alert = true;
-      }else{
-        this.alert = false;
+      }else if(valid){
+        this.alertVariant = "success";
+        this.alert = true;
         this.alertMsg = 'Successfully changed your password!';
-        
+      }else{
+        this.alertVariant = "danger";
+        this.alert = true;
+        this.alertMsg = 'Password should only contain alphanumeric characters and the following symbols: !@#$%^&*_?';
       }
       return valid;
     },
+    passwordValidationHelper(){
+        const regex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*_?])[A-Za-z0-9!@#$%^&*_?]{8,}$/;
+        return regex.test(this.password);
+    },
     onSubmit(){
         if(this.validate()){
-            console.log("Successfully logged in");
+            this.strengthAlert = false;
         }
     }
   }
