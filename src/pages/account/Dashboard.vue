@@ -520,7 +520,7 @@ export default {
 			},
 			headerBgVariant: 'primary',
 			headerTextVariant: 'light',
-			schedDisplay: 'list',
+			schedDisplay: 'calendar',
 		};
 	},
   components: {
