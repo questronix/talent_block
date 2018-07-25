@@ -1,9 +1,13 @@
 <template>
   <base-layout>
     <div slot="body">  
-      <div class="login">
-        <b-col cols="4" offset-md="4">
-        <div class="login-card">
+      <!-- <div class="login"> -->
+       <b-container>
+
+          <b-row>
+            <b-col offset-md="2" offset-lg="3"></b-col>
+          <b-col md="8" lg="6">
+          <div class="login-card">
           <h4 class="text-center">Login</h4>
           <b-alert variant="danger"
              dismissible
@@ -45,8 +49,11 @@
           </b-form>
         </div>
       </b-col>
+      <b-col offset-md="2" offset-lg="3"></b-col>
+          </b-row>
+       </b-container>
       </div>
-    </div>
+    <!-- </div> -->
   </base-layout>
 </template>
 
