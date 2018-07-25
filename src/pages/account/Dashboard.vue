@@ -369,10 +369,20 @@
 			</form>
 		</b-modal>
 
-				
-
 				<div class="col scheds">
 					<div class="sched-calendar padded-white stud-bg">
+						<!-- <div class="float-right"> -->
+						<b-button-group>
+							<b-btn @click="schedDisplay = 'calendar'"><font-awesome-icon icon="calendar-alt" /></b-btn>
+							<b-btn @click="schedDisplay = 'list'"><font-awesome-icon icon="th-list"/></b-btn>
+						</b-button-group>
+						<!-- </div> -->
+						<h2 class="text-center mt-3">My Schedule</h2>
+						<div class="cal" v-show="schedDisplay === 'calendar'">
+							<Calendar />
+						</div>
+					
+						<Timeline v-show="schedDisplay === 'list'" />
 						<div class="bg-student">
 							<h4>Educational Background</h4><b-btn v-b-modal.educModal class="addbtns btn-success"><font-awesome-icon icon="plus-circle" /></b-btn>
 							<hr>
@@ -436,6 +446,8 @@ import EduBgList from '../../components/EducationalBackground/EduBgList.vue';
 import FamBgList from '../../components/FamilyBackground/FamBgList.vue';
 import OccuBgList from '../../components/OccupationalBackground/OccuBgList.vue';
 import IdBgList from '../../components/IDsBackground/IdBgList.vue';
+import Timeline from '../../components/Schedule/Timeline.vue';
+import Calendar from '../../components/Schedule/Calendar.vue';
 import moment from 'moment';
 import axios from 'axios';
 
@@ -453,6 +465,7 @@ export default {
 	data() {
 		return {
 			years: years,
+			events: [],
 			user: this.$store.state.user || {},
 			educ: {
 				name: '',
@@ -506,7 +519,8 @@ export default {
 				profile: 'You need to update your profile before you can enter to dashboard.'
 			},
 			headerBgVariant: 'primary',
-			headerTextVariant: 'light'
+			headerTextVariant: 'light',
+			schedDisplay: 'calendar',
 		};
 	},
   components: {
@@ -518,8 +532,16 @@ export default {
 		FamBgList,
 		OccuBgList,
 		IdBgList,
+		Timeline,
+		Calendar
 	},
 	methods: {
+		eventAdded(event) {
+				this.events.push(event);
+		},
+		eventDeleted(event) {
+				this.events.splice(this.events.indexOf(event), 1);
+		},
 		showEducYears: function(start_date, end_date){
 			return `${moment(start_date).format('YYYY')} - ${moment(end_date).format('YYYY')}`;
 		},
@@ -717,5 +739,11 @@ export default {
 
 .fa-width {
 	width: 25px;
+}
+
+.cal {
+	display: flex;
+	flex-direction: column;
+	flex-grow: 1;
 }
 </style>
