@@ -112,7 +112,7 @@
           <img src="/static/img/guy-thinking.png">
           <div class="before-footer-content">
             <h3>Look around, it's free!</h3>
-            <a href="/#/"><button type="button" class="btn btn-outline-light">Home</button></a>
+            <a href="/"><button type="button" class="btn btn-outline-light">Home</button></a>
           </div>
       </div>
     </div>
