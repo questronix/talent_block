@@ -1,102 +1,136 @@
 <template>
     <div>
-    <div class="modal fade bd-example-modal-lg" id="updateFacultyModal" tabindex="-1" role="dialog" aria-labelledby="updateFacultyModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-lg" role="document">
-    <div class="modal-content">
-        <div class="modal-header">
-            <h5 class="modal-title label" id="updateFacultyModalLabel">Faculty Personnel Details</h5>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-            </button>
-        </div>
-        <div class="modal-body">
-            <form novalidate>
-            <div class="row">
-                <div class="col">
-                    <div class="form-group">
-                        <label for="personnel-name" class="col-form-label">Personnel name</label>
-                        <input type="text" class="form-control" id="#" value="Jay Tacdoro" placeholder="Name of Personnel" disabled>
-                    </div>
-                    <div class="form-group">
-                        <label for="address" class="col-form-label">Address</label>
-                        <input type="text" class="form-control" id="#"  placeholder="Address" required>
-                        <div class="invalid-feedback">
-                            Please enter a valid address.
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="contact-no" class="col-form-label">Contact number</label>
-                        <input type="text" class="form-control" id="#"  placeholder="+639-xxx-xxx" required>
-                        <div class="invalid-feedback">
-                            Please enter a valid contact number.
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="subj-handled" class="col-form-label">Subject handled</label>
-                        <input type="text" class="form-control" id="#"  placeholder="Subject handled" required>
-                        <div class="invalid-feedback">
-                            Please enter a valid subject.
-                        </div>
-                    </div>
-                </div>
-                <div class="col">
-                    <div class="row">
-                        <div class="col">
-                            <div class="form-group">
-                                <label for="birthday" class="col-form-label">Birthday</label>
-                                <input type="text" class="form-control" id="#" placeholder="MM/DD/YYYY" required>
-                                <div class="invalid-feedback">
-                                    Please enter a valid date.
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col">
-                            <div class="form-group">
-                                <label for="age" class="col-form-label">Age</label>
-                                <input type="text" class="form-control" id="#" placeholder="Maximum students" required>
-                                <div class="invalid-feedback">
-                                    Please enter a valid a number.
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="personnel-bg" class="col-form-label">Personnel Background</label>
-                        <textarea class="form-control" id="#" rows="8" placeholder="Personnel Background" required></textarea>
-                        <div class="invalid-feedback">
-                            Please enter a valid personnel background.
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-danger" style="margin-right:auto">Remove Personnel</button>
-                <button type="button" class="btn btn-outline-primary" data-dismiss="modal">Cancel</button>
-                <button type="submit" class="btn btn-primary">Update</button>
-            </div>
-            </form>
-        </div>
-    </div>
-  </div>
-</div>
+    <!-- Modal Component -->
+    <b-modal id="updateFacultyModal"
+             ref="updateFacultyModal"
+             title="Update Faculty"
+			 size="lg"
+             ok-title="Update"
+			 @ok="onOk"
+			 @cancel="onCancel">
+    	<form>
+            <b-row>
+                <b-col>
+                    <b-form-group id="personnelNameroup"
+                                label="Personnel Name">
+                        <b-form-input type="text"
+                                placeholder="Enter name of personnel"
+                                v-model="form.personnelName"
+                                required
+                                ></b-form-input>
+                    <b-form-group />
+                    <b-form-group	id="addressGroup"
+                                    label="Address"
+                                    >
+                        <b-form-input type="text"
+                                    placeholder="Enter address"
+                                    v-model="form.address"
+                                    required
+                                    ></b-form-input>
+                    <b-form-group />
+                    <b-form-group	id="contactNoGroup"
+                                    label="Contact number"
+                                    >
+                        <b-form-input type="text"
+                                    placeholder="Enter contact number"
+                                    v-model="form.contactNo"
+                                    required
+                                    ></b-form-input>
+                    <b-form-group />
+                    <b-form-group	id="subjectHandledGroup"
+                                    label="Subject Handled"
+                                    >
+                    <b-form-input type="text"
+                                    placeholder="Enter subject handled"
+                                    v-model="form.subjectHandled"
+                                    required
+                                    ></b-form-input>
+                    <b-form-group />
+                </b-col>
+                <b-col>
+                    <b-row>
+                        <b-col>
+                            <b-form-group	id="birthdayGroup"
+                                            label="Birthday"
+                                            >
+                                <b-form-input type="text"
+                                        placeholder="Enter birthday"
+                                        v-model="form.birthday"
+                                        required
+                                        ></b-form-input>
+                            <b-form-group />
+                        </b-col>
+                        <b-col>
+                            <b-form-group	id="ageGroup"
+                                            label="Age"
+                                            >
+                                <b-form-input type="text"
+                                        placeholder="Enter age"
+                                        v-model="form.age"
+                                        required
+                                        ></b-form-input>
+                            <b-form-group />
+                        </b-col>
+                    </b-row>
+                    <b-form-group	id="personnelBgGroup"
+                                    label="Personnel background"
+                                    >
+                        <b-form-textarea id="textarea1"
+                            v-model="form.personnelBg"
+                            placeholder="Enter personnel background"
+                            rows="8"
+                            max-rows="10">
+                        </b-form-textarea>
+                    <b-form-group />
+                </b-col>
+            </b-row>
+		</form>
+        <div slot="modal-footer">
+            <b-btn variant="danger" style="margin-right: 78vh">Remove Faculty</b-btn>
+            <b-btn variant="secondary" @click="onCancel">Cancel</b-btn>
+            <b-btn variant="primary" @click="onOk">Update</b-btn>
+            
+       </div>
+    </b-modal>
   </div>
 </template>
 
 <script>
+
 export default {
-  name: 'UpdateFacultyModal',  
+    name: 'UpdateFacultyModal',
+    data () {
+        return {
+            form: {
+                personnelName: '',
+                address: '',
+                contactNo: '',
+                subjectHandled:'',
+                birthday: '',
+                age: '',
+                personnelBg: '',
+            },
+    
+            }
+        },
+  methods: {
+
+    onOk (evt) {
+		console.log(this.form);
+		this.$refs.updateFacultyModal.hide()
+    },
+    onCancel (evt) {
+        this.form.personnelName = '';
+        this.form.address = '';
+        this.form.contactNo = '';
+        this.form.subjectHandled ='';
+        this.form.birthday = '';
+        this.form.age = '';
+        this.form.personnelBg = '';
+	  
+    }
+  }
 }
+
 </script>
-
-<style scoped>
-
-#updateFacultyModalLabel{
-    color: black;
-}
-
-.col-form-label{
-    color: black !important;
-    float: left;
-}
-</style>
 
