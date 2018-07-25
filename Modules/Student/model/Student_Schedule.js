@@ -11,7 +11,7 @@ exports.getCoursesScheduled = (user_id, status)=>{
         course.id "course_id", course.name "course_name", course.code "course_code", course.tags "course_tags",
         school.id "school_id", school.name "school_name",
         category.id "category_id", category.name "category_name",
-        schedule.id "sched_id", schedule.start_time, schedule.end_time,
+        schedule.id "sched_id", schedule.start_time, schedule.end_time, schedule.start_date, schedule.end_date, schedule.address,
         teacher.id "teacher_id", teacher.ln "teacher_ln", teacher.fn "teacher_fn",
         student_schedule.grade
       from student_schedule
