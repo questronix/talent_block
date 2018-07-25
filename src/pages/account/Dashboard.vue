@@ -382,7 +382,7 @@
 							<Calendar />
 						</div>
 					
-						<!-- <Timeline /> -->
+						<Timeline v-show="schedDisplay === 'list'" />
 						<div class="bg-student">
 							<h4>Educational Background</h4><b-btn v-b-modal.educModal class="addbtns btn-success"><font-awesome-icon icon="plus-circle" /></b-btn>
 							<hr>
@@ -520,7 +520,7 @@ export default {
 			},
 			headerBgVariant: 'primary',
 			headerTextVariant: 'light',
-			schedDisplay: 'calendar',
+			schedDisplay: 'list',
 		};
 	},
   components: {
