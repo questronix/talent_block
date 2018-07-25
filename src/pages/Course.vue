@@ -33,16 +33,18 @@
             </b-tab>
             <b-tab title="Schedule">
               <div class="course-sched">
-            <div class="container sched">
-              <div class="row" v-for="sched in schedules" :key="sched.id">
-                <div class="col day">
-                  {{ sched.day }}
-                </div>
-                <div class="col">
-                  {{ sched.time}}
-                </div>
-                <div class="col">
-                  <button class="btn btn-primary">Enroll Now</button>
+                <div class="container sched">
+                  <div class="row" v-for="sched in schedules" :key="sched.id">
+                    <div class="col day">
+                      {{ sched.day }}
+                    </div>
+                    <div class="col">
+                      {{ sched.time}}
+                    </div>
+                    <div class="col">
+                      <button class="btn btn-primary">Enroll Now</button>
+                    </div>
+                  </div>
                 </div>
               </div>
             </b-tab>
@@ -54,10 +56,13 @@
             <div class="close-icon">
               <i class="times" aria-hidden="true"></i>
             </div>
+            <div class="card-options">
+              <CardsPayment :cardsData="this.cardsData[0]" @showModal="showSuccessWindow"></CardsPayment>
+              <CardsPayment :cardsData="this.cardsData[1]" @showModal="showSuccessWindow"></CardsPayment>
+              <CardsPayment :cardsData="this.cardsData[2]" @showModal="showSuccessWindow"></CardsPayment>
+            </div>
           </div>
-            </b-tab>
-          </b-tabs>
-      </div>
+        </b-modal>
         <!-- Modal -->
         <b-modal ref="paymentSuccess" hide-header hide-footer centered>
             <PaymentSuccess url="https://upload.wikimedia.org/wikipedia/commons/thumb/e/eb/Blue_check.svg/2000px-Blue_check.svg.png" @closeModal="closeSuccessWindow"/>
