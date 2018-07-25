@@ -372,8 +372,10 @@
 				<div class="col scheds">
 					<div class="sched-calendar padded-white stud-bg">
 						<!-- <div class="float-right"> -->
+						<b-button-group>
 							<b-btn @click="schedDisplay = 'calendar'"><font-awesome-icon icon="calendar-alt" /></b-btn>
 							<b-btn @click="schedDisplay = 'list'"><font-awesome-icon icon="th-list"/></b-btn>
+						</b-button-group>
 						<!-- </div> -->
 						<h2 class="text-center mt-3">My Schedule</h2>
 						<div class="cal" v-show="schedDisplay === 'calendar'">
