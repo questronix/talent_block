@@ -18,7 +18,7 @@
 												label="Relationship"
 												label-for="type">
 						<b-form-select id="type"
-													:options="{ 'Father': 'Father', 'Mother' : 'Mother', 'Sister': 'Sister', 'Brother': 'Brother', 'Wife': 'Wife', 'Husband': 'Husband', 'Dependents': 'Dependents'}"
+													:options="{ 'Father': 'Father', 'Mother' : 'Mother', 'Sister': 'Sister', 'Brother': 'Brother', 'Wife': 'Wife', 'Husband': 'Husband', 'Dependents': 'Dependents', 'Grandfather' : 'Grandfather', 'Grandmother':'Grandmother'}"
 													v-model="family.type">
 						</b-form-select>
 					</b-form-group>
@@ -63,7 +63,7 @@
 						label-for="fn">
 						<b-form-input 
 						type="text"
-						placeholder="First Name"
+						placeholder="Occupation"
 						v-model="family.occupation"></b-form-input>
 					</b-form-group>
 

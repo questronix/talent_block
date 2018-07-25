@@ -19,97 +19,30 @@
               </div>
             </div>
           </div>
-
-          <b-tabs>
+           <b-tabs>
             <b-tab title="Description" active>
-              <b-card>
-                <span>{{courses[0].full_desc}}</span>
-              </b-card>
+              <p class="desc">{{courses[0].full_desc}}</p>
             </b-tab>
-            <b-tab title="About the Author">
-              <b-card>
-                <span>John Ronald Reuel Tolkien, CBE FRSL was an English writer, poet, philologist, and university professor who is best known as the author of the classic high fantasy works The Hobbit, The Lord of the Rings, and The Silmarillion.</span>
-              </b-card>
+            <b-tab title="About the Author" >
+              <p class="desc"><span>John Ronald Reuel Tolkien, CBE FRSL was an English writer, poet, philologist, and university professor who is best known as the author of the classic high fantasy works The Hobbit, The Lord of the Rings, and The Silmarillion.</span></p>
             </b-tab>
             <b-tab title="Comments">
-              <b-card>
-                <span>Comments Section Sample</span>
-              </b-card>
+               <b-list-group>
+                  <b-list-group-item>Sample Comment</b-list-group-item>
+                </b-list-group>
             </b-tab>
-            <b-tab title="Schedules">
+            <b-tab title="Schedule">
               <div class="course-sched">
-                <div class="container">
-                  <div class="row">
-                    <div class="col day">
-                      Monday
-                    </div>
-                    <div class="col">
-                      1:00PM - 3:30PM
-                    </div>
-                    <div class="col">
-                      <b-btn v-b-modal.paymentModal> Enroll now </b-btn>
-                    </div>
-                  </div>
-
-                  <div class="row">
-                    <div class="col day">
-                      Tuesday
-                    </div>
-                    <div class="col">
-                      1:00PM - 3:30PM
-                    </div>
-                    <div class="col">
-                      <b-btn v-b-modal.paymentModal> Enroll now </b-btn>
-                    </div>
-                  </div>
-
-                  <div class="row">
-                    <div class="col day">
-                      Wednesday
-                    </div>
-                    <div class="col">
-                      1:00PM - 3:30PM
-                    </div>
-                    <div class="col">
-                      <b-btn v-b-modal.paymentModal> Enroll now </b-btn>
-                    </div>
-                  </div>
-
-                  <div class="row">
-                    <div class="col day">
-                      Thursday
-                    </div>
-                    <div class="col">
-                      1:00PM - 3:30PM
-                    </div>
-                    <div class="col">
-                      <b-btn v-b-modal.paymentModal> Enroll now </b-btn>
-                    </div>
-                  </div>
-
-                  <div class="row">
-                    <div class="col day">
-                      Friday
-                    </div>
-                    <div class="col">
-                      1:00PM - 3:30PM
-                    </div>
-                    <div class="col">
-                      <b-btn v-b-modal.paymentModal> Enroll now </b-btn>
-                    </div>
-                  </div>
-
-                  <div class="row">
-                    <div class="col day">
-                      Saturday
-                    </div>
-                    <div class="col">
-                      1:00PM - 3:30PM
-                    </div>
-                    <div class="col">
-                      <b-btn v-b-modal.paymentModal> Enroll now </b-btn>
-                    </div>
-                  </div>
+            <div class="container sched">
+              <div class="row" v-for="sched in schedules" :key="sched.id">
+                <div class="col day">
+                  {{ sched.day }}
+                </div>
+                <div class="col">
+                  {{ sched.time}}
+                </div>
+                <div class="col">
+                  <button class="btn btn-primary">Enroll Now</button>
                 </div>
               </div>
             </b-tab>
@@ -121,14 +54,10 @@
             <div class="close-icon">
               <i class="times" aria-hidden="true"></i>
             </div>
-            <div class="card-options">
-              <CardsPayment :cardsData="this.cardsData[0]" @showModal="showSuccessWindow"></CardsPayment>
-              <CardsPayment :cardsData="this.cardsData[1]" @showModal="showSuccessWindow"></CardsPayment>
-              <CardsPayment :cardsData="this.cardsData[2]" @showModal="showSuccessWindow"></CardsPayment>
-            </div>
           </div>
-        </b-modal>
-        <!-- End of Modal -->
+            </b-tab>
+          </b-tabs>
+      </div>
         <!-- Modal -->
         <b-modal ref="paymentSuccess" hide-header hide-footer centered>
             <PaymentSuccess url="https://upload.wikimedia.org/wikipedia/commons/thumb/e/eb/Blue_check.svg/2000px-Blue_check.svg.png" @closeModal="closeSuccessWindow"/>
@@ -137,23 +66,70 @@
 
         <div class="side-bar">
           <div class="sidebar-content">
-            <ul>
-              <li>
-                1.) Introduction to becoming a backend dev
-              </li>
-              <li>
-                2.) Learning your basics
-              </li>
-              <li>
-                3.) Lets expand on this
-              </li>
-              <li>
-                4.) Test your skills
-              </li>
-              <li>
-                5.) Honing your skills
-              </li>
-            </ul>
+            <div role="tablist">
+              <b-card no-body class="mb-1">
+                <b-card-header header-tag="header" class="p-1" role="tab">
+                  <b-btn block href="#" v-b-toggle.accordion1 variant="info">1.) Introduction to becoming a backend dev</b-btn>
+                </b-card-header>
+                <b-collapse id="accordion1" visible accordion="my-accordion" role="tabpanel">
+                  <b-card-body>
+                    <p class="card-text">
+                      <b-list-group>
+                        <b-list-group-item>Introduction to becoming a backend dev</b-list-group-item>
+                      </b-list-group>
+                    </p>
+                  </b-card-body>
+                </b-collapse>
+              </b-card>
+              <b-card no-body class="mb-1">
+                <b-card-header header-tag="header" class="p-1" role="tab">
+                  <b-btn block href="#" v-b-toggle.accordion2 variant="info">2.) Learning your basic</b-btn>
+                </b-card-header>
+                <b-collapse id="accordion2" accordion="my-accordion" role="tabpanel">
+                  <b-card-body>
+                    <p class="card-text">
+                      Learning your basic
+                    </p>
+                  </b-card-body>
+                </b-collapse>
+              </b-card>
+              <b-card no-body class="mb-1">
+                <b-card-header header-tag="header" class="p-1" role="tab">
+                  <b-btn block href="#" v-b-toggle.accordion3 variant="info">3.) Let's expand on this</b-btn>
+                </b-card-header>
+                <b-collapse id="accordion3" accordion="my-accordion" role="tabpanel">
+                  <b-card-body>
+                    <p class="card-text">
+                      Let's expand on this
+                    </p>
+                  </b-card-body>
+                </b-collapse>
+              </b-card>
+              <b-card no-body class="mb-1">
+                <b-card-header header-tag="header" class="p-1" role="tab">
+                  <b-btn block href="#" v-b-toggle.accordion4 variant="info">4.) Test your skill</b-btn>
+                </b-card-header>
+                <b-collapse id="accordion4" accordion="my-accordion" role="tabpanel">
+                  <b-card-body>
+                    <p class="card-text">
+                      Test your skill
+                    </p>
+                  </b-card-body>
+                </b-collapse>
+              </b-card>
+              <b-card no-body class="mb-1">
+                <b-card-header header-tag="header" class="p-1" role="tab">
+                  <b-btn block href="#" v-b-toggle.accordion5 variant="info">5.) Honing your skill</b-btn>
+                </b-card-header>
+                <b-collapse id="accordion5" accordion="my-accordion" role="tabpanel">
+                  <b-card-body>
+                    <p class="card-text">
+                      Honing your skill
+                    </p>
+                  </b-card-body>
+                </b-collapse>
+              </b-card>
+            </div>
           </div>
           <h4>Related Course</h4>
           <div class="relatedcourse">
@@ -195,6 +171,26 @@ export default {
   data: () => {
     return {  /*SAMPLE DATA for CardsPayment component and Radio inputs*/
       courses: [],
+      schedules: [
+        {
+          day: 'Monday', time: '1:00PM - 3:30PM'
+        },
+        {
+          day: 'Tuesday', time: '1:00PM - 3:30PM'
+        },
+        {
+          day: 'Wednesday', time: '1:00PM - 3:30PM'
+        },
+        {
+          day: 'Thursday', time: '1:00PM - 3:30PM'
+        },
+        {
+          day: 'Friday', time: '1:00PM - 3:30PM'
+        },
+        {
+          day: 'Saturday', time: '1:00PM - 3:30PM'
+        }
+      ],
       cardsData: [
         {cardType: 'MasterCard', cardNumber: '5500-0000-0000-0004'},
         {cardType: 'Visa', cardNumber: '4111-1111-1111-1111'},
@@ -239,9 +235,21 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
+.nav {
+  border-style: inset;
+}
+.nav a {
+  color: #000;
+}
+.nav-pills .nav-link.active, .nav-pills .show>.nav-link {
+  background-color: lightgray !important;
+}
 .course-sched{
   margin-top: 0 !important;
+}
+.tab-content>.active {
+  box-shadow: 1px 1px 1px 2px #eeeeee;
 }
 .card {
   text-align: justify;
@@ -295,5 +303,31 @@ export default {
 #centered {
   text-align: center;
   font-weight: bold;
+}
+
+a.btn.btn-info.btn-block.collapsed {
+  background: gray;
+  border: 0;
+}
+
+a.btn.btn-info.btn-block {
+    background: #4c4c4c;
+    border: 0;
+}
+
+ul#__BVID__12__BV_tab_controls_ {
+  box-shadow: 1px 2px 3px grey;
+}
+
+p.desc {
+  padding: 20px;
+  color: black;
+}
+.tab-pane {
+  color: black;
+}
+
+.container.sched {
+  margin-top: 20px;
 }
 </style>

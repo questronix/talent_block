@@ -1,5 +1,5 @@
 const db = require('../../Common/services/Database');
-const err = require('../../Common/services/Errors');
+const Errors = require('../../Common/services/Errors');
 const logger = require('../../Common/services/Logger');
 const moment = require('moment');
 const TAG = '[OccupationalBackground]';
@@ -11,16 +11,15 @@ const occu_bg = {
 
     return new Promise((resolve, reject) => {
       db.execute(`INSERT INTO occu_bg SET ?`, [data])
-        .then(data => {
-          if (data.affectedRows > 0)
+        .then(results => {
+          if (results.affectedRows > 0)
             resolve(data);
           else
-            reject(err.raise('NO_AFFECTED_ROWS'));
+            reject(Errors.raise('NO_AFFECTED_ROWS'));
         })
         .catch(error => {
           logger.log('error', TAG + ACTION, error);
-          let err = err.raise('INTERNAL_SERVER_ERROR');
-          err.error.details = error;
+          let err = Errors.raise('INTERNAL_SERVER_ERROR', error);
           reject(err);
         })
     });
@@ -62,11 +61,11 @@ const occu_bg = {
     return new Promise((resolve, reject) => {
 
       db.execute(`UPDATE occu_bg SET ? WHERE id=?`, [data, fid])
-        .then(data => {
-          if (data.affectedRows > 0)
-            resolve(data);
+        .then(results => {
+          if (results.affectedRows > 0)
+            resolve(results);
           else
-            reject(err.raise('NO_AFFECTED_ROWS'));
+            reject(Errors.raise('NO_AFFECTED_ROWS'));
         })
         .catch(error => {
           logger.log('error', TAG + ACTION, error);
@@ -87,12 +86,11 @@ const occu_bg = {
           if (data.affectedRows > 0)
             resolve(data);
           else
-            reject(err.raise('NO_AFFECTED_ROWS'));
+            reject(Errors.raise('NO_AFFECTED_ROWS'));
         })
         .catch(error => {
           logger.log('error', TAG + ACTION, error);
-          let err = err.raise('INTERNAL_SERVER_ERROR');
-          err.error.details = error;
+          let err = Errors.raise('INTERNAL_SERVER_ERROR', error);
           reject(err);
         })
     });

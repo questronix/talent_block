@@ -170,7 +170,7 @@
 						title="Educational Background" @ok="occupationSubmit">
 			<form @submit.stop.prevent="occupationSubmit">
 					<b-form-group
-						label="Enter your Occupation:"
+						label="Enter your Employer Name:"
 						label-for="name">
 						<b-form-input 
 						id="occupation"
@@ -362,7 +362,7 @@
 						label-for="fn">
 						<b-form-input 
 						type="text"
-						placeholder="First Name"
+						placeholder="Occupation"
 						v-model="family.occupation"></b-form-input>
 					</b-form-group>
 
@@ -468,7 +468,7 @@ export default {
 				position: '',
 				department: '',
 				address: '',
-				salary: '',
+				salary: 0,
 				duties: '',
 				start_year: null,
 				end_year: -1,
