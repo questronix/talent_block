@@ -371,8 +371,12 @@
 
 				<div class="col scheds">
 					<div class="sched-calendar padded-white stud-bg">
-
-						<div class="cal">
+						<!-- <div class="float-right"> -->
+							<b-btn @click="schedDisplay = 'calendar'"><font-awesome-icon icon="calendar-alt" /></b-btn>
+							<b-btn @click="schedDisplay = 'list'"><font-awesome-icon icon="th-list"/></b-btn>
+						<!-- </div> -->
+						<h2 class="text-center mt-3">My Schedule</h2>
+						<div class="cal" v-show="schedDisplay === 'calendar'">
 							<Calendar />
 						</div>
 					
@@ -513,7 +517,8 @@ export default {
 				profile: 'You need to update your profile before you can enter to dashboard.'
 			},
 			headerBgVariant: 'primary',
-			headerTextVariant: 'light'
+			headerTextVariant: 'light',
+			schedDisplay: 'calendar',
 		};
 	},
   components: {

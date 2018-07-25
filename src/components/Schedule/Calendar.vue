@@ -1,6 +1,5 @@
 <template>
   <div id="calendar">
-    <h2 class="text-center mt-3">My Schedule</h2>
     <calendar-view
       :show-date="showDate"
       @show-date-change="setShowDate"
