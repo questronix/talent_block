@@ -2,25 +2,30 @@
 <b-list-group class="schedtimeline">
   <b-list-group-item>
     <h4>My Schedule Timeline</h4>
-    <b-card class="text-left sched-card" v-for="event in events" :key="event.id">
-      <b-container>
-        <b-row>
-          <b-col>
-            <span>{{ toDay(event.startDate) }}</span>
-            <br>
-            <h5> {{ toDate(event.startDate, event.endDate) }}</h5>
-          </b-col>
-          <b-col cols="7">
-            <!-- time and course name -->
-            <b-row class="timeline-timecourse-row">
-              <h6>{{ event.title }}</h6>
-              <p> <font-awesome-icon icon="clock" /> {{ toTime(event.startDate) }} - {{ toTime(event.endDate) }} <br />
-              <font-awesome-icon icon="map" /> {{ event.address }}</p>
-            </b-row>
-          </b-col>
-        </b-row>
-      </b-container>
-    </b-card>
+    <div v-if="events.length > 0">
+      <b-card class="text-left sched-card" v-for="event in events" :key="event.id">
+        <b-container>
+          <b-row>
+            <b-col>
+              <span>{{ toDay(event.startDate) }}</span>
+              <br>
+              <h5> {{ toDate(event.startDate, event.endDate) }}</h5>
+            </b-col>
+            <b-col cols="7">
+              <!-- time and course name -->
+              <b-row class="timeline-timecourse-row">
+                <h6>{{ event.title }}</h6>
+                <p> <font-awesome-icon icon="clock" /> {{ toTime(event.startDate) }} - {{ toTime(event.endDate) }} <br />
+                <font-awesome-icon icon="map" /> {{ event.address }}</p>
+              </b-row>
+            </b-col>
+          </b-row>
+        </b-container>
+      </b-card>
+    </div>
+    <div v-else>
+      <p>You're not enrolled to any courses.</p>
+    </div>
   </b-list-group-item>
 </b-list-group>
 </template>
