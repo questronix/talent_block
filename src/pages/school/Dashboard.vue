@@ -59,17 +59,18 @@
 
 				<b-col>
                     <b-container fluid>
-                        <div class="row">
-                            <div class="col-sm-2">
-                            </div>
-                            <div class="col-sm-8">
+                        <b-row>
+                            <b-col sm="2">
+                            </b-col>
+                            <b-col sm="8">
                                 <h4 class="h4-centered">Our Courses</h4>
                             </div>
                             <div class="col-sm-2">
                                 <b-btn variant="primary" v-b-modal.addCourseModal>Add a course</b-btn>
+
                                 <AddCourseModal />
-                            </div>
-                        </div>
+                            </b-col>
+                        </b-row>
                     </b-container>
 					<b-container class="justify-content-end padded-white">
 						<b-table :fields="coursesFields" per-page=5 :current-page="currentCoursePage" :items="courses" class="table table-borderless text-center">
@@ -84,17 +85,18 @@
 					</b-container>
                     
 					<b-container fluid class="mt-5">
-                        <div class="row">
-                            <div class="col-sm-2">
-                            </div>
-                            <div class="col-sm-8">
+                        <b-row>
+                            <b-col sm="2">
+                            </b-col>
+                            <b-col sm="8" >
                                 <h4 class="h4-centered">Faculty</h4>
+
                             </div>
                             <div class="col-sm-2">
                                  <b-btn variant="primary" v-b-modal.addFacultyModal>Add Faculty</b-btn>
                                 <AddFacultyModal />
-                            </div>
-                        </div>
+                            </b-col>
+                        </b-row>
                     </b-container>
                     <b-container class="justify-content-end padded-white">
                         <b-table :fields="facultyFields" per-page=5 :current-page="currentFacultyPage" :items="faculty" class="table table-borderless text-center">

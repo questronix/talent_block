@@ -41,7 +41,7 @@ module.exports = {
 				status: 400,
 				error: {
 					code: -7,
-					message: 'There is problem with cloudant store.'
+					message: 'There is a problem with cloudant store.'
 				}
 			},
 			NO_AFFECTED_ROWS: {
@@ -69,7 +69,7 @@ module.exports = {
 				status: 400,
 				error:{
 					code: -11,
-					message: 'There is problem with Token in creating the token.'
+					message: 'There is a problem with Token in creating the token.'
 				}
 			},
 			JWT_TOKEN_VERIFY_ERROR: {

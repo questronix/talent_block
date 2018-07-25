@@ -1,26 +1,23 @@
 <template>
   <base-layout>
     <div slot="body">
-      
       <div class="container course-details" v-if="courses.length">
         <div class="course-content">
-          <div class="course-outline" :style="{ 'background-image': 'url(' + courses[0].banner_img +')' }">
+          <div class="course-outline" :style="{ 'background-image': 'url(/static/' + courses[0].banner_img + ')' }">
             <div class="transparentdiv">
               <div class="course-info">
-                <div style="width: 50%;">
+                <div class="radio-part">
                   <h4>{{courses[0].name}}</h4>
-                  <input type="radio" name="">
-                  <input type="radio" name="">
-                  <input type="radio" name="">
-                  <input type="radio" name="">
-                  <input type="radio" name="">
+                  <b-form-group>
+                    <b-form-radio-group v-model="selected" :options="options" name="radioInline">
+                    </b-form-radio-group>
+                  </b-form-group>
                   <span>by Jay Tacdoro</span>
-                  <p>{{courses[0].short_desc}}</p>
+                  <span id="selected-text">{{selected}}</span>
                 </div>
-                <button class="btn btn-primary">Continue with your course</button><button class="btn trans-bordered">Write a review</button>
+                <b-button variant="primary">Continue with your course</b-button><b-button>Write a review</b-button>
               </div>
             </div>
-            
           </div>
            <b-tabs>
             <b-tab title="Description" active>
@@ -36,41 +33,40 @@
             </b-tab>
             <b-tab title="Schedule">
               <div class="course-sched">
-            <div class="container sched">
-              <div class="row" v-for="sched in schedules" :key="sched.id">
-                <div class="col day">
-                  {{ sched.day }}
-                </div>
-                <div class="col">
-                  {{ sched.time}}
-                </div>
-                <div class="col">
-                  <button class="btn btn-primary">Enroll Now</button>
+                <div class="container sched">
+                  <div class="row" v-for="sched in schedules" :key="sched.id">
+                    <div class="col day">
+                      {{ sched.day }}
+                    </div>
+                    <div class="col">
+                      {{ sched.time}}
+                    </div>
+                    <div class="col">
+                      <button class="btn btn-primary">Enroll Now</button>
+                    </div>
+                  </div>
                 </div>
               </div>
-            </div>
-          </div>
             </b-tab>
           </b-tabs>
-      </div>
-
+        </div>
         <!-- Modal -->
-        <div class="modal fade" id="paymentModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-          <div class="modal-dialog modal-dialog-centered" role="document">
-            <div class="modal-content">
-              <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                  <span aria-hidden="true">&times;</span>
-                </button>
-              </div>
-              <div class="modal-body">
-                <CardsPayment :cardsData="this.cardsData[0]"></CardsPayment>
-                <CardsPayment :cardsData="this.cardsData[1]"></CardsPayment>
-                <CardsPayment :cardsData="this.cardsData[2]"></CardsPayment>
-              </div>
+        <b-modal id="paymentModal" hide-footer centered>
+          <div class="paymentModal-content">
+            <div class="close-icon">
+              <i class="times" aria-hidden="true"></i>
+            </div>
+            <div class="card-options">
+              <CardsPayment :cardsData="this.cardsData[0]" @showModal="showSuccessWindow"></CardsPayment>
+              <CardsPayment :cardsData="this.cardsData[1]" @showModal="showSuccessWindow"></CardsPayment>
+              <CardsPayment :cardsData="this.cardsData[2]" @showModal="showSuccessWindow"></CardsPayment>
             </div>
           </div>
-        </div>
+        </b-modal>
+        <!-- Modal -->
+        <b-modal ref="paymentSuccess" hide-header hide-footer centered>
+            <PaymentSuccess url="https://upload.wikimedia.org/wikipedia/commons/thumb/e/eb/Blue_check.svg/2000px-Blue_check.svg.png" @closeModal="closeSuccessWindow"/>
+        </b-modal>
         <!-- End of Modal -->
 
         <div class="side-bar">
@@ -165,7 +161,6 @@
         </div>
         <div class="clearfix"></div>
       </div>
-
     </div>
   </base-layout>
 </template>
@@ -173,12 +168,13 @@
 <script>  
 import BaseLayout from '../layouts/BaseLayout.vue';
 import CardsPayment from '../components/Payment/CardsPayment.vue';
+import PaymentSuccess from '../components/Payment/PaymentSuccess.vue';
 import axios from 'axios';
 
 export default {
   name: 'coursePage',
   data: () => {
-    return {  /*SAMPLE DATA for CardsPayment component*/
+    return {  /*SAMPLE DATA for CardsPayment component and Radio inputs*/
       courses: [],
       schedules: [
         {
@@ -205,21 +201,36 @@ export default {
         {cardType: 'Visa', cardNumber: '4111-1111-1111-1111'},
         {cardType: 'American Express', cardNumber: '3400-0000-0000-009'}
       ],
-      filteredData: {}
+      selected: '',
+      options: []
     }
   },
   components: {
     BaseLayout,
-    CardsPayment
+    CardsPayment,
+    PaymentSuccess
   },
   methods:{
     getUnits: function() {
       axios.get('/courses/' + this.$route.query.id)
       .then((response) => {
-        this.courses = response.data.course
+        this.courses = response.data.course;
+        this.options.push({text: '', value: `${response.data.course[0].short_desc}`});
+        this.options.push({text: '', value: `Updated at: ${response.data.course[0].updated_at}`});
+        this.options.push({text: '', value: `Created at: ${response.data.course[0].created_at}`});
+        this.options.push({text: '', value: `Tags: ${response.data.course[0].tags}`});
+        this.options.push({text: '', value: `Slots: ${response.data.course[0].slot}`});
+        this.selected = response.data.course[0].short_desc;
       }).catch((err) => {
         console.log('Course error ', err)
       });
+    },
+    showSuccessWindow: function() {
+      this.$root.$emit('bv::hide::modal','paymentModal')
+      this.$refs.paymentSuccess.show()
+    },
+    closeSuccessWindow: function() {
+      this.$refs.paymentSuccess.hide()
     }
   },
  
@@ -250,13 +261,49 @@ export default {
   color: #000;
 }
 .card-body span {
-
   align-content: justify;
   font-size: 1.25em;
   letter-spacing: 2px;
 }
+.nav-link {
+  color: #000;
+}
+.nav-link.active {
+  color: #4a74cc !important;
+}
+.tab-content>.tab-pane {
+  padding-top: 40px;
+}
+.btn-primary {
+  background-color: #4a74cc !important;
+}
+.btn-secondary {
+  background-color: #4a74cc !important;
+}
 .modal-header {
   border-bottom: 0 !important;
+}
+.radio-part {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+#selected-text {
+  margin-bottom: 10px;
+}
+.paymentModal-content {
+  display: flex;
+  flex-direction: column;
+}
+.close-icon {
+  display: inherit;
+  flex-direction: inherit;
+  justify-content: flex-end;
+}
+.card-options {
+  display: inherit;
+  flex-direction: inherit;
+  justify-content: flex-start
 }
 #centered {
   text-align: center;

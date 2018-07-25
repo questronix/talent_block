@@ -2,12 +2,17 @@
     <div class="success-window">
         <img :src="url"/>
         <h2> Payment Successful! </h2>
-        <button type="button" data-dismiss="modal" class="btn btn-primary">Done</button>
+        <b-btn @click="closeModal">Done</b-btn>
     </div>
 </template>
 <script>
 export default {
-    props: ['url']  //Temporary 
+    props: ['url'],  //Temporary 
+    methods: {
+        closeModal() {
+            this.$emit('closeModal');
+        }
+    }
 }
 </script>
 <style>
@@ -21,9 +26,6 @@ export default {
         width: 50px;
     }
     .success-window h2 {
-        margin-top: 10px;
-    }
-    .success-window button[type=button] {
         margin-top: 10px;
     }
 </style>
