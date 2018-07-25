@@ -311,7 +311,7 @@
 			<!--  FAMILY BACKGROUND -->
 		<b-modal id="familyModal" ok-only
 						ref="familyModal"
-						title="Valid ID" @ok="familySubmit">
+						title="Family Background" @ok="familySubmit">
 			<form @submit.stop.prevent="familySubmit">
 						<b-form-group
 												label="Relationship"
