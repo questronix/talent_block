@@ -53,7 +53,7 @@
                             <b-form-group	id="birthdayGroup"
                                             label="Birthday"
                                             >
-                                <b-form-input type="text"
+                                <b-form-input type="date"
                                         placeholder="Enter birthday"
                                         v-model="form.birthday"
                                         required

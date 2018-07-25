@@ -53,9 +53,10 @@
                             <b-form-group	id="birthdayGroup"
                                             label="Birthday"
                                             >
-                                <b-form-input type="text"
+                                <b-form-input
                                         placeholder="Enter birthday"
                                         v-model="form.birthday"
+                                        type="date"
                                         required
                                         ></b-form-input>
                             <b-form-group />
