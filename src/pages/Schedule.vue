@@ -1,6 +1,7 @@
 <template>
   <base-layout>
     <div id="calendar" slot="body">
+      <h2 class="text-center mt-3">My Schedule</h2>
       <calendar-view
         :show-date="showDate"
         @show-date-change="setShowDate"
@@ -9,9 +10,26 @@
         :show-event-times="calendar.showEventTimes"
         :events="events"
         @click-event="showEvent"
-        class="theme-default holiday-us-traditional holiday-us-official">
+        class="theme-default">
         <!-- <span slot="header"></span> -->
       </calendar-view>
+      
+      <!-- Event Modal Information -->
+      <b-modal id="eventInfoModal"
+        title="Information"
+        ok-only
+        >
+        <div slot="modal-header"></div>
+        <b-card :title="selectedEvent.title"
+            :sub-title="selectedEvent.school">
+          <p class="card-text">
+              <font-awesome-icon icon="clock" /> {{ selectedEvent.time }} 
+              <font-awesome-icon icon="calendar" class="ml-2" /> {{ selectedEvent.date }} <br />
+              <font-awesome-icon icon="map-marker" /> {{ selectedEvent.address }} <br />
+              <font-awesome-icon icon="chalkboard-teacher" /> {{ selectedEvent.teacher }}
+          </p>
+        </b-card>
+      </b-modal>
     </div>
   </base-layout>
 </template>
@@ -19,6 +37,7 @@
 import BaseLayout from '../layouts/BaseLayout.vue';
 import CalendarView from 'vue-simple-calendar';
 import axios from 'axios';
+import moment from 'moment';
 require("vue-simple-calendar/dist/static/css/default.css");
 require("vue-simple-calendar/dist/static/css/holidays-us.css");
 
@@ -33,15 +52,8 @@ export default {
         displayPeriod: 'month',
         showEventTimes: true,
       },
-      events: [
-        {
-          id: 1,
-          title: 'Happy Birthday!',
-          startDate: '2018-07-11 08:30:00',
-          endDate: '2018-07-12 02:00:00',
-          classes: 'birthday'
-        }
-      ],
+      events: [],
+      selectedEvent: {},
     };
   },
   components: {
@@ -53,32 +65,39 @@ export default {
       this.showDate = d;
     },
     showEvent(event) {
-      alert(event.title);
-      console.log(event);
+      this.selectedEvent = event.originalEvent;
+      this.selectedEvent.time = `${moment(this.selectedEvent.startDate).format('h:mm a')} - ${moment(this.selectedEvent.endDate).format('h:mm a')}`;
+      this.selectedEvent.date = `${moment(this.selectedEvent.startDate).format('MMMM Do')} - ${moment(this.selectedEvent.endDate).format('MMMM Do')}`;
+      this.$root.$emit('bv::show::modal','eventInfoModal');
+      console.log(this.selectedEvent);
     },
     preveMonth() {
       this.$emit('previousPeriod');
     },
     getEnrolledCourses() {
-      //FIXME: Dapat nakukuha yung id ng schedule
-      let id = 35;
+      let id = this.$store.getters.getUser.id;
       axios.get(`/students/${id}/coursesEnrolled`)
         .then((response) => {
-          let e = response.data[0];
-          this.events.push({
-            id: 2,
-            title: e.course_name,
-            startDate: `2018-07-16 08:30:00`,
-            endDate: '2018-07-17 02:00:00',
-            classes: 'birthday'
+          let e = response.data.map(e => {
+            return {
+              id: e.sched_id,
+              title: e.course_name,
+              startDate: `${e.start_date} ${e.start_time}`,
+              endDate: `${e.end_date} ${e.end_time}`,
+              classes: 'purple',
+              school: e.school_name,
+              // FIXME: Add name extension or profession like engr, prof, dr, etc. 
+              teacher: `${e.teacher_fn} ${e.teacher_ln}`,
+              address: e.address,
+            };
           });
-          console.log(response.data);
+          this.events = e;
         }).catch((err) => {
           console.log('Error while getting enrolled courses: ', err);
         });
     }
   },
-  created() {
+  mounted() {
     this.getEnrolledCourses();
   }
 }
@@ -124,6 +143,11 @@ export default {
 .calendar .event.birthday::before {
 	content: "\1F382";
 	margin-right: 0.5em;
+}
+
+/* Our custom CSS */
+h4.card-title {
+    text-align: left;
 }
 </style>
 
