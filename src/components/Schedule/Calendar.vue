@@ -21,8 +21,8 @@
       <b-card :title="selectedEvent.title"
           :sub-title="selectedEvent.school">
         <p class="card-text">
-            <font-awesome-icon icon="clock" /> {{ selectedEvent.time }} 
-            <font-awesome-icon icon="calendar" class="ml-2" /> {{ selectedEvent.date }} <br />
+          <font-awesome-icon icon="calendar" /> {{ selectedEvent.date }}
+            <font-awesome-icon icon="clock" class="ml-2" /> {{ selectedEvent.time }} <br />
             <font-awesome-icon icon="map-marker" /> {{ selectedEvent.address }} <br />
             <font-awesome-icon icon="chalkboard-teacher" /> {{ selectedEvent.teacher }}
         </p>
