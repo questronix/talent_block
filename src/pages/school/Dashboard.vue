@@ -64,9 +64,10 @@
                             </b-col>
                             <b-col sm="8">
                                 <h4 class="h4-centered">Our Courses</h4>
-                            </b-col>
-                            <b-col sm="2">
-                                <button type="button" class="btn btn-primary float-right" data-toggle="modal" data-target="#addCourseModal">Add a course</button>
+                            </div>
+                            <div class="col-sm-2">
+                                <b-btn variant="primary" v-b-modal.addCourseModal>Add a course</b-btn>
+
                                 <AddCourseModal />
                             </b-col>
                         </b-row>
@@ -74,9 +75,10 @@
 					<b-container class="justify-content-end padded-white">
 						<b-table :fields="coursesFields" per-page=5 :current-page="currentCoursePage" :items="courses" class="table table-borderless text-center">
                             <template slot="action" slot-scope="row"> 
-                                <button class="btn btn-primary" data-toggle="modal" data-target="#updateCourseModal">Update</button>
+                                <b-btn variant="primary" v-b-modal.updateCourseModal>Update Course</b-btn>
                                 <UpdateCourseModal />
                             </template>
+                            
                         </b-table>
 
                          <b-pagination align="center" :total-rows="coursesLength" per-page=5 v-model="currentCoursePage"/>
@@ -88,9 +90,10 @@
                             </b-col>
                             <b-col sm="8" >
                                 <h4 class="h4-centered">Faculty</h4>
-                            </b-col>
-                            <b-col sm="2" class="col-sm-2">
-                                <button type="button" class="btn btn-primary float-right" data-toggle="modal" data-target="#addFacultyModal">Add a faculty</button>
+
+                            </div>
+                            <div class="col-sm-2">
+                                 <b-btn variant="primary" v-b-modal.addFacultyModal>Add Faculty</b-btn>
                                 <AddFacultyModal />
                             </b-col>
                         </b-row>
@@ -98,7 +101,7 @@
                     <b-container class="justify-content-end padded-white">
                         <b-table :fields="facultyFields" per-page=5 :current-page="currentFacultyPage" :items="faculty" class="table table-borderless text-center">
                             <template slot="action" slot-scope="row"> 
-                                <button class="btn btn-primary" data-toggle="modal" data-target="#updateFacultyModal">Update</button>
+                                <b-btn variant="primary" v-b-modal.updateFacultyModal>Update Faculty</b-btn>
                                 <UpdateFacultyModal />
                             </template>
                         </b-table>

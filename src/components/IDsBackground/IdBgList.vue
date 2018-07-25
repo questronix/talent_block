@@ -12,7 +12,7 @@
 	<!--  idBg BACKGROUND -->
 		<b-modal id="idBgUpdateModal" ok-only
 						ref="idBgUpdateModal"
-						title="idBg Background" @ok="idUpdateSubmit">
+						title="Valid ID" @ok="idUpdateSubmit">
 			<form @submit.stop.prevent="idUpdateSubmit">
 					<b-form-group
 						label="ID Name:"
