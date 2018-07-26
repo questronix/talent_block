@@ -41,12 +41,12 @@
                   </b-button-group>
                   
                   <!-- for calendar -->
-                  <div v-if="schedDisplay == 'calendar'">
-                    <CourseCalendar />
+                  <div v-if="schedDisplay == 'calendar'" class="schedDisplay">
+                  <CourseCalendar />
                   </div>
                   <!-- for course sched list -->
-                  <div v-if="schedDisplay == 'list'">
-                    <!-- <SchedList /> -->
+                  <div v-if="schedDisplay == 'list'" class="schedDisplay">
+                    <ScheduleList />
                   </div>
                 </div>
               </div>
@@ -166,8 +166,9 @@
       </div>
     </div>
   </base-layout>
+    
     <!-- payment modal -->
-    <div>
+     <div>
       <b-modal ref="payModal" hide-footer title="Payment Summary">
         <div class="d-block text-left payment-summary-content">
           <!-- <span class="course-amount-info">Coin <h2>200</h2></span> -->
@@ -179,7 +180,7 @@
         <b-btn class="mt-3 paymodal-btn" variant="success" block @click="hidePaymentModal">Enroll for 256 coins</b-btn>
       </b-modal>
     </div>
-    <!-- payment modal -->
+    <!-- <button class="btn btn-primary" @click="showPaymentModal">Enroll now for 200 coins</button> -->
   </div>
 </template>
 
@@ -187,12 +188,13 @@
 import BaseLayout from '../layouts/BaseLayout.vue';
 import CardsPayment from '../components/Payment/CardsPayment.vue';
 import PaymentSuccess from '../components/Payment/PaymentSuccess.vue';
-import SchedList from '../components/Course/ScheduleList.vue';
 import CourseCalendar from '../components/Schedule/CourseCalendar.vue'
 import axios from 'axios';
+import ScheduleList from '../components/Course/ScheduleList.vue';
+
 
 export default {
-  name: 'coursePage',
+  name: 'CoursePage',
   data: () => {
     return {  /*SAMPLE DATA for CardsPayment component and Radio inputs*/
       courses: [],
@@ -211,7 +213,7 @@ export default {
     BaseLayout,
     CardsPayment,
     PaymentSuccess,
-    SchedList,
+    ScheduleList,
     CourseCalendar
   },
   
@@ -238,13 +240,14 @@ export default {
     closeSuccessWindow: function() {
       this.$refs.paymentSuccess.hide()
     },
-    showPaymentModal () {
+    showPaymentModalshowPaymentModal () {
       this.$refs.payModal.show()
     },
     hidePaymentModal () {
         this.$refs.payModal.hide()
     }
   },
+  
  
   beforeMount(){
     this.getUnits()
@@ -357,5 +360,13 @@ p.desc {
 
 .paymodal-btn {
   padding: 1rem;
+}
+
+.course-sched {
+  margin: 1rem 0;
+}
+
+.schedDisplay {
+  padding: 1rem 0;
 }
 </style>
