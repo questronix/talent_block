@@ -2,13 +2,13 @@
   <div>
   <base-layout>
     <div slot="body">
-      <div class="container course-details" v-if="courses.length">
+      <div class="container course-details">
         <div class="course-content">
-          <div class="course-outline" :style="{ 'background-image': 'url(' + courses[0].banner_img + ')' }">
+          <div class="course-outline" :style="{ 'background-image': 'url(' + courses.banner_img + ')' }">
             <div class="transparentdiv">
               <div class="course-info">
                 <div class="radio-part">
-                  <h4>{{courses[0].name}}</h4>
+                  <h4>{{courses.name}}</h4>
                   <b-form-group>
                     <b-form-radio-group v-model="selected" :options="options" name="radioInline">
                     </b-form-radio-group>
@@ -22,7 +22,7 @@
           </div>
            <b-tabs>
             <b-tab title="Description" active>
-              <p class="desc">{{courses[0].full_desc}}</p>
+              <p class="desc">{{courses.full_desc}}</p>
             </b-tab>
             <b-tab title="About the Author" >
               <p class="desc"><span>John Ronald Reuel Tolkien, CBE FRSL was an English writer, poet, philologist, and university professor who is best known as the author of the classic high fantasy works The Hobbit, The Lord of the Rings, and The Silmarillion.</span></p>
@@ -169,9 +169,9 @@
       <b-modal ref="payModal" hide-footer title="Payment Summary">
         <div class="d-block text-left payment-summary-content">
           <span class="course-amount-info">Coin <h2>200</h2></span>
-          <h4 style="clear:both">{{courses[0].name}}</h4>
+          <h4 style="clear:both">{{courses.name}}</h4>
           <hr>
-          <p>{{courses[0].short_desc}}</p>
+          <p>{{courses.short_desc}}</p>
           <p>Tuesday, 1:00 PM - 2:00 PM</p>
         </div>
         <b-btn class="mt-3 paymodal-btn" variant="success" block @click="hidePaymentModal">Enroll Now</b-btn>
@@ -231,7 +231,7 @@ export default {
     getUnits: function() {
       axios.get('/courses/' + this.$route.query.id)
       .then((response) => {
-        this.courses = response.data.course;
+        this.courses = response.data.course[0];
         this.options.push({text: '', value: `${response.data.course[0].short_desc}`});
         this.options.push({text: '', value: `Updated at: ${response.data.course[0].updated_at}`});
         this.options.push({text: '', value: `Created at: ${response.data.course[0].created_at}`});
