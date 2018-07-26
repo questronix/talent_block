@@ -9,14 +9,15 @@ import 'bootstrap/dist/css/bootstrap.css';
 import 'bootstrap-vue/dist/bootstrap-vue.css';
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { fas } from '@fortawesome/free-solid-svg-icons'
-
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
+import Vue2Filters from 'vue2-filters';
 
 library.add(fas)
 
 Vue.component('font-awesome-icon', FontAwesomeIcon);
 
 Vue.use(BootstrapVue);
+Vue.use(Vue2Filters);
 Vue.use(Toasted, {
   duration: 5000,
   position: 'bottom-right',

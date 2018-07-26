@@ -272,6 +272,10 @@ height: 110px;
 
 /******************** course page **************************/
 
+div#__BVID__53___BV_modal_body_.modal-body {
+  padding: 0 !important;
+}
+
 .course-details {
   margin-top: 40px;
 }
