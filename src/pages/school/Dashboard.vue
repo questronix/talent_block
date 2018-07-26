@@ -64,7 +64,6 @@
                             </b-col>
                             <b-col sm="8">
                                 <h4 class="h4-centered">Our Courses</h4>
-                            </div>
                             <div class="col-sm-2">
                                 <b-btn variant="primary" v-b-modal.addCourseModal>Add a course</b-btn>
 
@@ -83,6 +82,7 @@
 
                          <b-pagination align="center" :total-rows="coursesLength" per-page=5 v-model="currentCoursePage"/>
 					</b-container>
+                
                     
 					<b-container fluid class="mt-5">
                         <b-row>
@@ -90,8 +90,6 @@
                             </b-col>
                             <b-col sm="8" >
                                 <h4 class="h4-centered">Faculty</h4>
-
-                            </div>
                             <div class="col-sm-2">
                                  <b-btn variant="primary" v-b-modal.addFacultyModal>Add Faculty</b-btn>
                                 <AddFacultyModal />
@@ -109,7 +107,6 @@
                          <b-pagination align="center" :total-rows="facultyLength" per-page=5 v-model="currentFacultyPage"/>
 						
 					</b-container>
-					
 				</b-col>
 			</b-row>			
 		</b-container>
