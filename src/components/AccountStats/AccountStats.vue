@@ -23,8 +23,8 @@
 						<h3></h3> <!-- number -->
 					</b-col>
 					<b-col>
-						<span></span> <!-- Enrolled Course -->
-						<h3></h3> <!-- number -->
+						<span>Coins left</span> <!-- Enrolled Course -->
+						<h3>{{ coins }}</h3> <!-- number -->
 					</b-col>
 				</b-row>
 			</b-container>
@@ -38,6 +38,7 @@ export default {
 	props: {
 		fn: String,
 		ln: String,
+		coins: String,
 	}
 }
 </script>

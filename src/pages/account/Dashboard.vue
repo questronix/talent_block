@@ -6,13 +6,12 @@
 		
     <div slot="space"></div>
     <div slot="body">
-	<AccountStats :fn="profile.fn" :ln="profile.ln"/>
+	<AccountStats :fn="profile.fn" :ln="profile.ln" :coins="coins | currency('')"/>
 	<div class="dashboard accountforms">
 		<b-container>
 
 			<b-row>
 				<b-col cols="3" class="dash-account-basic">
-					{{ this.coins | currency('') }} coins left
 					<b-btn v-b-modal.profileModal>Account Settings</b-btn>
 					<!-- <a class="btn">Account Settings</a> -->
 					<div class="dab-info">
