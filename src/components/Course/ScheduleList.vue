@@ -1,21 +1,27 @@
 <template>
-    <b-row>
-        <b-col>
-            July 26-30, 2017
-        </b-col>
-        <b-col>
-            1:00 PM - 2:00 PM
-        </b-col>
-        <b-col>
-            Teacher G. Maestra
-        </b-col>
-        <b-col>
-            200
-        </b-col>
-        <b-col>
-            <button class="btn btn-primary" @click="showPaymentModal">Enroll Now</button>
-        </b-col>
-    </b-row>
+    <div>
+        <b-card class="text-left course-sched"  v-for="sched in schedule" :key="sched">
+            <b-container>
+                <b-row >
+                <b-col>
+                    {{showMonthRange}} {{showDayRangeFrom}}-{{showDayRangeTo}}, {{showYearRange}}
+                </b-col>
+                <b-col>
+                    {{sched.start_time}} - {{sched.end_time}}
+                </b-col>
+                <b-col>
+                    {{sched.teacher_fn}}  {{sched.teacher_ln}}
+                </b-col>
+                <b-col>
+                    <button class="btn btn-primary" @click="showPaymentModal">Enroll now for 200 coins</button>
+                </b-col>
+                </b-row>
+            </b-container>
+        </b-card>
+        <b-card v-if="schedule.lenght <= 0">
+            <p>There are no available schedule for this course</p>
+        </b-card>
+    </div>
 </template>
 
 <script>
@@ -31,13 +37,27 @@ export default {
     },
     methods: {
         getSched() {
-            axios.get('/schedule/' + this.$route.query.id)
+            axios.get('/courses/' + this.$route.query.id + '/schedule')
             .then((response) => {
-                this.schedule = response.data.schedule[0]
+                this.schedule = response.data.data
                 console.log(this.schedule)
             }).catch((err)=> {
                 console.log('Schedule error', err)
             });
+        }
+    },
+    computed: {
+        showDayRangeFrom() {
+            return moment(this.schedule.start_date).format('DD');
+        },
+        showDayRangeTo() {
+            return moment(this.schedule.end_date).format('DD');
+        },
+        showMonthRange() {
+            return moment(this.schedule.start_date).format('MMMM');
+        },
+        showYearRange() {
+            return moment(this.schedule.start_date).format('YYYY');
         }
     },
     beforeMount() {
