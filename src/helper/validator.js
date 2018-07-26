@@ -10,6 +10,11 @@ let user_schema = {
     'max' : 30,
 		'regex': new RegExp(/^[A-Za-z][A-Za-z0-9_]*/gi)
   },
+  'email': {
+		'type': 'string',
+		'regex': new RegExp(/^([a-zA-Z0-9_.+-])+\@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/gi)
+  },
+  
   'firstname': {
     'type':'string',
     'min': 2,
@@ -159,7 +164,12 @@ const validate = {
             let schema = validate._schema[key][rule];
             let result = RULES[rule.toUpperCase()](schema, column_value);
             if(result){
-              
+              let err = {};
+              err[key] = {
+                value: column_value,
+                msg: `'${key}' is not included in schema `
+              };
+            
               errors.push({
                 key: key,
                 value: column_value,
@@ -168,6 +178,7 @@ const validate = {
             }
           });
         }catch(e){
+          
           errors.push({
             key: key,
             value: column_value,
@@ -183,16 +194,18 @@ const validate = {
 };
 
 let output = validate.setSchema(user_schema).assert({
-  school: 'UPLB',
-  id: 1,
-  course: "B",
-  username: "32KY",
-  school: 'UPLB',
-  username: "32KY23",
-  firstname: "98Gemma"
+//   school: 'UPLB',
+//   id: 1,
+//   course: "B",
+// username: "mmmmmmmmmmmmmmm",
+//   school: 'UPLB',
+//   username: "32KY23",
+//   firstname: "98Gemma"
   
 });
 
 console.log(JSON.stringify(output));
 
-module.exports = validate;
+module.exports = {
+  validate, user_schema
+};

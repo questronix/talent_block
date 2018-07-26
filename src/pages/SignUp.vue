@@ -23,18 +23,29 @@
                 @dismissed="alert=false">
                 {{ alertMsg }}
               </b-alert>
-              <b-form @submit.prevent="onSubmit">
+              
 
+              <b-form @submit.prevent="onSubmit"> 
                 <b-form-group>
                   <b-form-input 
-                    id="username" 
+                    v-on:input="testValidate"
+                    id="usernames" 
                     type="text" 
                     v-model="form.username" 
-                    placeholder="Username"
+                    placeholder="Username (6-30 characters)"
                     required>
                   </b-form-input>
+              
+                  <b-alert variant="danger"
+                    dismissible
+                    :show="alert"
+                    @dismissed="alert=false">
+                    {{ userAlert }}
+                  </b-alert>
                 </b-form-group>
+                            
 
+                
                 <b-form-group>
                   <b-form-input 
                     id="email" 
@@ -43,6 +54,13 @@
                     placeholder="Email"
                     required>
                   </b-form-input>
+
+                  <b-alert variant="danger"
+                    dismissible
+                    :show="alert"
+                    @dismissed="alert=false">
+                    {{ emailAlert }}
+                  </b-alert>
                 </b-form-group>
 
                 <b-form-group> 
@@ -97,6 +115,7 @@
 let pts = 0;
 import BaseLayout from '../layouts/BaseLayout.vue';
 import axios from 'axios';
+import { validate, user_schema } from '../helper/validator.js';
 
 export default {
   name: 'signUpPage',
@@ -118,12 +137,51 @@ export default {
       alert: false,
       strengthAlert: false,
       alertMsg: 'There\'s a problem with your request. Please try again.',
+      errors : [],
+      userAlert:'',
+      emailAlert: '',
+      validInputs:true,
     };
   },
   components: {
     BaseLayout,
   },
   methods: {
+          testValidate(){
+            this.validInputs = true;
+            let output = validate.setSchema(user_schema).assert({        
+              username:this.form.username,
+              
+              
+            });
+            this.errors = output;        
+            console.log(output);
+            let i=0;
+            for (i=0; i < output.length; i++){
+              if (output[i].key === "username"){
+      
+                  this.validateUsername(output[i]);
+                  this.validInputs = false;
+                  console.log(`yow`);
+                  console.log(username);
+                  console.log(output[i].msg)
+              }
+              
+              if (output[i].key === "email"){
+                  this.validateEmail(output[i]);
+                  this.validInputs = false;
+              }              
+            }
+          },
+          validateUsername(error){
+            this.userAlert=error.msg;
+
+          },
+          validateEmail(error){
+            this.emailAlert=error.msg;
+
+          },
+          
         checkMissing(){
           this.missing = [];
             if(/^(?=.*[a-z])/g.test(this.form.password)){ //has lower case
@@ -192,6 +250,7 @@ export default {
       validateInput(){
           this.checkMissing();
           this.computePoints();
+      
 
       },
       validate(){
@@ -206,14 +265,21 @@ export default {
         this.alertMsg = 'Password strength is too weak.';
         this.alert = true;
       }else if(valid){
-        this.alertVariant = "success";
+        this.alertVariant = "success";    
+        
+      }else if(!this.validInputs){
+         this.alertVariant = "danger";
         this.alert = true;
-        this.alertMsg = 'Successfully changed your password!';
-      }else{
+        this.alertMsg = 'Username format is incorrect';
+        valid = false;
+      
+      }
+      else{
         this.alertVariant = "danger";
         this.alert = true;
         this.alertMsg = 'Password should only contain alphanumeric characters and the following symbols: !@#$%^&*_?';
       }
+      
 
       return valid;
     },
@@ -245,6 +311,7 @@ export default {
         });
       }
     }
+
   },  
   computed: {
     isLoggedIn() {
