@@ -525,8 +525,8 @@ export default {
 			headerBgVariant: 'primary',
 			headerTextVariant: 'light',
 			alert: false,
-			alertMsg: 'Please fill up all the fields.'
-			schedDisplay: 'calendar',
+			alertMsg: 'Please fill up all the fields.',
+			schedDisplay: 'calendar'
 		};
 	},
   components: {

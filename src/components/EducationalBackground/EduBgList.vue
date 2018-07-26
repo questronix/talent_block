@@ -14,7 +14,8 @@
             ok-title="Save"
             ref="educUpdateModal"
             title="Educational Background" @ok="educUpdateSubmit">
-      <form @submit.stop.prevent="educSubmit">
+      <b-alert :show="alert" variant="danger"> {{alertMsg}} </b-alert>
+      <form @submit.stop.prevent="educUpdateSubmit">
           <b-form-group
             label="Enter School name:"
             label-for="name">
@@ -119,6 +120,8 @@ export default {
       tempEduc: {},
       years: years,
       selectedIndex: -1,
+      alert: false,
+      alertMsg: 'Please fill up all the fields.'
     }
   },
   components: {
@@ -126,17 +129,33 @@ export default {
   },
   methods: {
     onUpdate(education) {
+      this.education = {};
+      this.alert = false;
       this.education = education;
       this.$root.$emit('bv::show::modal','educUpdateModal');
     },
-    educUpdateSubmit() {
-      axios.put('/students/education', this.education)
+    educUpdateSubmit(e) {
+      e.preventDefault();
+			if(this.education.name === '' ||
+				this.education.start_year === null ||
+				this.education.end_year === null ||
+				this.education.gpa === null ||
+				this.education.course === '' ||
+				this.education.type === '' ||
+				this.education.address === ''){
+
+				this.alert = true;
+			}else {
+        axios.put('/students/education', this.education)
         .then((response) => {
           this.$toasted.success('Successfully updated.');
+          this.alert = false;
+          this.$refs.educUpdateModal.hide();
         }).catch((err) => {
           this.$toasted.error('Error while updating your background information. Please try again or reload the page.')
           console.log('Background Info Update Error: ', err);
         });
+      }
     },
     onRemove(index, id) {
       this.$root.$emit('bv::show::modal','confirmRemoveModal');

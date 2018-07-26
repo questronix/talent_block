@@ -13,7 +13,8 @@
 		<b-modal id="familyUpdateModal" ok-only
 						ref="familyUpdateModal"
 						title="Family Background" @ok="famUpdateSubmit">
-			<form @submit.stop.prevent="familySubmit">
+      <b-alert :show="alert" variant="danger"> {{alertMsg}} </b-alert>
+			<form @submit.stop.prevent="famUpdateSubmit">
 						<b-form-group
 												label="Relationship"
 												label-for="type">
@@ -93,6 +94,8 @@ export default {
     return {
       family: {},
       selectedIndex: -1,
+      alert: false,
+      alertMsg: 'Please fill up all the fields.'
     }
   },
   components: {
@@ -100,17 +103,32 @@ export default {
   },
   methods: {
     onUpdate(family) {
+      this.familt = {};
+      this.alert = false;
       this.family = family;
       this.$root.$emit('bv::show::modal','familyUpdateModal');
     },
-    famUpdateSubmit() {
-      axios.put('/students/family', this.family)
-        .then((response) => {
-          this.$toasted.success('Successfully updated.');
-        }).catch((err) => {
-          this.$toasted.error('Error while updating your background information. Please try again or reload the page.')
-          console.log('Background Info Update Error: ', err);
-        });
+    famUpdateSubmit(e) {
+      e.preventDefault();
+			if(this.family.fn === '' ||
+				this.family.ln === '' ||
+				this.family.mn === '' ||
+				this.family.contact_no === '' ||
+				this.family.occupation === '' ||
+				this.family.type === ''){
+			
+        this.alert = true;
+      }else {
+        axios.put('/students/family', this.family)
+          .then((response) => {
+            this.$toasted.success('Successfully updated.');
+            this.alert = false;
+            this.$refs.familyUpdateModal.hide();
+          }).catch((err) => {
+            this.$toasted.error('Error while updating your background information. Please try again or reload the page.')
+            console.log('Background Info Update Error: ', err);
+          });
+      }
     },
     onRemove(index, id) {
       this.$root.$emit('bv::show::modal','famConfirmRemoveModal');
