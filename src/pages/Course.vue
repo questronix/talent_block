@@ -168,10 +168,9 @@
   </base-layout>
     
     <!-- payment modal -->
-     <div>
+     <!-- <div>
       <b-modal ref="payModal" hide-footer title="Payment Summary">
         <div class="d-block text-left payment-summary-content">
-          <!-- <span class="course-amount-info">Coin <h2>200</h2></span> -->
           <h4 style="clear:both">{{courses.name}}</h4>
           <hr>
           <p>{{courses.short_desc}}</p>
@@ -179,7 +178,7 @@
         </div>
         <b-btn class="mt-3 paymodal-btn" variant="success" block @click="hidePaymentModal">Enroll for 256 coins</b-btn>
       </b-modal>
-    </div>
+    </div> -->
     <!-- <button class="btn btn-primary" @click="showPaymentModal">Enroll now for 200 coins</button> -->
   </div>
 </template>
@@ -240,12 +239,12 @@ export default {
     closeSuccessWindow: function() {
       this.$refs.paymentSuccess.hide()
     },
-    showPaymentModalshowPaymentModal () {
-      this.$refs.payModal.show()
-    },
-    hidePaymentModal () {
-        this.$refs.payModal.hide()
-    }
+    // showPaymentModalshowPaymentModal () {
+    //   this.$refs.payModal.show()
+    // },
+    // hidePaymentModal () {
+    //     this.$refs.payModal.hide()
+    // }
   },
   
  
