@@ -11,7 +11,7 @@ module.exports.getAllSchedule = (id) => {
       SELECT 
         schedule.id "schedule_id", 
         teacher.id "teacher_id", teacher.fn "teacher_fn", teacher.ln "teacher_ln", 
-        DATE_FORMAT(schedule.start_date, '%Y-%m-%d') as start_date, DATE_FORMAT(schedule.end_date, '%Y-%m-%d') as end_date
+        DATE_FORMAT(schedule.start_date, '%Y-%m-%d') as start_date, DATE_FORMAT(schedule.end_date, '%Y-%m-%d') as end_date, start_time, end_time
       FROM schedule 
       LEFT JOIN teacher ON teacher.id = teacher_id
       WHERE course_id = ?
