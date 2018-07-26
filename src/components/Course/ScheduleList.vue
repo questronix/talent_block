@@ -1,6 +1,6 @@
 <template>
     <div>
-        <b-card class="text-left course-sched" v-if="schedule.length > 0" v-for="sched in schedule" :key="sched.schedule_id">
+        <b-card class="text-left course-sched" v-for="sched in schedule" :key="sched.schedule_id">
             <b-container>
                 <b-row >
                 <b-col>
@@ -20,8 +20,8 @@
             <!-- payment modal -->
             
         </b-card>
-        <b-card v-else>
-            <p>There are no available schedule for this course</p>
+        <b-card v-if="schedule.length <= 0">
+            <p>There is no available schedule for this course</p>
         </b-card>
         <div>
             <b-modal ref="payModal" hide-footer title="Payment Summary">
@@ -30,9 +30,9 @@
                 <h4 style="clear:both">{{courses.name}}</h4>
                 <hr>
                 <p>{{courses.short_desc}}</p>
-                <p>{{courses.start_date}}, {{courses.start_time}} - {{courses.end_time}}</p>
+                <p>{{schedule.start_date}}, {{schedule.start_time}} - {{schedule.end_time}}</p>
                 </div>
-                <b-btn class="mt-3 paymodal-btn" variant="success" block @click="confirmEnroll(sched)">Enroll for 256 coins</b-btn>
+                <b-btn class="mt-3 paymodal-btn" variant="success" block @click="confirmEnroll()">Enroll for 256 coins</b-btn>
             </b-modal>
         </div>
     </div>
@@ -64,7 +64,6 @@ export default {
             axios.get('/courses/' + this.$route.query.id + '/schedule')
             .then((response) => {
                 this.schedule = response.data.data
-                console.log(this.schedule)
             }).catch((err)=> {
                 console.log('Schedule error', err)
             });
@@ -75,18 +74,6 @@ export default {
         hidePaymentModal () {
             this.$refs.payModal.hide()
         },
-        showDayRangeFrom() {
-            return moment(this.schedule.start_date).format('DD');
-        },
-        showDayRangeTo() {
-            return moment(this.schedule.end_date).format('DD');
-        },
-        showMonthRange() {
-            return moment(this.schedule.start_date).format('MMMM');
-        },
-        showYearRange() {
-            return moment(this.schedule.start_date).format('YYYY');
-        },
         showDate(start_date, end_date) {
             if(moment(start_date).format('MM DD') === moment(end_date).format('MM DD')) {
                 return `${moment(start_date).format('MM DD, YYYY')}`;
@@ -94,6 +81,9 @@ export default {
                 return `${moment(start_date).format('MMMM DD')} - ${moment(end_date).format('MMMM DD, YYYY')}`;
             }
             return `${moment(start_date).format('MMMM DD')} - ${moment(end_date).format('DD, YYYY')}`;
+        },
+        confirmEnroll() {
+           this.$router.push('/transaction/receipt') 
         }
     },
     computed: {
