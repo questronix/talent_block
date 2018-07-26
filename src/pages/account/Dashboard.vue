@@ -6,7 +6,7 @@
 		
     <div slot="space"></div>
     <div slot="body">
-	<AccountStats :fn="profile.fn" :ln="profile.ln"/>
+	<AccountStats :fn="profile.fn" :ln="profile.ln" :coins="coins | currency('')"/>
 	<div class="dashboard accountforms">
 		<b-container>
 
@@ -525,8 +525,9 @@ export default {
 			headerBgVariant: 'primary',
 			headerTextVariant: 'light',
 			alert: false,
-			alertMsg: 'Please fill up all the fields.'
+			alertMsg: 'Please fill up all the fields.',
 			schedDisplay: 'calendar',
+			coins: 0,
 		};
 	},
   components: {
@@ -747,10 +748,19 @@ export default {
 					this.$root.$emit('bv::show::modal','profileModal');
 				});
 			}
+		},
+		getWallet() {
+			axios.get('/wallet')
+				.then((response) => {
+					this.coins = response.data.wallet;
+				}).catch((err) => {
+					console.log('Error while getting wallet: ', err);
+				})
 		}
 	},
 	mounted() {
 		this.checkProfile();
+		this.getWallet();
 	},
 	computed: {
 		showName(){

@@ -1,4 +1,5 @@
 <template>
+  <div>
   <base-layout>
     <div slot="body">
       <div class="container course-details" v-if="courses.length">
@@ -42,7 +43,7 @@
                       {{ sched.time}}
                     </div>
                     <div class="col">
-                      <button class="btn btn-primary">Enroll Now</button>
+                      <button class="btn btn-primary" @click="showPaymentModal">Enroll Now</button>
                     </div>
                   </div>
                 </div>
@@ -163,6 +164,21 @@
       </div>
     </div>
   </base-layout>
+    <!-- payment modal -->
+    <div>
+      <b-modal ref="payModal" hide-footer title="Payment Summary">
+        <div class="d-block text-left payment-summary-content">
+          <span class="course-amount-info">Coin <h2>200</h2></span>
+          <h4 style="clear:both">{{courses[0].name}}</h4>
+          <hr>
+          <p>{{courses[0].short_desc}}</p>
+          <p>Tuesday, 1:00 PM - 2:00 PM</p>
+        </div>
+        <b-btn class="mt-3 paymodal-btn" variant="success" block @click="hidePaymentModal">Enroll Now</b-btn>
+      </b-modal>
+    </div>
+    <!-- payment modal -->
+  </div>
 </template>
 
 <script>  
@@ -210,6 +226,7 @@ export default {
     CardsPayment,
     PaymentSuccess
   },
+ 
   methods:{
     getUnits: function() {
       axios.get('/courses/' + this.$route.query.id)
@@ -231,6 +248,12 @@ export default {
     },
     closeSuccessWindow: function() {
       this.$refs.paymentSuccess.hide()
+    },
+    showPaymentModal () {
+      this.$refs.payModal.show()
+    },
+    hidePaymentModal () {
+        this.$refs.payModal.hide()
     }
   },
  
@@ -334,5 +357,18 @@ p.desc {
 
 .container.sched {
   margin-top: 20px;
+}
+
+.course-amount-info {
+  display: flex;
+  float: right;
+}
+
+.payment-summary-content {
+  padding: 1rem;
+}
+
+.paymodal-btn {
+  padding: 1rem;
 }
 </style>
