@@ -42,11 +42,11 @@
                   
                   <!-- for calendar -->
                   <div v-if="schedDisplay == 'calendar'">
-                    Calendar Here
+                    <CourseCalendar />
                   </div>
                   <!-- for course sched list -->
                   <div v-if="schedDisplay == 'list'">
-                    <SchedList/>
+                    <!-- <SchedList /> -->
                   </div>
                 </div>
               </div>
@@ -170,13 +170,13 @@
     <div>
       <b-modal ref="payModal" hide-footer title="Payment Summary">
         <div class="d-block text-left payment-summary-content">
-          <span class="course-amount-info">Coin <h2>200</h2></span>
+          <!-- <span class="course-amount-info">Coin <h2>200</h2></span> -->
           <h4 style="clear:both">{{courses.name}}</h4>
           <hr>
           <p>{{courses.short_desc}}</p>
           <p>Tuesday, 1:00 PM - 2:00 PM</p>
         </div>
-        <b-btn class="mt-3 paymodal-btn" variant="success" block @click="hidePaymentModal">Enroll Now</b-btn>
+        <b-btn class="mt-3 paymodal-btn" variant="success" block @click="hidePaymentModal">Enroll for 256 coins</b-btn>
       </b-modal>
     </div>
     <!-- payment modal -->
@@ -188,7 +188,7 @@ import BaseLayout from '../layouts/BaseLayout.vue';
 import CardsPayment from '../components/Payment/CardsPayment.vue';
 import PaymentSuccess from '../components/Payment/PaymentSuccess.vue';
 import SchedList from '../components/Course/ScheduleList.vue';
-import Calendar from '../components/Course/Calendar.vue'
+import CourseCalendar from '../components/Schedule/CourseCalendar.vue'
 import axios from 'axios';
 
 export default {
@@ -212,9 +212,9 @@ export default {
     CardsPayment,
     PaymentSuccess,
     SchedList,
-    Calendar
+    CourseCalendar
   },
- 
+  
   methods:{
     getUnits: function() {
       axios.get('/courses/' + this.$route.query.id)
@@ -228,14 +228,6 @@ export default {
         this.selected = response.data.course[0].short_desc;
       }).catch((err) => {
         console.log('Course error ', err)
-      });
-
-      axios.get('/schedule/' + this.$route.query.id)
-      .then((response) => {
-          this.schedules = response.data.data[0]
-          console.log(response.data.data[0])
-      }).catch((err)=> {
-          console.log('Schedule error', err)
       });
 
     },
