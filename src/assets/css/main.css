@@ -12,6 +12,10 @@ body {
   font-family: "Lato", sans-serif !important;
 }
 
+.green {
+  color: green;
+}
+
 .heading {
   height: 70vh;
   background-image: url("/static/img/heading.png");
