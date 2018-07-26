@@ -22,8 +22,8 @@
 						<span></span> <!-- lecture Finished -->
 						<h3></h3> <!-- number -->
 					</b-col>
-					<b-col>
-						<span>Coins left</span> <!-- Enrolled Course -->
+					<b-col class="coins-stats">
+						<img src="/static/img/coins1.png" width="40"	height="40"> <span>Coins left</span> <!-- Enrolled Course -->
 						<h3>{{ coins }}</h3> <!-- number -->
 					</b-col>
 				</b-row>
@@ -42,3 +42,19 @@ export default {
 	}
 }
 </script>
+
+<style scoped>
+	.coins-stats.col {
+		margin-top: -10px;
+	}
+
+	.coins-stats.col img {
+		margin-top: 20px;
+	}
+
+	.coins-stats.col h3 {
+		position: absolute;
+		top: 29px;
+		left: 78px;
+	}
+</style>
