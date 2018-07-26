@@ -12,6 +12,7 @@
 
 			<b-row>
 				<b-col cols="3" class="dash-account-basic">
+					{{ this.coins | currency('') }} coins left
 					<b-btn v-b-modal.profileModal>Account Settings</b-btn>
 					<!-- <a class="btn">Account Settings</a> -->
 					<div class="dab-info">
@@ -525,8 +526,9 @@ export default {
 			headerBgVariant: 'primary',
 			headerTextVariant: 'light',
 			alert: false,
-			alertMsg: 'Please fill up all the fields.'
+			alertMsg: 'Please fill up all the fields.',
 			schedDisplay: 'calendar',
+			coins: 0,
 		};
 	},
   components: {
@@ -747,10 +749,19 @@ export default {
 					this.$root.$emit('bv::show::modal','profileModal');
 				});
 			}
+		},
+		getWallet() {
+			axios.get('/wallet')
+				.then((response) => {
+					this.coins = response.data.wallet;
+				}).catch((err) => {
+					console.log('Error while getting wallet: ', err);
+				})
 		}
 	},
 	mounted() {
 		this.checkProfile();
+		this.getWallet();
 	},
 	computed: {
 		showName(){
