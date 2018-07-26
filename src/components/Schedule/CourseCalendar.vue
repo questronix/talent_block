@@ -82,7 +82,7 @@ export default {
               title: 'Available Slot',
               startDate: `${e.start_date} ${e.start_time}`,
               endDate: `${e.end_date} ${e.end_time}`,
-          //     classes: 'purple',
+              classes: 'green',
           //     // school: e.school_name,
           //     // FIXME: Add name extension or profession like engr, prof, dr, etc. 
           //     teacher: `${e.teacher_fn} ${e.teacher_ln}`,

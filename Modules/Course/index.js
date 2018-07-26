@@ -6,6 +6,7 @@ const mw      = require('../Common/middleware/Authentication');
 
 const course  = require('./model/Course');
 const schedule = require('./model/Schedule');
+const transaction = require('./model/Transaction');
 
 // POST	/courses		Add new course.
 // GET	/courses		Get all courses
@@ -155,5 +156,17 @@ router.get('/:course_id/schedule', (req, res) => {
   })
 });
 
+router.post('/transaction/', mw.isAuthenticated, (req,res) => {
+  const ACTION = '[postTransaction]';
+  logger.log('debug', TAG+ACTION+' request parameters', req.params);
+  req.body.user_id = req.user.id;
+  transaction.addTransaction(req.body)
+  .then(result=>{
+    res.success(result);
+  })
+  .catch(error=>{
+    res.error(error);
+  })
+});
 
 module.exports = router;
