@@ -22,6 +22,11 @@ export default {
   props: {
     idBg: Object,
   },
+  data() {
+    return {
+      
+    }
+  },
   methods: {
     update() {
       this.$emit('onUpdate');

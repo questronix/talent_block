@@ -13,6 +13,7 @@
 		<b-modal id="idBgUpdateModal" ok-only
 						ref="idBgUpdateModal"
 						title="Valid ID" @ok="idUpdateSubmit">
+      <b-alert :show="alert" variant="danger"> {{alertMsg}} </b-alert>
 			<form @submit.stop.prevent="idUpdateSubmit">
 					<b-form-group
 						label="ID Name:"
@@ -60,6 +61,8 @@ export default {
     return {
       idBg: {},
       selectedIndex: -1,
+      alert: false,
+      alertMsg: 'Please fill up all the fields.'
     }
   },
   components: {
@@ -67,17 +70,26 @@ export default {
   },
   methods: {
     onUpdate(idBg) {
+      this.alert = false;
       this.idBg = idBg;
       this.$root.$emit('bv::show::modal','idBgUpdateModal');
     },
-    idUpdateSubmit() {
-      axios.put('/students/ids', this.idBg)
-        .then((response) => {
-          this.$toasted.success('Successfully updated.');
-        }).catch((err) => {
-          this.$toasted.error('Error while updating your background information. Please try again or reload the page.')
-          console.log('Background Info Update Error: ', err);
-        });
+    idUpdateSubmit(e) {
+      e.preventDefault();
+			if(this.idBg.name === '' ||
+				this.idBg.number === '') {
+				this.alert = true;
+			}else {
+        axios.put('/students/ids', this.idBg)
+          .then((response) => {
+            this.$toasted.success('Successfully updated.');
+            this.alert = false;
+            this.$refs.idBgUpdateModal.hide();
+          }).catch((err) => {
+            this.$toasted.error('Error while updating your background information. Please try again or reload the page.')
+            console.log('Background Info Update Error: ', err);
+          });
+      }
     },
     onRemove(index, id) {
       this.$root.$emit('bv::show::modal','idConfirmRemoveModal');

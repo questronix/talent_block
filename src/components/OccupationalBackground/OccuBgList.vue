@@ -13,6 +13,7 @@
 		<b-modal id="occupationUpdateModal" ok-only
 						ref="occupationUpdateModal"
 						title="Occupational Background" @ok="occuUpdateSubmit">
+			<b-alert :show="alert" variant="danger"> {{alertMsg}} </b-alert>
 			<form @submit.stop.prevent="occupationSubmit">
 					<b-form-group
 						label="Enter your Employer Name:"
@@ -158,7 +159,9 @@ export default {
 			occupation: {},
 			isPresentOccupation: false,
       selectedIndex: -1,
-      years: years,
+			years: years,
+			alert: false,
+      alertMsg: 'Please fill up all the fields.'
     }
   },
   components: {
@@ -166,22 +169,42 @@ export default {
   },
   methods: {
     onUpdate(occupation) {
+			this.occupation = {};
+			this.alert = false;
       this.occupation = occupation;
       this.$root.$emit('bv::show::modal','occupationUpdateModal');
     },
-    occuUpdateSubmit() {
-			if (this.isPresentOccupation) {
-				this.occupation.end_month = -1;
-				this.occupation.end_year = -1;
-				this.occupation.reason = "";
+    occuUpdateSubmit(e) {
+			e.preventDefault();
+			if(this.occupation.name === '' ||
+				this.occupation.position === '' ||
+				this.occupation.department === '' ||
+				this.occupation.address === '' ||
+				this.occupation.salary === 0 ||
+				this.occupation.duties === '' ||
+				this.occupation.start_year === null ||
+				this.occupation.end_year === -1 ||
+				this.occupation.start_month === null ||
+				this.occupation.end_month === -1 ||
+				this.occupation.reason === '') {
+
+				this.alert = true;
+			}else {
+				if (this.isPresentOccupation) {
+					this.occupation.end_month = -1;
+					this.occupation.end_year = -1;
+					this.occupation.reason = "";
+				}
+				axios.put('/students/occupation', this.occupation)
+					.then((response) => {
+						this.$toasted.success('Successfully updated.');
+						this.alert = false;
+						this.$refs.occupationUpdateModal.hide();
+					}).catch((err) => {
+						this.$toasted.error('Error while updating your background information. Please try again or reload the page.')
+						console.log('Background Info Update Error: ', err);
+					});
 			}
-      axios.put('/students/occupation', this.occupation)
-        .then((response) => {
-          this.$toasted.success('Successfully updated.');
-        }).catch((err) => {
-          this.$toasted.error('Error while updating your background information. Please try again or reload the page.')
-          console.log('Background Info Update Error: ', err);
-        });
     },
     onRemove(index, id) {
       this.$root.$emit('bv::show::modal','occuConfirmRemoveModal');

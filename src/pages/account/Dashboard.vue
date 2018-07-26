@@ -527,7 +527,7 @@ export default {
 			alert: false,
 			alertMsg: 'Please fill up all the fields.',
 			schedDisplay: 'calendar',
-			coins: 0,
+			coins: 0
 		};
 	},
   components: {
