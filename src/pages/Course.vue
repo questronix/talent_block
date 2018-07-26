@@ -174,7 +174,7 @@
           <p>{{courses[0].short_desc}}</p>
           <p>Tuesday, 1:00 PM - 2:00 PM</p>
         </div>
-        <b-btn class="mt-3 paymodal-btn" variant="success" block @click="hidePaymentModal">Pay Now</b-btn>
+        <b-btn class="mt-3 paymodal-btn" variant="success" block @click="hidePaymentModal">Enroll Now</b-btn>
       </b-modal>
     </div>
     <!-- payment modal -->
