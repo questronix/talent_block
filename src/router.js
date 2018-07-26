@@ -13,6 +13,7 @@ import TransactionLog from './pages/account/TransactionLog.vue';
 import Error404 from './pages/error/404.vue';
 import FacultyDashboard from './pages/faculty/FacultyDashboard.vue';
 import ChangePassword from './pages/changePassword.vue';
+import TransReceipt from './pages/TransactionReceipt.vue';
 
 Vue.use(VueRouter);
 
@@ -60,9 +61,14 @@ const routes = [
   },
   {
     name: 'settings',
-    path: '/transactionlog',
+    path: '/transaction/log',
     component: TransactionLog,
     meta: { requiresAuth: true }
+  },
+  {
+    name: 'settings',
+    path: '/transaction/receipt',
+    component: TransReceipt
   },
   {
     name: 'changepassword',
