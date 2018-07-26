@@ -35,16 +35,18 @@
             <b-tab title="Schedule">
               <div class="course-sched">
                 <div class="container sched">
-                  <div class="row" v-for="sched in schedules" :key="sched.id">
-                    <div class="col day">
-                      {{ sched.day }}
-                    </div>
-                    <div class="col">
-                      {{ sched.time}}
-                    </div>
-                    <div class="col">
-                      <button class="btn btn-primary" @click="showPaymentModal">Enroll Now</button>
-                    </div>
+                  <b-button-group>
+                    <b-btn @click="schedDisplay = 'calendar'"><font-awesome-icon icon="calendar-alt" /></b-btn>
+                    <b-btn @click="schedDisplay = 'list'"><font-awesome-icon icon="th-list"/></b-btn>
+                  </b-button-group>
+                  
+                  <!-- for calendar -->
+                  <div v-if="schedDisplay == 'calendar'">
+                    Calendar Here
+                  </div>
+                  <!-- for course sched list -->
+                  <div v-if="schedDisplay == 'list'">
+                    <SchedList/>
                   </div>
                 </div>
               </div>
@@ -185,6 +187,8 @@
 import BaseLayout from '../layouts/BaseLayout.vue';
 import CardsPayment from '../components/Payment/CardsPayment.vue';
 import PaymentSuccess from '../components/Payment/PaymentSuccess.vue';
+import SchedList from '../components/Course/ScheduleList.vue';
+import Calendar from '../components/Course/Calendar.vue'
 import axios from 'axios';
 
 export default {
@@ -192,31 +196,13 @@ export default {
   data: () => {
     return {  /*SAMPLE DATA for CardsPayment component and Radio inputs*/
       courses: [],
-      schedules: [
-        {
-          day: 'Monday', time: '1:00PM - 3:30PM'
-        },
-        {
-          day: 'Tuesday', time: '1:00PM - 3:30PM'
-        },
-        {
-          day: 'Wednesday', time: '1:00PM - 3:30PM'
-        },
-        {
-          day: 'Thursday', time: '1:00PM - 3:30PM'
-        },
-        {
-          day: 'Friday', time: '1:00PM - 3:30PM'
-        },
-        {
-          day: 'Saturday', time: '1:00PM - 3:30PM'
-        }
-      ],
+      schedules: [],
       cardsData: [
         {cardType: 'MasterCard', cardNumber: '5500-0000-0000-0004'},
         {cardType: 'Visa', cardNumber: '4111-1111-1111-1111'},
         {cardType: 'American Express', cardNumber: '3400-0000-0000-009'}
       ],
+      schedDisplay: 'calendar',
       selected: '',
       options: []
     }
@@ -224,7 +210,9 @@ export default {
   components: {
     BaseLayout,
     CardsPayment,
-    PaymentSuccess
+    PaymentSuccess,
+    SchedList,
+    Calendar
   },
  
   methods:{
@@ -241,6 +229,15 @@ export default {
       }).catch((err) => {
         console.log('Course error ', err)
       });
+
+      axios.get('/schedule/' + this.$route.query.id)
+      .then((response) => {
+          this.schedules = response.data.data[0]
+          console.log(response.data.data[0])
+      }).catch((err)=> {
+          console.log('Schedule error', err)
+      });
+
     },
     showSuccessWindow: function() {
       this.$root.$emit('bv::hide::modal','paymentModal')
@@ -294,9 +291,7 @@ export default {
 .nav-link.active {
   color: #4a74cc !important;
 }
-.tab-content>.tab-pane {
-  padding-top: 40px;
-}
+
 .btn-primary {
   background-color: #4a74cc !important;
 }
