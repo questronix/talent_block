@@ -24,12 +24,12 @@ module.exports.find = (id) => {
   const ACTION = '[find]';
   logger.log('info', `${TAG}${ACTION}`, { id });
   return new Promise((resolve, reject)=>{
-    db.execute(` SELECT * FROM Schedule WHERE id = ?`, [id])
+    db.execute(` SELECT * FROM Schedule WHERE course_id = ?`, id)
       .then((data) => {
         if (data.length > 0 ) {
           resolve({
             status: 200,
-            Schedule: data
+            data
           });
         }
         else {

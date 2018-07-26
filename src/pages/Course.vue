@@ -2,13 +2,13 @@
   <div>
   <base-layout>
     <div slot="body">
-      <div class="container course-details" v-if="courses.length">
+      <div class="container course-details">
         <div class="course-content">
-          <div class="course-outline" :style="{ 'background-image': 'url(' + courses[0].banner_img + ')' }">
+          <div class="course-outline" :style="{ 'background-image': 'url(' + courses.banner_img + ')' }">
             <div class="transparentdiv">
               <div class="course-info">
                 <div class="radio-part">
-                  <h4>{{courses[0].name}}</h4>
+                  <h4>{{courses.name}}</h4>
                   <b-form-group>
                     <b-form-radio-group v-model="selected" :options="options" name="radioInline">
                     </b-form-radio-group>
@@ -22,7 +22,7 @@
           </div>
            <b-tabs>
             <b-tab title="Description" active>
-              <p class="desc">{{courses[0].full_desc}}</p>
+              <p class="desc">{{courses.full_desc}}</p>
             </b-tab>
             <b-tab title="About the Author" >
               <p class="desc"><span>John Ronald Reuel Tolkien, CBE FRSL was an English writer, poet, philologist, and university professor who is best known as the author of the classic high fantasy works The Hobbit, The Lord of the Rings, and The Silmarillion.</span></p>
@@ -35,16 +35,18 @@
             <b-tab title="Schedule">
               <div class="course-sched">
                 <div class="container sched">
-                  <div class="row" v-for="sched in schedules" :key="sched.id">
-                    <div class="col day">
-                      {{ sched.day }}
-                    </div>
-                    <div class="col">
-                      {{ sched.time}}
-                    </div>
-                    <div class="col">
-                      <button class="btn btn-primary" @click="showPaymentModal">Enroll Now</button>
-                    </div>
+                  <b-button-group>
+                    <b-btn @click="schedDisplay = 'calendar'"><font-awesome-icon icon="calendar-alt" /></b-btn>
+                    <b-btn @click="schedDisplay = 'list'"><font-awesome-icon icon="th-list"/></b-btn>
+                  </b-button-group>
+                  
+                  <!-- for calendar -->
+                  <div v-if="schedDisplay == 'calendar'" class="schedDisplay">
+                  <CourseCalendar />
+                  </div>
+                  <!-- for course sched list -->
+                  <div v-if="schedDisplay == 'list'" class="schedDisplay">
+                    <ScheduleList />
                   </div>
                 </div>
               </div>
@@ -164,20 +166,21 @@
       </div>
     </div>
   </base-layout>
+    
     <!-- payment modal -->
-    <div>
+     <div>
       <b-modal ref="payModal" hide-footer title="Payment Summary">
         <div class="d-block text-left payment-summary-content">
-          <span class="course-amount-info">Coin <h2>200</h2></span>
-          <h4 style="clear:both">{{courses[0].name}}</h4>
+          <!-- <span class="course-amount-info">Coin <h2>200</h2></span> -->
+          <h4 style="clear:both">{{courses.name}}</h4>
           <hr>
-          <p>{{courses[0].short_desc}}</p>
+          <p>{{courses.short_desc}}</p>
           <p>Tuesday, 1:00 PM - 2:00 PM</p>
         </div>
-        <b-btn class="mt-3 paymodal-btn" variant="success" block @click="hidePaymentModal">Enroll Now</b-btn>
+        <b-btn class="mt-3 paymodal-btn" variant="success" block @click="hidePaymentModal">Enroll for 256 coins</b-btn>
       </b-modal>
     </div>
-    <!-- payment modal -->
+    <!-- <button class="btn btn-primary" @click="showPaymentModal">Enroll now for 200 coins</button> -->
   </div>
 </template>
 
@@ -185,38 +188,23 @@
 import BaseLayout from '../layouts/BaseLayout.vue';
 import CardsPayment from '../components/Payment/CardsPayment.vue';
 import PaymentSuccess from '../components/Payment/PaymentSuccess.vue';
+import CourseCalendar from '../components/Schedule/CourseCalendar.vue'
 import axios from 'axios';
+import ScheduleList from '../components/Course/ScheduleList.vue';
+
 
 export default {
-  name: 'coursePage',
+  name: 'CoursePage',
   data: () => {
     return {  /*SAMPLE DATA for CardsPayment component and Radio inputs*/
       courses: [],
-      schedules: [
-        {
-          day: 'Monday', time: '1:00PM - 3:30PM'
-        },
-        {
-          day: 'Tuesday', time: '1:00PM - 3:30PM'
-        },
-        {
-          day: 'Wednesday', time: '1:00PM - 3:30PM'
-        },
-        {
-          day: 'Thursday', time: '1:00PM - 3:30PM'
-        },
-        {
-          day: 'Friday', time: '1:00PM - 3:30PM'
-        },
-        {
-          day: 'Saturday', time: '1:00PM - 3:30PM'
-        }
-      ],
+      schedules: [],
       cardsData: [
         {cardType: 'MasterCard', cardNumber: '5500-0000-0000-0004'},
         {cardType: 'Visa', cardNumber: '4111-1111-1111-1111'},
         {cardType: 'American Express', cardNumber: '3400-0000-0000-009'}
       ],
+      schedDisplay: 'calendar',
       selected: '',
       options: []
     }
@@ -224,14 +212,16 @@ export default {
   components: {
     BaseLayout,
     CardsPayment,
-    PaymentSuccess
+    PaymentSuccess,
+    ScheduleList,
+    CourseCalendar
   },
- 
+  
   methods:{
     getUnits: function() {
       axios.get('/courses/' + this.$route.query.id)
       .then((response) => {
-        this.courses = response.data.course;
+        this.courses = response.data.course[0];
         this.options.push({text: '', value: `${response.data.course[0].short_desc}`});
         this.options.push({text: '', value: `Updated at: ${response.data.course[0].updated_at}`});
         this.options.push({text: '', value: `Created at: ${response.data.course[0].created_at}`});
@@ -241,6 +231,7 @@ export default {
       }).catch((err) => {
         console.log('Course error ', err)
       });
+
     },
     showSuccessWindow: function() {
       this.$root.$emit('bv::hide::modal','paymentModal')
@@ -249,13 +240,14 @@ export default {
     closeSuccessWindow: function() {
       this.$refs.paymentSuccess.hide()
     },
-    showPaymentModal () {
+    showPaymentModalshowPaymentModal () {
       this.$refs.payModal.show()
     },
     hidePaymentModal () {
         this.$refs.payModal.hide()
     }
   },
+  
  
   beforeMount(){
     this.getUnits()
@@ -294,9 +286,7 @@ export default {
 .nav-link.active {
   color: #4a74cc !important;
 }
-.tab-content>.tab-pane {
-  padding-top: 40px;
-}
+
 .btn-primary {
   background-color: #4a74cc !important;
 }
@@ -370,5 +360,13 @@ p.desc {
 
 .paymodal-btn {
   padding: 1rem;
+}
+
+.course-sched {
+  margin: 1rem 0;
+}
+
+.schedDisplay {
+  padding: 1rem 0;
 }
 </style>

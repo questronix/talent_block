@@ -5,6 +5,7 @@ const logger  = require('../Common/services/Logger');
 const mw      = require('../Common/middleware/Authentication');
 
 const course  = require('./model/Course');
+const schedule = require('./model/Schedule');
 
 // POST	/courses		Add new course.
 // GET	/courses		Get all courses
@@ -141,6 +142,18 @@ router.delete('/:course_id', /*mw.isAuthenticated,*/
   }
 );
 
+router.get('/:course_id/schedule', (req, res) => {
+  const ACTION = '[getCourseSchedule]';
+  logger.log('debug', TAG+ACTION+' request parameters', req.params);
+
+  schedule.getAllSchedule(req.params.course_id)
+  .then( result=>{
+    res.success(result);
+  })
+  .catch(error=>{
+    res.error(error);
+  })
+});
 
 
 module.exports = router;
