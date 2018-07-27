@@ -36,16 +36,9 @@
                     required>
                   </b-form-input>
               
-                  <b-alert variant="danger"
-                    dismissible
-                    :show="alert"
-                    @dismissed="alert=false">
-                    {{ userAlert }}
-                  </b-alert>
+                  
                 </b-form-group>
-                            
-
-                
+                                          
                 <b-form-group>
                   <b-form-input 
                     id="email" 
@@ -54,13 +47,6 @@
                     placeholder="Email"
                     required>
                   </b-form-input>
-
-                  <b-alert variant="danger"
-                    dismissible
-                    :show="alert"
-                    @dismissed="alert=false">
-                    {{ emailAlert }}
-                  </b-alert>
                 </b-form-group>
 
                 <b-form-group> 
@@ -115,7 +101,8 @@
 let pts = 0;
 import BaseLayout from '../layouts/BaseLayout.vue';
 import axios from 'axios';
-import { validate, user_schema } from '../helper/validator.js';
+import validate from '../helper/validator.js';
+import user_schema from '../schema/user_signup.js';
 
 export default {
   name: 'signUpPage',
@@ -125,6 +112,12 @@ export default {
         username: '',
         password: '',
         email: '',
+
+      },
+
+      formerror:{
+        username:'',
+
       },
       pts: 0,
       isLoading: false,
@@ -141,6 +134,7 @@ export default {
       userAlert:'',
       emailAlert: '',
       validInputs:true,
+      
     };
   },
   components: {
@@ -149,28 +143,23 @@ export default {
   methods: {
           testValidate(){
             this.validInputs = true;
+
             let output = validate.setSchema(user_schema).assert({        
               username:this.form.username,
               
-              
             });
-            this.errors = output;        
-            console.log(output);
-            let i=0;
-            for (i=0; i < output.length; i++){
-              if (output[i].key === "username"){
-      
-                  this.validateUsername(output[i]);
-                  this.validInputs = false;
-                  console.log(`yow`);
-                  console.log(username);
-                  console.log(output[i].msg)
-              }
-              
-              if (output[i].key === "email"){
-                  this.validateEmail(output[i]);
-                  this.validInputs = false;
-              }              
+
+            if (output.length > 0){
+              this.validInputs=false;
+              output.forEach(error=>{
+                if(typeof error =='object'){
+                  this.formerror[error.key] = error.msg
+                  // this.alertMsg = error.msg
+                }else{
+                  alert(error.msg);
+
+                }
+              })
             }
           },
           validateUsername(error){
@@ -267,17 +256,19 @@ export default {
       }else if(valid){
         this.alertVariant = "success";    
         
-      }else if(!this.validInputs){
-         this.alertVariant = "danger";
-        this.alert = true;
-        this.alertMsg = 'Username format is incorrect';
-        valid = false;
-      
       }
       else{
         this.alertVariant = "danger";
         this.alert = true;
         this.alertMsg = 'Password should only contain alphanumeric characters and the following symbols: !@#$%^&*_?';
+      }
+      if(!this.validInputs){
+         this.alertVariant = "danger";
+        this.alert = true;
+        this.alertMsg = `Username ${this.formerror.username}.     Should start with alpha character followed by at least 5 (five) alphanumeric and/or _(underscore) characters.`;
+        valid = false;
+        console.log(`Valid: `+valid);
+      
       }
       
 
@@ -288,6 +279,7 @@ export default {
         return regex.test(this.form.password);
     },
     onSubmit() {
+      console.log(`validInputs: ` + this.validInputs);
       if(this.validate()){
         this.isLoading = true;
         this.alert = false;
@@ -324,7 +316,19 @@ export default {
         window.location.href = `#${from.path}`;
       }
     });
-  }
+  },
+  // created() {
+  //   console.log('this.form.username',this.form.username);
+  //   let o = validate.setSchema(user_schema).assert({
+  //     usernames: this.form.username,
+  //   });
+  //   console.log('CREATED ', o);
+  // },
+  // watch: {
+  //   validInputs() {
+  //     alert('asdada');
+  //   }
+  // }
 }
 </script>
 

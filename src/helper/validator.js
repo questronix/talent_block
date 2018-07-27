@@ -1,119 +1,3 @@
-let user_schema = {
-	'id': {
-		'type': 'number',
-    'max': 11,
-    'regex':new RegExp(/^[0-9]{11}/gi)
-	},
-	'username': {
-		'type': 'string',
-		'min' : 6,
-    'max' : 30,
-		'regex': new RegExp(/^[A-Za-z][A-Za-z0-9_]*/gi)
-  },
-  'email': {
-		'type': 'string',
-		'regex': new RegExp(/^([a-zA-Z0-9_.+-])+\@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/gi)
-  },
-  
-  'firstname': {
-    'type':'string',
-    'min': 2,
-    'max': 30,
-    'regex': new RegExp(/^[A-Za-z][A-Za-z- ]*/gi)
-  },
-  'middlename':{
-    'type':'string',
-    'min': 2,
-    'max': 15,
-    'regex': new RegExp(/(^[A-Za-z][A-Za-z]*( ?([A-Za-z]))*){0,1}/gi)
-  },
-  'surname':{
-    'type':'string',
-    'min': 2,
-    'max': 15,
-    'regex': new RegExp(/^[A-Za-z][A-Za-z]* ?([A-Za-z]*)/gi)
-  },
-  'contactnumber':{
-    'type':'number',
-    'min': 11,
-    'max': 11,
-    'regex': new RegExp(/(^09[0-9]{9}){0,1}/gi)
-  },
-  'address':{
-    'type':'string',
-    'min': 2,
-    'max': 50,
-    'regex': new RegExp(/(^[0-9A-Za-z#][0-9A-Za-z# -,()]){0,1}/gi)
-  },
-  'school':{
-    'type':'string',
-    'min': 2,
-    'max': 50,
-    'regex': new RegExp(/(^[A-Za-z][A-Za-z]*( ?([A-Za-z-0-9]))*){0,1}/gi)
-  },
-  'course':{
-    'type':'string',
-    'min': 4,
-    'max': 50,
-    'regex': new RegExp(/(^[A-Za-z][A-Za-z]*( ?([A-Za-z-]))*){0,1}/gi)
-  },
-  'gpa':{
-    'type':'string',
-    'min': 1,
-    'max': 10,
-    'regex': new RegExp(/^[1-4](.[0-9]{1,10})?/gi)
-  },
-  'employer':{
-    'type':'string',
-    'min': 3,
-    'max': 30,
-    'regex': new RegExp(/^[A-Za-z0-9][A-Za-z0-9 .,-]*/gi)
-  },
-  'position':{
-    'type':'string',
-    'min': 3,
-    'max': 30,
-    'regex': new RegExp(/^[A-Za-z][A-Za-z0-9. ,-]*/gi)
-  },
-  'occupation':{
-    'type':'string',
-    'min': 3,
-    'max': 30,
-    'regex': new RegExp(/^[A-Za-z][A-Za-z0-9. ,-]*/gi)
-  },
-  'department':{
-    'type':'string',
-    'min': 3,
-    'max': 50,
-    'regex': new RegExp(/^[A-Za-z0-9][A-Za-z0-9- ,.():]*/gi)
-  },
-  'duties':{
-    'type':'string',
-    'min': 5,
-    'max': 300,
-    'regex': new RegExp(/^[A-Za-z][\d\D\s\S\w\W]*/gi)
-  },
-  'reason':{
-    'type':'string',
-    'min': 5,
-    'max': 300,
-    'regex': new RegExp(/^[A-Za-z][\d\D\s\S\w\W]*/gi)
-  },
-  'idname':{
-    'type':'string',
-    'min': 3,
-    'max': 30,
-    'regex': new RegExp(/^[A-Za-z][\d\D\s\S\w\W]*/gi)
-  },
-  'idnumber':{
-    'type':'number',
-    'min':'5',
-    'max':'25',
-    'regex': new RegExp(/^[0-9][0-9- ]*/gi)
-  }
-
-};
-
 const RULES = {
   TYPE: (schema, value)=>{
     if(typeof value !== schema){
@@ -123,19 +7,26 @@ const RULES = {
   },
   MIN: (schema, value)=>{
     if(value.length < value){
-      return `Minimum length should be ${value}.`
+      return `Minimum length should be ${value}.
+      value.length : ${value.length}
+      value.count ${value.count()}
+      schema : ${schema}`
     }
     return null;
   },
   MAX: (schema, value)=>{
-    if(value.length < value){
-      return `Maximum length should be ${value}.`
+    if(value.length > value){
+      return 
+        `Maximum length should be ${value}
+        value.length : ${value.length}
+        value.count ${value.count()}
+        schema : ${schema}`
     }
     return null;
   },
   REGEX: (schema, value)=>{
     if(!schema.test(value)){
-      return `Invalid format`;
+      return `invalid format`;
     }
     return null;
   },
@@ -193,19 +84,5 @@ const validate = {
   }
 };
 
-let output = validate.setSchema(user_schema).assert({
-//   school: 'UPLB',
-//   id: 1,
-//   course: "B",
-// username: "mmmmmmmmmmmmmmm",
-//   school: 'UPLB',
-//   username: "32KY23",
-//   firstname: "98Gemma"
-  
-});
 
-console.log(JSON.stringify(output));
-
-module.exports = {
-  validate, user_schema
-};
+module.exports = validate;
