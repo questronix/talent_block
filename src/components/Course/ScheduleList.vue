@@ -7,30 +7,25 @@
                     {{showDate(sched.start_date, sched.end_date)}}
                 </b-col>
                 <b-col>
-                    {{sched.start_time}} - {{sched.end_time}}
+                    {{toTime(`${sched.start_date} ${sched.start_time}`)}} - {{toTime(`${sched.end_date} ${sched.end_time}`)}}
                 </b-col>
                 <b-col>
                     {{sched.teacher_fn}}  {{sched.teacher_ln}}
                 </b-col>
                 <b-col>
-                    <button class="btn btn-primary" @click="showPaymentModal">Enroll now for 200 coins</button>
+                    <button class="btn btn-primary" @click="showPaymentModal(sched)">Enroll now for 200 coins</button>
                 </b-col>
                 </b-row>
-            </b-container>
-            <!-- payment modal -->
-            
-        </b-card>
-        <b-card v-if="schedule.length <= 0">
-            <p>There is no available schedule for this course</p>
+            </b-container>            
         </b-card>
         <div>
-            <b-modal ref="payModal" hide-footer title="Payment Summary">
+            <b-modal id="payModal" ref="payModal" hide-footer title="Payment Summary">
                 <div class="d-block text-left payment-summary-content">
-                <!-- <span class="course-amount-info">Coin <h2>200</h2></span> -->
                 <h4 style="clear:both">{{courses.name}}</h4>
                 <hr>
                 <p>{{courses.short_desc}}</p>
-                <p>{{schedule.start_date}}, {{schedule.start_time}} - {{schedule.end_time}}</p>
+                <p><font-awesome-icon icon="calendar" /> {{showDate(selectedSched.start_date, selectedSched.end_date)}}, <font-awesome-icon icon="clock" class="ml-2" /> {{toTime(`${selectedSched.start_date} ${selectedSched.start_time}`)}} - {{toTime(`${selectedSched.end_date} ${selectedSched.end_time}`)}}</p>
+                <p><font-awesome-icon icon="chalkboard-teacher" /> {{selectedSched.teacher_fn}} {{selectedSched.teacher_ln}}</p>
                 </div>
                 <b-btn class="mt-3 paymodal-btn" variant="success" block @click="confirmEnroll()">Enroll for 256 coins</b-btn>
             </b-modal>
@@ -48,8 +43,8 @@ export default {
         return {
             courses: [],
             schedule: [],
-            schedDisplay: 'calendar',
-            selectedSched: {}
+            selectedSched: {},
+            schedDisplay: 'calendar'
         };
     },
     methods: {
@@ -64,23 +59,28 @@ export default {
             axios.get('/courses/' + this.$route.query.id + '/schedule')
             .then((response) => {
                 this.schedule = response.data.data
+                
             }).catch((err)=> {
                 console.log('Schedule error', err)
             });
         },
-        showPaymentModal () {
-            this.$refs.payModal.show()
+        showPaymentModal (sched) {
+            this.selectedSched = sched;
+            this.$refs.payModal.show();
         },
         hidePaymentModal () {
             this.$refs.payModal.hide()
         },
         showDate(start_date, end_date) {
             if(moment(start_date).format('MM DD') === moment(end_date).format('MM DD')) {
-                return `${moment(start_date).format('MM DD, YYYY')}`;
+                return `${moment(start_date).format('MMMM DD, YYYY')}`;
             }else if (moment(start_date).format('DD') > moment(end_date).format('DD')){
                 return `${moment(start_date).format('MMMM DD')} - ${moment(end_date).format('MMMM DD, YYYY')}`;
             }
             return `${moment(start_date).format('MMMM DD')} - ${moment(end_date).format('DD, YYYY')}`;
+        },
+        toTime(time) {
+            return moment(time).format('h:mm a');
         },
         confirmEnroll() {
            this.$router.push('/transaction/receipt') 
@@ -94,4 +94,18 @@ export default {
     }
 };
 </script>
+
+<style scoped>
+div#payModal___BV_modal_body_ {
+    padding: 0;
+}
+
+.d-block.text-left.payment-summary-content {
+    padding: 2rem 2rem 1rem 2rem;
+}
+
+button.btn.mt-3.paymodal-btn.btn-success.btn-block {
+    padding: 1rem;
+}
+</style>
 
