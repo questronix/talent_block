@@ -35,18 +35,25 @@
             <b-tab title="Schedule">
               <div class="course-sched">
                 <div class="container sched">
-                  <b-button-group>
-                    <b-btn @click="schedDisplay = 'calendar'"><font-awesome-icon icon="calendar-alt" /></b-btn>
-                    <b-btn @click="schedDisplay = 'list'"><font-awesome-icon icon="th-list"/></b-btn>
-                  </b-button-group>
-                  
-                  <!-- for calendar -->
-                  <div v-if="schedDisplay == 'calendar'" class="schedDisplay">
-                  <CourseCalendar :course="courses" />
+                  <div v-if="schedule.length > 0"> 
+                    <b-button-group>
+                      <b-btn @click="schedDisplay = 'calendar'"><font-awesome-icon icon="calendar-alt" /></b-btn>
+                      <b-btn @click="schedDisplay = 'list'"><font-awesome-icon icon="th-list"/></b-btn>
+                    </b-button-group>
+                    
+                    <!-- for calendar -->
+                    <div v-if="schedDisplay == 'calendar'" class="schedDisplay">
+                    <CourseCalendar />
+                    </div>
+                    <!-- for course sched list -->
+                    <div v-if="schedDisplay == 'list'" class="schedDisplay">
+                      <ScheduleList />
+                    </div>
                   </div>
-                  <!-- for course sched list -->
-                  <div v-if="schedDisplay == 'list'" class="schedDisplay">
-                    <ScheduleList />
+                  <div v-else>
+                    <b-card>
+                        <p>Sorry, there is no available schedule for this course</p>
+                    </b-card>
                   </div>
                 </div>
               </div>
@@ -166,21 +173,7 @@
       </div>
     </div>
   </base-layout>
-    
-    <!-- payment modal -->
-     <!-- <div>
-      <b-modal ref="payModal" hide-footer title="Payment Summary">
-        <div class="d-block text-left payment-summary-content">
-          <h4 style="clear:both">{{courses.name}}</h4>
-          <hr>
-          <p>{{courses.short_desc}}</p>
-          <p>Tuesday, 1:00 PM - 2:00 PM</p>
-        </div>
-        <b-btn class="mt-3 paymodal-btn" variant="success" block @click="hidePaymentModal">Enroll for 256 coins</b-btn>
-      </b-modal>
-    </div> -->
-    <!-- <button class="btn btn-primary" @click="showPaymentModal">Enroll now for 200 coins</button> -->
-  </div>
+</div>
 </template>
 
 <script>  
@@ -197,7 +190,7 @@ export default {
   data: () => {
     return {  /*SAMPLE DATA for CardsPayment component and Radio inputs*/
       courses: [],
-      schedules: [],
+      schedule: [],
       cardsData: [
         {cardType: 'MasterCard', cardNumber: '5500-0000-0000-0004'},
         {cardType: 'Visa', cardNumber: '4111-1111-1111-1111'},
@@ -227,8 +220,16 @@ export default {
         this.options.push({text: '', value: `Tags: ${response.data.course[0].tags}`});
         this.options.push({text: '', value: `Slots: ${response.data.course[0].slot}`});
         this.selected = response.data.course[0].short_desc;
+        console.log(this.courses)
       }).catch((err) => {
         console.log('Course error ', err)
+      });
+
+      axios.get('/courses/' + this.$route.query.id + '/schedule')
+      .then((response) => {
+          this.schedule = response.data.data
+      }).catch((err)=> {
+          console.log('Schedule error', err)
       });
 
     },
@@ -238,13 +239,7 @@ export default {
     },
     closeSuccessWindow: function() {
       this.$refs.paymentSuccess.hide()
-    },
-    // showPaymentModalshowPaymentModal () {
-    //   this.$refs.payModal.show()
-    // },
-    // hidePaymentModal () {
-    //     this.$refs.payModal.hide()
-    // }
+    }
   },
   
  
@@ -345,7 +340,7 @@ p.desc {
 }
 
 .container.sched {
-  margin-top: 20px;
+  margin: 1rem 0;
 }
 
 .course-amount-info {
