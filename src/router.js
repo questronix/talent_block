@@ -66,7 +66,7 @@ const routes = [
     meta: { requiresAuth: true }
   },
   {
-    name: 'settings',
+    name: 'receipt',
     path: '/transaction/receipt',
     component: TransReceipt
   },
