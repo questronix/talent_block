@@ -196,7 +196,7 @@ export default {
         {cardType: 'Visa', cardNumber: '4111-1111-1111-1111'},
         {cardType: 'American Express', cardNumber: '3400-0000-0000-009'}
       ],
-      schedDisplay: 'calendar',
+      schedDisplay: 'list',
       selected: '',
       options: []
     }

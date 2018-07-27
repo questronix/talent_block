@@ -13,7 +13,7 @@
                     {{sched.teacher_fn}}  {{sched.teacher_ln}}
                 </b-col>
                 <b-col>
-                    <button class="btn btn-primary" @click="showPaymentModal(sched)">Enroll now for 200 coins</button>
+                    <button class="btn btn-primary" @click="showPaymentModal(sched)">Enroll now for {{sched.price}} coins</button>
                 </b-col>
                 </b-row>
             </b-container>            
@@ -27,7 +27,7 @@
                 <p><font-awesome-icon icon="calendar" /> {{showDate(selectedSched.start_date, selectedSched.end_date)}}, <font-awesome-icon icon="clock" class="ml-2" /> {{toTime(`${selectedSched.start_date} ${selectedSched.start_time}`)}} - {{toTime(`${selectedSched.end_date} ${selectedSched.end_time}`)}}</p>
                 <p><font-awesome-icon icon="chalkboard-teacher" /> {{selectedSched.teacher_fn}} {{selectedSched.teacher_ln}}</p>
                 </div>
-                <b-btn class="mt-3 paymodal-btn" variant="success" block @click="confirmEnroll()">Enroll for 256 coins</b-btn>
+                <b-btn class="mt-3 paymodal-btn" variant="success" block @click="confirmEnroll">Enroll for {{selectedSched.price}} coins</b-btn>
             </b-modal>
         </div>
     </div>
@@ -83,7 +83,18 @@ export default {
             return moment(time).format('h:mm a');
         },
         confirmEnroll() {
-           this.$router.push('/transaction/receipt') 
+            axios.post('/students/enroll', {
+              schedule_id: this.selectedSched.schedule_id,
+              amount: this.selectedSched.price,
+              pay_at: 'U_BANK',
+            })
+            .then((response) => {
+              this.$toasted.success('You are now enrolled.');
+              window.location.href = `#/transaction/receipt?sched=${response.data.schedule.schedule_id}&w=${response.data.wallet.id}`;
+            }).catch((err) => {
+              console.log('Error ', err);
+            });
+            this.$router.push(`/transaction/receipt?sched=${this.selectedSched.schedule_id}`);
         }
     },
     computed: {

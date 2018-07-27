@@ -391,11 +391,11 @@ router.post('/enroll', mw.isAuthenticated, (req,res)=>{
   });
 });
 
-router.put('/a/:id', (req,res)=>{
+router.get('/wallet/:id', (req,res)=>{
   const ACTION = '[getCoursesTaken]';
   logger.log('debug', TAG+ACTION, `request parameters:\n${JSON.stringify(req.params)}`);
 
-  wallet.updateWallet(req.body, req.params.id)
+  wallet.getWallet(req.params.id)
   .then( data=>{
     res.success(data);
   })
