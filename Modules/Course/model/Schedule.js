@@ -8,13 +8,13 @@ module.exports.getAllSchedule = (id) => {
   logger.log('info', `${TAG}${ACTION}`, { id });
   return new Promise((resolve, reject)=>{
     db.execute(`
-      SELECT 
-        schedule.id "schedule_id", 
-        teacher.id "teacher_id", teacher.fn "teacher_fn", teacher.ln "teacher_ln", 
-        DATE_FORMAT(schedule.start_date, '%Y-%m-%d') as start_date, DATE_FORMAT(schedule.end_date, '%Y-%m-%d') as end_date, start_time, end_time
-      FROM schedule 
-      LEFT JOIN teacher ON teacher.id = teacher_id
-      WHERE course_id = ?
+    SELECT 
+      schedule.id 'schedule_id', schedule.price 'price',
+      teacher.id 'teacher_id', teacher.fn 'teacher_fn', teacher.ln 'teacher_ln', 
+      DATE_FORMAT(schedule.start_date, '%Y-%m-%d') as start_date, DATE_FORMAT(schedule.end_date, '%Y-%m-%d') as end_date, start_time, end_time
+    FROM schedule
+    LEFT JOIN teacher ON schedule.teacher_id = teacher.id
+    WHERE course_id = ?
       `, id)
       .then((data) => {
         if (data.length > 0 ) {
