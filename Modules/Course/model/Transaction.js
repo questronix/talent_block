@@ -1,4 +1,4 @@
-const TAG = '[Transaction]';
+const TAG = '[Course][Transaction]';
 const logger = require('../../Common/services/Logger');
 const err = require('../../Common/services/Errors');
 const db = require('../../Common/services/Database');
