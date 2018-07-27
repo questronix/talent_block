@@ -1,7 +1,7 @@
 <template>
   <base-layout>
     <div slot="header">
-      <NavBar type="dashboard" heading="Dashboard" img="url('/static/img/bg2.png')"/>
+      <NavBar type="dashboard" heading="Dashboard" img="url('/static/img/bg2.jpg')"/>
     </div>
     <div slot="space"></div>
     <div slot="body">
@@ -64,10 +64,10 @@
                             </b-col>
                             <b-col sm="8">
                                 <h4 class="h4-centered">Our Courses</h4>
-                            </div>
-                            <div class="col-sm-2">
+                            </b-col>
+                            <b-col class="col-sm-2">
                                 <b-btn variant="primary" v-b-modal.addCourseModal>Add a course</b-btn>
-
+                            
                                 <AddCourseModal />
                             </b-col>
                         </b-row>
@@ -91,8 +91,8 @@
                             <b-col sm="8" >
                                 <h4 class="h4-centered">Faculty</h4>
 
-                            </div>
-                            <div class="col-sm-2">
+                            </b-col>
+                            <b-col class="col-sm-2">
                                  <b-btn variant="primary" v-b-modal.addFacultyModal>Add Faculty</b-btn>
                                 <AddFacultyModal />
                             </b-col>

@@ -84,7 +84,7 @@ export default {
       [
         // {id: 1, category: 'Backend developer', available: '3,215', imgUrl: '/static/img/backend.png'},
         // {id: 2, category: 'Business', available: '6,285', imgUrl: '/static/img/business.jpg'},
-        // {id: 3, category: 'Personal Development', available: '5,525', imgUrl: '/static/img/heading.png'}
+        // {id: 3, category: 'Personal Development', available: '5,525', imgUrl: '/static/img/heading.jpg'}
       ]
     }
   },

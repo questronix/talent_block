@@ -1,7 +1,7 @@
 <template>
   <base-layout>
     <div slot="header">
-      <NavBar type="dashboard" heading="Dashboard" img="url('/static/img/bg2.png')"/>
+      <NavBar type="dashboard" heading="Dashboard" img="url('/static/img/bg2.jpg')"/>
     </div>
 		
     <div slot="space"></div>
@@ -177,7 +177,7 @@
 						<b-form-input 
 						id="occupation"
 						type="text"
-						placeholder="Occupation"
+						placeholder="Employer Name"
 						v-model="occupation.name"></b-form-input>
 					</b-form-group>
 

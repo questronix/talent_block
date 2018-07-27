@@ -22,9 +22,18 @@
 						<span></span> <!-- lecture Finished -->
 						<h3></h3> <!-- number -->
 					</b-col>
-					<b-col class="coins-stats">
-						<img src="/static/img/coins1.png" width="40"	height="40"> <span>Coins left</span> <!-- Enrolled Course -->
-						<h3>{{ coins }}</h3> <!-- number -->
+					<b-col>
+						<table>
+							<tr>
+								<td>
+									<img v-b-tooltip.hover title="Talent Coin" src="/static/img/coins1.png" width="40" height="40" alt="Talent Coin">
+								</td>
+								<td>
+									<span>Coins left</span> <!-- Enrolled Course -->
+									<h3>{{ coins }}</h3> <!-- number -->
+								</td>
+							</tr>
+						</table>
 					</b-col>
 				</b-row>
 			</b-container>
