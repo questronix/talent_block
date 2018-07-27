@@ -11,23 +11,32 @@
       class="theme-default">
       <!-- <span slot="header"></span> -->
     </calendar-view>
+
+    <b-modal ref="calPayModal" hide-footer title="Payment Summary">
+      <div class="d-block text-left payment-summary-content">
+      <h4 style="clear:both">{{course.name}}</h4>
+      <hr>
+      <p>{{course.short_desc}}</p>
+      <!-- <p>{{schedule.start_date}}, {{schedule.start_time}} - {{schedule.end_time}}</p> -->
+      </div>
+      <b-btn class="mt-3 paymodal-btn" variant="success" block @click="confirmEnroll()">Enroll for 256 coins</b-btn>
+    </b-modal>
     
     <!-- Event Modal Information -->
-    <b-modal id="eventInfoModal"
+    <!-- <b-modal id="eventInfoModal"
       title="Information"
       ok-only
-      >
-      <div slot="modal-header"></div>
+      > -->
+      <!-- <div slot="modal-header"></div>
       <b-card :title="selectedEvent.title">
-          <!-- :sub-title="selectedEvent.school"> -->
         <p class="card-text">
           <font-awesome-icon icon="calendar" /> {{ selectedEvent.date }}
             <font-awesome-icon icon="clock" class="ml-2" /> {{ selectedEvent.time }} <br />
-            <!-- <font-awesome-icon icon="map-marker" /> {{ selectedEvent.address }} <br /> -->
             <font-awesome-icon icon="chalkboard-teacher" /> {{ selectedEvent.teacher }}
+            <font-awesome-icon icon="chalkboard-teacher" /> course title:  {{ course.name }}
         </p>
       </b-card>
-    </b-modal>
+    </b-modal> -->
   </div>
 </template>
 <script>
@@ -42,6 +51,9 @@ require("vue-simple-calendar/dist/static/css/holidays-us.css");
 
 export default {
   name: 'CourseCalendar',
+  props: {
+    course: Object
+  },
   data() {
     return { 
       showDate: new Date(),

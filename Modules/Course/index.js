@@ -3,6 +3,7 @@ const TAG = '[Courses]';
 const router  = require('express').Router();
 const logger  = require('../Common/services/Logger');
 const mw      = require('../Common/middleware/Authentication');
+const async = require('async');
 
 const course  = require('./model/Course');
 const schedule = require('./model/Schedule');
@@ -156,17 +157,46 @@ router.get('/:course_id/schedule', (req, res) => {
   })
 });
 
-router.post('/transaction/', mw.isAuthenticated, (req,res) => {
-  const ACTION = '[postTransaction]';
-  logger.log('debug', TAG+ACTION+' request parameters', req.params);
-  req.body.user_id = req.user.id;
-  transaction.addTransaction(req.body)
-  .then(result=>{
-    res.success(result);
-  })
-  .catch(error=>{
-    res.error(error);
-  })
+router.post('/transaction', mw.isAuthenticated, (req,res)=>{
+  const ACTION = '[postCourseTransaction]';
+  logger.log('debug', TAG+ACTION,
+  `request parameters:\n${JSON.stringify(req.params)}\nrequest body:\n${JSON.stringify(req.body)}`);
+
+  async.auto({
+    transaction: function(callback){
+      req.body.user_id = req.user.id;
+      transaction.addTransaction(req.body)
+      .then(data=>{
+        callback(null, data);
+      })
+      .catch(error=>{
+        callback(error);
+      });
+    },
+    transaction_details: ['transaction', function(result, callback){
+      let transac = {
+        tran_id: result.transaction.id,
+        request: 'result.transaction.req',
+        response: 'result.transaction.res',
+        request_header: 'result.transaction.req.headers',
+        response_header: 'result.transaction.res.headers',
+      };
+      transaction.addTransactionDetails(transac)
+      .then(data=>{
+        console.log(data);
+        callback(null, data);
+      })
+      .catch(error=>{
+        callback(error);
+      })
+    }],
+  }, function(err, result){
+    if(err) res.error(err);
+    else{
+      result.transaction_info = result.transaction_details;
+      res.success(result.transaction_info);
+    }
+  });
 });
 
 module.exports = router;

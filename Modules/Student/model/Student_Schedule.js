@@ -43,7 +43,7 @@ exports.getCoursesScheduled = (user_id, status)=>{
   });
 }
 
-exports.enrollCourse = (student_id, schedule_id)=>{
+exports.enrollCourse = (student_id, schedule_id, amount)=>{
   const ACTION = '[enrollCourse]';
 
   return new Promise( (resolve,reject)=>{
@@ -52,7 +52,11 @@ exports.enrollCourse = (student_id, schedule_id)=>{
       values(?,?)`, [student_id, schedule_id])
     .then( result=>{
       if (result.affectedRows > 0 ) {
-        resolve(result);
+        resolve({
+          schedule_id,
+          student_id,
+          amount
+        });
       }else{
         let error = Errors.raise('NO_AFFECTED_ROWS', result);
         logger.log('error', TAG+ACTION, error);

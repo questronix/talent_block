@@ -12,6 +12,7 @@ const famBg = require('./model/FamilyBg');
 const occuBg = require('./model/OccuBg');
 const idBg = require('./model/IdBg');
 const ss      = require('./model/Student_Schedule');
+const wallet      = require('./model/Wallet');
 
 /* get all students */
 router.get('/', mw.isAuthenticated, (req, res)=>{
@@ -313,29 +314,90 @@ router.get('/:id/coursesTaken', (req,res)=>{
   })
 });
 
-router.post('/:id/enroll', (req,res)=>{
-  const ACTION = '[postEnrollCourse]';
+
+// Enroll student
+
+router.post('/enroll', mw.isAuthenticated, (req,res)=>{
+  const ACTION = '[postEnrollStudent]';
   logger.log('debug', TAG+ACTION,
   `request parameters:\n${JSON.stringify(req.params)}\nrequest body:\n${JSON.stringify(req.body)}`);
 
-  ss.enrollCourse(req.params.id, req.body.sched_id)
-  .then( result=>{
-    res.success(result);
-  })
-  .catch(error=>{
-    res.error(error);
-  })
-
+  async.auto({
+    student_info: function(callback){
+      student.getStudentProfile(req.user.id)
+      .then(data=>{
+        callback(null, data);
+      })
+      .catch(error=>{
+        callback(error);
+      });
+    },
+    student_enroll: ['student_info', function(result, callback){
+      ss.enrollCourse(result.student_info.id, req.body.schedule_id, req.body.amount)
+      .then(data=>{
+        console.log(data);
+        callback(null, data);
+      })
+      .catch(error=>{
+        callback(error);
+      })
+    }],
+    wallet_balance: ['student_enroll', function(result, callback){
+      wallet.checkCurrentBalance(result.student_info.user_id)
+      .then(data=>{
+        console.log(data);
+        callback(null, data);
+      })
+      .catch(error=>{
+        callback(error);
+      })
+    }],
+    wallet: ['wallet_balance', function(result, callback){
+      let walletData = {
+        user_id: result.student_info.user_id,
+        amount: result.student_enroll.amount,
+        type: 'credit',
+        last_balance: result.wallet_balance.current_balance,
+        current_balance: (result.wallet_balance.current_balance - result.student_enroll.amount)
+      }
+      wallet.addTransaction(walletData)
+      .then(data=>{
+        console.log(data);
+        callback(null, data);
+      })
+      .catch(error=>{
+        callback(error);
+      })
+    }],
+    wallet_update: ['wallet', function(result, callback){
+      let id = (result.wallet.id).toString();
+      let ref = id.padStart(10, "0"); 
+      wallet.updateWallet({ ref1: "TLC" + ref },result.wallet.id)
+      .then(data=>{
+        console.log(data);
+        callback(null, data);
+      })
+      .catch(error=>{
+        callback(error);
+      })
+    }],
+  }, function(err, result){
+    if(err) res.error(err);
+    else{
+      result.student_info.schedule = result.student_enroll;
+      result.student_info.wallet = result.wallet;
+      res.success(result.student_info);
+    }
+  });
 });
 
-router.put('/:id/complete', (req,res)=>{
-  const ACTION = '[putCompleteCourse]';
-  logger.log('debug', TAG+ACTION,
-  `request parameters:\n${JSON.stringify(req.params)}\nrequest body:\n${JSON.stringify(req.body)}`);
+router.put('/a/:id', (req,res)=>{
+  const ACTION = '[getCoursesTaken]';
+  logger.log('debug', TAG+ACTION, `request parameters:\n${JSON.stringify(req.params)}`);
 
-  ss.completeCourse(req.params.id, req.body.sched_id)
-  .then( result=>{
-    res.success(result);
+  wallet.updateWallet(req.body, req.params.id)
+  .then( data=>{
+    res.success(data);
   })
   .catch( error=>{
     res.error(error);
