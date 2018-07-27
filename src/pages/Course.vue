@@ -42,7 +42,7 @@
                   
                   <!-- for calendar -->
                   <div v-if="schedDisplay == 'calendar'" class="schedDisplay">
-                  <CourseCalendar />
+                  <CourseCalendar :course="courses" />
                   </div>
                   <!-- for course sched list -->
                   <div v-if="schedDisplay == 'list'" class="schedDisplay">
