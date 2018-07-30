@@ -7,7 +7,7 @@ exports.getCoursesScheduled = (user_id, status)=>{
   const ACTION = '[getCoursesEnrolled]';
 
   return new Promise( (resolve,reject)=>{
-    let query = `select
+    let query = `select student_schedule.id "id",
         course.id "course_id", course.name "course_name", course.code "course_code", course.tags "course_tags",
         school.id "school_id", school.name "school_name",
         category.id "category_id", category.name "category_name",

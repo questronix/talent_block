@@ -48,8 +48,8 @@ export default {
         .then((response) => {
           let e = response.data.map(e => {
             return {
-              id: e.sched_id,
-              title: e.course_name,
+              id: e.id,
+              sched: e.sched_id,
               startDate: `${e.start_date} ${e.start_time}`,
               endDate: `${e.end_date} ${e.end_time}`,
               classes: 'purple',

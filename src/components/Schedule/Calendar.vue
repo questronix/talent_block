@@ -71,12 +71,13 @@ export default {
       this.$emit('previousPeriod');
     },
     getEnrolledCourses() {
-      let id = this.$store.getters.getUser.id;
+      const id = this.$store.getters.getUser.id;
       axios.get(`/students/${id}/coursesEnrolled`)
         .then((response) => {
           let e = response.data.map(e => {
             return {
-              id: e.sched_id,
+              id: e.id,
+              sched: e.sched_id,
               title: e.course_name,
               startDate: `${e.start_date} ${e.start_time}`,
               endDate: `${e.end_date} ${e.end_time}`,
