@@ -30,12 +30,15 @@
               <b-btn class="mt-3 paymodal-btn" variant="success" block @click="confirmEnroll">Enroll for {{selectedSched.price}} coins</b-btn>
           </b-modal>
       </div>
+
+      <!-- {{coins}} -->
   </div>
 </template>
 
 <script>
 import GetCourse from '../../Mixins/Course/GetCourse';
 import GetSchedule from '../../Mixins/Schedule/GetSchedule';
+import Wallet from '../../Mixins/Wallet/Wallet';
 import axios from 'axios';
 import moment from 'moment';
 
@@ -49,7 +52,7 @@ export default {
       schedDisplay: 'calendar'
     };
   },
-  mixins: [GetCourse, GetSchedule],
+  mixins: [GetCourse, GetSchedule, Wallet],
   methods: {
     showPaymentModal (sched) {
         this.selectedSched = sched;
