@@ -51,9 +51,9 @@ require("vue-simple-calendar/dist/static/css/holidays-us.css");
 
 export default {
   name: 'CourseCalendar',
-  props: {
-    course: Object
-  },
+  // props: {
+  //   course: Object
+  // },
   data() {
     return { 
       showDate: new Date(),
