@@ -1,28 +1,32 @@
 <template>
   <base-layout>
     <div slot="body">
-      
-      <div class="signuppage">
-        <div class="signupcontainer">
-          <div class="signupform">
-            <div class="singupcontent" >
-              <h5><strong>CHOOSE. PAY. LEARN.</strong></h5>
-              <span class="signup-span">
-                Create a <strong>Talent Block</strong> account to enroll to courses in 
-                just a few clicks and pay without waiting in line.
-                Already have a Talent Block account?<a class="linking" href=#login>Login here.</a>
-              </span>
-              <br>
-              <img src="/static/img/signupimg.svg" height="200px">
-            </div>
-            <div class="formsignup" v-on:input="validateInput">
-            <h4>Sign Up</h4>
-              <b-alert :variant="alertVariant"
-                dismissible
-                :show="alert"
-                @dismissed="alert=false">
-                {{ alertMsg }}
-              </b-alert>
+  <b-container fluid>
+    <b-row align-v="center" class="signuppage">
+      <b-col></b-col>
+        <b-col cols="12" md="8" align-self="center">
+          <b-card-group>
+              <b-card class="choose-pay-learn">
+                <h5><strong>CHOOSE. PAY. LEARN.</strong></h5>
+                <span class="signup-span">
+                  Create a <strong>Talent Block</strong> account to enroll to courses in 
+                  just a few clicks and pay without waiting in line.
+                  Already have a Talent Block account? <a class="linking" href=#login>Login here.</a>
+                </span>
+                <br><br>
+                <center>
+                <img align="center" src="/static/img/signupimg.svg">
+                </center>
+              </b-card>
+              <b-card>
+                <div v-on:input="validateInput">
+                <h4>Sign Up</h4>
+                <b-alert :variant="alertVariant"
+                  dismissible
+                  :show="alert"
+                  @dismissed="alert=false">
+                  {{ alertMsg }}
+                </b-alert>
               <b-form @submit.prevent="onSubmit">
 
                 <b-form-group>
@@ -84,11 +88,12 @@
                 </b-button>
               </b-form>
           </div>
-          <div class="clearfix"></div>
-        </div>
-      </div>
-      </div>
-
+              </b-card>
+          </b-card-group>
+        </b-col>
+      <b-col></b-col>
+    </b-row>
+  </b-container>
     </div>
   </base-layout>
 </template>
@@ -273,6 +278,32 @@ export default {
   color:greenyellow;
 }
 
+.choose-pay-learn {
+  background-color: #4a74cc !important;
+}
 
+.choose-pay-learn img {
+    width: 80%;
+  }
+
+@media all and (min-width: 480px) and (max-width: 768px) {
+  .choose-pay-learn img {
+    display: none;
+  }
+
+  .row.signuppage.align-items-center {
+    height: 100vh;
+  }
+}
+
+@media all and (max-width: 480px) {
+  .choose-pay-learn img {
+    display: none;
+  }
+
+  .row.signuppage.align-items-center {
+    height: 100vh;
+  }
+}
 </style>
 

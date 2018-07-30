@@ -1,51 +1,55 @@
 <template>
   <base-layout>
     <div slot="body">  
-      <div class="login">
-        <b-col cols="4" offset-md="4">
-        <div class="login-card">
-          <h4 class="text-center">Login</h4>
-          <b-alert variant="danger"
-             dismissible
-             :show="alert"
-             @dismissed="alert=false">
-            Invalid username or password.
-          </b-alert>
-          <b-form @submit.prevent="onSubmit">
-            <b-form-group>
-              <b-form-input id="username" type="text" v-model="form.username" placeholder="Username or Email" :disabled="isLoading" required></b-form-input>
-            </b-form-group>
-            <b-form-group>
-              <b-form-input id="password" type="password" v-model="form.password" placeholder="Password" :disabled="isLoading" required></b-form-input>
-            </b-form-group>
-            <b-form-group>
-              <a href="">Forgot Password?</a>
-            </b-form-group>
-            <b-form-group>
-              <b-button type="submit" variant="primary" :block="block" :disabled="isLoading">
-                <div v-show="isLoading" class="lds-hourglass"></div>
-                <div v-show="!isLoading">Login</div>
-              </b-button>
-            </b-form-group>
-            <b-form-group>
-              <b-form-checkbox-group>
-                <b-form-checkbox class="mb-2 mr-sm-2 mb-sm-0" v-model="form.keepSignIn">
-                  Keep me sign in
-                </b-form-checkbox>
-              </b-form-checkbox-group>
-            </b-form-group>
-            <hr>
-            <!-- <p class="text-center">or</p> -->
-            <b-form-group>
-              <b-button variant="primary" :block="block">Login with Facebook</b-button>
-            </b-form-group>
-            <b-form-group>
-              <b-button id="btnGoogle" :block="block">Login with Google</b-button>
-            </b-form-group>
-          </b-form>
-        </div>
-      </b-col>
-      </div>
+      <b-container fluid class="login">
+        <b-row align-v="center" class="login-row">
+          <b-col></b-col>
+          <b-col cols="12" md="5" align-self="center">
+            <div align-v="center" class="login-card">
+              <h4 class="text-center">Login</h4>
+              <b-alert variant="danger"
+                dismissible
+                :show="alert"
+                @dismissed="alert=false">
+                Invalid username or password.
+              </b-alert>
+              <b-form @submit.prevent="onSubmit">
+                <b-form-group>
+                  <b-form-input id="username" type="text" v-model="form.username" placeholder="Username or Email" :disabled="isLoading" required></b-form-input>
+                </b-form-group>
+                <b-form-group>
+                  <b-form-input id="password" type="password" v-model="form.password" placeholder="Password" :disabled="isLoading" required></b-form-input>
+                </b-form-group>
+                <b-form-group>
+                  <a href="">Forgot Password?</a>
+                </b-form-group>
+                <b-form-group>
+                  <b-button type="submit" variant="primary" :block="block" :disabled="isLoading">
+                    <div v-show="isLoading" class="lds-hourglass"></div>
+                    <div v-show="!isLoading">Login</div>
+                  </b-button>
+                </b-form-group>
+                <b-form-group>
+                  <b-form-checkbox-group>
+                    <b-form-checkbox class="mb-2 mr-sm-2 mb-sm-0" v-model="form.keepSignIn">
+                      Keep me sign in
+                    </b-form-checkbox>
+                  </b-form-checkbox-group>
+                </b-form-group>
+                <hr>
+                <!-- <p class="text-center">or</p> -->
+                <b-form-group>
+                  <b-button variant="primary" :block="block">Login with Facebook</b-button>
+                </b-form-group>
+                <b-form-group>
+                  <b-button id="btnGoogle" :block="block">Login with Google</b-button>
+                </b-form-group>
+              </b-form>
+            </div>
+          </b-col>
+          <b-col></b-col>
+        </b-row>
+      </b-container>
     </div>
   </base-layout>
 </template>
@@ -132,6 +136,38 @@ body {
 
 #username, #password {
   border-radius: 20px;
+}
+
+.login {
+  height: -webkit-calc(100vh - 65px);
+  height:    -moz-calc(100vh - 65px);
+  height:         calc(100vh - 65px);
+}
+
+.login-row {
+  height: -webkit-calc(100vh - 65px);
+  height:    -moz-calc(100vh - 65px);
+  height:         calc(100vh - 65px);
+}
+
+@media all and (min-width: 480px) and (max-width: 768px) {
+  .login {
+    height: 100vh;
+  }
+
+  .login-row {
+    height: 100vh;
+  }
+}
+
+@media all and (max-width: 480px) {
+  .login-row {
+    height: 100vh;
+  }
+
+  .login {
+    height: 100vh;
+  }
 }
 </style>
 
