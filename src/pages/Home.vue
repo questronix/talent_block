@@ -204,7 +204,7 @@ export default {
     let url = this.$store.getters.getRedirectLink;
     if (url) {
       this.$store.commit('CLEAR_REDIRECT_URL');
-      window.location.href = `#${url}`;
+      this.$router.push(url);
     }
   }
 }
