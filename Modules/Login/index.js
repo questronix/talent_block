@@ -24,7 +24,8 @@ router.post('/school', (req, res, next)=>{
   lm.authenticateSchool(req.body.username, req.body.password)
   .then(data=>{
     req.session.user = data;
-    res.success(data);
+    res.redirect('/admin');
+    // res.success(data);
   })
   .catch(error=>{
     res.error(error);
