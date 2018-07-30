@@ -484,7 +484,6 @@ div#__BVID__53___BV_modal_body_.modal-body {
   background-image: url("/static/img/bg3.jpg");
   background-repeat: no-repeat;
   background-size: cover;
-  width: 100%;
   /* height: 100vh; */
   height: -webkit-calc(100vh - 65px);
   height:    -moz-calc(100vh - 65px);
@@ -563,13 +562,9 @@ div#__BVID__53___BV_modal_body_.modal-body {
   background-size: cover;
   width: 100%;
   /**height: 100vh;**/
-  height: -webkit-calc(100vh - 65px);
-  height:    -moz-calc(100vh - 65px);
-  height:         calc(100vh - 65px);
-  display: table;
 }
 
-.login .card {
+/* .login .card {
   background-color: white;
   padding: 40px;
   border-radius: 20px;
@@ -577,7 +572,7 @@ div#__BVID__53___BV_modal_body_.modal-body {
 
 .login h4 {
   text-align: center;
-}
+} */
 
 /************** user profile *****************/
 
