@@ -73,6 +73,8 @@ export default {
     toDate(startDate, endDate) {
       if (moment(startDate).format('MM DD') === moment(endDate).format('MM DD')) {
         return moment(startDate).format('MMMM DD YYYY');
+      }else if (moment(startDate).format('DD') > moment(endDate).format('DD')){
+        return `${moment(startDate).format('MMMM DD')} - ${moment(endDate).format('MMMM DD, YYYY')}`;
       }
       return `${moment(startDate).format('MMMM DD')} - ${moment(endDate).format('DD YYYY')}`;
     }
