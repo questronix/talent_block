@@ -109,7 +109,7 @@
         
       </div>
       <div class="before-footer">
-          <img src="/static/img/guy-thinking.png">
+          <img src="/static/img/guy-thinking.jpg">
           <div class="before-footer-content">
             <h3>Look around, it's free!</h3>
             <a href="/"><button type="button" class="btn btn-outline-light">Home</button></a>
@@ -207,7 +207,7 @@ export default {
         [
           {id: 1, category: 'Backend developer', available: '3,215', imgUrl: '/static/img/backend.png'},
           {id: 2, category: 'Business', available: '6,285', imgUrl: '/static/img/business.jpg'},
-          {id: 3, category: 'Personal Development', available: '5,525', imgUrl: '/static/img/heading.png'}
+          {id: 3, category: 'Personal Development', available: '5,525', imgUrl: '/static/img/heading.jpg'}
         ]
       };
   }
@@ -229,7 +229,7 @@ export default {
   .page-about .page-title{
     width:100%;
     height:480px;
-    background: url(/static/img/banner.png);
+    background: url(/static/img/banner.jpg);
     background-size:100%;
   }
 

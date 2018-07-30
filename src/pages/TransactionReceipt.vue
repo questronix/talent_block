@@ -22,7 +22,7 @@
             <p class="category">Date</p>
             </b-col>
             <b-col>
-            <p class="value">10/11/92</p>
+            <p class="value">{{currentTime(date)}}</p>
             </b-col>
             </b-row>
           </b-list-group-item>
@@ -83,6 +83,7 @@
 <script>  
 // FIXME: Please fix keepSignIn bug.
 import BaseLayout from '../layouts/BaseLayout.vue';
+import moment from 'moment';
 import axios from 'axios';
 
 export default {
@@ -95,6 +96,10 @@ export default {
   components: {
     BaseLayout,
   },
+  methods: {
+    currentTime(date) {
+      return moment(date).format('MM/DD/YY');
+    }
   created() {
     axios(`/students/wallet/${this.$route.query.w}`)
       .then((response) => {

@@ -68,7 +68,8 @@ const routes = [
   {
     name: 'receipt',
     path: '/transaction/receipt',
-    component: TransReceipt
+    component: TransReceipt,
+    meta: { requiresAuth: true }
   },
   {
     name: 'changepassword',

@@ -1,7 +1,7 @@
 <template>
   <base-layout>
     <div slot="header">
-      <NavBar type="dashboard" heading="Dashboard" img="url('/static/img/bg2.png')"/>
+      <NavBar type="dashboard" heading="Dashboard" img="url('/static/img/bg2.jpg')"/>
     </div>
     <div slot="space"></div>
     <div slot="body">

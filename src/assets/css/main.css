@@ -18,7 +18,7 @@ body {
 
 .heading {
   height: 70vh;
-  background-image: url("/static/img/heading.png");
+  background-image: url("/static/img/heading.jpg");
   background-repeat: no-repeat;
   background-size: cover;
 }
@@ -185,7 +185,7 @@ height: 110px;
 
 .trainingoffertype {
   text-align: center;
-  background-image: url("/static/img/bg2.png");
+  background-image: url("/static/img/bg2.jpg");
   background-repeat: no-repeat;
   background-size: cover;
 
@@ -364,7 +364,6 @@ div#__BVID__53___BV_modal_body_.modal-body {
 }
 .course-outline {
   height: 370px;
-  /* background-image: url("/static/img/coursebg.png"); */
   background-repeat: no-repeat;
   background-size: cover;
   padding: 110px 40px;
@@ -445,7 +444,7 @@ div#__BVID__53___BV_modal_body_.modal-body {
   position: relative;
   height: 170px;
   color: white;
-  background-image: url("/static/img/relatedcourses.png");
+  background-image: url("/static/img/relatedcourses.jpg");
   background-repeat: no-repeat;
   background-size: cover;
   padding: 70px 0;
@@ -482,7 +481,7 @@ div#__BVID__53___BV_modal_body_.modal-body {
 /**************** SIGN UP PAGE ********************/
 
 .signuppage {
-  background-image: url("/static/img/bg3.png");
+  background-image: url("/static/img/bg3.jpg");
   background-repeat: no-repeat;
   background-size: cover;
   width: 100%;
@@ -559,7 +558,7 @@ div#__BVID__53___BV_modal_body_.modal-body {
 
 /****************** login ********************/
 .login {
-  background-image: url("/static/img/bg3.png");
+  background-image: url("/static/img/bg3.jpg");
   background-repeat: no-repeat;
   background-size: cover;
   width: 100%;
@@ -819,7 +818,7 @@ div#__BVID__53___BV_modal_body_.modal-body {
 
 .col-topcourse {
 	width: 100%;
-	background-image: url("/static/img/heading.png");
+	background-image: url("/static/img/heading.jpg");
 	background-repeat: no-repeat;
   	background-size: cover;
   	padding: 110px 50px 10px 10px;
@@ -963,7 +962,7 @@ div#__BVID__53___BV_modal_body_.modal-body {
 /***************** for transaction page ********************/
 
 .transaction {
-  background-image: url("/static/img/bg3.png");
+  background-image: url("/static/img/bg3.jpg");
   background-repeat: no-repeat;
   background-size: cover;
   width: 100%;
