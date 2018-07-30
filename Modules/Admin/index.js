@@ -23,4 +23,11 @@ router.get('/login', /*mw.isAuthenticated,*/(req, res, next)=>{
   res.render('admin/login/index');
 });
 
+// Logout 
+router.post('/logout', session.destroy , (req, res, next)=>{
+  var ACTION = '[logout]';
+  logger.log('info', TAG + ACTION)
+  res.redirect('/admin/login');
+});
+
 module.exports = router;
