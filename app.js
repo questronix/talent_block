@@ -149,6 +149,7 @@ let occubg = require('./Modules/OccuBG');
 let schedule = require('./Modules/Schedule');
 let verify = require('./Modules/Tokens');
 let wallet = require('./Modules/Wallet');
+let admin = require('./Modules/Admin');
 
 app.use('/', home);
 app.use('/login', login);
@@ -163,5 +164,6 @@ app.use('/occupation', occubg);
 app.use('/schedule', schedule);
 app.use('/verify', verify);
 app.use('/wallet', wallet);
+app.use('/admin', admin);
 
 module.exports = app;
