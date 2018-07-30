@@ -24,6 +24,11 @@ router.post('/school', (req, res, next)=>{
   lm.authenticateSchool(req.body.username, req.body.password)
   .then(data=>{
     req.session.user = data;
+    let url = req.session.redirectTo;
+    if (url) {
+      delete req.session.redirectTo;
+      res.redirect(url);
+    }
     res.redirect('/admin');
     // res.success(data);
   })

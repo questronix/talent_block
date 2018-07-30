@@ -9,8 +9,9 @@ module.exports.isAuthenticated = (req, res, next)=>{
   Logger.log('info', `${TAG}${ACTION} - session user`, user);
   //if user doen't exist
   if(!user){
+    req.session.redirectTo = `/admin${req.path}`;
     // res.error(Error.raise('NO_USER_SESSION'));
-    res.redirect('/admin/login');
+    res.redirect(`/admin/login`);
   }else{
     //return the session
     req.user = req.session.user;
