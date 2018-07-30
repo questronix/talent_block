@@ -32,7 +32,7 @@
             <p class="category">Transaction No.</p>
             </b-col>
             <b-col>
-            <p class="value">1234567</p>
+            <p class="value">{{trans.ref1}}</p>
             </b-col>
             </b-row>
           </b-list-group-item>
@@ -40,7 +40,7 @@
 
         <div id="colBar">
           <p id="itemTitle">Item(s)</p>
-          <p id="priceTitle">Price</p>
+          <p id="priceTitle">123</p>
         </div>
 
         <b-card-body>
@@ -58,7 +58,7 @@
                   </b-row>
                 </b-col>
                 <b-col cols="3">
-                    <p id="price" style="float: right">$2</p>
+                    <p id="price" style="float: right">{{trans.amount}} coins</p>
                 </b-col>
             </b-row>
           </div>
@@ -84,15 +84,13 @@
 // FIXME: Please fix keepSignIn bug.
 import BaseLayout from '../layouts/BaseLayout.vue';
 import moment from 'moment';
+import axios from 'axios';
 
 export default {
   name: 'transactionPage',
   data() {
     return {
-      userInfo: [
-        { username: 'kendrick004', date: '10/23/92', transaction_no: '012345' },
-  
-      ]
+      trans: {},
     };
   },
   components: {
@@ -102,6 +100,13 @@ export default {
     currentTime(date) {
       return moment(date).format('MM/DD/YY');
     }
+  created() {
+    axios(`/students/wallet/${this.$route.query.w}`)
+      .then((response) => {
+        this.trans = response.data;
+      }).catch((err) => {
+        console.log('Error ', err)
+      });
   }
 }
 </script>

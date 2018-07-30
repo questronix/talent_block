@@ -52,3 +52,17 @@ module.exports.updateWallet = (wallet, id) => {
       });
   });
 };
+
+module.exports.getWallet = (id) => {
+  const ACTION = '[getWallet]';
+  logger.log('info', `${TAG}${ACTION}`, id);
+  return new Promise((resolve, reject)=>{
+    db.execute(`SELECT * FROM wallet WHERE id=? `, id)
+      .then((data) => {
+        resolve(data[0]);
+      }).catch((err) => {
+        logger.log('error', TAG+ACTION, err);
+        reject(Errors.raise('INTERNAL_SERVER_ERROR', err));
+      });
+  });
+};
