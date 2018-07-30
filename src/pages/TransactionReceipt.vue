@@ -100,6 +100,7 @@ export default {
     currentTime(date) {
       return moment(date).format('MM/DD/YY');
     }
+  },
   created() {
     axios(`/students/wallet/${this.$route.query.w}`)
       .then((response) => {
