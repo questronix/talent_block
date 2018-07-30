@@ -183,7 +183,8 @@ import PaymentSuccess from '../components/Payment/PaymentSuccess.vue';
 import CourseCalendar from '../components/Schedule/CourseCalendar.vue'
 import axios from 'axios';
 import ScheduleList from '../components/Course/ScheduleList.vue';
-
+import GetCourse from '../Mixins/Course/GetCourse';
+import GetSchedule from '../Mixins/Schedule/GetSchedule';
 
 export default {
   name: 'CoursePage',
@@ -208,31 +209,9 @@ export default {
     ScheduleList,
     CourseCalendar
   },
-  
+  mixins: [GetCourse, GetSchedule],
   methods:{
-    getUnits: function() {
-      axios.get('/courses/' + this.$route.query.id)
-      .then((response) => {
-        this.courses = response.data.course[0];
-        this.options.push({text: '', value: `${response.data.course[0].short_desc}`});
-        this.options.push({text: '', value: `Updated at: ${response.data.course[0].updated_at}`});
-        this.options.push({text: '', value: `Created at: ${response.data.course[0].created_at}`});
-        this.options.push({text: '', value: `Tags: ${response.data.course[0].tags}`});
-        this.options.push({text: '', value: `Slots: ${response.data.course[0].slot}`});
-        this.selected = response.data.course[0].short_desc;
-        console.log(this.courses)
-      }).catch((err) => {
-        console.log('Course error ', err)
-      });
-
-      axios.get('/courses/' + this.$route.query.id + '/schedule')
-      .then((response) => {
-          this.schedule = response.data.data
-      }).catch((err)=> {
-          console.log('Schedule error', err)
-      });
-
-    },
+    
     showSuccessWindow: function() {
       this.$root.$emit('bv::hide::modal','paymentModal')
       this.$refs.paymentSuccess.show()
@@ -240,12 +219,8 @@ export default {
     closeSuccessWindow: function() {
       this.$refs.paymentSuccess.hide()
     }
-  },
+  } 
   
- 
-  beforeMount(){
-    this.getUnits()
-  }
 }
 </script>
 

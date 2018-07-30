@@ -34,6 +34,8 @@
 </template>
 
 <script>
+import GetCourse from '../../Mixins/Course/GetCourse';
+import GetSchedule from '../../Mixins/Schedule/GetSchedule';
 import axios from 'axios';
 import moment from 'moment';
 
@@ -47,23 +49,9 @@ export default {
             schedDisplay: 'calendar'
         };
     },
+    mixins: [GetCourse, GetSchedule],
     methods: {
-        getSched() {
-             axios.get('/courses/' + this.$route.query.id)
-            .then((response) => {
-                this.courses = response.data.course[0];
-            }).catch((err) => {
-                console.log('Course error ', err)
-            });
-
-            axios.get('/courses/' + this.$route.query.id + '/schedule')
-            .then((response) => {
-                this.schedule = response.data.data
-                
-            }).catch((err)=> {
-                console.log('Schedule error', err)
-            });
-        },
+        
         showPaymentModal (sched) {
             this.selectedSched = sched;
             this.$refs.payModal.show();
@@ -100,9 +88,6 @@ export default {
     computed: {
 
     },
-    beforeMount() {
-        this.getSched()
-    }
 };
 </script>
 
