@@ -18,6 +18,7 @@
 
   <!-- Main content -->
   <section class="content container-fluid">
+    <%# include ../../layouts/alert %>
 
     <div class="box">
         <div class="box-header">
@@ -72,7 +73,6 @@
     <!-- /.content -->
   </div>
   <!-- /.content-wrapper -->
-  
 <% include ../../layouts/footer %>
 <script>
   $(document).ready(function() {
@@ -87,9 +87,7 @@
                 <td class='sorting_1' scope='row'>"+ value.name +"</td> \
                 <td>"+ value.short_desc +"</td> \
                 <td> \
-                <button type='button' class='btn btn-outline-primary btn-sm update' data-toggle='modal' data-target='#modalUpdate' data-id='"+ value.id +"'> \
-                  <i class='fa fa-edit' aria-hidden='true'></i> Update \
-                </button> \
+                <a class='btn btn-default' href='/admin/courses/" + value.id + "'><i class='fa fa-edit' aria-hidden='true'></i> update</a> \
                 <button type='button' class='btn btn-outline-danger btn-sm ml-2 remove' data-toggle='modal' data-target='#modalRemove' data-id='"+ value.id +"'> \
                   <i class='fa fa-remove' aria-hidden='true'></i> Delete \
                 </button> \
