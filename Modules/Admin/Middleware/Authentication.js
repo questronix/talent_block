@@ -13,6 +13,8 @@ module.exports.isAuthenticated = (req, res, next)=>{
     // res.error(Error.raise('NO_USER_SESSION'));
     res.redirect(`/admin/login`);
   }else{
+    // set local user to easyly access user info in ejs template
+    res.locals.user = req.session.user;
     //return the session
     req.user = req.session.user;
     next();
