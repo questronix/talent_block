@@ -1,4 +1,4 @@
-const TAG = '[HOME]';
+const TAG = '[ADMIN_HOME]';
 const express = require('express');
 const router = express.Router();
 const logger = require('../Common/services/Logger');
@@ -35,5 +35,8 @@ router.post('/logout', session.destroy, (req, res, next)=>{
 // Course
 router.get('/courses', mw.isAuthenticated, course.home);
 router.get('/courses/new', mw.isAuthenticated, course.new);
+router.post('/courses/new', mw.isAuthenticated, course.new);
+router.get('/courses/:id', mw.isAuthenticated, course.findOrUpdate);
+router.post('/courses/:id', mw.isAuthenticated, course.findOrUpdate);
 
 module.exports = router;
