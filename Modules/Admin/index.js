@@ -2,8 +2,10 @@ const TAG = '[HOME]';
 const express = require('express');
 const router = express.Router();
 const logger = require('../Common/services/Logger');
-const mw = require('../Admin/Middleware/Authentication');
+const mw = require('./Middleware/Authentication');
 const session = require('../Common/middleware/Session');
+
+const course = require('./Controllers/courseController')
 
 // Dashboard
 router.get('/', mw.isAuthenticated, (req, res, next)=>{
@@ -31,10 +33,7 @@ router.post('/logout', session.destroy, (req, res, next)=>{
 });
 
 // Course
-router.get('/courses', mw.isAuthenticated, (req, res, next) => {
-  var ACTION = '[courseIndex]';
-  logger.log('info', TAG + ACTION)
-  res.render('admin/course/index', { url: '/courses'});
-});
+router.get('/courses', mw.isAuthenticated, course.home);
+router.get('/courses/new', mw.isAuthenticated, course.new);
 
 module.exports = router;
