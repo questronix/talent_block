@@ -129,12 +129,12 @@ router.put('/:course_id',/*mw.isAuthenticated,*/
   }
 );
 
-router.delete('/:course_id', /*mw.isAuthenticated,*/
+router.delete('/:id', /*mw.isAuthenticated,*/
   (req,res)=>{
     const ACTION = '[deleteCourse]';
     logger.log('debug', TAG+ACTION+' request parameters', req.params);
 
-    course.deleteCourse(req.params.cours_id)
+    course.deleteCourse(req.params.id)
     .then( result=>{
       res.success(result);
     })

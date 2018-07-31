@@ -33,10 +33,7 @@ module.exports.find = (id) => {
     db.execute(` SELECT * FROM course WHERE id = ?`, [id])
       .then((data) => {
         if (data.length > 0 ) {
-          resolve({
-            status: 200,
-            course: data
-          });
+          resolve(data[0]);
         }
         else {
           let error = err.raise('NOT_FOUND');
