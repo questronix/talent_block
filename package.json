@@ -20,7 +20,7 @@
     "BLOCKCHAIN"
   ],
   "author": "Kenster Crucillo <kendrick004@gmail.com>",
-  "license": "Apache-2.0",
+  "license": "GNU General Public License v3.0",
   "bugs": {
     "url": "https://github.com/questronix/talent_block/issues"
   },
